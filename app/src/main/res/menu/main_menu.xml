@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/sel_main_icon_bnv_home"
+        android:title="" />
+
+    <item
+        android:id="@+id/todayMatchFragment"
+        android:icon="@drawable/sel_main_icon_bnv_today_match"
+        android:title="" />
+
+    <item
+        android:id="@+id/aboutLCKFragment"
+        android:icon="@drawable/sel_main_icon_bnv_about_lck"
+        android:title=""
+        />
+
+    <item
+        android:id="@+id/boardFragment"
+        android:icon="@drawable/sel_main_icon_bnv_board"
+        android:title="" />
+
+    <item
+        android:id="@+id/viewingPartyFragment"
+        android:icon="@drawable/sel_main_icon_bnv_viewing_party"
+        android:title="" />
+
+</menu>

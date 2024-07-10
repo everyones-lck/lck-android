@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/aboutLCKFragment"
+        android:name="umc.everyones.lck.presentation.lck.AboutLCKFragment"
+        android:label="AboutLCKFragment"
+        tools:layout="@layout/fragment_about_lck"/>
+    <fragment
+        android:id="@+id/boardFragment"
+        android:name="umc.everyones.lck.presentation.board.BoardFragment"
+        android:label="BoardFragment"
+        tools:layout="@layout/fragment_board"/>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="umc.everyones.lck.presentation.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/todayMatchFragment"
+        android:name="umc.everyones.lck.presentation.match.TodayMatchFragment"
+        android:label="TodayMatchFragment"
+        tools:layout="@layout/fragment_today_match"/>
+    <fragment
+        android:id="@+id/viewingPartyFragment"
+        android:name="umc.everyones.lck.presentation.party.ViewingPartyFragment"
+        android:label="ViewingPartyFragment"
+        tools:layout="@layout/fragment_viewing_party"/>
+</navigation>

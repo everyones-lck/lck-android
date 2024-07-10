@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.LCK" parent="">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+    </style>
+    
+    <style name="TextAppearance.LCK.Head1">
+        <item name="fontFamily">@font/cafe_ohsquare</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextAppearance.LCK.Head2">
+        <item name="fontFamily">@font/cafe_ohsquare_air</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.LCK.Body1">
+        <item name="fontFamily">@font/cafe_ohsquare_air</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.LCK.Warning">
+        <item name="fontFamily">@font/cafe_ohsquare_air</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+</resources>

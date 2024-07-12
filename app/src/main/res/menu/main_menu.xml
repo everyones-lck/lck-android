@@ -4,27 +4,27 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/sel_main_icon_bnv_home"
-        android:title="" />
+        android:title="홈" />
 
     <item
         android:id="@+id/todayMatchFragment"
         android:icon="@drawable/sel_main_icon_bnv_today_match"
-        android:title="" />
+        android:title="오늘의 매치" />
 
     <item
         android:id="@+id/aboutLCKFragment"
         android:icon="@drawable/sel_main_icon_bnv_about_lck"
-        android:title=""
+        android:title="LCK에 대해"
         />
 
     <item
         android:id="@+id/boardFragment"
         android:icon="@drawable/sel_main_icon_bnv_board"
-        android:title="" />
+        android:title="커뮤니티" />
 
     <item
         android:id="@+id/viewingPartyFragment"
         android:icon="@drawable/sel_main_icon_bnv_viewing_party"
-        android:title="" />
+        android:title="뷰잉파티" />
 
 </menu>

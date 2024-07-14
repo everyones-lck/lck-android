@@ -11,11 +11,13 @@
     <style name="TextAppearance.LCK.Head1">
         <item name="fontFamily">@font/cafe_ohsquare</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="TextAppearance.LCK.Head2">
         <item name="fontFamily">@font/cafe_ohsquare_air</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="TextAppearance.LCK.Body1">
@@ -26,11 +28,22 @@
     <style name="TextAppearance.LCK.Warning">
         <item name="fontFamily">@font/cafe_ohsquare_air</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="TextAppearance.LCK.Bnv">
         <item name="fontFamily">@font/cafe_ohsquare_air</item>
         <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextAppearance.LCK.SelectedTabText">
+        <item name="fontFamily">@font/cafe_ohsquare</item>
+    </style>
+
+    <style name="TextAppearance.LCK.Details">
+        <item name="fontFamily">@font/cafe_ohsquare_air</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/gray_detail</item>
     </style>
 </resources>

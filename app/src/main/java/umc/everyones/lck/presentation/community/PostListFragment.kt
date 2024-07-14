@@ -1,5 +1,6 @@
 package umc.everyones.lck.presentation.community
 
+import androidx.navigation.fragment.navArgs
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentPostListBinding
 import umc.everyones.lck.domain.model.community.Post
@@ -10,6 +11,7 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
     private val postListRVA by lazy {
         PostListRVA()
     }
+
     override fun initObserver() {
 
     }

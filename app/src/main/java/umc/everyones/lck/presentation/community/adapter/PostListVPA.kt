@@ -18,7 +18,7 @@ class PostListVPA(fragment: Fragment): FragmentStateAdapter(fragment) {
             3 -> PostListFragment()
             4 -> PostListFragment()
             5 -> PostListFragment()
-            else -> {PostListFragment()}
+            else -> throw IllegalStateException("Invalid position")
         }
     }
 }

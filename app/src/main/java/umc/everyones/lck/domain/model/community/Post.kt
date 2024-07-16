@@ -5,5 +5,7 @@ data class Post(
     val title: String,
     val date: String,
     val nickname: String,
-    val favoriteTeam: String
+    val favoriteTeam: String,
+    val commentCnt: Int,
+    val image: String
 )

@@ -35,10 +35,21 @@
             <action
                 android:id="@+id/action_communityFragment_to_writePostFragment"
                 app:destination="@id/writePostFragment" />
+            <action
+                android:id="@+id/action_communityFragment_to_readPostFragment"
+                app:destination="@id/readPostFragment" />
         </fragment>
         <fragment
             android:id="@+id/writePostFragment"
             android:name="umc.everyones.lck.presentation.community.WritePostFragment"
             android:label="WritePostFragment" />
+        <fragment
+            android:id="@+id/readPostFragment"
+            android:name="umc.everyones.lck.presentation.community.ReadPostFragment"
+            android:label="ReadPostFragment" >
+            <argument
+                android:name="postId"
+                app:argType="integer" />
+        </fragment>
     </navigation>
 </navigation>

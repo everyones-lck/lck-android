@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.databinding.ItemCommunityPostBinding
 import umc.everyones.lck.domain.model.community.Post
 
-class PostListRVA : ListAdapter<Post, PostListRVA.PostViewHolder>(DiffCallback()) {
+class PostListRVA(val readPost: (Int) -> Unit) : ListAdapter<Post, PostListRVA.PostViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder(
@@ -27,7 +27,17 @@ class PostListRVA : ListAdapter<Post, PostListRVA.PostViewHolder>(DiffCallback()
     inner class PostViewHolder(private val binding: ItemCommunityPostBinding) :
         RecyclerView.ViewHolder(binding.root) {
             fun bind(post: Post){
+                with(binding){
+                    tvPostTitle.text = post.title
+                    tvPostDate.text = post.date
+                    tvPostNickname.text = post.nickname
+                    tvPostFavoriteTeam.text = post.favoriteTeam
+                    tvPostComment.text = post.commentCnt.toString()
 
+                    root.setOnClickListener {
+                        readPost(post.postId)
+                    }
+                }
             }
         }
 

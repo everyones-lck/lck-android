@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/iv_write_clos"
+            android:id="@+id/iv_write_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -65,6 +65,21 @@
                     android:text="게시판 선택"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <Spinner
+                    android:id="@+id/spinner_write_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/tv_write_board_title"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_write_board_title"
+                    app:layout_constraintEnd_toEndOf="@id/line"
+                    android:spinnerMode="dropdown"
+                    android:dropDownWidth="match_parent"
+                    android:popupBackground="@drawable/shape_rect_4_gray_fill"
+                    android:background="@null"
+                    android:popupElevation="4dp"
+                    android:layout_marginEnd="16dp"
+                    />
 
                 <View
                     android:id="@+id/line"

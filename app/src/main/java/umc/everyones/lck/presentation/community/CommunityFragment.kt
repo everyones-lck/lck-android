@@ -1,6 +1,7 @@
 package umc.everyones.lck.presentation.community
 
 import android.util.Log
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
@@ -13,7 +14,8 @@ import umc.everyones.lck.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
 class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragment_community) {
-    private val viewModel: ReadPostViewModel by viewModels()
+    private val readPostViewModel: ReadPostViewModel by viewModels()
+    private val writePostViewModel: WritePostViewModel by activityViewModels()
     private val navigator by lazy {
         findNavController()
     }
@@ -23,12 +25,19 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
 
     override fun initObserver() {
         repeatOnStarted {
-            viewModel.postId.collect{
+            readPostViewModel.postId.collect{
                 if(it > 0 && navigator.currentDestination?.id == R.id.communityFragment) {
                     val action =
                         CommunityFragmentDirections.actionCommunityFragmentToReadPostFragment(it)
                     navigator.navigate(action)
                 }
+            }
+        }
+
+        repeatOnStarted {
+            writePostViewModel.selectedCategory.collect{
+                Log.d("position", it.toString())
+                binding.vpCommunityPostList.currentItem = it
             }
         }
     }

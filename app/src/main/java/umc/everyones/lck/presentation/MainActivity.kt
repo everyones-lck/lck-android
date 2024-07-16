@@ -2,26 +2,36 @@ package umc.everyones.lck.presentation
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityMainBinding
 import umc.everyones.lck.presentation.base.BaseActivity
+import umc.everyones.lck.presentation.home.HomeViewModel
+import umc.everyones.lck.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private lateinit var navController: NavController
+    private val homeViewModel: HomeViewModel by viewModels()
     override fun initView() {
         initNavigator()
     }
 
     override fun initObserver() {
-
+        repeatOnStarted {
+            homeViewModel.navigateEvent.collect{
+                binding.mainBnv.selectedItemId = it
+            }
+        }
     }
 
     private fun initNavigator() {

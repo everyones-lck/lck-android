@@ -140,7 +140,7 @@
 
                 <EditText
                     android:id="@+id/et_write_body"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="28dp"
                     android:layout_marginTop="4dp"
@@ -153,7 +153,8 @@
                     android:maxLength="2000"
                     android:textAppearance="@style/TextAppearance.LCK.Body1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_write_post_body" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_write_post_body"
+                    app:layout_constraintEnd_toEndOf="@id/line2"/>
 
                 <View
                     android:id="@+id/line3"
@@ -207,7 +208,10 @@
                     android:layout_marginTop="32dp"
                     android:gravity="start"
                     android:orientation="vertical"
-                    app:layout_constraintTop_toBottomOf="@id/line4">
+                    app:layout_constraintTop_toBottomOf="@id/line4"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0"
+                    android:layout_marginBottom="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"

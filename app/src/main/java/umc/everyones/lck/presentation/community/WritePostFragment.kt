@@ -12,6 +12,7 @@ import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.community.adapter.MediaRVA
 import umc.everyones.lck.presentation.community.adapter.SpinnerAdapter
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.validateMaxLength
 
 
 class WritePostFragment : BaseFragment<FragmentWritePostBinding>(R.layout.fragment_write_post) {
@@ -38,22 +39,7 @@ class WritePostFragment : BaseFragment<FragmentWritePostBinding>(R.layout.fragme
     }
 
     private fun validatePostTitle(){
-        binding.etWriteTitle.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(s != null){
-                    if(s.length >= 20){
-                        showCustomSnackBar("제목은 최대 20자까지 입력할 수 있어요")
-                    }
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-        })
+        binding.etWriteTitle.validateMaxLength(20) { showCustomSnackBar("제목은 최대 20자까지 입력할 수 있어요") }
     }
 
     private fun initMediaRVAdapter() {

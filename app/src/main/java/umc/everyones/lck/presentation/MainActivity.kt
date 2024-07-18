@@ -36,7 +36,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         navController = navHostFragment.navController
         binding.mainBnv.setupWithNavController(navController)
         navController.addOnDestinationChangedListener{ _, destination, _ ->
-            if(destination.id == R.id.writePostFragment){
+            if(destination.id in bnvInvisibleDestinationList){
                 lifecycleScope.launch {
                     //delay(100)
                     binding.mainBnv.visibility=  View.GONE
@@ -48,5 +48,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
             }
         }
+    }
+
+    companion object {
+        val bnvInvisibleDestinationList = listOf(R.id.writePostFragment, R.id.readPostFragment)
     }
 }

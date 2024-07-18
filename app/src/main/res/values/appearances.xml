@@ -7,6 +7,12 @@
         <item name="android:includeFontPadding">false</item>
         <item name="android:lineSpacingMultiplier">1.2</item>
     </style>
+
+    <style name="TextAppearance.LCK.Post_Title">
+        <item name="fontFamily">@font/cafe_ohsquare</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
     
     <style name="TextAppearance.LCK.Head1">
         <item name="fontFamily">@font/cafe_ohsquare</item>
@@ -41,6 +47,12 @@
     <style name="TextAppearance.LCK.Filtering">
         <item name="fontFamily">@font/cafe_ohsquare_air</item>
         <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextAppearance.LCK.Date">
+        <item name="fontFamily">@font/cafe_ohsquare_air</item>
+        <item name="android:textSize">6sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
 

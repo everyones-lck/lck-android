@@ -21,6 +21,6 @@ class ReadPostFragment : BaseFragment<FragmentReadPostBinding>(R.layout.fragment
     }
 
     override fun initView() {
-        Log.d("postId", postId.toString())
+
     }
 }

@@ -45,8 +45,8 @@
             android:layout_height="0dp"
             android:layout_marginTop="34dp"
             android:background="@drawable/shape_rect_top20_white_fill"
-            android:overScrollMode="never"
             android:fillViewport="true"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_write_title">
 
@@ -70,16 +70,15 @@
                     android:id="@+id/spinner_write_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/tv_write_board_title"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_write_board_title"
-                    app:layout_constraintEnd_toEndOf="@id/line"
-                    android:spinnerMode="dropdown"
+                    android:layout_marginEnd="16dp"
+                    android:background="@null"
                     android:dropDownWidth="match_parent"
                     android:popupBackground="@drawable/shape_rect_4_gray_fill"
-                    android:background="@null"
                     android:popupElevation="4dp"
-                    android:layout_marginEnd="16dp"
-                    />
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_write_board_title"
+                    app:layout_constraintEnd_toEndOf="@id/line"
+                    app:layout_constraintTop_toTopOf="@id/tv_write_board_title" />
 
                 <View
                     android:id="@+id/line"
@@ -102,46 +101,21 @@
                     app:layout_constraintStart_toStartOf="@id/tv_write_board_title"
                     app:layout_constraintTop_toBottomOf="@id/line" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_write_input"
-                    style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+
+                <EditText
+                    android:id="@+id/et_write_title"
+                    style="@style/ThemeOverlay.Material3.TextInputEditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="11dp"
-                    app:boxBackgroundMode="none"
-                    app:counterMaxLength="20"
-                    app:hintEnabled="false"
-                    app:layout_constraintBaseline_toBaselineOf="@id/tv_write_post_title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tv_write_post_title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_write_input"
-                        style="@style/ThemeOverlay.Material3.TextInputEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:gravity="end"
-                        android:hint="제목을 입력하세요."
-                        android:inputType="text"
-                        android:maxLength="20"
-                        android:textAppearance="@style/TextAppearance.LCK.Body1" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_error_box"
-                    android:elevation="4dp"
-                    android:gravity="center"
-                    android:paddingTop="8dp"
-                    android:text="제목은 최대 20자까지 입력할 수 있어요"
-                    android:textAppearance="@style/TextAppearance.LCK.Warning"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_write_post_title" />
-
+                    android:background="@null"
+                    android:gravity="end"
+                    android:hint="제목을 입력하세요"
+                    android:inputType="text"
+                    android:maxLength="20"
+                    android:textAppearance="@style/TextAppearance.LCK.Body1"
+                    app:layout_constraintStart_toEndOf="@id/tv_write_post_title"
+                    app:layout_constraintEnd_toEndOf="@id/line2"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_write_post_title"/>
 
                 <View
                     android:id="@+id/line2"
@@ -172,7 +146,7 @@
                     android:layout_marginTop="4dp"
                     android:background="@null"
                     android:gravity="start"
-                    android:hint="내용을 입력하세요."
+                    android:hint="내용을 입력하세요"
                     android:inputType="textMultiLine"
                     android:minHeight="230dp"
                     android:text=""
@@ -253,7 +227,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:text="\u00B7 타인에 대한 비난 및 욕설이 포함된 게시물은 필터링 기능의 적용 대상이 됩니다.."
+                        android:text="\u00B7 타인에 대한 비난 및 욕설이 포함된 게시물은 필터링 기능의 적용 대상이 됩니다."
                         android:textAppearance="@style/TextAppearance.LCK.Details"
                         android:textColor="@color/black" />
 
@@ -261,7 +235,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:text="\u00B7 과도한 비방 및 욕설이 포함된 게시물은 신고에 의해 무통보 삭제될 수 있습니다.."
+                        android:text="\u00B7 과도한 비방 및 욕설이 포함된 게시물은 신고에 의해 무통보 삭제될 수 있습니다."
                         android:textAppearance="@style/TextAppearance.LCK.Details"
                         android:textColor="@color/black" />
 

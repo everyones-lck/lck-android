@@ -60,9 +60,9 @@ class MediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.ViewHol
 
     inner class MediaViewHolder(private val binding: ItemMediaBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(uri: Uri){
-            Glide.with(binding.ivMediaImage.context)
+            /*Glide.with(binding.ivMediaImage.context)
                 .load(uri)
-                .into(binding.ivMediaImage)
+                .into(binding.ivMediaImage)*/
         }
     }
 

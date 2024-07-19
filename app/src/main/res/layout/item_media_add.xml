@@ -11,6 +11,7 @@
         android:background="@drawable/shape_rect_4_white_fill">
 
         <ImageView
+            android:scaleType="centerCrop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

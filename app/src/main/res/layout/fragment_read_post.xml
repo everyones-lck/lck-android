@@ -114,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="1경기 직관 후기"
-                        app:layout_constraintStart_toStartOf="@id/tv_read_writer"
+                        app:layout_constraintStart_toStartOf="@id/cv_read_profile_background"
                         app:layout_constraintTop_toBottomOf="@id/tv_read_writer" />
 
                     <TextView

@@ -1,5 +1,7 @@
 package umc.everyones.lck.util.extension
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Build
 import android.util.DisplayMetrics
 import android.util.Log
@@ -8,9 +10,11 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment

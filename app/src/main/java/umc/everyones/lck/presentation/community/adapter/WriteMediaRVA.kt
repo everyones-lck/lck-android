@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import umc.everyones.lck.databinding.ItemMediaAddBinding
-import umc.everyones.lck.databinding.ItemMediaBinding
+import umc.everyones.lck.databinding.ItemMediaWriteBinding
 
-class MediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.ViewHolder>(DiffCallback()) {
+class WriteMediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -25,8 +24,8 @@ class MediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.ViewHol
             }
 
             else -> {
-                MediaViewHolder(
-                    ItemMediaBinding.inflate(
+                WriteMediaViewHolder(
+                    ItemMediaWriteBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -43,7 +42,7 @@ class MediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.ViewHol
             }
 
             else -> {
-                (holder as MediaViewHolder).bind(currentList[position])
+                (holder as WriteMediaViewHolder).bind(currentList[position])
             }
         }
     }
@@ -58,7 +57,7 @@ class MediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.ViewHol
             }
         }
 
-    inner class MediaViewHolder(private val binding: ItemMediaBinding): RecyclerView.ViewHolder(binding.root){
+    inner class WriteMediaViewHolder(private val binding: ItemMediaWriteBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(uri: Uri){
             /*Glide.with(binding.ivMediaImage.context)
                 .load(uri)

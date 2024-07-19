@@ -1,15 +1,12 @@
 package umc.everyones.lck.presentation.community
 
 import android.net.Uri
-import android.text.Editable
-import android.text.TextWatcher
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentWritePostBinding
 import umc.everyones.lck.presentation.base.BaseFragment
-import umc.everyones.lck.presentation.community.adapter.MediaRVA
+import umc.everyones.lck.presentation.community.adapter.WriteMediaRVA
 import umc.everyones.lck.presentation.community.adapter.SpinnerAdapter
 import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.validateMaxLength
@@ -21,8 +18,8 @@ class WritePostFragment : BaseFragment<FragmentWritePostBinding>(R.layout.fragme
     }
     private val writePostViewModel: WritePostViewModel by activityViewModels()
 
-    private var _mediaRVA: MediaRVA? = null
-    private val mediaRVA get() = _mediaRVA
+    private var _writeMediaRVA: WriteMediaRVA? = null
+    private val mediaRVA get() = _writeMediaRVA
     override fun initObserver() {
 
     }
@@ -48,7 +45,7 @@ class WritePostFragment : BaseFragment<FragmentWritePostBinding>(R.layout.fragme
     }
 
     private fun initMediaRVAdapter() {
-        _mediaRVA = MediaRVA { }
+        _writeMediaRVA = WriteMediaRVA { }
         binding.rvWriteMedia.adapter = mediaRVA
         mediaRVA?.submitList(listOf(Uri.EMPTY, Uri.EMPTY))
     }
@@ -66,7 +63,7 @@ class WritePostFragment : BaseFragment<FragmentWritePostBinding>(R.layout.fragme
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _mediaRVA = null
+        _writeMediaRVA = null
     }
 
     companion object {

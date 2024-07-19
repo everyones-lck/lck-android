@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import umc.everyones.lck.databinding.ItemMediaAddBinding
 import umc.everyones.lck.databinding.ItemMediaWriteBinding
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 class WriteMediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.ViewHolder>(DiffCallback()) {
 
@@ -60,9 +61,16 @@ class WriteMediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.Vi
 
     inner class WriteMediaViewHolder(private val binding: ItemMediaWriteBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(uri: Uri){
-            Glide.with(binding.ivMediaImage.context)
-                .load(uri)
-                .into(binding.ivMediaImage)
+            with(binding) {
+                Glide.with(ivMediaImage.context)
+                    .load(uri)
+                    .into(ivMediaImage)
+
+                ivMediaDeleteBtn.setOnSingleClickListener {
+                    submitList(currentList.toMutableList().apply { remove(uri)})
+                }
+            }
+
         }
     }
 

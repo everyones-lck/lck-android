@@ -1,7 +1,6 @@
 package umc.everyones.lck.presentation.community
 
-import android.util.Log
-import androidx.activity.OnBackPressedCallback
+import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import umc.everyones.lck.R
@@ -11,6 +10,10 @@ import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.community.adapter.CommentRVA
 import umc.everyones.lck.presentation.community.adapter.ReadMediaRVA
 import umc.everyones.lck.util.GridSpaceItemDecoration
+import umc.everyones.lck.util.extension.drawableOf
+import umc.everyones.lck.util.extension.setOnSingleClickListener
+import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.validateMaxLength
 
 class ReadPostFragment : BaseFragment<FragmentReadPostBinding>(R.layout.fragment_read_post) {
     private val navigator by lazy {
@@ -32,6 +35,10 @@ class ReadPostFragment : BaseFragment<FragmentReadPostBinding>(R.layout.fragment
     override fun initView() {
         initCommentRVAdapter()
         initReadMediaRVAdapter()
+        validateCommentSend()
+        binding.ivReadBackBtn.setOnSingleClickListener {
+            navigator.navigateUp()
+        }
     }
 
     private fun initCommentRVAdapter(){
@@ -68,6 +75,21 @@ class ReadPostFragment : BaseFragment<FragmentReadPostBinding>(R.layout.fragment
         )
         binding.rvReadMedia.addItemDecoration(GridSpaceItemDecoration(4, 8))
         readMediaRVA?.submitList(list)
+    }
+
+    private fun validateCommentSend(){
+        binding.etReadCommentInput.addTextChangedListener(
+            onTextChanged = {text: CharSequence?, _: Int, _: Int, _: Int ->
+                if(text != null){
+                    binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send_enabled))
+                    if(text.length >= 1000){
+                        showCustomSnackBar("댓글은 최대 1,000자까지 입력할 수 있어요")
+                    }
+                } else {
+                    binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send))
+                }
+            }
+        )
     }
 
     override fun onDestroyView() {

@@ -37,11 +37,15 @@ class WritePostFragment : BaseFragment<FragmentWritePostBinding>(R.layout.fragme
     }
 
     private fun validatePostTitle(){
-        binding.etWriteTitle.validateMaxLength(20) { showCustomSnackBar("제목은 최대 20자까지 입력할 수 있어요") }
+        binding.etWriteTitle.validateMaxLength(20,
+            onLengthExceeded = { showCustomSnackBar("제목은 최대 20자까지 입력할 수 있어요") }
+        )
     }
 
     private fun validatePostBody(){
-        binding.etWriteBody.validateMaxLength(2000) {showCustomSnackBar("내용은 최대 2,000자까지 입력할 수 있어요")}
+        binding.etWriteBody.validateMaxLength(2000,
+            onLengthExceeded =  {showCustomSnackBar("내용은 최대 2,000자까지 입력할 수 있어요")}
+        )
     }
 
     private fun initMediaRVAdapter() {

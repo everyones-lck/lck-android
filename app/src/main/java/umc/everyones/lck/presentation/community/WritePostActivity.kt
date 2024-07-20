@@ -142,7 +142,6 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
     private fun writeDone() {
         with(binding) {
             ivWriteDone.setOnClickListener {
-                writePostViewModel.setSelectedCategory(spinnerWriteCategory.selectedItem.toString())
                 val intent = Intent(this@WritePostActivity, WritePostActivity::class.java)
                 intent.putExtra("category", spinnerWriteCategory.selectedItem.toString())
                 setResult(RESULT_OK, intent)

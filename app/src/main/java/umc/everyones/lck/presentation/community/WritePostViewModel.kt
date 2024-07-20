@@ -12,23 +12,5 @@ import kotlinx.coroutines.launch
 class WritePostViewModel @Inject constructor(
 
 ) : ViewModel() {
-    private val _selectedCategory = MutableSharedFlow<Int>(replay = 1)
-    val selectedCategory: SharedFlow<Int> get() = _selectedCategory
 
-
-
-    fun setSelectedCategory(category: String) {
-        val position = when(category) {
-            "잡담" -> 0
-            "응원" -> 1
-            "FA" -> 2
-            "거래" -> 3
-            "질문" -> 4
-            "후기" -> 5
-            else -> 0
-        }
-        viewModelScope.launch {
-            _selectedCategory.emit(position)
-        }
-    }
 }

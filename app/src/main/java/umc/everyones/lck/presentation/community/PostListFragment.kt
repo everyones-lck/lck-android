@@ -18,10 +18,7 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
     private val viewModel: ReadPostViewModel by viewModels({requireParentFragment()})
     private val postListRVA by lazy {
         PostListRVA{ postId ->
-            /*val action =
-                CommunityFragmentDirections.actionCommunityFragmentToReadPostFragment(postId)
-            navigator.navigate(action)*/
-            startActivity(ReadPostActivity.newIntent(requireContext()))
+            startActivity(ReadPostActivity.newIntent(requireContext(), postId))
         }
     }
 

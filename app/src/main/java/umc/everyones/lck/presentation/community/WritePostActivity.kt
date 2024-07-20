@@ -87,8 +87,10 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
     }
 
     private fun initMediaRVAdapter() {
-        binding.rvWriteMedia.adapter = writeMediaRVA
-        binding.rvWriteMedia.addItemDecoration(GridSpaceItemDecoration(4, 8))
+        binding.rvWriteMedia.apply {
+            adapter = writeMediaRVA
+            addItemDecoration(GridSpaceItemDecoration(4, 8))
+        }
         writeMediaRVA.submitList(listOf(Uri.EMPTY))
     }
 
@@ -127,7 +129,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
 
     private fun handleMediaUris(uris: List<Uri>) {
         val list = uris.toMutableList().apply { add(0, Uri.EMPTY) }
-        writeMediaRVA?.submitList(list)
+        writeMediaRVA.submitList(list)
         for (uri in uris) {
             Log.d("uri", uri.toString())
         }
@@ -138,12 +140,14 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
     }
 
     private fun writeDone() {
-        binding.ivWriteDone.setOnClickListener {
-            writePostViewModel.setSelectedCategory(binding.spinnerWriteCategory.selectedItem.toString())
-            val intent = Intent(this, WritePostActivity::class.java)
-            intent.putExtra("category", binding.spinnerWriteCategory.selectedItem.toString())
-            setResult(RESULT_OK, intent)
-            finish()
+        with(binding) {
+            ivWriteDone.setOnClickListener {
+                writePostViewModel.setSelectedCategory(spinnerWriteCategory.selectedItem.toString())
+                val intent = Intent(this@WritePostActivity, WritePostActivity::class.java)
+                intent.putExtra("category", spinnerWriteCategory.selectedItem.toString())
+                setResult(RESULT_OK, intent)
+                finish()
+            }
         }
     }
 

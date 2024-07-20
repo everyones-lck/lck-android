@@ -2,6 +2,7 @@ package umc.everyones.lck.presentation.community
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,11 +21,22 @@ import umc.everyones.lck.util.extension.showCustomSnackBar
 
 @AndroidEntryPoint
 class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity_read_post) {
-    private var _commentRVA: CommentRVA? = null
-    private val commentRVA get() = _commentRVA
+    private val commentRVA by lazy {
+        CommentRVA(
+            editComment = { commentId, Body -> },
+            reportComment = { commentId -> },
+            deleteComment = { commentId -> }
+        )
+    }
 
-    private var _readMediaRVA: ReadMediaRVA? = null
-    private val readMediaRVA get() = _readMediaRVA
+    private val readMediaRVA by lazy {
+        ReadMediaRVA { url -> }
+    }
+
+    private val postId by lazy {
+        intent.getIntExtra("postId", 0)
+    }
+
     override fun initObserver() {
 
     }
@@ -34,18 +46,16 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         initReadMediaRVAdapter()
         validateCommentSend()
         binding.ivReadBackBtn.setOnSingleClickListener {
-            //navigator.navigateUp()
+            finish()
         }
+        Log.d("postId", postId.toString())
     }
 
-    private fun initCommentRVAdapter(){
-        _commentRVA = CommentRVA(
-            editComment = { commentId, Body -> },
-            reportComment = { commentId -> },
-            deleteComment = { commentId -> }
-        )
-        binding.rvReadComment.adapter = commentRVA
-        binding.rvReadComment.itemAnimator = null
+    private fun initCommentRVAdapter() {
+        binding.rvReadComment.apply {
+            adapter = commentRVA
+            itemAnimator = null
+        }
         val list = listOf(
             Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ"),
             Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ"),
@@ -56,15 +66,15 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
             Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ"),
             Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ"),
         )
-        lifecycleScope.launch {
-            commentRVA?.submitList(list)
-        }
+        commentRVA.submitList(list)
+
     }
 
-    private fun initReadMediaRVAdapter(){
-        _readMediaRVA = ReadMediaRVA { url ->  }
-        binding.rvReadMedia.adapter = readMediaRVA
-        binding.rvReadMedia.itemAnimator = null
+    private fun initReadMediaRVAdapter() {
+        binding.rvReadMedia.apply {
+            adapter = readMediaRVA
+            itemAnimator = null
+        }
         val list = listOf(
             "dsdsd",
             "dsdsd",
@@ -75,16 +85,19 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
             "dsdsd",
         )
         binding.rvReadMedia.addItemDecoration(GridSpaceItemDecoration(4, 8))
-        readMediaRVA?.submitList(list)
+        readMediaRVA.submitList(list)
     }
 
-    private fun validateCommentSend(){
+    private fun validateCommentSend() {
         binding.etReadCommentInput.addTextChangedListener(
-            onTextChanged = {text: CharSequence?, _: Int, _: Int, _: Int ->
-                if(text != null){
+            onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
+                if (text != null) {
                     binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send_enabled))
-                    if(text.length >= 1000){
-                        showCustomSnackBar(binding.ivReadSendCommentBtn, "댓글은 최대 1,000자까지 입력할 수 있어요")
+                    if (text.length >= 1000) {
+                        showCustomSnackBar(
+                            binding.ivReadSendCommentBtn,
+                            "댓글은 최대 1,000자까지 입력할 수 있어요"
+                        )
                     }
                 } else {
                     binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send))
@@ -93,9 +106,10 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         )
     }
 
-    companion object{
-        fun newIntent(context: Context) =
+    companion object {
+        fun newIntent(context: Context, postId: Int) =
             Intent(context, ReadPostActivity::class.java).apply {
+                putExtra("postId", postId)
             }
     }
 

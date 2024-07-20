@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.databinding.ItemCommunityPostBinding
-import umc.everyones.lck.domain.model.community.Post
+import umc.everyones.lck.domain.model.community.PostListItem
 
-class PostListRVA(val readPost: (Int) -> Unit) : ListAdapter<Post, PostListRVA.PostViewHolder>(DiffCallback()) {
+class PostListRVA(val readPost: (Int) -> Unit) : ListAdapter<PostListItem, PostListRVA.PostViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder(
@@ -26,26 +26,26 @@ class PostListRVA(val readPost: (Int) -> Unit) : ListAdapter<Post, PostListRVA.P
 
     inner class PostViewHolder(private val binding: ItemCommunityPostBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun bind(post: Post){
+            fun bind(postListItem: PostListItem){
                 with(binding){
-                    tvPostTitle.text = post.title
-                    tvPostDate.text = post.date
-                    tvPostNickname.text = post.nickname
-                    tvPostFavoriteTeam.text = post.favoriteTeam
-                    tvPostComment.text = post.commentCnt.toString()
+                    tvPostTitle.text = postListItem.title
+                    tvPostDate.text = postListItem.date
+                    tvPostNickname.text = postListItem.nickname
+                    tvPostFavoriteTeam.text = postListItem.favoriteTeam
+                    tvPostComment.text = postListItem.commentCnt.toString()
 
                     root.setOnClickListener {
-                        readPost(post.postId)
+                        readPost(postListItem.postId)
                     }
                 }
             }
         }
 
-    class DiffCallback : DiffUtil.ItemCallback<Post>() {
-        override fun areItemsTheSame(oldItem: Post, newItem: Post) =
+    class DiffCallback : DiffUtil.ItemCallback<PostListItem>() {
+        override fun areItemsTheSame(oldItem: PostListItem, newItem: PostListItem) =
             oldItem.postId == newItem.postId
 
-        override fun areContentsTheSame(oldItem: Post, newItem: Post) =
+        override fun areContentsTheSame(oldItem: PostListItem, newItem: PostListItem) =
             oldItem == newItem
     }
 }

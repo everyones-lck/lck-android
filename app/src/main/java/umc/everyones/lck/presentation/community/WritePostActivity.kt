@@ -11,15 +11,16 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWritePostBinding
+import umc.everyones.lck.domain.model.community.Post
 import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.community.adapter.SpinnerAdapter
 import umc.everyones.lck.presentation.community.adapter.WriteMediaRVA
 import umc.everyones.lck.util.GridSpaceItemDecoration
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.toCategoryPosition
 import umc.everyones.lck.util.extension.validateMaxLength
 
 @AndroidEntryPoint
@@ -54,12 +55,30 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
     override fun initView() {
         initMediaRVAdapter()
         initSpinnerAdapter()
+        initEditView()
         validatePostTitle()
         validatePostBody()
         writeDone()
 
         binding.ivWriteClose.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun initEditView(){
+        val post: Post? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("edit", Post::class.java)
+        } else {
+            intent.getSerializableExtra("edit") as? Post
+        }
+
+        if(post != null){
+            Log.d("post", post.toString())
+            with(binding){
+                spinnerWriteCategory.setSelection(post.category.toCategoryPosition())
+                etWriteTitle.setText(post.title)
+                etWriteBody.setText(post.body)
+            }
         }
     }
 
@@ -154,6 +173,11 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
         private val spinnerList = listOf("잡담", "응원", "FA", "거래", "질문", "후기")
         fun newIntent(context: Context) =
             Intent(context, WritePostActivity::class.java).apply {
+            }
+
+        fun EditIntent(context: Context, post: Post) =
+            Intent(context, WritePostActivity::class.java).apply {
+                putExtra("edit", post)
             }
     }
 }

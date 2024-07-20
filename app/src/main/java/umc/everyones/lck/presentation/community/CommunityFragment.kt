@@ -1,24 +1,17 @@
 package umc.everyones.lck.presentation.community
 
 import android.app.Activity
-import android.content.Intent
-import android.util.Log
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentCommunityBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.community.adapter.PostListVPA
-import umc.everyones.lck.util.extension.repeatOnStarted
-import umc.everyones.lck.util.extension.toCategoryVpPosition
+import umc.everyones.lck.util.extension.toCategoryPosition
 
 @AndroidEntryPoint
 class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragment_community) {
@@ -34,7 +27,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
     private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if (result.resultCode == Activity.RESULT_OK){
             val category = result.data?.getStringExtra("category") ?: ""
-            binding.vpCommunityPostList.currentItem = category.toCategoryVpPosition()
+            binding.vpCommunityPostList.currentItem = category.toCategoryPosition()
         }
     }
 

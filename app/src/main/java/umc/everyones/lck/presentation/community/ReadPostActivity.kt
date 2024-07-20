@@ -4,13 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityReadPostBinding
 import umc.everyones.lck.domain.model.community.Comment
+import umc.everyones.lck.domain.model.community.Post
+import umc.everyones.lck.domain.model.community.PostListItem
 import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.community.adapter.CommentRVA
 import umc.everyones.lck.presentation.community.adapter.ReadMediaRVA
@@ -45,10 +44,26 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         initCommentRVAdapter()
         initReadMediaRVAdapter()
         validateCommentSend()
+        editPost()
         binding.ivReadBackBtn.setOnSingleClickListener {
             finish()
         }
         Log.d("postId", postId.toString())
+    }
+
+    private fun editPost() {
+        binding.layoutReadEditBtn.setOnClickListener {
+            Log.d("click", "click")
+            startActivity(
+                WritePostActivity.EditIntent(
+                    this,
+                    Post(
+                        0, "ㅇㅇ", binding.tvReadPostTitle.text.toString(),
+                        binding.tvReadPostBody.text.toString(), "후기"
+                    )
+                )
+            )
+        }
     }
 
     private fun initCommentRVAdapter() {

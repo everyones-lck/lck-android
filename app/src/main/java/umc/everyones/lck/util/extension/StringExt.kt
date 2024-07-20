@@ -1,6 +1,6 @@
 package umc.everyones.lck.util.extension
 
-fun String.toCategoryVpPosition(): Int{
+fun String.toCategoryPosition(): Int{
     return when (this) {
         "잡담" -> 0
         "응원" -> 1

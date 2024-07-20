@@ -1,16 +1,24 @@
 package umc.everyones.lck.presentation.community
 
+import android.app.Activity
+import android.content.Intent
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentCommunityBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.community.adapter.PostListVPA
 import umc.everyones.lck.util.extension.repeatOnStarted
+import umc.everyones.lck.util.extension.toCategoryVpPosition
 
 @AndroidEntryPoint
 class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragment_community) {
@@ -23,23 +31,14 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
     private var _postListVPA: PostListVPA? = null
     private val postListVPA get() = _postListVPA
 
-    override fun initObserver() {
-        repeatOnStarted {
-            readPostViewModel.postId.collect{
-                if(it > 0 && navigator.currentDestination?.id == R.id.communityFragment) {
-                    val action =
-                        CommunityFragmentDirections.actionCommunityFragmentToReadPostFragment(it)
-                    navigator.navigate(action)
-                }
-            }
+    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+        if (result.resultCode == Activity.RESULT_OK){
+            val category = result.data?.getStringExtra("category") ?: ""
+            binding.vpCommunityPostList.currentItem = category.toCategoryVpPosition()
         }
+    }
 
-        repeatOnStarted {
-            writePostViewModel.selectedCategory.collect{
-                Log.d("position", it.toString())
-                binding.vpCommunityPostList.currentItem = it
-            }
-        }
+    override fun initObserver() {
     }
 
     override fun initView() {
@@ -60,7 +59,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
 
     private fun goToWritePost(){
         binding.fabCommunityWriteBtn.setOnClickListener {
-            navigator.navigate(R.id.action_communityFragment_to_writePostFragment)
+            resultLauncher.launch(WritePostActivity.newIntent(requireContext()))
         }
     }
 

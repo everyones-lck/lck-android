@@ -38,12 +38,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         navController.addOnDestinationChangedListener{ _, destination, _ ->
             if(destination.id in bnvInvisibleDestinationList){
                 lifecycleScope.launch {
-                    //delay(100)
+                    delay(150)
                     binding.mainBnv.visibility=  View.GONE
                 }
             } else {
                 lifecycleScope.launch {
-                    //delay(100)
                     binding.mainBnv.visibility=  View.VISIBLE
                 }
             }

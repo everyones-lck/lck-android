@@ -59,10 +59,10 @@ val Fragment.viewLifeCycleScope
 fun Fragment.showCustomSnackBar(message: String){
     val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
 
-    val snackbarView = snackBar.view
-    val params = snackbarView.layoutParams as FrameLayout.LayoutParams
+    val snackBarView = snackBar.view
+    val params = snackBarView.layoutParams as FrameLayout.LayoutParams
     params.setMargins(50, 50, 50, 100)  // 원하는 마진 값 설정
-    snackbarView.layoutParams = params
+    snackBarView.layoutParams = params
 
     val textView: TextView = snackBar.view.findViewById(com.google.android.material.R.id.snackbar_text)
     textView.setTextAppearance(R.style.TextAppearance_LCK_Warning)

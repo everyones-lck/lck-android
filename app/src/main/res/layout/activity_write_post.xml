@@ -8,7 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient_color">
 
         <ImageView
             android:id="@+id/iv_write_close"
@@ -17,7 +18,8 @@
             android:layout_marginStart="20dp"
             android:src="@drawable/ic_close"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_write_title" />
+            app:layout_constraintTop_toTopOf="@id/tv_write_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_write_title"/>
 
 
         <TextView
@@ -25,7 +27,7 @@
             style="@style/TextAppearance.LCK.Head1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="39dp"
             android:text="글 작성하기"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +40,8 @@
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_write_done"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_write_title" />
+            app:layout_constraintTop_toTopOf="@id/tv_write_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_write_title"/>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

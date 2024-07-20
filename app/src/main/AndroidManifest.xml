@@ -30,6 +30,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="umc.everyones.lck.presentation.community.WritePostActivity" />
+        <activity android:name="umc.everyones.lck.presentation.community.ReadPostActivity" />
 
         <!-- Trigger Google Play services to install the backported photo picker module. -->
         <service android:name="com.google.android.gms.metadata.ModuleDependencies"

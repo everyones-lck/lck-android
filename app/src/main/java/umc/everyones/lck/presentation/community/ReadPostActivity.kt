@@ -1,31 +1,25 @@
 package umc.everyones.lck.presentation.community
 
+import android.content.Context
+import android.content.Intent
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import umc.everyones.lck.R
-import umc.everyones.lck.databinding.FragmentReadPostBinding
+import umc.everyones.lck.databinding.ActivityReadPostBinding
 import umc.everyones.lck.domain.model.community.Comment
-import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.community.adapter.CommentRVA
 import umc.everyones.lck.presentation.community.adapter.ReadMediaRVA
 import umc.everyones.lck.util.GridSpaceItemDecoration
 import umc.everyones.lck.util.extension.drawableOf
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
-import umc.everyones.lck.util.extension.validateMaxLength
 
-class ReadPostFragment : BaseFragment<FragmentReadPostBinding>(R.layout.fragment_read_post) {
-    private val navigator by lazy {
-        findNavController()
-    }
-    private val args: ReadPostFragmentArgs by navArgs()
-    private val postId by lazy {
-        args.postId
-    }
+@AndroidEntryPoint
+class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity_read_post) {
     private var _commentRVA: CommentRVA? = null
     private val commentRVA get() = _commentRVA
 
@@ -40,7 +34,7 @@ class ReadPostFragment : BaseFragment<FragmentReadPostBinding>(R.layout.fragment
         initReadMediaRVAdapter()
         validateCommentSend()
         binding.ivReadBackBtn.setOnSingleClickListener {
-            navigator.navigateUp()
+            //navigator.navigateUp()
         }
     }
 
@@ -51,6 +45,7 @@ class ReadPostFragment : BaseFragment<FragmentReadPostBinding>(R.layout.fragment
             deleteComment = { commentId -> }
         )
         binding.rvReadComment.adapter = commentRVA
+        binding.rvReadComment.itemAnimator = null
         val list = listOf(
             Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ"),
             Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ"),
@@ -61,8 +56,7 @@ class ReadPostFragment : BaseFragment<FragmentReadPostBinding>(R.layout.fragment
             Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ"),
             Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ"),
         )
-        viewLifecycleOwner.lifecycleScope.launch {
-            delay(1000)
+        lifecycleScope.launch {
             commentRVA?.submitList(list)
         }
     }
@@ -70,6 +64,7 @@ class ReadPostFragment : BaseFragment<FragmentReadPostBinding>(R.layout.fragment
     private fun initReadMediaRVAdapter(){
         _readMediaRVA = ReadMediaRVA { url ->  }
         binding.rvReadMedia.adapter = readMediaRVA
+        binding.rvReadMedia.itemAnimator = null
         val list = listOf(
             "dsdsd",
             "dsdsd",
@@ -89,7 +84,7 @@ class ReadPostFragment : BaseFragment<FragmentReadPostBinding>(R.layout.fragment
                 if(text != null){
                     binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send_enabled))
                     if(text.length >= 1000){
-                        showCustomSnackBar("댓글은 최대 1,000자까지 입력할 수 있어요")
+                        showCustomSnackBar(binding.ivReadSendCommentBtn, "댓글은 최대 1,000자까지 입력할 수 있어요")
                     }
                 } else {
                     binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send))
@@ -98,9 +93,10 @@ class ReadPostFragment : BaseFragment<FragmentReadPostBinding>(R.layout.fragment
         )
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _commentRVA = null
-        _readMediaRVA = null
+    companion object{
+        fun newIntent(context: Context) =
+            Intent(context, ReadPostActivity::class.java).apply {
+            }
     }
+
 }

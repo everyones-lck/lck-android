@@ -9,48 +9,27 @@
         android:id="@+id/aboutLCKFragment"
         android:name="umc.everyones.lck.presentation.lck.AboutLCKFragment"
         android:label="AboutLCKFragment"
-        tools:layout="@layout/fragment_about_lck"/>
+        tools:layout="@layout/fragment_about_lck" />
     <fragment
         android:id="@+id/homeFragment"
         android:name="umc.everyones.lck.presentation.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/todayMatchFragment"
         android:name="umc.everyones.lck.presentation.match.TodayMatchFragment"
         android:label="TodayMatchFragment"
-        tools:layout="@layout/fragment_today_match"/>
+        tools:layout="@layout/fragment_today_match" />
     <fragment
         android:id="@+id/viewingPartyFragment"
         android:name="umc.everyones.lck.presentation.party.ViewingPartyFragment"
         android:label="ViewingPartyFragment"
-        tools:layout="@layout/fragment_viewing_party"/>
-    <navigation android:id="@+id/communityTab"
-        app:startDestination="@id/communityFragment">
-        <fragment
-            android:id="@+id/communityFragment"
-            android:name="umc.everyones.lck.presentation.community.CommunityFragment"
-            android:label="BoardFragment"
-            tools:layout="@layout/fragment_community" >
-            <action
-                android:id="@+id/action_communityFragment_to_writePostFragment"
-                app:destination="@id/writePostFragment"
-                app:enterAnim="@anim/nav_default_enter_anim" />
-            <action
-                android:id="@+id/action_communityFragment_to_readPostFragment"
-                app:destination="@id/readPostFragment" />
-        </fragment>
-        <fragment
-            android:id="@+id/writePostFragment"
-            android:name="umc.everyones.lck.presentation.community.WritePostFragment"
-            android:label="WritePostFragment" />
-        <fragment
-            android:id="@+id/readPostFragment"
-            android:name="umc.everyones.lck.presentation.community.ReadPostFragment"
-            android:label="ReadPostFragment" >
-            <argument
-                android:name="postId"
-                app:argType="integer" />
-        </fragment>
-    </navigation>
+        tools:layout="@layout/fragment_viewing_party" />
+
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="umc.everyones.lck.presentation.community.CommunityFragment"
+        android:label="communityFragment"
+        tools:layout="@layout/fragment_community" />
+
 </navigation>

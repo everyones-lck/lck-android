@@ -2,8 +2,11 @@ package umc.everyones.lck.presentation.community
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.util.DisplayMetrics
 import android.util.Log
 import androidx.core.widget.addTextChangedListener
+import androidx.window.layout.WindowMetricsCalculator
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityReadPostBinding
@@ -14,6 +17,7 @@ import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.community.adapter.CommentRVA
 import umc.everyones.lck.presentation.community.adapter.ReadMediaRVA
 import umc.everyones.lck.util.GridSpaceItemDecoration
+import umc.everyones.lck.util.KeyboardUtil
 import umc.everyones.lck.util.extension.drawableOf
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
@@ -41,6 +45,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
     }
 
     override fun initView() {
+        KeyboardUtil.registerKeyboardVisibilityListener(binding.root, binding.svRead)
         initCommentRVAdapter()
         initReadMediaRVAdapter()
         validateCommentSend()
@@ -49,6 +54,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
             finish()
         }
         Log.d("postId", postId.toString())
+        Log.d("height", getDeviceHeight().toString())
     }
 
     private fun editPost() {
@@ -126,6 +132,23 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
             Intent(context, ReadPostActivity::class.java).apply {
                 putExtra("postId", postId)
             }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        KeyboardUtil.unregisterKeyboardVisibilityListener(binding.root)
+    }
+
+    private fun getDeviceHeight(): Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val windowMetrics: androidx.window.layout.WindowMetrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
+            windowMetrics.bounds.height()
+        } else {
+            val displayMetrics = DisplayMetrics()
+            @Suppress("DEPRECATION")
+            windowManager.defaultDisplay.getMetrics(displayMetrics)
+            displayMetrics.heightPixels
+        }
     }
 
 }

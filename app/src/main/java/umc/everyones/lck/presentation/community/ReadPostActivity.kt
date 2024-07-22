@@ -113,15 +113,17 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         binding.etReadCommentInput.addTextChangedListener(
             onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
                 if (text != null) {
-                    binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send_enabled))
+                    if(text.isEmpty()){
+                        binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send))
+                    } else {
+                        binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send_enabled))
+                    }
                     if (text.length >= 1000) {
                         showCustomSnackBar(
                             binding.ivReadSendCommentBtn,
                             "댓글은 최대 1,000자까지 입력할 수 있어요"
                         )
                     }
-                } else {
-                    binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send))
                 }
             }
         )

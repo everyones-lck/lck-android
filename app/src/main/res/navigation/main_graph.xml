@@ -31,3 +31,4 @@
         android:label="ViewingPartyFragment"
         tools:layout="@layout/fragment_viewing_party"/>
 </navigation>
+

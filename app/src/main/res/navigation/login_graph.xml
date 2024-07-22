@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_graph"
+    app:startDestination="@id/loginFragment">
+
+    <!-- Login Fragment -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="umc.everyones.lck.presentation.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_signupNicknameFragment"
+            app:destination="@id/signupNicknameFragment" />
+    </fragment>
+
+    <!-- Signup Nickname Fragment -->
+    <fragment
+        android:id="@+id/signupNicknameFragment"
+        android:name="umc.everyones.lck.presentation.SignupNicknameFragment"
+        android:label="Signup Nickname"
+        tools:layout="@layout/fragment_signup_nickname">
+        <action
+            android:id="@+id/action_signupNicknameFragment_to_signupProfileFragment"
+            app:destination="@id/signupProfileFragment" />
+    </fragment>
+
+    <!-- Signup Profile Fragment -->
+    <fragment
+        android:id="@+id/signupProfileFragment"
+        android:name="umc.everyones.lck.presentation.SignupProfileFragment"
+        android:label="Signup Profile"
+        tools:layout="@layout/fragment_signup_profile">
+        <action
+            android:id="@+id/action_signupProfileFragment_to_signupMyteamFragment"
+            app:destination="@id/signupMyteamFragment" />
+    </fragment>
+
+    <!-- Signup Myteam Fragment -->
+    <fragment
+        android:id="@+id/signupMyteamFragment"
+        android:name="umc.everyones.lck.presentation.SignupMyteamFragment"
+        android:label="Signup Myteam"
+        tools:layout="@layout/fragment_signup_myteam">
+        <action
+            android:id="@+id/action_signupMyteamFragment_to_signupSuccessFragment"
+            app:destination="@id/signupSuccessFragment" />
+    </fragment>
+
+    <!-- Signup Success Fragment -->
+    <fragment
+        android:id="@+id/signupSuccessFragment"
+        android:name="umc.everyones.lck.presentation.SignupSuccessFragment"
+        android:label="Signup Success"
+        tools:layout="@layout/fragment_signup_success" />
+</navigation>

@@ -24,7 +24,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/main_graph" />
 
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/main_bnv"
             android:layout_width="match_parent"
@@ -44,6 +43,18 @@
             app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
             app:menu="@menu/main_menu" />
 
+        <!--로그아웃 대충 구현이라 삭제해주세요-->
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            app:layout_constraintBottom_toTopOf="@id/main_bnv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

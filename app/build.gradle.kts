@@ -99,4 +99,6 @@ dependencies {
     //indicator : https://github.com/tommybuonomo/dotsindicator?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=7127
     implementation("com.tbuonomo:dotsindicator:5.0")
 
+    //Viewpager2
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
 }

@@ -10,6 +10,7 @@ class PostListVPA(fragment: Fragment): FragmentStateAdapter(fragment) {
         return 6
     }
 
+    // API 연결하면서 내부 Fragment 바꿀 예정
     override fun createFragment(position: Int): Fragment {
         return when(position){
             0 -> PostListFragment()

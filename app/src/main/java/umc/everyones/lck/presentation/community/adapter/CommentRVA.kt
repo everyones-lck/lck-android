@@ -43,12 +43,17 @@ class CommentRVA(
                 Glide.with(ivCommentProfile.context)
                     .load(comment.profileImageUrl)
                     .into(ivCommentProfile)*/
+                // 댓글 수정
                 ivCommentEditBtn.setOnSingleClickListener {
                     editComment(comment.commentId, comment.body)
                 }
+
+                // 댓글 신고
                 ivCommentReportBtn.setOnSingleClickListener {
                     reportComment(comment.commentId)
                 }
+
+                // 댓글 삭제
                 ivCommentDeleteBtn.setOnSingleClickListener {
                     deleteComment(comment.commentId)
                 }

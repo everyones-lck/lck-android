@@ -25,18 +25,26 @@ import umc.everyones.lck.util.extension.showCustomSnackBar
 class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity_read_post) {
     private val commentRVA by lazy {
         CommentRVA(
+            // 댓긇 수정 기능
             editComment = { commentId, Body -> },
+
+            // 댓글 신고 기능
             reportComment = { commentId ->
                             showCustomSnackBar(binding.layoutReadReportBtn, "댓글이 신고 되었습니다")
             },
+
+            // 댓글 삭제 기능
             deleteComment = { commentId -> }
         )
     }
 
     private val readMediaRVA by lazy {
-        ReadMediaRVA { url -> }
+        ReadMediaRVA { url ->
+            // 미디어 원본 보기 기능
+        }
     }
 
+    // Community Fragment에서 전송한 postId 수신
     private val postId by lazy {
         intent.getIntExtra("postId", 0)
     }
@@ -46,9 +54,12 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
     }
 
     override fun initView() {
+        // 키보드 올라올 때 화면 맨 밑으로 자동스크롤을 위한 리스너 등록
         KeyboardUtil.registerKeyboardVisibilityListener(binding.root, binding.svRead)
         initCommentRVAdapter()
         initReadMediaRVAdapter()
+
+        // 댓글 유효성 검사
         validateCommentSend()
         editPost()
         reportPost()
@@ -57,7 +68,6 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
             finish()
         }
         Log.d("postId", postId.toString())
-        Log.d("height", getDeviceHeight().toString())
     }
 
     private fun reportPost(){
@@ -68,7 +78,8 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
 
     private fun editPost() {
         binding.layoutReadEditBtn.setOnClickListener {
-            Log.d("click", "click")
+
+            // 글 작성 화면으로 이동 및 현재 게시글 Data 전송
             startActivity(
                 WritePostActivity.editIntent(
                     this,
@@ -114,6 +125,8 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
             "dsdsd",
             "dsdsd",
         )
+
+        // RecyclerView Item의 GridLayout에서의 일정한 간격을 위해 설정
         binding.rvReadMedia.addItemDecoration(GridSpaceItemDecoration(4, 8))
         readMediaRVA.submitList(list)
     }
@@ -122,11 +135,14 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         binding.etReadCommentInput.addTextChangedListener(
             onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
                 if (text != null) {
+
+                    // 댓글 작성 여부에 따른 전송 버튼 활성화 제어
                     if(text.isEmpty()){
                         binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send))
                     } else {
                         binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send_enabled))
                     }
+
                     if (text.length >= 1000) {
                         showCustomSnackBar(
                             binding.ivReadSendCommentBtn,
@@ -149,17 +165,4 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         super.onDestroy()
         KeyboardUtil.unregisterKeyboardVisibilityListener(binding.root)
     }
-
-    private fun getDeviceHeight(): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val windowMetrics: androidx.window.layout.WindowMetrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
-            windowMetrics.bounds.height()
-        } else {
-            val displayMetrics = DisplayMetrics()
-            @Suppress("DEPRECATION")
-            windowManager.defaultDisplay.getMetrics(displayMetrics)
-            displayMetrics.heightPixels
-        }
-    }
-
 }

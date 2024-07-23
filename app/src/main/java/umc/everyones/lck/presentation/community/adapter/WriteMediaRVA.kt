@@ -53,7 +53,6 @@ class WriteMediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.Vi
         RecyclerView.ViewHolder(binding.root) {
             fun bind(){
                 binding.layoutMediaAddBtn.setOnClickListener {
-                    Log.d("add btn", "click")
                     addMedia()
                 }
             }
@@ -66,13 +65,19 @@ class WriteMediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.Vi
                     .load(uri)
                     .into(ivMediaImage)
 
+                // 미디어 삭제 기능
                 ivMediaDeleteBtn.setOnSingleClickListener {
+                    // 미디어 개수가 12개일 때 선택한 미디어 삭제 후
+                    // RecyclerView에 미디어 추가 버튼 생성
                     if(currentList.size == 12 && currentList[0] != Uri.EMPTY){
                         submitList(currentList.toMutableList().apply {
                             remove(uri)
                             add(0, Uri.EMPTY)
                         })
-                    } else {
+                    }
+
+                    // 미디어 개수가 12개가 아니면 선택한 미디어 삭제
+                    else {
                         submitList(currentList.toMutableList().apply { remove(uri) })
                     }
                 }
@@ -82,6 +87,8 @@ class WriteMediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.Vi
 
     override fun getItemViewType(position: Int): Int {
         return when(currentList[position]){
+            // Uri.Empty일 때 MEDIA_ADD로 ViewType 지정해
+            // RecyclerView에 미디어 추가 버튼 생성
             Uri.EMPTY -> MEDIA_ADD
             else -> MEDIA
         }

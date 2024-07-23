@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
@@ -56,17 +57,26 @@ val Fragment.viewLifeCycle
 val Fragment.viewLifeCycleScope
     get() = viewLifecycleOwner.lifecycleScope
 
-fun Fragment.showCustomSnackBar(message: String){
-    val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
+// 커스텀 스낵바 확장 함수
+fun Fragment.showCustomSnackBar(view: View, message: String){
+    val snackBar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
 
     val snackBarView = snackBar.view
-    val params = snackBarView.layoutParams as FrameLayout.LayoutParams
-    params.setMargins(50, 50, 50, 100)  // 원하는 마진 값 설정
-    snackBarView.layoutParams = params
+    val parentView = snackBarView.parent
+
+    if (parentView is CoordinatorLayout) {
+        val params = snackBarView.layoutParams as CoordinatorLayout.LayoutParams
+        params.setMargins(50, 50, 50, 100)  // 원하는 마진 값 설정
+        snackBarView.layoutParams = params
+    } else if (parentView is FrameLayout) {
+        val params = snackBarView.layoutParams as FrameLayout.LayoutParams
+        params.setMargins(50, 50, 50, 100)  // 원하는 마진 값 설정
+        snackBarView.layoutParams = params
+    }
 
     val textView: TextView = snackBar.view.findViewById(com.google.android.material.R.id.snackbar_text)
     textView.setTextAppearance(R.style.TextAppearance_LCK_Warning)
-    snackBar.setBackgroundTint(requireContext().colorOf(R.color.white))
+    snackBar.setBackgroundTint(this.colorOf(R.color.white))
 
     snackBar.show()
 }

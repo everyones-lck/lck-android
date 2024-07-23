@@ -1,5 +1,6 @@
 package umc.everyones.lck.util.extension
 
+// 카테고리 -> 포지션 확장함수
 fun String.toCategoryPosition(): Int{
     return when (this) {
         "잡담" -> 0

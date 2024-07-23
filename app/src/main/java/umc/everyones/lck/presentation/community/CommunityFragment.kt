@@ -27,6 +27,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
     private var _postListVPA: PostListVPA? = null
     private val postListVPA get() = _postListVPA
 
+    // 글 작성 시 선택한 카테고리 화면으로 이동
     private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if (result.resultCode == Activity.RESULT_OK){
             val category = result.data?.getStringExtra("category") ?: ""
@@ -50,11 +51,10 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
             TabLayoutMediator(tabCommunityCategory, vpCommunityPostList) { tab, position ->
                 tab.text = tabTitles[position]
             }.attach()
-
-            setTabItemMargin(tabCommunityCategory, 0)
         }
     }
 
+    // 글 작성 화면으로 이동
     private fun goToWritePost(){
         binding.fabCommunityWriteBtn.setOnClickListener {
             resultLauncher.launch(WritePostActivity.newIntent(requireContext()))
@@ -68,18 +68,5 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
 
     companion object {
         private val tabTitles = listOf("잡담", "응원", "FA", "거래", "질문", "후기")
-    }
-
-    private fun setTabItemMargin(tabLayout: TabLayout, marginEnd: Int = 20) {
-        for(i in 0 until 6) {
-            val tabs = tabLayout.getChildAt(0) as ViewGroup
-            for(i in 0 until tabs.childCount) {
-                val tab = tabs.getChildAt(i)
-                val lp = tab.layoutParams as LinearLayout.LayoutParams
-                lp.marginEnd = marginEnd
-                tab.layoutParams = lp
-                tabLayout.requestLayout()
-            }
-        }
     }
 }

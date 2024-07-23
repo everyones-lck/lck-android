@@ -15,8 +15,7 @@ class SpinnerAdapter(context: Context, private val list: List<String>?) :
     private val inflater: LayoutInflater
 
     // 스피너에서 선택된 아이템을 액티비티에서 꺼내오는 메서드
-    var item: String? = null
-        private set
+    private var item: String? = null
 
     init {
         inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

@@ -9,7 +9,8 @@ import com.bumptech.glide.Glide
 import umc.everyones.lck.databinding.ItemMediaReadBinding
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 
-class ReadMediaRVA(val viewOriginalMedia: (String) -> Unit) : ListAdapter<String, ReadMediaRVA.ReadMediaViewHolder>(DiffCallback()) {
+class ReadMediaRVA(val viewOriginalMedia: (String) -> Unit // 미디어 원본 보기 위한 함수
+ ) : ListAdapter<String, ReadMediaRVA.ReadMediaViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReadMediaViewHolder {
         return ReadMediaViewHolder(

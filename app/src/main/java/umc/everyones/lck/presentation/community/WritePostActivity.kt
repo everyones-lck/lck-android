@@ -29,10 +29,13 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
 
     private val writeMediaRVA by lazy {
         WriteMediaRVA {
+            // 미디어 추가 버튼 클릭 시
+            // 권한 검사 및 요청 -> 미디어 선택
             checkPermissionAndOpenMediaPicker()
         }
     }
 
+    // 권한 요청
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
@@ -42,6 +45,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
             }
         }
 
+    // 미디어 선택
     private val selectMediaLauncher =
         registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris: List<Uri> ->
             handleMediaUris(uris)
@@ -65,6 +69,8 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
         }
     }
 
+
+    // 글 수정 시 기존 게시글 Data View에 반영
     private fun initEditView(){
         val post: Post? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra("edit", Post::class.java)
@@ -82,7 +88,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
         }
     }
 
-
+    // 제목 유효성 검사
     private fun validatePostTitle() {
         binding.etWriteTitle.validateMaxLength(20,
             onLengthExceeded = {
@@ -94,6 +100,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
         )
     }
 
+    // 본문 유효성 검사
     private fun validatePostBody() {
         binding.etWriteBody.validateMaxLength(2000,
             onLengthExceeded = {
@@ -114,6 +121,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
         writeMediaRVA.submitList(listOf(Uri.EMPTY))
     }
 
+    // 권한 검사 및 요청
     private fun checkPermissionAndOpenMediaPicker() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             requestPermission(Manifest.permission.READ_MEDIA_IMAGES)
@@ -147,8 +155,10 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
         selectMediaLauncher.launch("image/* video/*")
     }
 
+    // 선택한 미디어 Uri를 통해 RecyclerView에 반영
     private fun handleMediaUris(uris: List<Uri>) {
         var updateList = writeMediaRVA.currentList.toMutableList().apply {
+            // 미디어 12개 선택 초과 시 앞에서 부터 12개만 반영
             val addUris = if(uris.size > 12){
                 uris.take(12)
             } else {
@@ -157,6 +167,9 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
             addAll(addUris)
         }
 
+        // 미디어 추가 버튼 1개 + 미디어 개수 12개일 때
+        // 미디어 추가 버튼 삭제
+        // Uri 리스트 앞에서 부터 12개만 반영
         if(updateList.size > 12){
             updateList.apply { removeAt(0) }
             updateList = updateList.take(12).toMutableList()
@@ -171,13 +184,17 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
     private fun writeDone() {
         with(binding) {
             ivWriteDone.setOnClickListener {
+
+                // 제목이나 본문 입력하지 않을 시 예외처리
                 if(etWriteTitle.text.isEmpty() || etWriteBody.text.isEmpty()){
                     showCustomSnackBar(binding.tvWriteGuide, "필수 항목을 입력하지 않았습니다")
                     return@setOnClickListener
                 }
-                val intent = Intent(this@WritePostActivity, WritePostActivity::class.java)
-                intent.putExtra("category", spinnerWriteCategory.selectedItem.toString())
-                setResult(RESULT_OK, intent)
+
+                Intent(this@WritePostActivity, WritePostActivity::class.java).apply {
+                    putExtra("category", spinnerWriteCategory.selectedItem.toString())
+                    setResult(RESULT_OK, this)
+                }
                 finish()
             }
         }

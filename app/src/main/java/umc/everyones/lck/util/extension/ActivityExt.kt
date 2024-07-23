@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import umc.everyones.lck.R
 
+// 커스텀 스낵바 확장 함수
 fun Activity.showCustomSnackBar(view: View, message: String){
     val snackBar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
 

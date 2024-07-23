@@ -34,6 +34,7 @@ class PostListRVA(val readPost: (Int) -> Unit) : ListAdapter<PostListItem, PostL
                     tvPostFavoriteTeam.text = postListItem.favoriteTeam
                     tvPostComment.text = postListItem.commentCnt.toString()
 
+                    // 게시글 postId 전달
                     root.setOnClickListener {
                         readPost(postListItem.postId)
                     }

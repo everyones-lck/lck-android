@@ -25,9 +25,9 @@ object KeyboardUtil {
             Log.d("keypadHeight", keypadHeight.toString())
 
             // 키보드가 화면의 20% 이상 차지할 경우
-            if (keypadHeight > screenHeight * 0.2 && scrollView.scrollY > 0) {
+            if (keypadHeight > screenHeight * 0.2) {
                 scrollView.post {
-                    scrollView.scrollTo(0, scrollView.bottom)
+                    scrollView.scrollTo(0, screenHeight)
                 }
             } else {
                 // 키보드가 사라졌을 때의 처리

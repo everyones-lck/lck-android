@@ -12,7 +12,6 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityReadPostBinding
 import umc.everyones.lck.domain.model.community.Comment
 import umc.everyones.lck.domain.model.community.Post
-import umc.everyones.lck.domain.model.community.PostListItem
 import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.community.adapter.CommentRVA
 import umc.everyones.lck.presentation.community.adapter.ReadMediaRVA
@@ -71,7 +70,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         binding.layoutReadEditBtn.setOnClickListener {
             Log.d("click", "click")
             startActivity(
-                WritePostActivity.EditIntent(
+                WritePostActivity.editIntent(
                     this,
                     Post(
                         0, "ㅇㅇ", binding.tvReadPostTitle.text.toString(),

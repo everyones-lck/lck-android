@@ -67,16 +67,22 @@ class WriteMediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.Vi
                     .into(ivMediaImage)
 
                 ivMediaDeleteBtn.setOnSingleClickListener {
-                    submitList(currentList.toMutableList().apply { remove(uri)})
+                    if(currentList.size == 12 && currentList[0] != Uri.EMPTY){
+                        submitList(currentList.toMutableList().apply {
+                            remove(uri)
+                            add(0, Uri.EMPTY)
+                        })
+                    } else {
+                        submitList(currentList.toMutableList().apply { remove(uri) })
+                    }
                 }
             }
-
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(position){
-            0 -> MEDIA_ADD
+        return when(currentList[position]){
+            Uri.EMPTY -> MEDIA_ADD
             else -> MEDIA
         }
     }

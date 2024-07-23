@@ -109,6 +109,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
         binding.rvWriteMedia.apply {
             adapter = writeMediaRVA
             addItemDecoration(GridSpaceItemDecoration(4, 8))
+            itemAnimator = null
         }
         writeMediaRVA.submitList(listOf(Uri.EMPTY))
     }
@@ -147,11 +148,20 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
     }
 
     private fun handleMediaUris(uris: List<Uri>) {
-        val list = uris.toMutableList().apply { add(0, Uri.EMPTY) }
-        writeMediaRVA.submitList(list)
-        for (uri in uris) {
-            Log.d("uri", uri.toString())
+        var updateList = writeMediaRVA.currentList.toMutableList().apply {
+            val addUris = if(uris.size > 12){
+                uris.take(12)
+            } else {
+                uris
+            }
+            addAll(addUris)
         }
+
+        if(updateList.size > 12){
+            updateList.apply { removeAt(0) }
+            updateList = updateList.take(12).toMutableList()
+        }
+        writeMediaRVA.submitList(updateList)
     }
 
     private fun initSpinnerAdapter() {
@@ -179,7 +189,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
             Intent(context, WritePostActivity::class.java).apply {
             }
 
-        fun EditIntent(context: Context, post: Post) =
+        fun editIntent(context: Context, post: Post) =
             Intent(context, WritePostActivity::class.java).apply {
                 putExtra("edit", post)
             }

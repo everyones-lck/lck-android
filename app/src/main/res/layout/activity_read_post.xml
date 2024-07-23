@@ -176,7 +176,7 @@
                             android:id="@+id/layout_read_report_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             app:layout_constraintStart_toStartOf="@id/rv_read_media"
                             app:layout_constraintTop_toBottomOf="@id/rv_read_media">
 
@@ -200,6 +200,7 @@
                             android:id="@+id/layout_read_writer_menu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             app:layout_constraintStart_toStartOf="@id/rv_read_media"
                             app:layout_constraintTop_toBottomOf="@id/rv_read_media">
 

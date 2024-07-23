@@ -27,7 +27,9 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
     private val commentRVA by lazy {
         CommentRVA(
             editComment = { commentId, Body -> },
-            reportComment = { commentId -> },
+            reportComment = { commentId ->
+                            showCustomSnackBar(binding.layoutReadReportBtn, "댓글이 신고 되었습니다")
+            },
             deleteComment = { commentId -> }
         )
     }
@@ -50,11 +52,19 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         initReadMediaRVAdapter()
         validateCommentSend()
         editPost()
+        reportPost()
+
         binding.ivReadBackBtn.setOnSingleClickListener {
             finish()
         }
         Log.d("postId", postId.toString())
         Log.d("height", getDeviceHeight().toString())
+    }
+
+    private fun reportPost(){
+        binding.layoutReadReportBtn.setOnClickListener {
+            showCustomSnackBar(binding.layoutReadReportBtn, "게시글이 신고 되었습니다")
+        }
     }
 
     private fun editPost() {

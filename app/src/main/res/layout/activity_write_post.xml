@@ -33,12 +33,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <TextView
             android:id="@+id/iv_write_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_write_done"
+            android:text="등록"
+            android:textAppearance="@style/TextAppearance.LCK.Filtering"
+            android:background="@drawable/shape_rect_12_white_line"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_write_title"
             app:layout_constraintBottom_toBottomOf="@id/tv_write_title"/>
@@ -58,6 +62,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:id="@+id/iv_board_ellipse"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:layout_marginBottom="-4dp"
+                    android:layout_marginEnd="2dp"
+                    android:src="@drawable/img_ellipse"
+                    app:layout_constraintBottom_toTopOf="@id/tv_write_board_title"
+                    app:layout_constraintEnd_toStartOf="@id/tv_write_board_title"/>
+
                 <TextView
                     android:id="@+id/tv_write_board_title"
                     style="@style/TextAppearance.LCK.Head2"
@@ -66,6 +80,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="40dp"
                     android:text="게시판 선택"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@id/line"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,6 +108,16 @@
                     app:layout_constraintStart_toStartOf="@id/tv_write_board_title"
                     app:layout_constraintTop_toBottomOf="@id/tv_write_board_title" />
 
+                <ImageView
+                    android:id="@+id/iv_board_ellipse2"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:layout_marginBottom="-4dp"
+                    android:src="@drawable/img_ellipse"
+                    android:layout_marginEnd="2dp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_write_post_title"
+                    app:layout_constraintEnd_toStartOf="@id/tv_write_post_title"/>
+
                 <TextView
                     android:id="@+id/tv_write_post_title"
                     style="@style/TextAppearance.LCK.Head2"
@@ -100,6 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="제목"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@id/tv_write_board_title"
                     app:layout_constraintTop_toBottomOf="@id/line" />
 
@@ -114,6 +140,7 @@
                     android:hint="제목을 입력하세요"
                     android:inputType="text"
                     android:maxLength="20"
+                    android:textSize="14sp"
                     android:layout_marginEnd="8dp"
                     android:textAppearance="@style/TextAppearance.LCK.Body1"
                     app:layout_constraintStart_toEndOf="@id/tv_write_post_title"
@@ -137,8 +164,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="내용"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@id/tv_write_board_title"
                     app:layout_constraintTop_toBottomOf="@id/line2" />
+
+                <ImageView
+                    android:id="@+id/iv_board_ellipse3"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:layout_marginBottom="-4dp"
+                    android:src="@drawable/img_ellipse"
+                    android:layout_marginEnd="2dp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_write_post_body"
+                    app:layout_constraintEnd_toStartOf="@id/tv_write_post_body"/>
 
                 <EditText
                     android:id="@+id/et_write_body"
@@ -154,6 +192,7 @@
                     android:text=""
                     android:maxLength="2000"
                     android:layout_marginEnd="8dp"
+                    android:textSize="14sp"
                     android:textAppearance="@style/TextAppearance.LCK.Body1"
                     app:layout_constraintStart_toStartOf="@id/tv_write_post_body"
                     app:layout_constraintTop_toBottomOf="@id/tv_write_post_body"
@@ -216,24 +255,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="\u00B7 사진은 최대 10장까지 업로드 가능합니다."
+                        android:text="\u00B7 사진 및 영상은 최대 12개까지 업로드 가능합니다."
                         android:textAppearance="@style/TextAppearance.LCK.Details"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:text="\u00B7 영상은 최대 3개까지 업로드 가능합니다."
-                        android:textAppearance="@style/TextAppearance.LCK.Details"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:text="\u00B7 타인에 대한 비난 및 욕설이 포함된 게시물은 필터링 기능의 적용 대상이 됩니다."
-                        android:textAppearance="@style/TextAppearance.LCK.Details"
+                        android:textSize="10sp"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -242,14 +266,17 @@
                         android:layout_marginTop="3dp"
                         android:text="\u00B7 과도한 비방 및 욕설이 포함된 게시물은 신고에 의해 무통보 삭제될 수 있습니다."
                         android:textAppearance="@style/TextAppearance.LCK.Details"
+                        android:textSize="10sp"
                         android:textColor="@color/black" />
 
                     <TextView
+                        android:id="@+id/tv_write_guide"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:text="\u00B7 초상권, 저작권 침해 및 기타 위법한 게시물은 관리자에 의해 무통보 삭제될 수 있습니다."
                         android:textAppearance="@style/TextAppearance.LCK.Details"
+                        android:textSize="10sp"
                         android:textColor="@color/black" />
 
                 </LinearLayout>

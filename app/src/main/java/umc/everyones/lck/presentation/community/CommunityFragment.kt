@@ -1,10 +1,13 @@
 package umc.everyones.lck.presentation.community
 
 import android.app.Activity
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
@@ -47,6 +50,8 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
             TabLayoutMediator(tabCommunityCategory, vpCommunityPostList) { tab, position ->
                 tab.text = tabTitles[position]
             }.attach()
+
+            setTabItemMargin(tabCommunityCategory, 0)
         }
     }
 
@@ -63,5 +68,18 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
 
     companion object {
         private val tabTitles = listOf("잡담", "응원", "FA", "거래", "질문", "후기")
+    }
+
+    private fun setTabItemMargin(tabLayout: TabLayout, marginEnd: Int = 20) {
+        for(i in 0 until 6) {
+            val tabs = tabLayout.getChildAt(0) as ViewGroup
+            for(i in 0 until tabs.childCount) {
+                val tab = tabs.getChildAt(i)
+                val lp = tab.layoutParams as LinearLayout.LayoutParams
+                lp.marginEnd = marginEnd
+                tab.layoutParams = lp
+                tabLayout.requestLayout()
+            }
+        }
     }
 }

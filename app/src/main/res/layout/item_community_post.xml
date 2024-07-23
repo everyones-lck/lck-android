@@ -14,7 +14,7 @@
         <TextView
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="@id/line"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="16dp"
             style="@style/TextAppearance.LCK.Head3"
             android:id="@+id/tv_post_title"
             android:layout_width="wrap_content"
@@ -53,8 +53,8 @@
 
         <ImageView
             android:id="@+id/iv_post_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:src="@drawable/ic_comment"
             app:layout_constraintStart_toStartOf="@id/tv_post_title"
             app:layout_constraintTop_toBottomOf="@id/tv_post_date"
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cafe_ohsquare_air"
-            android:textSize="6sp"
+            android:textSize="10sp"
             android:textColor="@color/white"
             android:text="38"
             app:layout_constraintTop_toTopOf="@id/iv_post_comment"
@@ -84,8 +84,8 @@
 
             <ImageView
                 android:id="@+id/iv_post_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:src="@drawable/ic_hanhwa" />
         </androidx.cardview.widget.CardView>
 

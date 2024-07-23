@@ -36,7 +36,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
-                        android:text="커뮤니티"
+                        android:text="Community"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -176,14 +176,15 @@
                             android:id="@+id/layout_read_report_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:visibility="visible"
+                            android:visibility="gone"
+                            android:gravity="center"
                             app:layout_constraintStart_toStartOf="@id/rv_read_media"
                             app:layout_constraintTop_toBottomOf="@id/rv_read_media">
 
                             <ImageView
                                 android:id="@+id/iv_read_report_btn"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
                                 android:src="@drawable/ic_report_btn" />
 
                             <TextView
@@ -200,19 +201,21 @@
                             android:id="@+id/layout_read_writer_menu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:visibility="gone"
+                            android:gravity="center"
+                            android:visibility="visible"
                             app:layout_constraintStart_toStartOf="@id/rv_read_media"
                             app:layout_constraintTop_toBottomOf="@id/rv_read_media">
 
                             <LinearLayout
                                 android:id="@+id/layout_read_delete_btn"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:gravity="center">
 
                                 <ImageView
                                     android:id="@+id/iv_read_delete_btn"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="12dp"
+                                    android:layout_height="12dp"
                                     android:src="@drawable/ic_delete_comment" />
 
                                 <TextView
@@ -229,12 +232,13 @@
                                 android:id="@+id/layout_read_edit_btn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="11dp">
+                                android:layout_marginStart="11dp"
+                                android:gravity="center">
 
                                 <ImageView
                                     android:id="@+id/iv_read_edit_btn"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="12dp"
+                                    android:layout_height="12dp"
                                     android:src="@drawable/ic_edit" />
 
                                 <TextView
@@ -296,10 +300,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:paddingVertical="10dp"
+                android:paddingVertical="12dp"
                 android:background="@drawable/shape_rect_8_gray_fill"
                 android:hint="댓글을 입력하세요"
-                android:paddingStart="4dp"
+                android:paddingStart="10dp"
                 android:maxLength="1000"
                 android:maxHeight="300dp"
                 android:inputType="textMultiLine"

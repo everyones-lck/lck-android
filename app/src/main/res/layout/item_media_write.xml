@@ -8,14 +8,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:background="@android:color/transparent">
 
             <ImageView
                 android:id="@+id/iv_media_image"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
                 android:src="@drawable/ic_t1"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
@@ -24,8 +24,8 @@
 
             <ImageView
                 android:id="@+id/iv_media_delete_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:src="@drawable/ic_delete_media"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

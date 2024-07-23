@@ -161,6 +161,10 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
     private fun writeDone() {
         with(binding) {
             ivWriteDone.setOnClickListener {
+                if(etWriteTitle.text.isEmpty() || etWriteBody.text.isEmpty()){
+                    showCustomSnackBar(binding.tvWriteGuide, "필수 항목을 입력하지 않았습니다")
+                    return@setOnClickListener
+                }
                 val intent = Intent(this@WritePostActivity, WritePostActivity::class.java)
                 intent.putExtra("category", spinnerWriteCategory.selectedItem.toString())
                 setResult(RESULT_OK, intent)

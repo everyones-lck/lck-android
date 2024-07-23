@@ -51,7 +51,6 @@
             android:layout_marginTop="32dp"
             android:orientation="vertical"
             android:overScrollMode="never"
-            
             app:layout_constrainedHeight="true"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -59,6 +58,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_community_title"
             app:layout_constraintVertical_bias="0"
+            />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_selected_viewing"
+            android:text="개최하기"
+            android:textAppearance="@style/TextAppearance.LCK.Body1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            app:iconTint="@color/white"
+            android:textColor="@color/white"
+            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+            android:backgroundTint="@color/gray"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

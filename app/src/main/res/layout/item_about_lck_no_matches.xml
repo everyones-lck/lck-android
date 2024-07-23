@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:text="No Matches"
             android:textSize="12sp"
+            android:textColor="@color/white"
             android:fontFamily="@font/cafe_ohsquare_air"
             app:layout_constraintStart_toStartOf="@id/view_about_lck_match"
             app:layout_constraintEnd_toEndOf="@id/view_about_lck_match"

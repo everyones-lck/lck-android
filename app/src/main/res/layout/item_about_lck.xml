@@ -65,7 +65,8 @@
                 android:id="@+id/iv_about_lck_team2"
                 android:layout_width="55dp"
                 android:layout_height="22dp"
-                android:layout_marginStart="22.3dp" />
+                android:layout_marginStart="22.3dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
         <View
@@ -124,7 +125,8 @@
                 android:id="@+id/iv_about_lck_team4"
                 android:layout_width="55dp"
                 android:layout_height="22dp"
-                android:layout_marginStart="22.3dp" />
+                android:layout_marginStart="22.3dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

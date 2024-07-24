@@ -32,7 +32,7 @@
 
         <TextView
             android:id="@+id/tv_community_title"
-            style="@style/TextAppearance.LCK.Head1"
+            style="@style/TextAppearance.LCK.Bold.Title1_22sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             app:icon="@drawable/ic_selected_viewing"
             android:text="개최하기"
-            android:textAppearance="@style/TextAppearance.LCK.Body1"
+            android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="20dp"

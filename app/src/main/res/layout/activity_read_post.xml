@@ -32,7 +32,7 @@
 
                     <TextView
                         android:id="@+id/tv_read_title"
-                        style="@style/TextAppearance.LCK.Head1"
+                        style="@style/TextAppearance.LCK.Bold.Title1_22sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
@@ -43,7 +43,7 @@
 
                     <TextView
                         android:id="@+id/tv_read_category"
-                        style="@style/TextAppearance.LCK.Filtering"
+                        style="@style/TextAppearance.LCK.Light.Detail_10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -99,7 +99,7 @@
 
                     <TextView
                         android:id="@+id/tv_read_writer"
-                        style="@style/TextAppearance.LCK.Filtering"
+                        style="@style/TextAppearance.LCK.Light.Detail_10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
@@ -110,7 +110,7 @@
 
                     <TextView
                         android:id="@+id/tv_read_post_title"
-                        style="@style/TextAppearance.LCK.Post_Title"
+                        style="@style/TextAppearance.LCK.Bold.Title2_18sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -120,7 +120,7 @@
 
                     <TextView
                         android:id="@+id/tv_read_date"
-                        style="@style/TextAppearance.LCK.Date"
+                        style="@style/TextAppearance.LCK.Light.Comment_8sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="9dp"
@@ -139,13 +139,14 @@
 
                     <TextView
                         android:id="@+id/tv_read_post_body"
-                        style="@style/TextAppearance.LCK.Filtering"
+                        style="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="28dp"
                         android:layout_marginEnd="8dp"
                         android:gravity="start"
+                        android:textColor="@color/white"
                         android:text="이승민 귀여워 홍창현 귀여워 곽보성 귀여워 김혁규 귀여워 조건희 귀여워  서머의 KT화이팅팅 안드 화이팅 PM 화이팅 서버 화이팅 디쟈너도 화이팅.. 우리 모두 화이팅팅"
                         app:layout_constraintEnd_toEndOf="@id/line"
                         app:layout_constraintStart_toStartOf="@id/line"
@@ -189,7 +190,7 @@
 
                             <TextView
                                 android:id="@+id/tv_read_report_btn"
-                                style="@style/TextAppearance.LCK.Filtering"
+                                style="@style/TextAppearance.LCK.Light.Detail_10sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="4dp"
@@ -220,7 +221,7 @@
 
                                 <TextView
                                     android:id="@+id/tv_read_delete_btn"
-                                    style="@style/TextAppearance.LCK.Filtering"
+                                    style="@style/TextAppearance.LCK.Light.Detail_10sp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="4dp"
@@ -243,7 +244,7 @@
 
                                 <TextView
                                     android:id="@+id/tv_read_edit_btn"
-                                    style="@style/TextAppearance.LCK.Filtering"
+                                    style="@style/TextAppearance.LCK.Light.Detail_10sp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="4dp"
@@ -296,7 +297,7 @@
 
             <EditText
                 android:id="@+id/et_read_comment_input"
-                style="@style/TextAppearance.LCK.Filtering"
+                style="@style/TextAppearance.LCK.Light.Detail_10sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"

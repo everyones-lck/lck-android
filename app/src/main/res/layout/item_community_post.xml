@@ -15,14 +15,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="@id/line"
             android:layout_marginStart="16dp"
-            style="@style/TextAppearance.LCK.Head3"
+            style="@style/TextAppearance.LCK.Bold.List_14sp"
             android:id="@+id/tv_post_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1경기 전력 어떻게 봐?" />
 
         <TextView
-            style="@style/TextAppearance.LCK.Details"
+            style="@style/TextAppearance.LCK.Light.Detail_10sp"
             android:id="@+id/tv_post_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_post_title" />
 
         <TextView
-            style="@style/TextAppearance.LCK.Details"
+            style="@style/TextAppearance.LCK.Light.Detail_10sp"
             android:id="@+id/tv_post_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             android:layout_marginStart="4dp" />
 
         <TextView
-            style="@style/TextAppearance.LCK.Details"
+            style="@style/TextAppearance.LCK.Light.Detail_10sp"
             android:id="@+id/tv_post_favorite_team"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,8 +64,7 @@
             android:id="@+id/tv_post_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/cafe_ohsquare_air"
-            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.LCK.Light.Comment_8sp"
             android:textColor="@color/white"
             android:text="38"
             app:layout_constraintTop_toTopOf="@id/iv_post_comment"

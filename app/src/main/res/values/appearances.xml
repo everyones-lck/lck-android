@@ -7,20 +7,35 @@
         <item name="android:includeFontPadding">false</item>
         <item name="android:lineSpacingMultiplier">1.2</item>
     </style>
+
+    <style name="TextAppearance.LCK.Post_Title">
+        <item name="fontFamily">@font/cafe_ohsquare</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
     
     <style name="TextAppearance.LCK.Head1">
         <item name="fontFamily">@font/cafe_ohsquare</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="TextAppearance.LCK.Head2">
+        <item name="fontFamily">@font/cafe_ohsquare</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance.LCK.Head3">
         <item name="fontFamily">@font/cafe_ohsquare_air</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="TextAppearance.LCK.Body1">
         <item name="fontFamily">@font/cafe_ohsquare_air</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
     
     <style name="TextAppearance.LCK.Mypage">
@@ -30,13 +45,49 @@
     </style>
 
     <style name="TextAppearance.LCK.Warning">
+        <item name="fontFamily">@font/cafe_ohsquare</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/warning</item>
+    </style>
+
+    <style name="TextAppearance.LCK.Filtering">
         <item name="fontFamily">@font/cafe_ohsquare_air</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextAppearance.LCK.Comment_Nickname">
+        <item name="fontFamily">@font/cafe_ohsquare</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextAppearance.LCK.Date">
+        <item name="fontFamily">@font/cafe_ohsquare_air</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="TextAppearance.LCK.Bnv">
         <item name="fontFamily">@font/cafe_ohsquare_air</item>
         <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextAppearance.LCK.SelectedTabText">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/cafe_ohsquare</item>
+    </style>
+
+    <style name="TextAppearance.LCK.UnSelectedTabText">
+        <item name="fontFamily">@font/cafe_ohsquare_air</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="TextAppearance.LCK.Details">
+        <item name="fontFamily">@font/cafe_ohsquare_air</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/gray_detail</item>
     </style>
 </resources>

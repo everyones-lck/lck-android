@@ -36,7 +36,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_read_info"
+                    android:id="@+id/tv_read_viewing_party_title"
                     style="@style/TextAppearance.LCK.Light.Body_14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

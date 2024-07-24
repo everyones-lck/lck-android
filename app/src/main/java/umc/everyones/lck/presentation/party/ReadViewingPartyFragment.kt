@@ -1,6 +1,7 @@
 package umc.everyones.lck.presentation.party
 
 import android.util.Log
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import umc.everyones.lck.R
@@ -9,6 +10,7 @@ import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.util.extension.showCustomSnackBar
 
 class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R.layout.fragment_read_viewing_party) {
+    private val viewModel: ReadViewingPartyViewModel by viewModels()
     private val navigator by lazy {
         findNavController()
     }
@@ -32,6 +34,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     private fun joinViewingParty(){
         binding.tvReadJoinViewingParty.setOnClickListener {
+            viewModel.setTitle(binding.tvReadViewingPartyTitle.text.toString())
             val dialog = JoinViewingPartyDialogFragment()
             dialog.setOnJoinViewingPartyClickListener(object : JoinViewingPartyDialogFragment.OnJoinViewingPartyClickListener{
                 override fun onConfirm() {

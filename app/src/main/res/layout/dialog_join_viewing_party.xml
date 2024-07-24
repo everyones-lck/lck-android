@@ -15,7 +15,7 @@
             android:id="@+id/tv_join_viewing_party_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="240514 홍대 뷰파"
+            android:text="240514 홍대 뷰"
             android:textAppearance="@style/TextAppearance.LCK.Bold.List_14sp"
             android:textColor="@color/gray"
             app:layout_constraintTop_toTopOf="parent"

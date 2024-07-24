@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_rect_12_white_fill">
+
+        <TextView
+            android:id="@+id/tv_join_viewing_party_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="240514 홍대 뷰파"
+            android:textAppearance="@style/TextAppearance.LCK.Bold.List_14sp"
+            android:textColor="@color/gray"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="29dp"/>
+
+        <TextView
+            android:id="@+id/tv_join_viewing_party_body"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="Viewing Party에 참여하시겠습니까?"
+            android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+            android:textColor="@color/gray"
+            app:layout_constraintTop_toBottomOf="@id/tv_join_viewing_party_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btn_join_viewing_cancel"
+            android:layout_marginTop="32dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_join_viewing_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="취소"
+            android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_join_viewing_party_body"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_join_viewing_confirm"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/shape_signup_profile_change"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_join_viewing_confirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="확인"
+            android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+            app:layout_constraintStart_toEndOf="@id/btn_join_viewing_cancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_join_viewing_party_body"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/shape_signup_profile_confirm"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

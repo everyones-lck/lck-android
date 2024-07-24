@@ -6,6 +6,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.presentation.party.adapter.ViewingPartyRVA
 
 @AndroidEntryPoint
 class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.fragment_viewing_party) {

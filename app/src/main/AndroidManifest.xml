@@ -21,15 +21,14 @@
 
         <activity
             android:name=".presentation.SplashActivity"
-            android:exported="true"
-            android:theme="@style/Theme.EveryonesLCK.Splash">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.LoginActivity"
+            android:name=".presentation.login.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
@@ -39,6 +38,10 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity android:name=".presentation.mypage.MyPageFragment"
+            android:exported="true"
+            android:screenOrientation="portrait">
+        </activity>
         <!-- Trigger Google Play services to install the backported photo picker module. -->
         <service android:name="com.google.android.gms.metadata.ModuleDependencies"
             android:enabled="false"

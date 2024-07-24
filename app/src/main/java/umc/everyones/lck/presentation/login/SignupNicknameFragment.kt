@@ -1,14 +1,16 @@
-package umc.everyones.lck.presentation
+package umc.everyones.lck.presentation.login
 
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentSignupNicknameBinding
 import umc.everyones.lck.util.NicknameManager
 
+@AndroidEntryPoint
 class SignupNicknameFragment : Fragment(R.layout.fragment_signup_nickname) {
 
     private var _binding: FragmentSignupNicknameBinding? = null

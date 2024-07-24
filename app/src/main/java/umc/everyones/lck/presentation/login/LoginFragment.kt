@@ -1,33 +1,32 @@
-package umc.everyones.lck.presentation
+package umc.everyones.lck.presentation.login
 
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentLoginBinding
+import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.util.LoginManager
 
-class LoginFragment : Fragment(R.layout.fragment_login) {
+@AndroidEntryPoint
+class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
-    private var _binding: FragmentLoginBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var loginManager: LoginManager
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentLoginBinding.bind(view)
+    override fun initObserver() {
+
+    }
+
+    override fun initView() {
+        loginManager = LoginManager(requireContext())
 
         binding.ivLoginKakao.setOnClickListener {
             // 로그인 성공 시 처리
-            val loginManager = LoginManager(requireContext())
             loginManager.setLoggedIn(true)
             findNavController().navigate(R.id.action_loginFragment_to_signupNicknameFragment)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

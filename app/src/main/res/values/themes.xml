@@ -8,9 +8,4 @@
 
     <style name="Theme.EveryonesLCK" parent="Base.Theme.EveryonesLCK" />
 
-    <style name="Theme.EveryonesLCK.Splash" parent="Theme.Material3.Light.NoActionBar">
-        <item name="android:windowBackground">@color/white</item>
-        <item name="android:windowFullscreen">true</item>
-    </style>
-
 </resources>

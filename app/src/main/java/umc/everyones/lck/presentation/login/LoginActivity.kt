@@ -1,10 +1,12 @@
-package umc.everyones.lck.presentation
+package umc.everyones.lck.presentation.login
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

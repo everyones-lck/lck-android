@@ -16,7 +16,7 @@ class LoginManager(context: Context) {
         sharedPreferences.edit().putBoolean(KEY_IS_LOGGED_IN, isLoggedIn).apply()
     }
 
-    fun isLoggedIn(): Boolean {
+    fun getIsLoggedIn(): Boolean {
         return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)
     }
 

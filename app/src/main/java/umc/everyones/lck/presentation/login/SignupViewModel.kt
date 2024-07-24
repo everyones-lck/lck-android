@@ -1,4 +1,4 @@
-package umc.everyones.lck.presentation
+package umc.everyones.lck.presentation.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

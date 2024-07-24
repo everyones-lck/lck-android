@@ -1,17 +1,18 @@
-package umc.everyones.lck.presentation
+package umc.everyones.lck.presentation.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.DialogMyteamConfirmBinding
 import umc.everyones.lck.databinding.FragmentSignupMyteamBinding
 
+@AndroidEntryPoint
 class SignupMyteamFragment : Fragment(R.layout.fragment_signup_myteam) {
 
     private var _binding: FragmentSignupMyteamBinding? = null

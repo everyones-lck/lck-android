@@ -19,4 +19,6 @@
     <color name="kt_rolster">#E91B3B</color>
     <color name="kwangdong_freecs">#E91B3B</color>
     <color name="drx">#0017E7</color>
+    <color name="gold">#E0A50E</color>
+    <color name="selected">#33FFFFFF</color>
 </resources>

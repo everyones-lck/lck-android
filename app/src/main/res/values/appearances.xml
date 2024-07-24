@@ -10,22 +10,28 @@
     
     <style name="TextAppearance.LCK.Head1">
         <item name="fontFamily">@font/cafe_ohsquare</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
     <style name="TextAppearance.LCK.Head2">
         <item name="fontFamily">@font/cafe_ohsquare_air</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="TextAppearance.LCK.Body1">
         <item name="fontFamily">@font/cafe_ohsquare_air</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    
+    <style name="TextAppearance.LCK.Mypage">
+        <item name="fontFamily">@font/cafe_ohsquare_air</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/LCK_purple</item>
     </style>
 
     <style name="TextAppearance.LCK.Warning">
         <item name="fontFamily">@font/cafe_ohsquare_air</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TextAppearance.LCK.Bnv">

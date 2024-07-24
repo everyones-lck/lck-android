@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/iv_splash_icon"
             android:layout_width="274dp"
-            android:layout_height="121dp"
+            android:layout_height="124dp"
             android:src="@drawable/ic_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="276dp"

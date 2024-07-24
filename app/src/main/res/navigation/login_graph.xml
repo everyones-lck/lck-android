@@ -8,7 +8,7 @@
     <!-- Login Fragment -->
     <fragment
         android:id="@+id/loginFragment"
-        android:name="umc.everyones.lck.presentation.LoginFragment"
+        android:name="umc.everyones.lck.presentation.login.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
@@ -19,7 +19,7 @@
     <!-- Signup Nickname Fragment -->
     <fragment
         android:id="@+id/signupNicknameFragment"
-        android:name="umc.everyones.lck.presentation.SignupNicknameFragment"
+        android:name="umc.everyones.lck.presentation.login.SignupNicknameFragment"
         android:label="Signup Nickname"
         tools:layout="@layout/fragment_signup_nickname">
         <action
@@ -30,7 +30,7 @@
     <!-- Signup Profile Fragment -->
     <fragment
         android:id="@+id/signupProfileFragment"
-        android:name="umc.everyones.lck.presentation.SignupProfileFragment"
+        android:name="umc.everyones.lck.presentation.login.SignupProfileFragment"
         android:label="Signup Profile"
         tools:layout="@layout/fragment_signup_profile">
         <action
@@ -41,7 +41,7 @@
     <!-- Signup Myteam Fragment -->
     <fragment
         android:id="@+id/signupMyteamFragment"
-        android:name="umc.everyones.lck.presentation.SignupMyteamFragment"
+        android:name="umc.everyones.lck.presentation.login.SignupMyteamFragment"
         android:label="Signup Myteam"
         tools:layout="@layout/fragment_signup_myteam">
         <action
@@ -52,7 +52,7 @@
     <!-- Signup Success Fragment -->
     <fragment
         android:id="@+id/signupSuccessFragment"
-        android:name="umc.everyones.lck.presentation.SignupSuccessFragment"
+        android:name="umc.everyones.lck.presentation.login.SignupSuccessFragment"
         android:label="Signup Success"
         tools:layout="@layout/fragment_signup_success" />
 </navigation>

@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
+import umc.everyones.lck.presentation.login.LoginActivity
 import umc.everyones.lck.util.LoginManager
 
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

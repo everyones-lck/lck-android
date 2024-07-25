@@ -34,14 +34,15 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     private fun joinViewingParty(){
         binding.tvReadJoinViewingParty.setOnClickListener {
-            viewModel.setTitle(binding.tvReadViewingPartyTitle.text.toString())
+            /*viewModel.setTitle(binding.tvReadViewingPartyTitle.text.toString())
             val dialog = JoinViewingPartyDialogFragment()
             dialog.setOnJoinViewingPartyClickListener(object : JoinViewingPartyDialogFragment.OnJoinViewingPartyClickListener{
                 override fun onConfirm() {
                     showCustomSnackBar(requireView(), "뷰잉파티에 참여되었습니다!")
                 }
             })
-            dialog.show(childFragmentManager, dialog.tag)
+            dialog.show(childFragmentManager, dialog.tag)*/
+            navigator.navigate(R.id.action_readViewingPartyFragment_to_participantsFragment)
         }
     }
 }

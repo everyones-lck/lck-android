@@ -32,7 +32,7 @@
             android:id="@+id/viewingPartyFragment"
             android:name="umc.everyones.lck.presentation.party.ViewingPartyFragment"
             android:label="ViewingPartyFragment"
-            tools:layout="@layout/fragment_viewing_party" >
+            tools:layout="@layout/fragment_community" >
             <action
                 android:id="@+id/action_viewingPartyFragment_to_readViewingPartyFragment"
                 app:destination="@id/readViewingPartyFragment" />
@@ -45,7 +45,15 @@
             <argument
                 android:name="postId"
                 app:argType="integer" />
+            <action
+                android:id="@+id/action_readViewingPartyFragment_to_participantsFragment"
+                app:destination="@id/participantsFragment" />
         </fragment>
+        <fragment
+            android:id="@+id/participantsFragment"
+            android:name="umc.everyones.lck.presentation.party.ParticipantsFragment"
+            android:label="ParticipantsFragment"
+            tools:layout="@layout/fragment_participants"/>
     </navigation>
 
 </navigation>

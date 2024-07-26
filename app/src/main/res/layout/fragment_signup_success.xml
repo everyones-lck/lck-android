@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회원가입"
-                style="@style/TextAppearance.LCK.Head1"
+                style="@style/TextAppearance.LCK.Bold.Title1_22sp"
                 android:textColor="@color/white"
                 android:gravity="center_horizontal"/>
 
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회원가입 완료"
-                style="@style/TextAppearance.LCK.Head2"
+                style="@style/TextAppearance.LCK.Light.Body_14sp"
                 android:textColor="@color/white"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="8dp"/>
@@ -56,13 +56,13 @@
 
         <ImageView
             android:id="@+id/iv_signup_success_next"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/ic_arrow_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_next_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/layout_signup_success_topbar"
             app:layout_constraintBottom_toBottomOf="@id/layout_signup_success_topbar"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="30dp"
             android:onClick="onNextButtonClick"/>
 
         <!--사용자 프로필이 들어가도록 적용. 없으면 기본 프로필 적용-->
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="___님 가입을 축하드립니다 !"
-            style="@style/TextAppearance.LCK.Body1"
+            style="@style/TextAppearance.LCK.Light.Body_14sp"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

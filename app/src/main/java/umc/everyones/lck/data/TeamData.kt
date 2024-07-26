@@ -42,4 +42,12 @@ object TeamData {
         "Dplus Kia" to R.drawable.img_mypage_dplus_kia_background,
         "KT Rolster" to R.drawable.img_mypage_kt_rolster_background
     )
+
+    fun getSignupSuccessTeamLogo(teamName: String): Int {
+        return signupSuccessTeamBackground[teamName] ?: android.R.color.transparent
+    }
+
+    fun getMypageTeamBackground(teamName: String): Int {
+        return mypageTeamBackground[teamName] ?: android.R.color.transparent
+    }
 }

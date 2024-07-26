@@ -1,12 +1,14 @@
 package umc.everyones.lck.data
 
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
+import javax.inject.Inject
 
-class ProfileRepository(context: Context) {
+class ProfileRepository @Inject constructor(application: Application) {
 
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences = application.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     companion object {
         private const val PREFS_NAME = "umc.everyones.lck.prefs"

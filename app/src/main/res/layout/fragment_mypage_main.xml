@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MY PAGE"
-                style="@style/TextAppearance.LCK.Head1"
+                style="@style/TextAppearance.LCK.Bold.Title1_22sp"
                 android:textColor="@color/LCK_purple"
                 android:gravity="center" />
 
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="닉네임"
-            style="@style/TextAppearance.LCK.Head1"
+            style="@style/TextAppearance.LCK.Bold.Title1_22sp"
             android:textColor="@color/LCK_purple"
             android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@id/iv_mypage_main_profile"
@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="tier"
-            style="@style/TextAppearance.LCK.Body1"
+            style="@style/TextAppearance.LCK.Bold.List_14sp"
             android:textColor="@color/gold"
             android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@id/tv_mypage_main_nickname"
@@ -100,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MY Profile"
-                style="@style/TextAppearance.LCK.Mypage"/>
+                style="@style/TextAppearance.LCK.Light.Title_18sp"/>
             
             <View
                 android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MY Team"
-                style="@style/TextAppearance.LCK.Mypage"/>
+                style="@style/TextAppearance.LCK.Light.Title_18sp"/>
 
             <View
                 android:layout_width="match_parent"
@@ -126,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MY Post &amp; Comment"
-                style="@style/TextAppearance.LCK.Mypage"/>
+                style="@style/TextAppearance.LCK.Light.Title_18sp"/>
 
             <View
                 android:layout_width="match_parent"
@@ -139,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MY Viewing party"
-                style="@style/TextAppearance.LCK.Mypage"/>
+                style="@style/TextAppearance.LCK.Light.Title_18sp"/>
 
             <View
                 android:layout_width="match_parent"
@@ -152,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MY Goods Funding"
-                style="@style/TextAppearance.LCK.Mypage"/>
+                style="@style/TextAppearance.LCK.Light.Title_18sp"/>
 
 
 

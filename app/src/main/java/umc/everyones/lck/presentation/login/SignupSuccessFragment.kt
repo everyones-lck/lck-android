@@ -10,67 +10,56 @@ import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentSignupSuccessBinding
 import umc.everyones.lck.presentation.MainActivity
+import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.util.NicknameManager
+import umc.everyones.lck.util.TeamData
+import androidx.navigation.fragment.navArgs
 
 @AndroidEntryPoint
-class SignupSuccessFragment : Fragment(R.layout.fragment_signup_success) {
+class SignupSuccessFragment : BaseFragment<FragmentSignupSuccessBinding>(R.layout.fragment_signup_success) {
 
-    private var _binding: FragmentSignupSuccessBinding? = null
-    private val binding get() = _binding!!
+    private val args: SignupSuccessFragmentArgs by navArgs()
 
-    private val teamLogos = mapOf(
-        "Hanhwa" to R.drawable.img_signup_success_hanhwa_logo,
-        "Gen.G" to R.drawable.img_signup_success_gen_g_logo,
-        "T1" to R.drawable.img_signup_success_t1_logo,
-        "Kwangdong Freecs" to R.drawable.img_signup_success_kwangdong_freecs_logo,
-        "BNK" to R.drawable.img_signup_success_bnk_logo,
-        "Nongshim Red Force" to R.drawable.img_signup_success_nongshim_red_force_logo,
-        "DRX" to R.drawable.img_signup_success_drx_logo,
-        "OK Saving Bank Brion" to R.drawable.img_signup_success_ok_saving_bank_brion_logo,
-        "Dplus Kia" to R.drawable.img_signup_success_dplus_kia_logo,
-        "KT Rolster" to R.drawable.img_signup_success_kt_rolster_logo
-    )
+    override fun initObserver() {
+        // No observers needed here
+    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentSignupSuccessBinding.bind(view)
-
+    override fun initView() {
         val nicknameManager = NicknameManager(requireContext())
 
-        val selectedTeam = arguments?.getString("selectedTeam")
-        val nickname = arguments?.getString("nickname") ?: "닉네임 없음"
-        val profileImageUri = arguments?.getString("profileImageUri")
+        // Retrieve arguments using Safe Args
+        val selectedTeam = args.selectedTeam
+        val nickname = args.nickname
+        val profileImageUri = args.profileImageUri
 
-        // 닉네임을 저장
+        // Save nickname
         nicknameManager.addNickname(nickname)
 
         binding.tvSignupSuccessCongratulation.text = "$nickname 님 가입을 축하드립니다!"
 
+        // Set team logo
         if (selectedTeam != null) {
-            val teamLogoResId = teamLogos[selectedTeam] ?: android.R.color.transparent
+            val teamLogoResId = TeamData.getSignupSuccessTeamLogo(selectedTeam)
             binding.ivSignupSuccessBackgroundLogo.setImageResource(teamLogoResId)
         } else {
             binding.ivSignupSuccessBackgroundLogo.setImageResource(android.R.color.transparent)
         }
 
+        // Load profile image or set default
         if (profileImageUri != null) {
             Glide.with(this)
                 .load(Uri.parse(profileImageUri))
-                .placeholder(R.drawable.img_signup_profile) // 기본 이미지
+                .placeholder(R.drawable.img_signup_profile) // Default image
                 .into(binding.ivSignupSuccessProfile)
         } else {
-            binding.ivSignupSuccessProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지
+            binding.ivSignupSuccessProfile.setImageResource(R.drawable.img_signup_profile) // Default image
         }
 
+        // Handle Next button click
         binding.ivSignupSuccessNext.setOnClickListener {
             val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
             requireActivity().finish()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

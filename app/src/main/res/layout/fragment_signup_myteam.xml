@@ -28,16 +28,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회원가입"
-                style="@style/TextAppearance.LCK.Head1"
+                style="@style/TextAppearance.LCK.Bold.Title1_22sp"
                 android:textColor="@color/white"
                 android:gravity="center_horizontal"/>
 
             <TextView
                 android:id="@+id/tv_signup_myteam_topbar_content"
-                android:layout_width="82dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="My Team 선택"
-                style="@style/TextAppearance.LCK.Bnv"
+                style="@style/TextAppearance.LCK.Light.Body_14sp"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:layout_marginTop="8dp"/>
@@ -46,14 +46,25 @@
 
         <ImageView
             android:id="@+id/iv_signup_myteam_next"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/ic_arrow_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_next_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/layout_signup_myteam_topbar"
             app:layout_constraintBottom_toBottomOf="@id/layout_signup_myteam_topbar"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="30dp"
             android:onClick="onNextButtonClick"/>
+
+        <TextView
+            android:id="@+id/tv_signup_myteam_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="한 팀만 선택할 수 있습니다"
+            style="@style/TextAppearance.LCK.Light.Warning"
+            app:layout_constraintTop_toBottomOf="@id/layout_signup_myteam_topbar"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TableLayout
             android:id="@+id/layout_signup_myteam_select"

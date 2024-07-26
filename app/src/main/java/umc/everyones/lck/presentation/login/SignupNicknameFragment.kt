@@ -5,22 +5,24 @@ import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentSignupNicknameBinding
+import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.util.NicknameManager
 
 @AndroidEntryPoint
-class SignupNicknameFragment : Fragment(R.layout.fragment_signup_nickname) {
+class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.layout.fragment_signup_nickname) {
 
-    private var _binding: FragmentSignupNicknameBinding? = null
-    private val binding get() = _binding!!
     private lateinit var nicknameManager: NicknameManager
+    private val args: SignupNicknameFragmentArgs by navArgs()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentSignupNicknameBinding.bind(view)
+    override fun initObserver() {
+        // No observers needed here
+    }
 
+    override fun initView() {
         nicknameManager = NicknameManager(requireContext())
 
         binding.etSignupNicknameName.doOnTextChanged { text, _, _, _ ->
@@ -30,10 +32,9 @@ class SignupNicknameFragment : Fragment(R.layout.fragment_signup_nickname) {
         binding.ivSignupNicknameNext.setOnClickListener {
             val nickname = binding.etSignupNicknameName.text.toString()
             if (validateNickname(nickname)) {
-                val bundle = Bundle().apply {
-                    putString("nickname", nickname)
-                }
-                findNavController().navigate(R.id.action_signupNicknameFragment_to_signupProfileFragment, bundle)
+                val action = SignupNicknameFragmentDirections
+                    .actionSignupNicknameFragmentToSignupProfileFragment(nickname)
+                findNavController().navigate(action)
             }
         }
     }
@@ -72,10 +73,5 @@ class SignupNicknameFragment : Fragment(R.layout.fragment_signup_nickname) {
         binding.layoutSignupNicknameValid.visibility = if (isValid) View.VISIBLE else View.GONE
 
         return isValid
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

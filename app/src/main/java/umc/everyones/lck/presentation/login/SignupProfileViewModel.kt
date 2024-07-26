@@ -4,12 +4,16 @@ import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import umc.everyones.lck.data.ProfileRepository
+import javax.inject.Inject
 
+@HiltViewModel
+class SignupProfileViewModel @Inject constructor(
+    application: Application,
+    private val profileRepository: ProfileRepository
+) : AndroidViewModel(application) {
 
-class SignupProfileViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val profileRepository = ProfileRepository(application)
     val profileImageUri = MutableLiveData<Uri?>()
 
     fun setProfileImageUri(uri: Uri?) {

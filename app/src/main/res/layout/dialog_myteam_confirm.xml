@@ -19,18 +19,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회원가입"
-                android:textSize="16dp"
-                android:fontFamily="@font/cafe_ohsquare"
+                style="@style/TextAppearance.LCK.Bold.List_14sp"
                 android:textColor="@color/gray"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="31dp"/>
+                android:layout_marginTop="37dp"/>
 
             <TextView
                 android:id="@+id/tv_dialog_message1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="My team은"
-                style="@style/TextAppearance.LCK.Body1"
+                style="@style/TextAppearance.LCK.Light.Body_14sp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/tv_dialog_title"
                 android:layout_marginTop="22dp"
@@ -41,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="추후에 마이페이지에서 변경가능합니다."
-                style="@style/TextAppearance.LCK.Body1"
+                style="@style/TextAppearance.LCK.Light.Body_14sp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/tv_dialog_title"
                 android:layout_marginTop="50dp"
@@ -58,9 +57,9 @@
                     android:layout_height="50dp"
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="8dp"
-                    android:background="@drawable/shape_signup_profile_change"
+                    android:background="@drawable/shape_dialog_button_change_background"
                     android:text="변경"
-                    style="@style/TextAppearance.LCK.Body1"
+                    style="@style/TextAppearance.LCK.Light.Body_14sp"
                     android:textColor="@color/gray"/>
 
                 <android.widget.Button
@@ -69,9 +68,9 @@
                     android:layout_height="50dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="8dp"
-                    android:background="@drawable/shape_signup_profile_confirm"
+                    android:background="@drawable/shape_dialog_button_confirm_background"
                     android:text="확인"
-                    style="@style/TextAppearance.LCK.Body1"
+                    style="@style/TextAppearance.LCK.Light.Body_14sp"
                     android:textColor="@color/gray"/>
             </RelativeLayout>
         </RelativeLayout>

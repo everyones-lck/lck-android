@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -20,12 +19,15 @@
     <fragment
         android:id="@+id/signupNicknameFragment"
         android:name="umc.everyones.lck.presentation.login.SignupNicknameFragment"
-        android:label="Signup Nickname"
-        tools:layout="@layout/fragment_signup_nickname">
+        android:label="SignupNicknameFragment">
+        <argument
+            android:name="nickname"
+            app:argType="string" />
         <action
             android:id="@+id/action_signupNicknameFragment_to_signupProfileFragment"
             app:destination="@id/signupProfileFragment" />
     </fragment>
+
 
     <!-- Signup Profile Fragment -->
     <fragment
@@ -33,9 +35,12 @@
         android:name="umc.everyones.lck.presentation.login.SignupProfileFragment"
         android:label="Signup Profile"
         tools:layout="@layout/fragment_signup_profile">
+        <argument
+            android:name="nickname"
+            app:argType="string"/>
         <action
             android:id="@+id/action_signupProfileFragment_to_signupMyteamFragment"
-            app:destination="@id/signupMyteamFragment" />
+            app:destination="@id/signupMyteamFragment"/>
     </fragment>
 
     <!-- Signup Myteam Fragment -->
@@ -44,9 +49,21 @@
         android:name="umc.everyones.lck.presentation.login.SignupMyteamFragment"
         android:label="Signup Myteam"
         tools:layout="@layout/fragment_signup_myteam">
+        <argument
+            android:name="nickname"
+            app:argType="string"/>
+        <argument
+            android:name="profileImageUri"
+            app:argType="string"/>
+        <argument
+            android:name="selectedTeam"
+            app:argType="string"
+            android:defaultValue="default_team"/> <!-- Optional argument -->
         <action
             android:id="@+id/action_signupMyteamFragment_to_signupSuccessFragment"
-            app:destination="@id/signupSuccessFragment" />
+            app:destination="@id/signupSuccessFragment">
+            <!-- 전달할 인자들 정의 -->
+        </action>
     </fragment>
 
     <!-- Signup Success Fragment -->
@@ -54,5 +71,15 @@
         android:id="@+id/signupSuccessFragment"
         android:name="umc.everyones.lck.presentation.login.SignupSuccessFragment"
         android:label="Signup Success"
-        tools:layout="@layout/fragment_signup_success" />
+        tools:layout="@layout/fragment_signup_success">
+        <argument
+            android:name="nickname"
+            app:argType="string"/>
+        <argument
+            android:name="profileImageUri"
+            app:argType="string"/>
+        <argument
+            android:name="selectedTeam"
+            app:argType="string"/>
+    </fragment>
 </navigation>

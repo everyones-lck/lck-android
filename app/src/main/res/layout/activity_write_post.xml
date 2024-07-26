@@ -24,7 +24,8 @@
 
         <TextView
             android:id="@+id/tv_write_title"
-            style="@style/TextAppearance.LCK.Head1"
+            style="@style/TextAppearance.LCK.Bold.List_14sp"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="39dp"
@@ -39,7 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:text="등록"
-            android:textAppearance="@style/TextAppearance.LCK.Filtering"
+            style="@style/TextAppearance.LCK.Bold.List_14sp"
+            android:textColor="@color/black"
             android:background="@drawable/shape_rect_12_white_line"
             android:paddingVertical="4dp"
             android:paddingHorizontal="10dp"
@@ -74,13 +76,13 @@
 
                 <TextView
                     android:id="@+id/tv_write_board_title"
-                    style="@style/TextAppearance.LCK.Head2"
+                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="40dp"
                     android:text="게시판 선택"
-                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@id/line"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -120,12 +122,12 @@
 
                 <TextView
                     android:id="@+id/tv_write_post_title"
-                    style="@style/TextAppearance.LCK.Head2"
+                    style="@style/TextAppearance.LCK.Bold.List_14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="제목"
-                    android:textSize="14sp"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@id/tv_write_board_title"
                     app:layout_constraintTop_toBottomOf="@id/line" />
 
@@ -142,7 +144,7 @@
                     android:maxLength="20"
                     android:textSize="14sp"
                     android:layout_marginEnd="8dp"
-                    android:textAppearance="@style/TextAppearance.LCK.Body1"
+                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                     app:layout_constraintStart_toEndOf="@id/tv_write_post_title"
                     app:layout_constraintEnd_toEndOf="@id/line2"
                     app:layout_constraintBaseline_toBaselineOf="@id/tv_write_post_title"/>
@@ -159,12 +161,12 @@
 
                 <TextView
                     android:id="@+id/tv_write_post_body"
-                    style="@style/TextAppearance.LCK.Head2"
+                    style="@style/TextAppearance.LCK.Bold.List_14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="내용"
-                    android:textSize="14sp"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@id/tv_write_board_title"
                     app:layout_constraintTop_toBottomOf="@id/line2" />
 
@@ -193,7 +195,7 @@
                     android:maxLength="2000"
                     android:layout_marginEnd="8dp"
                     android:textSize="14sp"
-                    android:textAppearance="@style/TextAppearance.LCK.Body1"
+                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                     app:layout_constraintStart_toStartOf="@id/tv_write_post_body"
                     app:layout_constraintTop_toBottomOf="@id/tv_write_post_body"
                     app:layout_constraintEnd_toEndOf="@id/line2"/>
@@ -210,7 +212,8 @@
 
                 <TextView
                     android:id="@+id/tv_write_upload_title"
-                    style="@style/TextAppearance.LCK.Head2"
+                    style="@style/TextAppearance.LCK.Bold.List_14sp"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -256,7 +259,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="\u00B7 사진 및 영상은 최대 12개까지 업로드 가능합니다."
-                        android:textAppearance="@style/TextAppearance.LCK.Details"
+                        android:textAppearance="@style/TextAppearance.LCK.Light.Comment_8sp"
                         android:textSize="10sp"
                         android:textColor="@color/black" />
 
@@ -265,7 +268,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:text="\u00B7 과도한 비방 및 욕설이 포함된 게시물은 신고에 의해 무통보 삭제될 수 있습니다."
-                        android:textAppearance="@style/TextAppearance.LCK.Details"
+                        android:textAppearance="@style/TextAppearance.LCK.Light.Comment_8sp"
                         android:textSize="10sp"
                         android:textColor="@color/black" />
 
@@ -275,7 +278,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:text="\u00B7 초상권, 저작권 침해 및 기타 위법한 게시물은 관리자에 의해 무통보 삭제될 수 있습니다."
-                        android:textAppearance="@style/TextAppearance.LCK.Details"
+                        android:textAppearance="@style/TextAppearance.LCK.Light.Comment_8sp"
                         android:textSize="10sp"
                         android:textColor="@color/black" />
 

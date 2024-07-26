@@ -29,4 +29,5 @@
     <color name="gray_comment_et_bg">#33D9D9D9</color>
     <color name="gold">#E0A50E</color>
     <color name="selected">#33FFFFFF</color>
+    <color name="Transparency">#00FFFFFF</color>
 </resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:label="MyPage Navigation"
+    app:startDestination="@id/myPageFragment">
+
+=    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="umc.everyones.lck.presentation.mypage.MyPageFragment"
+        android:label="MyPage Fragment"
+        tools:layout="@layout/fragment_mypage_main">
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <argument
+            android:name="profileImageUri"
+            app:argType="string" />
+        <argument
+            android:name="selectedTeam"
+            app:argType="string" />
+    </fragment>
+
+</navigation>

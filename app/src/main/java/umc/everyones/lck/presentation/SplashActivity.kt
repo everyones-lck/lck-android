@@ -20,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
         val loginManager = LoginManager(this)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = if (loginManager.isLoggedIn()) {
+            val intent = if (loginManager.getIsLoggedIn()) {
                 Intent(this, MainActivity::class.java) // 로그인된 상태라면 홈 화면으로
             } else {
                 Intent(this, LoginActivity::class.java) // 로그인되지 않은 상태라면 로그인 화면으로

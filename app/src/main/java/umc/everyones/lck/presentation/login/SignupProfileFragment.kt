@@ -8,65 +8,49 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.DialogProfileConfirmBinding
 import umc.everyones.lck.databinding.FragmentSignupProfileBinding
+import umc.everyones.lck.presentation.base.BaseFragment
 
 @AndroidEntryPoint
-class SignupProfileFragment : Fragment(R.layout.fragment_signup_profile) {
+class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layout.fragment_signup_profile) {
 
-    private var _binding: FragmentSignupProfileBinding? = null
-    private val binding get() = _binding!!
-
-    private lateinit var viewModel: SignupProfileViewModel
-
+    private val viewModel: SignupProfileViewModel by viewModels()
     private val REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 2
     private lateinit var pickImageLauncher: ActivityResultLauncher<Intent>
     private var profileImageUri: Uri? = null
-    private var nickname: String? = null
+    private val args: SignupProfileFragmentArgs by navArgs()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+    override fun initObserver() {
+        viewModel.profileImageUri.observe(viewLifecycleOwner) { uri ->
+            uri?.let {
+                binding.ivSignupProfilePicture.setImageURI(it)
+            }
+        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentSignupProfileBinding.bind(view)
-        viewModel = ViewModelProvider(this).get(SignupProfileViewModel::class.java)
+    override fun initView() {
+        val nickname = args.nickname
 
-        nickname = arguments?.getString("nickname")
-
-        // Set default empty image initially
         binding.ivSignupProfilePicture.setImageResource(android.R.color.transparent)
 
-        // Initialize activity result launcher for picking image
         pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 result.data?.data?.let { uri ->
                     profileImageUri = uri
-                    viewModel.setProfileImageUri(uri)
                     binding.ivSignupProfilePicture.setImageURI(uri)
                 }
-            }
-        }
-
-        // Observe profile image URI changes
-        viewModel.profileImageUri.observe(viewLifecycleOwner) { uri ->
-            uri?.let {
-                binding.ivSignupProfilePicture.setImageURI(it)
             }
         }
 
@@ -83,9 +67,9 @@ class SignupProfileFragment : Fragment(R.layout.fragment_signup_profile) {
         // 다음 버튼 클릭 리스너
         binding.ivSignupProfileNext.setOnClickListener {
             if (profileImageUri != null) {
-                navigateToSignupMyTeam()
+                navigateToSignupMyTeam(nickname)
             } else {
-                showProfileDialog()
+                showProfileDialog(nickname)
             }
         }
 
@@ -100,7 +84,7 @@ class SignupProfileFragment : Fragment(R.layout.fragment_signup_profile) {
         pickImageLauncher.launch(intent)
     }
 
-    private fun showProfileDialog() {
+    private fun showProfileDialog(nickname: String) {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_profile_confirm, null)
         val dialogBinding = DialogProfileConfirmBinding.bind(dialogView)
 
@@ -122,18 +106,18 @@ class SignupProfileFragment : Fragment(R.layout.fragment_signup_profile) {
 
         dialogBinding.btnConfirm.setOnClickListener {
             dialog.dismiss()
-            navigateToSignupMyTeam()
+            navigateToSignupMyTeam(nickname)
         }
     }
 
-    private fun navigateToSignupMyTeam() {
-        val bundle = Bundle().apply {
-            putString("nickname", nickname)
-            profileImageUri?.let {
-                putString("profileImageUri", it.toString())
-            }
-        }
-        findNavController().navigate(R.id.action_signupProfileFragment_to_signupMyteamFragment, bundle)
+    private fun navigateToSignupMyTeam(nickname: String) {
+        val action = SignupProfileFragmentDirections
+            .actionSignupProfileFragmentToSignupMyteamFragment(
+                nickname,
+                profileImageUri?.toString() ?: "",  // 빈 문자열을 기본값으로 사용
+                "default_team"  // 기본값을 사용하거나, 적절한 값을 설정
+            )
+        findNavController().navigate(action)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -143,10 +127,5 @@ class SignupProfileFragment : Fragment(R.layout.fragment_signup_profile) {
                 openGallery()
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

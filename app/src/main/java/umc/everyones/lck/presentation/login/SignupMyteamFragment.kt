@@ -1,83 +1,75 @@
 package umc.everyones.lck.presentation.login
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.ImageView
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.DialogMyteamConfirmBinding
 import umc.everyones.lck.databinding.FragmentSignupMyteamBinding
+import umc.everyones.lck.presentation.base.BaseFragment
+
+import android.widget.ImageView
+import androidx.core.content.ContextCompat
+import umc.everyones.lck.util.TeamData
 
 @AndroidEntryPoint
-class SignupMyteamFragment : Fragment(R.layout.fragment_signup_myteam) {
+class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.fragment_signup_myteam) {
 
-    private var _binding: FragmentSignupMyteamBinding? = null
-    private val binding get() = _binding!!
-
-    private var selectedTeamView: ImageView? = null
     private var selectedTeamName: String? = null
-    private var nickname: String? = null
-    private var profileImageUri: String? = null
+    private val args: SignupMyteamFragmentArgs by navArgs()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentSignupMyteamBinding.bind(view)
+    override fun initObserver() {
+        // No observers needed here
+    }
 
-        nickname = arguments?.getString("nickname")
-        profileImageUri = arguments?.getString("profileImageUri")
+    override fun initView() {
+        val nickname = args.nickname
+        val profileImageUri = args.profileImageUri
 
-        val teamViews = mapOf(
-            R.id.iv_signup_myteam_hanhwa to "Hanhwa",
-            R.id.iv_signup_myteam_gen_g to "Gen.G",
-            R.id.iv_signup_myteam_t1 to "T1",
-            R.id.iv_signup_myteam_kwangdong_freecs to "Kwangdong Freecs",
-            R.id.iv_signup_myteam_bnk to "BNK",
-            R.id.iv_signup_myteam_nongshim_red_force to "Nongshim Red Force",
-            R.id.iv_signup_myteam_drx to "DRX",
-            R.id.iv_signup_myteam_ok_saving_bank_brion to "OK Saving Bank Brion",
-            R.id.iv_signup_myteam_dplus_kia to "Dplus Kia",
-            R.id.iv_signup_myteam_kt_rolster to "KT Rolster"
-        )
-
-        teamViews.forEach { (viewId, teamName) ->
-            val teamView = view.findViewById<ImageView>(viewId)
-            teamView.setOnClickListener {
-                toggleTeamSelection(teamView, teamName)
-            }
+        setupTeamSelection { teamName ->
+            selectedTeamName = teamName
         }
 
         binding.ivSignupMyteamNext.setOnClickListener {
-            if (selectedTeamView == null) {
-                showTeamConfirmDialog()
+            if (selectedTeamName == null) {
+                showTeamConfirmDialog(nickname, profileImageUri)
             } else {
-                val bundle = Bundle().apply {
-                    putString("selectedTeam", selectedTeamName)
-                    putString("nickname", nickname)
-                    putString("profileImageUri", profileImageUri)
-                }
-                findNavController().navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment, bundle)
+                navigateToSignupSuccess(nickname, profileImageUri, selectedTeamName)
             }
         }
     }
 
-    private fun toggleTeamSelection(view: ImageView, teamName: String) {
-        if (selectedTeamView == view) {
-            view.setBackgroundResource(R.drawable.shape_team_background)
-            selectedTeamView = null
-            selectedTeamName = null
-        } else {
-            selectedTeamView?.setBackgroundResource(R.drawable.shape_team_background)
-            view.setBackgroundResource(R.drawable.shape_team_background_selected)
-            selectedTeamView = view
-            selectedTeamName = teamName
+    private fun setupTeamSelection(onTeamSelected: (String?) -> Unit) {
+        TeamData.teamLogos.forEach { (imageViewId, teamName) ->
+            val imageView = binding.root.findViewById<ImageView>(imageViewId)
+            imageView.setOnClickListener {
+                if (selectedTeamName == teamName) {
+                    selectedTeamName = null
+                } else {
+                    selectedTeamName = teamName
+                }
+                updateTeamSelectionUI()
+                onTeamSelected(selectedTeamName)
+            }
         }
     }
 
-    private fun showTeamConfirmDialog() {
+
+    private fun updateTeamSelectionUI() {
+        TeamData.teamLogos.forEach { (imageViewId, teamName) ->
+            val imageView = binding.root.findViewById<ImageView>(imageViewId)
+            val drawable = if (teamName == selectedTeamName) {
+                ContextCompat.getDrawable(requireContext(), R.drawable.shape_team_background_selected)
+            } else {
+                ContextCompat.getDrawable(requireContext(), R.drawable.shape_team_background)
+            }
+            imageView.background = drawable
+        }
+    }
+
+    private fun showTeamConfirmDialog(nickname: String, profileImageUri: String?) {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_myteam_confirm, null)
         val dialogBinding = DialogMyteamConfirmBinding.bind(dialogView)
 
@@ -99,17 +91,17 @@ class SignupMyteamFragment : Fragment(R.layout.fragment_signup_myteam) {
 
         dialogBinding.btnConfirm.setOnClickListener {
             dialog.dismiss()
-            val bundle = Bundle().apply {
-                putString("selectedTeam", selectedTeamName)
-                putString("nickname", nickname)
-                putString("profileImageUri", profileImageUri)
-            }
-            findNavController().navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment, bundle)
+            navigateToSignupSuccess(nickname, profileImageUri, selectedTeamName)
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun navigateToSignupSuccess(nickname: String, profileImageUri: String?, selectedTeamName: String?) {
+        val action = SignupMyteamFragmentDirections
+            .actionSignupMyteamFragmentToSignupSuccessFragment(
+                nickname = nickname,
+                profileImageUri = profileImageUri ?: "",
+                selectedTeam = selectedTeamName ?: ""
+            )
+        findNavController().navigate(action)
     }
 }

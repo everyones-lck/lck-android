@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회원가입"
-                style="@style/TextAppearance.LCK.Head1"
+                style="@style/TextAppearance.LCK.Bold.Title1_22sp"
                 android:textColor="@color/white"
                 android:gravity="center_horizontal"/>
 
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="닉네임 입력"
-                style="@style/TextAppearance.LCK.Head2"
+                style="@style/TextAppearance.LCK.Light.Body_14sp"
                 android:textColor="@color/white"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="8dp"/>
@@ -47,13 +47,13 @@
 
         <ImageView
             android:id="@+id/iv_signup_nickname_next"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/ic_arrow_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_next_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/layout_signup_nickname_topbar"
             app:layout_constraintBottom_toBottomOf="@id/layout_signup_nickname_topbar"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="30dp"
             android:onClick="onNextButtonClick"/>
 
 
@@ -67,7 +67,7 @@
             android:paddingVertical="16dp"
             android:paddingHorizontal="8dp"
             android:layout_marginTop="235dp"
-            android:background="@drawable/shape_rect_4_white_line"/>
+            android:background="@drawable/shape_rect_4_white_line" />
 
         <EditText
             android:id="@+id/et_signup_nickname_name"
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:hint="닉네임을 입력해주세요"
             android:textColorHint="@color/white"
-            style="@style/TextAppearance.LCK.Head2"
+            style="@style/TextAppearance.LCK.Light.Body_14sp"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/view_signup_nickname_bar"
             android:layout_marginStart="16dp"
@@ -113,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="닉네임은 최소 1글자 이상 입력해야 합니다"
-                style="@style/TextAppearance.LCK.Warning"
+                style="@style/TextAppearance.LCK.Light.Warning"
                 android:textColor="@color/warning"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
@@ -139,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="닉네임은 최대 10글자까지 입력 가능합니다"
-                style="@style/TextAppearance.LCK.Warning"
+                style="@style/TextAppearance.LCK.Light.Warning"
                 android:textColor="@color/warning"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
@@ -165,7 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="닉네임 사이에는 공백을 입력할 수 없습니다"
-                style="@style/TextAppearance.LCK.Warning"
+                style="@style/TextAppearance.LCK.Light.Warning"
                 android:textColor="@color/warning"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
@@ -191,7 +191,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="다른 사용자와 중복되는 닉네임입니다."
-                style="@style/TextAppearance.LCK.Warning"
+                style="@style/TextAppearance.LCK.Light.Warning"
                 android:textColor="@color/warning"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
@@ -217,7 +217,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="사용 가능한 닉네임입니다."
-                style="@style/TextAppearance.LCK.Warning"
+                style="@style/TextAppearance.LCK.Light.Warning"
                 android:textColor="@color/success"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>

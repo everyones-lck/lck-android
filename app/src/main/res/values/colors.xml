@@ -27,6 +27,10 @@
     <color name="gray_line">#BBBBBB</color>
     <color name="gray_spinner_bg">#D9D9D9</color>
     <color name="gray_comment_et_bg">#33D9D9D9</color>
+    <color name="bronze">#966C00</color>
+    <color name="silver">#D7D7D7</color>
+    <color name="master">#AB71C6</color>
+    <color name="challenger">#5D6AAD</color>
     <color name="gold">#E0A50E</color>
     <color name="selected">#33FFFFFF</color>
     <color name="Transparency">#00FFFFFF</color>

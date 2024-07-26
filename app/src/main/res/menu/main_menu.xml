@@ -23,7 +23,7 @@
         android:title="커뮤니티" />
 
     <item
-        android:id="@+id/viewingPartyFragment"
+        android:id="@+id/viewingPartyTab"
         android:icon="@drawable/sel_main_icon_bnv_viewing_party"
         android:title="뷰잉파티" />
 

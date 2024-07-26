@@ -10,6 +10,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:textSize="14sp"
-        android:textAppearance="@style/TextAppearance.LCK.Body1"/>
+        android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"/>
 
 </LinearLayout>

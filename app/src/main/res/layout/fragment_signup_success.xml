@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient_color">
+
+
+        <!--선택 팀에 따라 뒤에 이미지 변경-->
+        <ImageView
+            android:id="@+id/iv_signup_success_background_logo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/img_signup_success_hanhwa_logo"/>
+
+        <LinearLayout
+            android:id="@+id/layout_signup_success_topbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="4dp"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="76dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_signup_success_topbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="회원가입"
+                style="@style/TextAppearance.LCK.Bold.Title1_22sp"
+                android:textColor="@color/white"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/tv_signup_success_topbar_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="회원가입 완료"
+                style="@style/TextAppearance.LCK.Light.Body_14sp"
+                android:textColor="@color/white"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="8dp"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_signup_success_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_next_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/layout_signup_success_topbar"
+            app:layout_constraintBottom_toBottomOf="@id/layout_signup_success_topbar"
+            android:layout_marginEnd="30dp"
+            android:onClick="onNextButtonClick"/>
+
+        <!--사용자 프로필이 들어가도록 적용. 없으면 기본 프로필 적용-->
+        <ImageView
+            android:id="@+id/iv_signup_success_profile"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="235dp"
+            android:src="@drawable/img_signup_profile"
+            android:scaleType="centerCrop"/>
+
+        <!--이름 들어가도록 변경-->
+        <TextView
+            android:id="@+id/tv_signup_success_congratulation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="___님 가입을 축하드립니다 !"
+            style="@style/TextAppearance.LCK.Light.Body_14sp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_signup_success_profile"
+            android:layout_marginTop="30dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

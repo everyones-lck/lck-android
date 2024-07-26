@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:text="게시판"
         android:textSize="14sp"
-        android:textAppearance="@style/TextAppearance.LCK.Body1"
+        android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

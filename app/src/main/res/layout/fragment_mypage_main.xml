@@ -113,9 +113,9 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/white"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"/>
+                android:background="@color/white_20"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -126,9 +126,9 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/white"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"/>
+                android:background="@color/white_20"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -139,9 +139,9 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/white"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"/>
+                android:background="@color/white_20"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -152,9 +152,9 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/white"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"/>
+                android:background="@color/white_20"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"

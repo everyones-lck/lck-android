@@ -53,15 +53,22 @@
 
         </LinearLayout>
 
-        <ImageView
+        <androidx.cardview.widget.CardView
             android:id="@+id/iv_mypage_main_profile"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:src="@drawable/img_signup_profile"
             android:layout_marginTop="150dp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/iv_mypage_main_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/img_signup_profile" />
+        </androidx.cardview.widget.CardView>
         
         <TextView
             android:id="@+id/tv_mypage_main_nickname"

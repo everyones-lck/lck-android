@@ -17,15 +17,8 @@ class MyPageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_mypage)
 
         // Setting up Navigation
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.mypageFragmentContainer) as? NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fcv_mypage) as? NavHostFragment
         val navController = navHostFragment?.navController
 
-    }
-
-    override fun onBackPressed() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        finish()
     }
 }

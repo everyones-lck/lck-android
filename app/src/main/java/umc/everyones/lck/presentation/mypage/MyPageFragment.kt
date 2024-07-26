@@ -43,7 +43,7 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
             Glide.with(this)
                 .load(Uri.parse(profileImageUri))
                 .placeholder(R.drawable.img_signup_profile) // 기본 이미지
-                .into(binding.ivMypageMainProfile)
+                .into(binding.iv)
         } else {
             binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지
         }

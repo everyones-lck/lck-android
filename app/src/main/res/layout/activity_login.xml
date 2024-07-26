@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/loginFragmentContainer"
+        android:id="@+id/fcv_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="androidx.navigation.fragment.NavHostFragment"

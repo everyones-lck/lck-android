@@ -15,12 +15,12 @@ import umc.everyones.lck.util.LoginManager
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun initObserver() {
-        setupLogoutButton()
-        setupMypageButton()
+
     }
 
     override fun initView() {
-        // Initialize any view-related properties here if needed
+        setupLogoutButton()
+        setupMypageButton()
     }
 
     private fun setupLogoutButton() {

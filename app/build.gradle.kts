@@ -1,9 +1,17 @@
+import java.util.Properties
+import java.io.FileInputStream
+import java.util.*
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
+}
+
+val properties = Properties().apply{
+    load(FileInputStream(rootProject.file("local.properties")))
 }
 
 android {
@@ -18,11 +26,19 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "NAVER_CLIENT_ID", "\""+properties["NAVER_CLIENT_ID"]+"\"")
+        buildConfigField("String", "NAVER_CLIENT_SECRET", "\""+properties["NAVER_CLIENT_SECRET"]+"\"")
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+            manifestPlaceholders["NAVER_CLIENT_ID"] = properties["NAVER_CLIENT_ID"] as String
+        }
+
         release {
             isMinifyEnabled = false
+            manifestPlaceholders["NAVER_CLIENT_ID"] = properties["NAVER_CLIENT_ID"] as String
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -39,6 +55,7 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        buildConfig = true
     }
 }
 
@@ -99,4 +116,7 @@ dependencies {
 
     //indicator : https://github.com/tommybuonomo/dotsindicator?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=7127
     implementation("com.tbuonomo:dotsindicator:5.0")
+
+    // naver map
+    implementation("com.naver.maps:map-sdk:3.19.0")
 }

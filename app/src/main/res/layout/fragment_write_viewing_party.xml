@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient_color">
+
+        <ImageView
+            android:id="@+id/iv_write_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_write_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_write_title"/>
+
+
+        <TextView
+            android:id="@+id/tv_write_title"
+            style="@style/TextAppearance.LCK.Bold.Title1_22sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="39dp"
+            android:text="개최하기"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/iv_write_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="등록"
+            android:textAppearance="@style/TextAppearance.LCK.Light.Detail_10sp"
+            android:background="@drawable/shape_rect_12_white_line"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_write_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_write_title"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="34dp"
+            android:background="@drawable/shape_rect_top20_white_fill"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_write_title">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_write_inner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_board_ellipse"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:layout_marginBottom="-4dp"
+                    android:layout_marginEnd="2dp"
+                    android:src="@drawable/img_ellipse"
+                    app:layout_constraintBottom_toTopOf="@id/tv_write_viewing_party_name"
+                    app:layout_constraintEnd_toStartOf="@id/tv_write_viewing_party_name"/>
+
+                <TextView
+                    android:id="@+id/tv_write_viewing_party_name"
+                    style="@style/TextAppearance.LCK.Bold.List_14sp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="40dp"
+                    android:text="이름"
+                    app:layout_constraintStart_toStartOf="@id/line"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="28dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/gray_line"
+                    app:layout_constraintStart_toStartOf="@id/tv_write_viewing_party_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_write_viewing_party_name" />
+
+                <ImageView
+                    android:id="@+id/iv_board_ellipse2"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:layout_marginBottom="-4dp"
+                    android:src="@drawable/img_ellipse"
+                    android:layout_marginEnd="2dp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_write_viewing_party_date"
+                    app:layout_constraintEnd_toStartOf="@id/tv_write_viewing_party_date"/>
+
+                <TextView
+                    android:id="@+id/tv_write_viewing_party_date"
+                    style="@style/TextAppearance.LCK.Bold.List_14sp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="일시"
+                    app:layout_constraintStart_toStartOf="@id/tv_write_viewing_party_name"
+                    app:layout_constraintTop_toBottomOf="@id/line" />
+
+
+                <EditText
+                    android:id="@+id/et_write_title"
+                    style="@style/ThemeOverlay.Material3.TextInputEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="end"
+                    android:hint="제목을 입력하세요"
+                    android:inputType="text"
+                    android:layout_marginEnd="8dp"
+                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_write_viewing_party_date"
+                    app:layout_constraintEnd_toEndOf="@id/line2"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_write_viewing_party_date"/>
+
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="28dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/gray_line"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_write_viewing_party_date" />
+
+                <TextView
+                    android:id="@+id/tv_write_post_viewing_party_place"
+                    style="@style/TextAppearance.LCK.Bold.List_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="장소"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="@id/tv_write_viewing_party_name"
+                    app:layout_constraintTop_toBottomOf="@id/line2" />
+
+                <ImageView
+                    android:id="@+id/iv_board_ellipse3"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:layout_marginBottom="-4dp"
+                    android:src="@drawable/img_ellipse"
+                    android:layout_marginEnd="2dp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_write_post_viewing_party_place"
+                    app:layout_constraintEnd_toStartOf="@id/tv_write_post_viewing_party_place"/>
+
+                <com.naver.maps.map.MapView
+                    android:id="@+id/map_fragment"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="@id/line2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_write_post_viewing_party_place"
+                    app:layout_constraintEnd_toEndOf="@id/line2"
+                    app:layout_constraintBottom_toTopOf="@id/line3"
+                    app:layout_constraintDimensionRatio="1.6:1"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="52dp" />
+
+                <View
+                    android:id="@+id/line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="28dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/gray_line"
+                    app:layout_constraintStart_toStartOf="@id/map_fragment"
+                    app:layout_constraintTop_toBottomOf="@id/map_fragment" />
+
+                <TextView
+                    android:id="@+id/tv_write_upload_title"
+                    style="@style/TextAppearance.LCK.Bold.List_14sp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="사진 및 영상 업로드"
+                    app:layout_constraintStart_toStartOf="@id/tv_write_viewing_party_name"
+                    app:layout_constraintTop_toBottomOf="@id/line3" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_write_media"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="32dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_write_upload_title"
+                    app:spanCount="4" />
+
+                <View
+                    android:id="@+id/line4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="28dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/gray_line"
+                    app:layout_constraintStart_toStartOf="@id/et_write_body"
+                    app:layout_constraintTop_toBottomOf="@id/rv_write_media" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="32dp"
+                    android:gravity="start"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/line4"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="\u00B7 사진 및 영상은 최대 12개까지 업로드 가능합니다."
+                        android:textAppearance="@style/TextAppearance.LCK.Light.Comment_8sp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="\u00B7 과도한 비방 및 욕설이 포함된 게시물은 신고에 의해 무통보 삭제될 수 있습니다."
+                        android:textAppearance="@style/TextAppearance.LCK.Light.Comment_8sp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/tv_write_guide"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="\u00B7 초상권, 저작권 침해 및 기타 위법한 게시물은 관리자에 의해 무통보 삭제될 수 있습니다."
+                        android:textAppearance="@style/TextAppearance.LCK.Light.Comment_8sp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

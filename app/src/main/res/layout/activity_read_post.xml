@@ -43,7 +43,7 @@
 
                     <TextView
                         android:id="@+id/tv_read_category"
-                        style="@style/TextAppearance.LCK.Bold.Title1_22sp"
+                        style="@style/TextAppearance.LCK.Light.Detail_10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"

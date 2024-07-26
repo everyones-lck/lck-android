@@ -5,7 +5,8 @@
     android:label="MyPage Navigation"
     app:startDestination="@id/myPageFragment">
 
-=    <fragment
+    <!-- MyPageFragment -->
+    <fragment
         android:id="@+id/myPageFragment"
         android:name="umc.everyones.lck.presentation.mypage.MyPageFragment"
         android:label="MyPage Fragment"
@@ -19,6 +20,54 @@
         <argument
             android:name="selectedTeam"
             app:argType="string" />
+        <!-- Action to navigate to MyPageProfileFragment -->
+        <action
+            android:id="@+id/action_myPageFragment_to_myPageProfileFragment"
+            app:destination="@id/myPageProfileFragment"/>
+        <!-- Action to navigate to MyPageMyteamFragment -->
+        <action
+            android:id="@+id/action_myPageFragment_to_myPageMyteamFragment"
+            app:destination="@id/myPageMyteamFragment"/>
+    </fragment>
+
+    <!-- MyPageProfileFragment -->
+    <fragment
+        android:id="@+id/myPageProfileFragment"
+        android:name="umc.everyones.lck.presentation.mypage.MyPageProfileFragment"
+        android:label="MyPage Profile Fragment"
+        tools:layout="@layout/fragment_mypage_profile">
+        <!-- Action to navigate to MyPageProfileEditFragment -->
+        <action
+            android:id="@+id/action_myPageProfileFragment_to_myPageProfileEditFragment"
+            app:destination="@id/myPageProfileEditFragment"/>
+        <!-- Action to navigate to MyPageProfileWithdrawFragment -->
+        <action
+            android:id="@+id/action_myPageProfileFragment_to_myPageProfileWithdrawFragment"
+            app:destination="@id/myPageProfileWithdrawFragment"/>
+    </fragment>
+
+    <!-- MyPageProfileEditFragment -->
+    <fragment
+        android:id="@+id/myPageProfileEditFragment"
+        android:name="umc.everyones.lck.presentation.mypage.MyPageProfileEditFragment"
+        android:label="MyPage Profile Edit Fragment"
+        tools:layout="@layout/fragment_mypage_profile_edit">
+    </fragment>
+
+    <!-- MyPageProfileWithdrawFragment -->
+    <fragment
+        android:id="@+id/myPageProfileWithdrawFragment"
+        android:name="umc.everyones.lck.presentation.mypage.MyPageProfileWithdrawFragment"
+        android:label="MyPage Profile Withdraw Fragment"
+        tools:layout="@layout/fragment_mypage_profile_withdraw">
+    </fragment>
+
+    <!-- MyPageMyteamFragment -->
+    <fragment
+        android:id="@+id/myPageMyteamFragment"
+        android:name="umc.everyones.lck.presentation.mypage.MyPageMyteamFragment"
+        android:label="MyPage Myteam Fragment"
+        tools:layout="@layout/fragment_mypage_myteam">
     </fragment>
 
 </navigation>

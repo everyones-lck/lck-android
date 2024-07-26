@@ -14,48 +14,43 @@
         tools:context=".presentation.MainActivity"
         android:background="@drawable/bg_gradient_color">
 
-        <LinearLayout
-            android:id="@+id/layout_mypage_profile_edit_topbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="4dp"
+        <ImageView
+            android:id="@+id/iv_mypage_profile_edit_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_mypage_back"
+            app:layout_constraintTop_toTopOf="@id/tv_mypage_profile_edit_topbar_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_mypage_profile_edit_topbar_title"
             app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_mypage_profile_edit_topbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MY Profile"
+            style="@style/TextAppearance.LCK.Bold.Title1_22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="76dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="39dp"
+            android:textColor="@color/white"/>
 
-            <ImageView
-                android:id="@+id/iv_mypage_profile_edit_back"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_mypage_back"
-                android:layout_gravity="center"/>
-
-            <TextView
-                android:id="@+id/tv_mypage_profile_eidt_topbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="MY Profile"
-                style="@style/TextAppearance.LCK.Bold.Title1_22sp"
-                android:textColor="@color/LCK_purple"
-                android:gravity="center"
-                android:layout_marginStart="95dp"/>
-
-            <TextView
-                android:id="@+id/tv_mypage_profile_eidt_topbar_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="수정"
-                style="@style/TextAppearance.LCK.Light.Body_14sp"
-                android:textColor="@color/white"
-                android:layout_marginStart="80dp"
-                android:paddingVertical="4dp"
-                android:paddingHorizontal="10dp"
-                android:background="@drawable/shape_rect_12_white_line"/>
-
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_mypage_profile_edit_topbar_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수정"
+            style="@style/TextAppearance.LCK.Light.Body_14sp"
+            android:textColor="@color/white"
+            android:layout_marginStart="90dp"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintTop_toTopOf="@id/tv_mypage_profile_edit_topbar_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_mypage_profile_edit_topbar_title"
+            android:background="@drawable/shape_rect_12_white_line"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/iv_mypage_profile_edit_rect"

@@ -69,4 +69,10 @@
         <item name="android:textColor">@color/warning</item>
     </style>
 
+    <style name="TextAppearance.LCK.Light.Warning">
+        <item name="fontFamily">@font/cafe_ohsquare_air</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/warning</item>
+    </style>
+
 </resources>

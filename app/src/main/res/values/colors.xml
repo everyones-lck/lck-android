@@ -8,6 +8,7 @@
     <color name="end_gradient_color">#262626</color>
     <color name="bottom_bar">#464646</color>
     <color name="warning">#F26E6E</color>
+    <color name="success">#C5E3BA</color>
     <color name="bg_sub_color">#EAEAEA</color>
     <color name="LCK_purple">#E3E4F2</color>
     <color name="hanhwa">#F3741B</color>
@@ -26,4 +27,7 @@
     <color name="gray_line">#BBBBBB</color>
     <color name="gray_spinner_bg">#D9D9D9</color>
     <color name="gray_comment_et_bg">#33D9D9D9</color>
+    <color name="gold">#E0A50E</color>
+    <color name="selected">#33FFFFFF</color>
+    <color name="Transparency">#00FFFFFF</color>
 </resources>

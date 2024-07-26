@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import android.content.Intent
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -17,10 +18,14 @@ import kotlinx.coroutines.launch
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityMainBinding
 import umc.everyones.lck.presentation.base.BaseActivity
+import umc.everyones.lck.presentation.login.LoginActivity
+import umc.everyones.lck.presentation.mypage.MyPageFragment
+import umc.everyones.lck.util.LoginManager
 import umc.everyones.lck.presentation.community.WritePostViewModel
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+
     private lateinit var navController: NavController
     private val writePostViewModel: WritePostViewModel by viewModels()
     override fun initView() {
@@ -28,7 +33,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun initObserver() {
-
+        // Implement if needed
     }
 
     private fun initNavigator() {

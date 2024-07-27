@@ -10,7 +10,10 @@ import com.naver.maps.map.OnMapReadyCallback
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWriteViewingPartyBinding
 import umc.everyones.lck.presentation.base.BaseActivity
+import umc.everyones.lck.presentation.community.WritePostActivity
 import umc.everyones.lck.util.extension.addDecimalFormattedTextWatcher
+import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.validateMaxLength
 import java.text.DecimalFormat
 
 class WriteViewingPartyActivity : BaseActivity<ActivityWriteViewingPartyBinding>(R.layout.activity_write_viewing_party),
@@ -23,9 +26,46 @@ class WriteViewingPartyActivity : BaseActivity<ActivityWriteViewingPartyBinding>
     override fun initView() {
         initNaverMap()
         addDecimalFormat()
+        validateViewingPartyName()
+        validateViewingPartyCondition()
+        validateViewingPartyEtc()
+        writeDone()
         binding.ivWriteClose.setOnClickListener {
             finish()
         }
+    }
+
+    private fun validateViewingPartyName() {
+        binding.etWriteViewingPartyName.validateMaxLength(this, 20,
+            onLengthExceeded = {
+                showCustomSnackBar(
+                    binding.etWriteViewingPartyName,
+                    "이름은 최대 20자까지 입력할 수 있어요"
+                )
+            }
+        )
+    }
+
+    private fun validateViewingPartyCondition() {
+        binding.etWriteViewingPartyCondition.validateMaxLength(this, 100,
+            onLengthExceeded = {
+                showCustomSnackBar(
+                    binding.etWriteViewingPartyCondition,
+                    "참여 자격 및 조건은 최대 100자까지 입력할 수 있어요"
+                )
+            }
+        )
+    }
+
+    private fun validateViewingPartyEtc() {
+        binding.etWriteViewingPartyEtc.validateMaxLength(this, 1000,
+            onLengthExceeded = {
+                showCustomSnackBar(
+                    binding.etWriteViewingPartyEtc,
+                    "기타 항목은 최대 1000자까지 입력할 수 있어요"
+                )
+            }
+        )
     }
 
     private fun addDecimalFormat(){
@@ -46,12 +86,28 @@ class WriteViewingPartyActivity : BaseActivity<ActivityWriteViewingPartyBinding>
         }
     }
 
+    private fun writeDone() {
+        with(binding) {
+            ivWriteDone.setOnClickListener {
+
+                // 제목이나 본문 입력하지 않을 시 예외처리
+                if(etWriteViewingPartyName.text.isEmpty() || etWriteViewingPartyMoney.text.isEmpty() ||
+                    etWriteViewingPartyParticipantMinimum.text.isEmpty() || etWriteViewingPartyParticipantMaximum.text.isEmpty() ||
+                    etWriteViewingPartyCondition.text.isEmpty()){
+                    showCustomSnackBar(binding.tvWriteGuide, "필수 항목을 입력하지 않았습니다")
+                    return@setOnClickListener
+                }
+
+                finish()
+            }
+        }
+    }
+
     override fun onMapReady(p0: NaverMap) {
 
     }
 
     companion object {
-        private val decimalFormat = DecimalFormat("#,###")
         fun newIntent(context: Context) =
             Intent(context, WriteViewingPartyActivity::class.java)
     }

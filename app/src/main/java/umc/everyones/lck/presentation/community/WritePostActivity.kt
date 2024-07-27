@@ -90,7 +90,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
 
     // 제목 유효성 검사
     private fun validatePostTitle() {
-        binding.etWriteTitle.validateMaxLength(20,
+        binding.etWriteTitle.validateMaxLength(this, 20,
             onLengthExceeded = {
                 showCustomSnackBar(
                     binding.etWriteTitle,
@@ -102,7 +102,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
 
     // 본문 유효성 검사
     private fun validatePostBody() {
-        binding.etWriteBody.validateMaxLength(2000,
+        binding.etWriteBody.validateMaxLength(this, 2000,
             onLengthExceeded = {
                 showCustomSnackBar(
                     binding.etWriteBody,

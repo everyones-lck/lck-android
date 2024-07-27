@@ -9,6 +9,7 @@
     <style name="Theme.EveryonesLCK" parent="Base.Theme.EveryonesLCK" />
     
     <style name="Widget.AppCompat.EditText.LCK" parent="Widget.AppCompat.EditText">
+        <item name="android:textColorHint">@color/black</item>
         <item name="android:textColorHighlight">@color/text_high_light</item>
         <item name="android:textCursorDrawable">@color/text_high_light</item>
         <item name="android:textSelectHandle">@drawable/img_text_select_handler</item>

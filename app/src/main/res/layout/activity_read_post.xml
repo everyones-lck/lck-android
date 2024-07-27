@@ -141,7 +141,8 @@
 
                     <TextView
                         android:id="@+id/tv_read_post_body"
-                        style="@style/TextAppearance.LCK.Light.Body_14sp"
+                        style="@style/Widget.AppCompat.TextView.LCK"
+                        android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"

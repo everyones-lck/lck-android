@@ -369,7 +369,6 @@
                     app:layout_constraintBaseline_toBaselineOf="@id/tv_write_viewing_party_participant_maximum"
                      />
 
-
                 <View
                     android:id="@+id/line5"
                     android:layout_width="match_parent"
@@ -380,6 +379,99 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_write_viewing_party_participant_maximum" />
 
+                <ImageView
+                    android:id="@+id/iv_board_ellipse6"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="-4dp"
+                    android:src="@drawable/img_ellipse"
+                    app:layout_constraintBottom_toTopOf="@id/tv_write_viewing_party_condition"
+                    app:layout_constraintEnd_toStartOf="@id/tv_write_viewing_party_condition" />
+
+                <TextView
+                    android:id="@+id/tv_write_viewing_party_condition"
+                    style="@style/TextAppearance.LCK.Bold.List_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="참여 자격 및 조건"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="@id/tv_write_viewing_party_name"
+                    app:layout_constraintTop_toBottomOf="@id/line5" />
+
+                <EditText
+                    android:id="@+id/et_write_viewing_party_condition"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@null"
+                    android:gravity="start"
+                    android:hint="참여 자격 및 조건을 입력하세요"
+                    android:inputType="textMultiLine"
+                    android:minHeight="90dp"
+                    android:text=""
+                    android:maxLength="2000"
+                    android:layout_marginEnd="8dp"
+                    android:textSize="14sp"
+                    style="@style/Widget.AppCompat.EditText.LCK"
+                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_write_viewing_party_condition"
+                    app:layout_constraintTop_toBottomOf="@id/tv_write_viewing_party_condition"
+                    app:layout_constraintEnd_toEndOf="@id/line2"/>
+
+                <View
+                    android:id="@+id/line6"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="28dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/gray_line"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_write_viewing_party_condition" />
+
+                <TextView
+                    android:id="@+id/tv_write_viewing_party_etc"
+                    style="@style/TextAppearance.LCK.Bold.List_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="기타"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="@id/tv_write_viewing_party_name"
+                    app:layout_constraintTop_toBottomOf="@id/line6" />
+
+                <EditText
+                    android:id="@+id/et_write_viewing_party_etc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@null"
+                    android:gravity="start"
+                    android:hint="메세지를 작성하세요"
+                    android:inputType="textMultiLine"
+                    android:minHeight="90dp"
+                    android:text=""
+                    android:maxLength="2000"
+                    android:layout_marginEnd="8dp"
+                    android:textSize="14sp"
+                    style="@style/Widget.AppCompat.EditText.LCK"
+                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_write_viewing_party_etc"
+                    app:layout_constraintTop_toBottomOf="@id/tv_write_viewing_party_etc"
+                    app:layout_constraintEnd_toEndOf="@id/line2"/>
+
+                <View
+                    android:id="@+id/line7"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="28dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/gray_line"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_write_viewing_party_etc" />
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -389,16 +481,8 @@
                     android:gravity="start"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/line5"
+                    app:layout_constraintTop_toBottomOf="@id/line7"
                     app:layout_constraintVertical_bias="0">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="\u00B7 사진 및 영상은 최대 12개까지 업로드 가능합니다."
-                        android:textAppearance="@style/TextAppearance.LCK.Light.Comment_8sp"
-                        android:textColor="@color/black"
-                        android:textSize="10sp" />
 
                     <TextView
                         android:layout_width="wrap_content"

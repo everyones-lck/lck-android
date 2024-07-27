@@ -42,6 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
                     android:text="240514 홍대 뷰파"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"

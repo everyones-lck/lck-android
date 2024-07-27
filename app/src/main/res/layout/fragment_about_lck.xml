@@ -6,6 +6,7 @@
 
     </data>
 
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -83,6 +84,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
+
             <View
                 android:id="@+id/view_about_lck_rect1"
                 android:layout_width="96dp"
@@ -113,6 +115,71 @@
                 android:layout_marginStart="5dp"
                 app:layout_constraintTop_toTopOf="@id/view_about_lck_rect1"
                 app:layout_constraintStart_toEndOf="@id/view_about_lck_rect1" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="@id/view_about_lck_rect1"
+                app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect1"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_rect1"
+                app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect1">
+                <ImageView
+                    android:layout_width="43dp"
+                    android:layout_height="37dp"
+                    android:src="@drawable/ic_gen_g"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gen.G"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="@id/view_about_lck_rect3"
+                app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect3"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_rect3"
+                app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect3">
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_kwangdong_freecs"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="광동"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="@id/view_about_lck_rect2"
+                app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect2"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_rect2"
+                app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect2">
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_t1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="T1"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"/>
+            </LinearLayout>
 
             <View
                 android:id="@+id/view_about_lck_line1"
@@ -174,325 +241,127 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-            <LinearLayout
+
+            <TextView
+                android:id="@+id/tv_about_lck_num4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="@id/view_about_lck_rect1"
-                app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect1"
-                app:layout_constraintStart_toStartOf="@id/view_about_lck_rect1"
-                app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect1">
+                android:text="4"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="44dp"
+                android:layout_marginStart="21dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_rect2"/>
 
-                <ImageView
-                    android:layout_width="43dp"
-                    android:layout_height="37dp"
-                    android:src="@drawable/ic_gen_g"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gen.G"
-                    android:textSize="12sp"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_about_lck_num5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="@id/view_about_lck_rect3"
-                app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect3"
-                app:layout_constraintStart_toStartOf="@id/view_about_lck_rect3"
-                app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect3">
+                android:text="5"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="21dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line1"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_line1"/>
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_kwangdong_freecs"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="광동"
-                    android:textSize="12sp"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"/>
-
-            </LinearLayout>
-            
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_about_lck_num6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="@id/view_about_lck_rect2"
-                app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect2"
-                app:layout_constraintStart_toStartOf="@id/view_about_lck_rect2"
-                app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect2">
+                android:text="6"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="21dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line2"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_line2"/>
 
-                <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_t1"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="T1"
-                    android:textSize="12sp"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_about_lck_num7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="13dp"
-                app:layout_constraintBottom_toTopOf="@id/view_about_lck_line1"
-                app:layout_constraintStart_toStartOf="@id/view_about_lck_line1"
-                app:layout_constraintEnd_toEndOf="@id/view_about_lck_line1">
+                android:text="7"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="21dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line3"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_line3"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="DK"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:layout_marginStart="95dp"
-                    android:layout_gravity="center"/>
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_dplus_kia"
-                    android:layout_marginStart="86dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_about_lck_num8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="13dp"
-                app:layout_constraintBottom_toTopOf="@id/view_about_lck_line2"
-                app:layout_constraintStart_toStartOf="@id/view_about_lck_line2"
-                app:layout_constraintEnd_toEndOf="@id/view_about_lck_line2">
+                android:text="8"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="21dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line4"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_line4"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="한화생명"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:layout_marginStart="80dp"
-                    android:layout_gravity="center"/>
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="23dp"
-                    android:src="@drawable/ic_hanhwa"
-                    android:layout_marginStart="80dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_about_lck_num9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toTopOf="@id/view_about_lck_line3"
-                app:layout_constraintStart_toStartOf="@id/view_about_lck_line3"
-                app:layout_constraintEnd_toEndOf="@id/view_about_lck_line3">
+                android:text="9"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="21dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line5"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_line5"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="6"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:layout_gravity="center" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="91dp"
-                    android:text="DRX"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
-                    android:src="@drawable/ic_drx"
-                    android:layout_marginStart="99dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_about_lck_num10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="11dp"
-                app:layout_constraintBottom_toTopOf="@id/view_about_lck_line4"
-                app:layout_constraintStart_toStartOf="@id/view_about_lck_line4"
-                app:layout_constraintEnd_toEndOf="@id/view_about_lck_line4">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="7"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="농심"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:layout_marginStart="93dp"
-                    android:layout_gravity="center"/>
-
-                <ImageView
-                    android:layout_width="21dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/ic_nongshim_red_force"
-                    android:layout_marginStart="105dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@id/view_about_lck_line5"
-                app:layout_constraintEnd_toEndOf="@id/view_about_lck_line5"
-                app:layout_constraintStart_toStartOf="@id/view_about_lck_line5">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="8"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="91dp"
-                    android:text="BNK"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="25dp"
-                    android:layout_marginStart="106dp"
-                    android:src="@drawable/ic_bnk" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="13dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@id/view_about_lck_line6"
-                app:layout_constraintEnd_toEndOf="@id/view_about_lck_line6"
-                app:layout_constraintStart_toStartOf="@id/view_about_lck_line6">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="9"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="76dp"
-                    android:text="OK 저축은행"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:layout_gravity="center"/>
-
-                <ImageView
-                    android:layout_width="21dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="79dp"
-                    android:src="@drawable/ic_ok_saving_bank_brion" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
+                android:text="10"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="21dp"
                 app:layout_constraintTop_toBottomOf="@id/view_about_lck_line6"
-                app:layout_constraintStart_toStartOf="@id/view_about_lck_line6"
-                app:layout_constraintEnd_toEndOf="@id/view_about_lck_line6">
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_line6"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:layout_gravity="center"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="KT"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:layout_marginStart="95dp"
-                    android:layout_gravity="center"/>
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_kt_rolster"
-                    android:layout_marginStart="100dp"/>
-
-            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_about_lck_ranking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="160dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="63dp"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect1" />
 
             <View
+                android:id="@+id/view_about_lck_tranparent"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="#00FFFFFF"
+                android:layout_height="20dp"
                 android:layout_marginTop="50dp"
-                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line6"/>
+                android:background="#00FFFFFF"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line6" />
+
+            <FrameLayout
+                android:id="@+id/fragment_about_lck_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="36dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line6" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

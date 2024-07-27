@@ -1,7 +1,7 @@
 package umc.everyones.lck.presentation.lck
 
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import VerticalSpaceItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import umc.everyones.lck.R
@@ -12,12 +12,16 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
     private lateinit var viewPager: ViewPager2
     private lateinit var matchVPAdapter: MatchVPAdapter
-    override fun initObserver() {
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var rankingAdapter: RankingAdapter
 
+    override fun initObserver() {
     }
 
     override fun initView() {
         viewPager = binding.vpAboutLckMatch
+        recyclerView = binding.rvAboutLckRanking
+
         matchVPAdapter = MatchVPAdapter()
 
         // 각 페이지에 들어갈 MatchData 객체를 생성
@@ -46,8 +50,36 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         }
 
         viewPager.offscreenPageLimit = 1
-        val recyclerView = viewPager.getChildAt(0) as RecyclerView
-        recyclerView.setPadding(pageMarginPx, 0, pageMarginPx, 0)
-        recyclerView.clipToPadding = false
+        val recyclerView_matches = viewPager.getChildAt(0) as RecyclerView
+        recyclerView_matches.setPadding(pageMarginPx, 0, pageMarginPx, 0)
+        recyclerView_matches.clipToPadding = false
+
+
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+
+        val teams = listOf(
+            RankingData(R.drawable.ic_dplus_kia, "DK"),
+            RankingData(R.drawable.ic_hanhwa, "한화생명"),
+            RankingData(R.drawable.ic_drx, "DRX"),
+            RankingData(R.drawable.ic_nongshim_red_force, "농심"),
+            RankingData(R.drawable.ic_bnk, "BNK"),
+            RankingData(R.drawable.ic_ok_saving_bank_brion, "OK저축은행"),
+            RankingData(R.drawable.ic_kt_rolster, "KT")
+        )
+
+        rankingAdapter = RankingAdapter(teams)
+        recyclerView.adapter = rankingAdapter
+
+        val verticalSpaceHeightPx = (10 * resources.displayMetrics.density).toInt()
+        recyclerView.addItemDecoration(VerticalSpaceItemDecoration(verticalSpaceHeightPx))
+
+
+        binding.viewAboutLckRect2.setOnClickListener {
+            childFragmentManager.beginTransaction()
+                .replace(R.id.fragment_about_lck_container, AboutLckTeamFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 }

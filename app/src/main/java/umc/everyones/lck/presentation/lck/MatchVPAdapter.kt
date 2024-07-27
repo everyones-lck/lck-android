@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 class MatchVPAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val matchDataList: ArrayList<MatchData> = ArrayList()
+    /*private val matchDataList2: ArrayList<MatchData2> = ArrayList()*/
 
     companion object {
         private const val TYPE_MATCH = 0
@@ -28,6 +29,7 @@ class MatchVPAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             TYPE_NO_MATCHES -> (holder as ItemAboutLckNoMatchesViewHolder).bind()
         }
     }
+
     override fun getItemViewType(position: Int): Int {
         return if (position < matchDataList.size) {
             TYPE_MATCH
@@ -44,4 +46,9 @@ class MatchVPAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         matchDataList.add(matchData)
         notifyItemInserted(matchDataList.size - 1)
     }
+
+    /*fun addNoMatchData(matchData2: MatchData2) {
+        matchDataList2.add(matchData2)
+        notifyItemInserted(matchDataList.size + matchDataList2.size - 1)
+    }*/
 }

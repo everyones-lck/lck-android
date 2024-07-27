@@ -299,7 +299,8 @@
 
             <EditText
                 android:id="@+id/et_read_comment_input"
-                style="@style/TextAppearance.LCK.Light.Detail_10sp"
+                style="@style/Widget.AppCompat.EditText.LCK"
+                android:textAppearance="@style/TextAppearance.LCK.Light.Detail_10sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"

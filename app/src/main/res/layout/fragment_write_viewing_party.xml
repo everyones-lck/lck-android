@@ -118,7 +118,7 @@
 
                 <EditText
                     android:id="@+id/et_write_title"
-                    style="@style/ThemeOverlay.Material3.TextInputEditText"
+                    style="@style/Widget.AppCompat.EditText.LCK"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@null"

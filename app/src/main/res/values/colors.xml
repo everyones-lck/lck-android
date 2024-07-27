@@ -30,4 +30,5 @@
     <color name="gold">#E0A50E</color>
     <color name="selected">#33FFFFFF</color>
     <color name="Transparency">#00FFFFFF</color>
+    <color name="text_high_light">#9FA0A5</color>
 </resources>

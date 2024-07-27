@@ -1,7 +1,9 @@
 package umc.everyones.lck.presentation.party
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.view.MotionEvent
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
@@ -13,62 +15,95 @@ import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.community.WritePostActivity
 import umc.everyones.lck.util.extension.addDecimalFormattedTextWatcher
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.showKeyboard
 import umc.everyones.lck.util.extension.validateMaxLength
 import java.text.DecimalFormat
 
-class WriteViewingPartyActivity : BaseActivity<ActivityWriteViewingPartyBinding>(R.layout.activity_write_viewing_party),
+class WriteViewingPartyActivity :
+    BaseActivity<ActivityWriteViewingPartyBinding>(R.layout.activity_write_viewing_party),
     OnMapReadyCallback {
     private var naverMap: NaverMap? = null
     override fun initObserver() {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun initView() {
         initNaverMap()
         addDecimalFormat()
         validateViewingPartyName()
         validateViewingPartyCondition()
         validateViewingPartyEtc()
+        showKeyBoard()
         writeDone()
         binding.ivWriteClose.setOnClickListener {
             finish()
         }
     }
 
-    private fun validateViewingPartyName() {
-        binding.etWriteViewingPartyName.validateMaxLength(this, 20,
-            onLengthExceeded = {
-                showCustomSnackBar(
-                    binding.etWriteViewingPartyName,
-                    "이름은 최대 20자까지 입력할 수 있어요"
-                )
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return super.onTouchEvent(event)
+    }
+
+    private fun showKeyBoard(){
+        with(binding){
+            // 비용 입력
+            layoutWriteViewingPartyMoney.setOnClickListener {
+                etWriteViewingPartyMoney.showKeyboard()
             }
-        )
+
+            // 최소 인원 입력
+            layoutWriteViewingPartyParticipantMinimum.setOnClickListener {
+                etWriteViewingPartyParticipantMinimum.showKeyboard()
+            }
+
+            // 최대 인원 입력
+            layoutWriteViewingPartyParticipantMaximum.setOnClickListener {
+                etWriteViewingPartyParticipantMaximum.showKeyboard()
+            }
+        }
+    }
+
+    private fun validateViewingPartyName() {
+        with(binding) {
+            etWriteViewingPartyName.validateMaxLength(this@WriteViewingPartyActivity, 20,
+                onLengthExceeded = {
+                    showCustomSnackBar(
+                        etWriteViewingPartyName,
+                        "이름은 최대 20자까지 입력할 수 있어요"
+                    )
+                }
+            )
+        }
     }
 
     private fun validateViewingPartyCondition() {
-        binding.etWriteViewingPartyCondition.validateMaxLength(this, 100,
-            onLengthExceeded = {
-                showCustomSnackBar(
-                    binding.etWriteViewingPartyCondition,
-                    "참여 자격 및 조건은 최대 100자까지 입력할 수 있어요"
-                )
-            }
-        )
+        with(binding) {
+            etWriteViewingPartyCondition.validateMaxLength(this@WriteViewingPartyActivity, 100,
+                onLengthExceeded = {
+                    showCustomSnackBar(
+                        etWriteViewingPartyCondition,
+                        "참여 자격 및 조건은 최대 100자까지 입력할 수 있어요"
+                    )
+                }
+            )
+        }
     }
 
     private fun validateViewingPartyEtc() {
-        binding.etWriteViewingPartyEtc.validateMaxLength(this, 1000,
-            onLengthExceeded = {
-                showCustomSnackBar(
-                    binding.etWriteViewingPartyEtc,
-                    "기타 항목은 최대 1000자까지 입력할 수 있어요"
-                )
-            }
-        )
+        with(binding) {
+            etWriteViewingPartyEtc.validateMaxLength(this@WriteViewingPartyActivity, 1000,
+                onLengthExceeded = {
+                    showCustomSnackBar(
+                        etWriteViewingPartyEtc,
+                        "기타 항목은 최대 1000자까지 입력할 수 있어요"
+                    )
+                }
+            )
+        }
     }
 
-    private fun addDecimalFormat(){
+    private fun addDecimalFormat() {
         binding.etWriteViewingPartyMoney.addDecimalFormattedTextWatcher(this)
         binding.etWriteViewingPartyParticipantMaximum.addDecimalFormattedTextWatcher(this)
         binding.etWriteViewingPartyParticipantMinimum.addDecimalFormattedTextWatcher(this)
@@ -91,9 +126,10 @@ class WriteViewingPartyActivity : BaseActivity<ActivityWriteViewingPartyBinding>
             ivWriteDone.setOnClickListener {
 
                 // 제목이나 본문 입력하지 않을 시 예외처리
-                if(etWriteViewingPartyName.text.isEmpty() || etWriteViewingPartyMoney.text.isEmpty() ||
+                if (etWriteViewingPartyName.text.isEmpty() || etWriteViewingPartyMoney.text.isEmpty() ||
                     etWriteViewingPartyParticipantMinimum.text.isEmpty() || etWriteViewingPartyParticipantMaximum.text.isEmpty() ||
-                    etWriteViewingPartyCondition.text.isEmpty()){
+                    etWriteViewingPartyCondition.text.isEmpty()
+                ) {
                     showCustomSnackBar(binding.tvWriteGuide, "필수 항목을 입력하지 않았습니다")
                     return@setOnClickListener
                 }

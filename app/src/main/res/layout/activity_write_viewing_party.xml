@@ -48,6 +48,7 @@
             app:layout_constraintTop_toTopOf="@id/tv_write_title" />
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/sv_write_viewing_party"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="34dp"
@@ -121,11 +122,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
                     android:gravity="end"
                     android:text="2024 / 07 / 15 | 03:08"
                     android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="@id/line"
+                    app:layout_constraintEnd_toEndOf="@id/et_write_viewing_party_name"
                     app:layout_constraintStart_toEndOf="@id/tv_write_viewing_party_date_title"
                     app:layout_constraintTop_toBottomOf="@id/line" />
 
@@ -234,33 +234,41 @@
                     app:layout_constraintStart_toStartOf="@id/tv_write_viewing_party_name"
                     app:layout_constraintTop_toBottomOf="@id/line3" />
 
-                <TextView
-                    android:id="@+id/tv_write_viewing_party_money_description"
-                    style="@style/TextAppearance.LCK.Light.Body_14sp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_write_viewing_party_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="₩ "
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toStartOf="@id/et_write_viewing_party_money"
-                    app:layout_constraintTop_toTopOf="@id/et_write_viewing_party_money"
-                    app:layout_constraintBottom_toBottomOf="@id/et_write_viewing_party_money"/>
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@id/et_write_viewing_party_name"
+                    app:layout_constraintTop_toBottomOf="@id/line3"
+                    android:layout_marginTop="16dp">
+                    <TextView
+                        android:id="@+id/tv_write_viewing_party_money_description"
+                        style="@style/TextAppearance.LCK.Light.Body_14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₩ "
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toStartOf="@id/et_write_viewing_party_money"
+                        app:layout_constraintTop_toTopOf="@id/et_write_viewing_party_money"
+                        app:layout_constraintBottom_toBottomOf="@id/et_write_viewing_party_money"/>
 
-                <EditText
-                    android:id="@+id/et_write_viewing_party_money"
-                    style="@style/Widget.AppCompat.EditText.LCK"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@null"
-                    android:gravity="end"
-                    android:hint="-"
-                    android:maxLength="26"
-                    android:inputType="number"
-                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="@id/line"
-                    app:layout_constraintTop_toBottomOf="@id/line3" />
+                    <EditText
+                        android:id="@+id/et_write_viewing_party_money"
+                        style="@style/Widget.AppCompat.EditText.LCK"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:hint="-"
+                        android:maxLength="26"
+                        android:inputType="number"
+                        android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
                     android:id="@+id/line4"
@@ -270,7 +278,7 @@
                     android:layout_marginTop="16dp"
                     android:background="@color/gray_line"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/et_write_viewing_party_money" />
+                    app:layout_constraintTop_toBottomOf="@id/layout_write_viewing_party_money" />
 
                 <ImageView
                     android:id="@+id/iv_board_ellipse5"
@@ -289,89 +297,86 @@
                     android:layout_height="wrap_content"
                     android:text="인원"
                     android:textColor="@color/black"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_write_viewing_party_participant_maximum"
+                    app:layout_constraintBottom_toBottomOf="@id/layout_write_viewing_party_participant_maximum"
                     app:layout_constraintStart_toStartOf="@id/tv_write_viewing_party_name"
-                    app:layout_constraintTop_toTopOf="@id/tv_write_viewing_party_participant_minimum" />
+                    app:layout_constraintTop_toTopOf="@id/layout_write_viewing_party_participant_minimum" />
 
-                <TextView
-                    android:id="@+id/tv_write_viewing_party_participant_minimum"
+                <LinearLayout
+                    android:id="@+id/layout_write_viewing_party_participant_minimum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:layout_marginTop="16dp"
-                    android:gravity="end"
-                    android:text="최소 "
-                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toStartOf="@id/et_write_viewing_party_participant_minimum"
-                    app:layout_constraintTop_toBottomOf="@id/line4" />
+                    app:layout_constraintEnd_toEndOf="@id/et_write_viewing_party_name"
+                    app:layout_constraintTop_toBottomOf="@id/line4">
+                    <TextView
+                        android:id="@+id/tv_write_viewing_party_participant_minimum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="최소 "
+                        android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+                        android:textColor="@color/black" />
 
-                <EditText
-                    android:id="@+id/et_write_viewing_party_participant_minimum"
-                    style="@style/Widget.AppCompat.EditText.LCK"
+                    <EditText
+                        android:id="@+id/et_write_viewing_party_participant_minimum"
+                        style="@style/Widget.AppCompat.EditText.LCK"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="--"
+                        android:maxLength="6"
+                        android:inputType="number"
+                        android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/tv_write_viewing_party_participant_minimum_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="명"
+                        android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_write_viewing_party_participant_maximum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="@null"
-                    android:gravity="end"
-                    android:hint="--"
-                    android:maxLength="6"
-                    android:inputType="number"
-                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toStartOf="@id/tv_write_viewing_party_participant_minimum_description"
-                    app:layout_constraintTop_toBottomOf="@id/line4" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="@id/et_write_viewing_party_name"
+                    app:layout_constraintTop_toBottomOf="@id/layout_write_viewing_party_participant_minimum">
 
-                <TextView
-                    android:id="@+id/tv_write_viewing_party_participant_minimum_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="end"
-                    android:text="명"
-                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="@id/line"
-                    app:layout_constraintTop_toBottomOf="@id/line4" />
+                    <TextView
+                        android:id="@+id/tv_write_viewing_party_participant_maximum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="최대 "
+                        android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+                        android:textColor="@color/black" />
 
-                <TextView
-                    android:id="@+id/tv_write_viewing_party_participant_maximum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="end"
-                    android:text="최대 "
-                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toStartOf="@id/et_write_viewing_party_participant_maximum"
-                    app:layout_constraintTop_toBottomOf="@id/tv_write_viewing_party_participant_minimum_description" />
+                    <EditText
+                        android:id="@+id/et_write_viewing_party_participant_maximum"
+                        style="@style/Widget.AppCompat.EditText.LCK"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="--"
+                        android:maxLength="6"
+                        android:inputType="number"
+                        android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+                        android:textColor="@color/black" />
 
-                <EditText
-                    android:id="@+id/et_write_viewing_party_participant_maximum"
-                    style="@style/Widget.AppCompat.EditText.LCK"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:gravity="end"
-                    android:layout_marginTop="16dp"
-                    android:hint="--"
-                    android:maxLength="6"
-                    android:inputType="number"
-                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toStartOf="@id/tv_write_viewing_party_participant_minimum_description"
-                    app:layout_constraintTop_toBottomOf="@id/tv_write_viewing_party_participant_minimum_description" />
+                    <TextView
+                        android:id="@+id/tv_write_viewing_party_participant_maximum_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="명"
+                        android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="@id/line"/>
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_write_viewing_party_participant_maximum_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:text="명"
-                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="@id/line"
-                    app:layout_constraintBaseline_toBaselineOf="@id/tv_write_viewing_party_participant_maximum"
-                     />
 
                 <View
                     android:id="@+id/line5"
@@ -381,7 +386,7 @@
                     android:layout_marginTop="16dp"
                     android:background="@color/gray_line"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_write_viewing_party_participant_maximum" />
+                    app:layout_constraintTop_toBottomOf="@id/layout_write_viewing_party_participant_maximum" />
 
                 <ImageView
                     android:id="@+id/iv_board_ellipse6"
@@ -416,13 +421,12 @@
                     android:minHeight="90dp"
                     android:text=""
                     android:maxLength="100"
-                    android:layout_marginEnd="8dp"
                     android:textSize="14sp"
                     style="@style/Widget.AppCompat.EditText.LCK"
                     android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                     app:layout_constraintStart_toStartOf="@id/tv_write_viewing_party_condition"
                     app:layout_constraintTop_toBottomOf="@id/tv_write_viewing_party_condition"
-                    app:layout_constraintEnd_toEndOf="@id/line2"/>
+                    app:layout_constraintEnd_toEndOf="@id/et_write_viewing_party_name"/>
 
                 <View
                     android:id="@+id/line6"
@@ -457,13 +461,12 @@
                     android:minHeight="90dp"
                     android:text=""
                     android:maxLength="1000"
-                    android:layout_marginEnd="8dp"
                     android:textSize="14sp"
                     style="@style/Widget.AppCompat.EditText.LCK"
                     android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                     app:layout_constraintStart_toStartOf="@id/tv_write_viewing_party_etc"
                     app:layout_constraintTop_toBottomOf="@id/tv_write_viewing_party_etc"
-                    app:layout_constraintEnd_toEndOf="@id/line2"/>
+                    app:layout_constraintEnd_toEndOf="@id/et_write_viewing_party_name"/>
 
                 <View
                     android:id="@+id/line7"

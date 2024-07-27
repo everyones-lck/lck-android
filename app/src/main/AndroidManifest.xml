@@ -56,6 +56,9 @@
             android:exported="true"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name="umc.everyones.lck.presentation.party.WriteViewingPartyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
 
 
         <!-- Trigger Google Play services to install the backported photo picker module. -->

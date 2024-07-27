@@ -36,9 +36,6 @@
             <action
                 android:id="@+id/action_viewingPartyFragment_to_readViewingPartyFragment"
                 app:destination="@id/readViewingPartyFragment" />
-            <action
-                android:id="@+id/action_viewingPartyFragment_to_writeViewingPartyFragment"
-                app:destination="@id/writeViewingPartyFragment" />
         </fragment>
         <fragment
             android:id="@+id/readViewingPartyFragment"
@@ -57,10 +54,6 @@
             android:name="umc.everyones.lck.presentation.party.ParticipantsFragment"
             android:label="ParticipantsFragment"
             tools:layout="@layout/fragment_participants"/>
-        <fragment
-            android:id="@+id/writeViewingPartyFragment"
-            android:name="umc.everyones.lck.presentation.party.WriteViewingPartyFragment"
-            android:label="WriteViewingPartyFragment" />
     </navigation>
 
 </navigation>

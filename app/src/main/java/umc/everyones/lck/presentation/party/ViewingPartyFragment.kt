@@ -29,7 +29,7 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
 
     private fun goToWriteViewingParty(){
         binding.fabViewingPartyWrite.setOnSingleClickListener {
-            navigator.navigate(R.id.action_viewingPartyFragment_to_writeViewingPartyFragment)
+            startActivity(WriteViewingPartyActivity.newIntent(requireContext()))
         }
     }
 

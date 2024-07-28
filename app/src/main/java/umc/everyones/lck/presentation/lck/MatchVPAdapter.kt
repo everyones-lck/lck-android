@@ -1,54 +1,40 @@
-package umc.everyones.lck.presentation.lck
-
-import ItemAboutLckViewHolder
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import umc.everyones.lck.R
+import umc.everyones.lck.presentation.lck.MatchData
 
-class MatchVPAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MatchVPAdapter : RecyclerView.Adapter<MatchVPAdapter.MatchViewHolder>() {
 
-    private val matchDataList: ArrayList<MatchData> = ArrayList()
-    /*private val matchDataList2: ArrayList<MatchData2> = ArrayList()*/
+    private val matchDetailsList: MutableList<List<MatchData>> = mutableListOf()
 
-    companion object {
-        private const val TYPE_MATCH = 0
-        private const val TYPE_NO_MATCHES = 1
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_about_lck_matches, parent, false)
+        return MatchViewHolder(view)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            TYPE_MATCH -> ItemAboutLckViewHolder.from(parent)
-            TYPE_NO_MATCHES -> ItemAboutLckNoMatchesViewHolder.from(parent)
-            else -> throw IllegalArgumentException("Invalid view type")
+    override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
+        val matchDetails = matchDetailsList[position]
+        holder.bind(matchDetails)
+    }
+
+    override fun getItemCount(): Int = matchDetailsList.size
+
+    fun addMatchDetails(details: List<MatchData>) {
+        matchDetailsList.add(details)
+        notifyItemInserted(matchDetailsList.size - 1)
+    }
+
+    class MatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val recyclerView: RecyclerView = itemView.findViewById(R.id.rv_about_lck_match_details)
+
+        fun bind(matchDetails: List<MatchData>) {
+            recyclerView.layoutManager = LinearLayoutManager(itemView.context)
+            recyclerView.adapter = MatchDetailsAdapter(matchDetails)
+            //recyclerView.setNestedScrollingEnabled(false) // 스크롤 비활성화
         }
     }
-
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (getItemViewType(position)) {
-            TYPE_MATCH -> (holder as ItemAboutLckViewHolder).bind(matchDataList[position])
-            TYPE_NO_MATCHES -> (holder as ItemAboutLckNoMatchesViewHolder).bind()
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return if (position < matchDataList.size) {
-            TYPE_MATCH
-        } else {
-            TYPE_NO_MATCHES
-        }
-    }
-
-    override fun getItemCount(): Int {
-        return matchDataList.size + 1
-    }
-
-    fun addMatchData(matchData: MatchData) {
-        matchDataList.add(matchData)
-        notifyItemInserted(matchDataList.size - 1)
-    }
-
-    /*fun addNoMatchData(matchData2: MatchData2) {
-        matchDataList2.add(matchData2)
-        notifyItemInserted(matchDataList.size + matchDataList2.size - 1)
-    }*/
 }

@@ -9,21 +9,26 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <View
             android:id="@+id/view_about_lck_match"
             android:layout_width="299dp"
             android:layout_height="73dp"
             android:background="@drawable/shape_rect_8_gray_line"
+            android:layout_marginBottom="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <LinearLayout
             android:id="@+id/layout_about_lck_match_team"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:gravity="center"
             app:layout_constraintStart_toStartOf="@id/view_about_lck_match"
             app:layout_constraintEnd_toEndOf="@id/view_about_lck_match"
             app:layout_constraintTop_toTopOf="@id/view_about_lck_match"
@@ -33,14 +38,16 @@
                 android:id="@+id/iv_about_lck_team1"
                 android:layout_width="36.8dp"
                 android:layout_height="32dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/layout_about_lck_match_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginStart="22.3dp">
+                android:layout_marginStart="22.3dp"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/tv_match_title"
@@ -49,16 +56,17 @@
                     android:fontFamily="@font/cafe_ohsquare_air"
                     android:textSize="8sp"
                     android:textColor="@color/white"
-                    android:layout_gravity="center"/>
+                    android:gravity="center"/>
 
                 <TextView
                     android:id="@+id/tv_match_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:fontFamily="@font/cafe_ohsquare_air"
+                    android:textSize="8sp"
                     android:textColor="@color/white"
-                    android:layout_marginTop="3dp"
-                    android:layout_gravity="center"/>
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"/>
             </LinearLayout>
 
             <ImageView
@@ -66,7 +74,8 @@
                 android:layout_width="55dp"
                 android:layout_height="22dp"
                 android:layout_marginStart="22.3dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center_vertical"
+                android:visibility="gone"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

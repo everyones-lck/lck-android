@@ -1,5 +1,6 @@
 package umc.everyones.lck.presentation.lck
 
+import MatchVPAdapter
 import VerticalSpaceItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,19 +26,25 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         matchVPAdapter = MatchVPAdapter()
 
         // 각 페이지에 들어갈 MatchData 객체를 생성
-        val matchDataList = listOf(
-            MatchData(
-                R.drawable.ic_gen_g, R.drawable.ic_t1, "2024 LCK Summer 1st Match", "17:00",
-                R.drawable.ic_gen_g, R.drawable.ic_t1, "2024 LCK Summer 2nd Match", "18:00"
+        val matchDetailsList = listOf(
+            listOf(
+                MatchData("2024 LCK Summer 1st Match", "17:00", R.drawable.ic_gen_g, R.drawable.ic_t1),
+                MatchData("2024 LCK Summer 2nd Match", "18:00", R.drawable.ic_gen_g, R.drawable.ic_t1)
             ),
-            MatchData(
-                R.drawable.ic_gen_g, R.drawable.img_about_lck_t1_gray, "2024 LCK Summer 3rd Match", "Win | Gene.G",
-                R.drawable.img_about_lck_gen_g_gray, R.drawable.ic_t1, "2024 LCK Summer 4nd Match", "Win | T1"
+            listOf(
+                MatchData("2024 LCK Summer 3rd Match", "Win | Gene.G", R.drawable.ic_gen_g, R.drawable.img_about_lck_t1_gray),
+                MatchData("2024 LCK Summer 4th Match", "Win | T1", R.drawable.img_about_lck_gen_g_gray, R.drawable.ic_t1)
+            ),
+            listOf(
+                MatchData("2024 LCK Summer 5nd Match", "18:00", R.drawable.ic_gen_g, R.drawable.ic_t1)
+            ),
+            listOf(
+                MatchData("-","No Match",null,null)
             )
         )
 
-        for (matchData in matchDataList) {
-            matchVPAdapter.addMatchData(matchData)
+        for (details in matchDetailsList) {
+            matchVPAdapter.addMatchDetails(details)
         }
 
         viewPager.adapter = matchVPAdapter

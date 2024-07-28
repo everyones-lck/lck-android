@@ -57,13 +57,11 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         }
 
         viewPager.offscreenPageLimit = 1
-        val recyclerView_matches = viewPager.getChildAt(0) as RecyclerView
-        recyclerView_matches.setPadding(pageMarginPx, 0, pageMarginPx, 0)
-        recyclerView_matches.clipToPadding = false
-
+        val recyclerViewMatches = viewPager.getChildAt(0) as RecyclerView
+        recyclerViewMatches.setPadding(pageMarginPx, 0, pageMarginPx, 0)
+        recyclerViewMatches.clipToPadding = false
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
 
         val teams = listOf(
             RankingData(R.drawable.ic_dplus_kia, "DK"),
@@ -80,7 +78,6 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
         val verticalSpaceHeightPx = (10 * resources.displayMetrics.density).toInt()
         recyclerView.addItemDecoration(VerticalSpaceItemDecoration(verticalSpaceHeightPx))
-
 
         binding.viewAboutLckRect2.setOnClickListener {
             childFragmentManager.beginTransaction()

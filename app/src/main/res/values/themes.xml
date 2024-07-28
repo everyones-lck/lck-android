@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.EveryonesLCK" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:statusBarColor">#262626</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowIsTranslucent">true</item>
 
         <!-- Customize your light theme here. -->

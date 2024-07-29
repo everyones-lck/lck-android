@@ -8,17 +8,90 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient_color">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_today_match_topbar"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_today_match_logo"
+                android:layout_width="24.92dp"
+                android:layout_height="15.3dp"
+                android:layout_marginTop="18dp"
+                android:src="@drawable/ic_modu_logo"
+                app:layout_constraintStart_toStartOf="@+id/layout_today_match_topbar"
+                app:layout_constraintTop_toTopOf="@+id/layout_today_match_topbar" />
+
+            <ImageView
+                android:id="@+id/iv_today_match_my_page"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_my_page"
+                app:layout_constraintEnd_toEndOf="@+id/layout_today_match_topbar"
+                app:layout_constraintTop_toTopOf="@id/iv_today_match_logo"
+                app:layout_constraintBottom_toBottomOf="@id/iv_today_match_logo"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:id="@+id/tv_today_match_title"
+            style="@style/TextAppearance.LCK.Head1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="오늘의 매치"
+            android:layout_marginTop="18dp"
+            android:text="Today's Matches"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_today_match_topbar" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_today_match_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:tabTextColor="@color/tab_unselected"
+            app:tabSelectedTextColor="@color/white"
+            app:tabRippleColor="@color/transparent"
+            app:tabTextAppearance="@style/tab_unselected_style"
+            app:tabSelectedTextAppearance="@style/tab_selected_style"
+            android:background="@color/transparent"
+            app:tabIndicatorColor="@color/transparent"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="50dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_today_match_title"/>
+
+<!--        <FrameLayout-->
+<!--            android:id="@+id/layout_today_match_frame"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tab_today_match_title"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"/>-->
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fcv_today_match_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_today_match_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:navGraph="@navigation/today_match_graph" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

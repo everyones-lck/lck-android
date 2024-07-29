@@ -24,10 +24,28 @@
         android:id="@+id/todayMatchFragment"
         android:name="umc.everyones.lck.presentation.match.TodayMatchFragment"
         android:label="TodayMatchFragment"
-        tools:layout="@layout/fragment_today_match"/>
+        tools:layout="@layout/fragment_today_match">
+        <action
+            android:id="@+id/goToPrediction"
+            app:destination="@id/todayMatchPredictionFragment" />
+        <action
+            android:id="@+id/goToTodayPog"
+            app:destination="@id/todayMatchTodayPogFragment" />
+    </fragment>
     <fragment
         android:id="@+id/viewingPartyFragment"
         android:name="umc.everyones.lck.presentation.party.ViewingPartyFragment"
         android:label="ViewingPartyFragment"
         tools:layout="@layout/fragment_viewing_party"/>
+
+    <fragment
+        android:id="@+id/todayMatchPredictionFragment"
+        android:name="umc.everyones.lck.presentation.match.TodayMatchPredictionFragment"
+        android:label="TodayMatchPredictionFragment"
+        tools:layout="@layout/fragment_today_match_prediction"/>
+    <fragment
+        android:id="@+id/todayMatchTodayPogFragment"
+        android:name="umc.everyones.lck.presentation.match.TodayMatchTodayPogFragment"
+        android:label="TodayMatchTodayPogFragment"
+        tools:layout="@layout/fragment_today_match_today_pog"/>
 </navigation>

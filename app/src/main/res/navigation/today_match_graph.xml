@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/today_match_graph"
+    app:startDestination="@id/todayMatchLckMatchFragment">
+
+<!--    <fragment-->
+<!--        android:id="@+id/todayMatchFragment"-->
+<!--        android:name="umc.everyones.lck.presentation.match.TodayMatchFragment"-->
+<!--        android:label="TodayMatchFragment"-->
+<!--        tools:layout="@layout/fragment_today_match_lck_match"/>-->
+
+    <fragment
+        android:id="@+id/todayMatchLckMatchFragment"
+        android:name="umc.everyones.lck.presentation.match.TodayMatchLckMatchFragment"
+        android:label="TodayMatchLckMatchFragment"
+        tools:layout="@layout/fragment_today_match_lck_match"/>
+
+    <fragment
+        android:id="@+id/todayMatchLckPogFragment"
+        android:name="umc.everyones.lck.presentation.match.TodayMatchLckPogFragment"
+        android:label="TodayMatchLckPogFragment"
+        tools:layout="@layout/fragment_today_match_lck_pog"/>
+
+    <fragment
+        android:id="@+id/todayMatchPredictionFragment"
+        android:name="umc.everyones.lck.presentation.match.TodayMatchPredictionFragment"
+        android:label="TodayMatchPredictionFragment"
+        tools:layout="@layout/fragment_today_match_prediction"/>
+
+    <fragment
+        android:id="@+id/todayMatchTodayPogFragment"
+        android:name="umc.everyones.lck.presentation.match.TodayMatchTodayPogFragment"
+        android:label="TodayMatchTodayPogFragment"
+        tools:layout="@layout/fragment_today_match_today_pog"/>
+</navigation>

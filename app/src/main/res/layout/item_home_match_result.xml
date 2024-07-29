@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="10dp"
+    >
+
+    <ImageView
+        android:id="@+id/iv_home_match_result_box1"
+        android:layout_width="176dp"
+        android:layout_height="88dp"
+        android:src="@drawable/shape_rect_8_white_line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_home_result_logo1"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="18dp"
+        android:src="@drawable/ic_kt_rolster"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_home_result_team1"
+        style="@style/TextAppearance.LCK.Head1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="kt Rolester"
+        android:textColor="@color/white"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_home_result_versus"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_home_result_versus"
+        style="@style/TextAppearance.LCK.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" vs "
+        android:textColor="@color/white"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_home_result_team2"
+        app:layout_constraintTop_toTopOf="@id/tv_home_result_team1" />
+
+    <TextView
+        android:id="@+id/tv_home_result_team2"
+        style="@style/TextAppearance.LCK.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:text="Dplus KIA"
+        android:textColor="@color/white"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="@id/tv_home_result_date1"
+        app:layout_constraintTop_toTopOf="@id/tv_home_result_team1" />
+
+    <TextView
+        android:id="@+id/tv_home_result_date1"
+        style="@style/TextAppearance.LCK.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="22dp"
+        android:text="2024.05.11 17:00"
+        android:textColor="@color/white"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_home_result_team1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

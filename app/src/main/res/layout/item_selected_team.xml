@@ -11,6 +11,7 @@
         android:text="응원팀은 한달에 한 번 변경 가능합니다"
         style="@style/TextAppearance.LCK.Light.Warning"
         android:layout_marginTop="30dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

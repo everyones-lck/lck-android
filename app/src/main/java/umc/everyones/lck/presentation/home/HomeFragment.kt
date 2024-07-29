@@ -19,21 +19,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     override fun initView() {
-        setupLogoutButton()
         setupMypageButton()
     }
 
-    private fun setupLogoutButton() {
-        binding.btnLogout.setOnClickListener {
-            // Use the Fragment's context for LoginManager
-            val loginManager = LoginManager(requireContext())
-            loginManager.clearLogin()
-
-            val intent = Intent(requireContext(), LoginActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish() // Finish the current activity
-        }
-    }
 
     private fun setupMypageButton() {
         binding.btnmypage.setOnClickListener {

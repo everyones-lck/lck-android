@@ -16,6 +16,25 @@
         tools:context=".presentation.MainActivity"
         android:background="@drawable/bg_gradient_color">
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/main_bnv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bottom_bar"
+            android:padding="8dp"
+            app:itemActiveIndicatorStyle="@android:color/transparent"
+            app:itemIconSize="32dp"
+            android:elevation="4dp"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
+            app:itemTextAppearanceActive="@style/TextAppearance.LCK.Light.Detail_10sp"
+            app:itemTextAppearanceInactive="@style/TextAppearance.LCK.Light.Detail_10sp"
+            app:itemBackground="@color/bottom_bar"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/main_menu" />
+
+
         <!--선택 팀에 따라 뒤에 이미지 변경-->
         <ImageView
             android:id="@+id/iv_mypage_main_team_background"

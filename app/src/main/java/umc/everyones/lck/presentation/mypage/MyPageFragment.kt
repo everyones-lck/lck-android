@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
@@ -27,6 +29,7 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
     }
 
     override fun initView() {
+
         val nicknameManager = NicknameManager(requireContext())
 
         // Arguments에서 데이터 가져오기
@@ -51,7 +54,10 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
 
         // 뒤로가기 버튼 클릭 시 MainActivity로 이동
         binding.ivMypageMainBack.setOnClickListener {
-            requireActivity().onBackPressed()
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            requireActivity().finish()
         }
 
         // 프로필 텍스트 클릭 시 MyPageProfileFragment로 이동

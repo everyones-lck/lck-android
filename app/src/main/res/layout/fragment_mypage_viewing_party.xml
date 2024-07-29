@@ -14,50 +14,42 @@
         tools:context=".presentation.MainActivity"
         android:background="@drawable/bg_gradient_color">
 
-        <LinearLayout
-            android:id="@+id/layout_mypage_community_topbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="4dp"
+
+        <ImageView
+            android:id="@+id/iv_mypage_viewing_party_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_mypage_back"
+            app:layout_constraintTop_toTopOf="@id/tv_mypage_viewing_party_topbar_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_mypage_viewing_party_topbar_title"
             app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_mypage_viewing_party_topbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MY Team"
+            style="@style/TextAppearance.LCK.Bold.Title1_22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="76dp"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/iv_mypage_myteam_back"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_mypage_back"/>
-
-            <TextView
-                android:id="@+id/tv_mypage_myteam_topbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="MY Viewing Party"
-                style="@style/TextAppearance.LCK.Bold.Title1_22sp"
-                android:textColor="@color/LCK_purple"
-                android:layout_marginStart="40dp"/>
-
-            <View
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="40dp"/>
-        </LinearLayout>
+            android:layout_marginTop="39dp"
+            android:textColor="@color/white"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_mypage_community_post_comment"
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:background="@color/Transparency"
-            app:layout_constraintTop_toBottomOf="@id/layout_mypage_community_topbar"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_viewing_party_topbar_title"
             android:layout_marginTop="50dp"
             android:orientation="horizontal"
             app:tabIndicator="@null"
             app:tabRippleColor="@null"
             app:tabMode="fixed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:tabSelectedTextAppearance="@style/TextAppearance.LCK.Bold.List_14sp"
             app:tabTextAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
             app:tabTextColor="@color/white">

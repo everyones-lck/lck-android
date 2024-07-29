@@ -69,5 +69,13 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
         binding.tvMypageMainMyteamText.setOnClickListener {
             findNavController().navigate(R.id.action_myPageFragment_to_myPageMyteamFragment)
         }
+
+        binding.tvMypageMainCommunityText.setOnClickListener{
+            findNavController().navigate(R.id.action_myPageFragment_to_myPageCommunityFragment)
+        }
+
+        binding.tvMypageMainViewingPartyText.setOnClickListener{
+            findNavController().navigate(R.id.action_myPageFragment_to_myPageViewingPartyFragment)
+        }
     }
 }

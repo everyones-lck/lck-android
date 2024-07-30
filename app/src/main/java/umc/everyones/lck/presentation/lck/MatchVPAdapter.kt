@@ -1,10 +1,12 @@
+package umc.everyones.lck.presentation.lck
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.R
-import umc.everyones.lck.presentation.lck.MatchData
+
 
 class MatchVPAdapter : RecyclerView.Adapter<MatchVPAdapter.MatchViewHolder>() {
 

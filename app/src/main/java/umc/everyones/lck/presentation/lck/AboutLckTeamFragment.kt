@@ -25,7 +25,7 @@ class AboutLckTeamFragment : Fragment() {
 
         if (savedInstanceState == null) {
             childFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, AboutLckRoasterFragment()) // 초기 프래그먼트
+                .replace(R.id.fragment_about_lck_team_container, AboutLckRoasterFragment()) // 초기 프래그먼트
                 .commit()
         }
 
@@ -39,7 +39,7 @@ class AboutLckTeamFragment : Fragment() {
                     else -> throw IllegalArgumentException("Invalid tab position")
                 }
                 childFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, fragment)
+                    .replace(R.id.fragment_about_lck_team_container, fragment)
                     .commit()
                 // 선택된 탭의 타이틀 폰트 변경
                 updateTabTitleFont(tab)

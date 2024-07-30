@@ -1,7 +1,5 @@
 package umc.everyones.lck.presentation.lck
 
-import MatchVPAdapter
-import VerticalSpaceItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2

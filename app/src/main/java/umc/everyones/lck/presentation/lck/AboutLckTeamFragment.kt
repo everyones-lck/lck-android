@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -23,6 +24,7 @@ class AboutLckTeamFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val tabLayout: TabLayout = view.findViewById(R.id.tb_about_lck_team_t1)
+        val backButton: ImageView = view.findViewById(R.id.iv_about_lck_team_t1_pre)
 
         if (savedInstanceState == null) {
             childFragmentManager.beginTransaction()
@@ -52,9 +54,16 @@ class AboutLckTeamFragment : Fragment() {
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                // 탭 재선택 시 특별한 동작이 필요하지 않으면 비워둡니다.
+                // 탭 재선택 시 동작
             }
         })
+
+        backButton.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_about_lck_container, AboutLCKFragment())
+                .addToBackStack(null)
+                .commit()
+        }
 
         tabLayout.getTabAt(0)?.select()
     }

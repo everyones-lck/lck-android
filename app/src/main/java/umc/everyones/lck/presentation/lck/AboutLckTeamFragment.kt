@@ -44,7 +44,6 @@ class AboutLckTeamFragment : Fragment() {
                 childFragmentManager.beginTransaction()
                     .replace(R.id.fragment_about_lck_team_container, fragment)
                     .commit()
-                // 선택된 탭의 타이틀 폰트 변경
                 updateTabTitleFont(tab, true)
             }
 

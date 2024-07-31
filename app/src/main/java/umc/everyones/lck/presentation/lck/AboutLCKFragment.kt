@@ -7,7 +7,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentAboutLckBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 
-class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment_about_lck) {
+class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment_about_lck), OnTeamClickListener {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var matchVPAdapter: MatchVPAdapter
@@ -37,7 +37,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
                 MatchData("2024 LCK Summer 5nd Match", "18:00", R.drawable.ic_gen_g, R.drawable.ic_t1)
             ),
             listOf(
-                MatchData("-","No Match",null,null)
+                MatchData("-", "No Match", null, null)
             )
         )
 
@@ -71,17 +71,37 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
             RankingData(R.drawable.ic_kt_rolster, "KT")
         )
 
-        rankingAdapter = RankingAdapter(teams)
+        rankingAdapter = RankingAdapter(teams, this)
         recyclerView.adapter = rankingAdapter
 
         val verticalSpaceHeightPx = (10 * resources.displayMetrics.density).toInt()
         recyclerView.addItemDecoration(VerticalSpaceItemDecoration(verticalSpaceHeightPx))
 
+        binding.viewAboutLckRect1.setOnClickListener {
+            childFragmentManager.beginTransaction()
+                .replace(R.id.fragment_about_lck_container, AboutLckTeamFragment())
+                .addToBackStack(null)
+                .commit()
+        }
         binding.viewAboutLckRect2.setOnClickListener {
             childFragmentManager.beginTransaction()
                 .replace(R.id.fragment_about_lck_container, AboutLckTeamFragment())
                 .addToBackStack(null)
                 .commit()
         }
+        binding.viewAboutLckRect3.setOnClickListener {
+            childFragmentManager.beginTransaction()
+                .replace(R.id.fragment_about_lck_container, AboutLckTeamFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
+    override fun onTeamClick(team: RankingData) {
+        childFragmentManager.beginTransaction()
+            .replace(R.id.fragment_about_lck_container, AboutLckTeamFragment())
+            .addToBackStack(null)
+            .commit()
     }
 }
+

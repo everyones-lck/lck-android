@@ -33,6 +33,15 @@ class PlayerAdapter(private val playerList: List<PlayerData>) :
         holder.teamColorImage.setImageResource(player.teamColor)
         holder.playerTeamLogo.setImageResource(player.team)
         holder.playerPosition.setImageResource((player.position))
+
+        holder.playerImage.bringToFront()
+        holder.teamColorImage.bringToFront()
+        holder.playerTeamLogo.bringToFront()
+        holder.playerName.bringToFront()
+        holder.playerPosition.bringToFront()
+
+        holder.itemView.invalidate()
+        holder.itemView.requestLayout()
     }
 
     override fun getItemCount() = playerList.size

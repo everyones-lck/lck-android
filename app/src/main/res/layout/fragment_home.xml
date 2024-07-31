@@ -12,35 +12,34 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_gradient_color">
 
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_home_topbar"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/iv_home_logo"
-                android:layout_width="24.92dp"
-                android:layout_height="15.3dp"
-                android:layout_marginTop="18dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:src="@drawable/ic_modu_logo"
-                app:layout_constraintStart_toStartOf="@+id/layout_home_topbar"
-                app:layout_constraintTop_toTopOf="@+id/layout_home_topbar" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
                 android:id="@+id/iv_home_my_page"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:src="@drawable/ic_my_page"
-                app:layout_constraintEnd_toEndOf="@+id/layout_home_topbar"
-                app:layout_constraintTop_toTopOf="@id/iv_home_logo"
-                app:layout_constraintBottom_toBottomOf="@id/iv_home_logo"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -49,7 +48,7 @@
             style="@style/TextAppearance.LCK.Head1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="30dp"
             android:text="Today's Matches"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -97,7 +96,7 @@
             android:id="@+id/layout_home_match_result"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:layout_marginEnd="220dp"
+            android:layout_marginEnd="260dp"
             android:layout_marginTop="26dp"
             app:layout_constraintStart_toStartOf="@id/vp_home_match_content"
             app:layout_constraintEnd_toEndOf="@id/vp_home_match_content"
@@ -141,8 +140,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="55dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_home_match_result"
@@ -158,7 +157,7 @@
 
                 <ImageView
                     android:id="@+id/iv_home_about_lck_box"
-                    android:layout_width="141dp"
+                    android:layout_width="160dp"
                     android:layout_height="0dp"
                     android:src="@drawable/shape_rect_8_gray_line"
                     app:layout_constraintStart_toStartOf="parent"
@@ -176,7 +175,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="15dp"
-                    android:layout_marginStart="12dp"/>
+                    android:layout_marginStart="15dp"/>
 
                 <TextView
                     android:id="@+id/tv_home_about_lck2"
@@ -214,7 +213,7 @@
                 android:id="@+id/layout_home_community"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="15dp"
                 app:layout_constraintStart_toEndOf="@+id/layout_home_about_lck"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/layout_home_viewing_party"
@@ -222,7 +221,7 @@
 
                 <ImageView
                     android:id="@+id/iv_home_community_box"
-                    android:layout_width="129dp"
+                    android:layout_width="150dp"
                     android:layout_height="0dp"
                     android:src="@drawable/shape_rect_8_gray_line"
                     app:layout_constraintStart_toStartOf="parent"
@@ -237,8 +236,8 @@
                     android:text="Community"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="11dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -247,7 +246,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_arrow_right"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
@@ -258,15 +257,15 @@
                 android:id="@+id/layout_home_viewing_party"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
                 app:layout_constraintStart_toEndOf="@+id/layout_home_about_lck"
                 app:layout_constraintTop_toBottomOf="@id/layout_home_community"
                 app:layout_constraintBottom_toBottomOf="@id/layout_home_about_lck">
 
                 <ImageView
                     android:id="@+id/iv_home_viewing_party_box"
-                    android:layout_width="129dp"
+                    android:layout_width="150dp"
                     android:layout_height="0dp"
                     android:src="@drawable/shape_rect_8_gray_line"
                     app:layout_constraintStart_toStartOf="parent"
@@ -281,8 +280,8 @@
                     android:text="Viewing\nparty"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="11dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -291,7 +290,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_arrow_right"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>

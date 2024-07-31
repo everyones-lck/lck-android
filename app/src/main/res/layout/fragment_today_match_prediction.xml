@@ -14,30 +14,31 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_today_match_prediction_topbar"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/iv_today_match_prediction_logo"
-                android:layout_width="24.92dp"
-                android:layout_height="15.3dp"
-                android:layout_marginTop="18dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:src="@drawable/ic_modu_logo"
-                app:layout_constraintStart_toStartOf="@+id/layout_today_match_prediction_topbar"
-                app:layout_constraintTop_toTopOf="@+id/layout_today_match_prediction_topbar" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
                 android:id="@+id/iv_today_match_prediction_my_page"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:src="@drawable/ic_my_page"
-                app:layout_constraintEnd_toEndOf="@+id/layout_today_match_prediction_topbar"
-                app:layout_constraintTop_toTopOf="@id/iv_today_match_prediction_logo"
-                app:layout_constraintBottom_toBottomOf="@id/iv_today_match_prediction_logo"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -98,7 +99,7 @@
                 style="@style/TextAppearance.LCK.Body1"
                 android:text="투표"
                 android:textColor="@color/white"
-                android:textSize="8sp"
+                android:textSize="12sp"
                 android:layout_gravity="center"
                 android:paddingVertical="4dp"
                 android:paddingHorizontal="8dp"

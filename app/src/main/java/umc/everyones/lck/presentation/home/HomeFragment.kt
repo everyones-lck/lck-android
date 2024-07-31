@@ -20,12 +20,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     override fun initView() {
         val matches = listOf(
             LckMatch(
-                matchTitle = "Gen.G vs T1",
+                matchTitle = "2024 LCK Summer 1st Match",
                 matchDate = "2024.07.12. 17:00",
                 team1Name = "Gen.G",
                 team2Name = "T1",
                 team1LogoResId = R.drawable.ic_gen_g,
+                team1LogoBlur = R.drawable.ic_geng_blurred,
                 team2LogoResId = R.drawable.ic_t1,
+                team2LogoBlur = R.drawable.ic_t1_blurred,
                 team1WinRate = "60%",
                 team2WinRate = "40%"
             ),
@@ -35,7 +37,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 team1Name = "DRX",
                 team2Name = "DK",
                 team1LogoResId = R.drawable.ic_drx,
+                team1LogoBlur = R.drawable.ic_drx_blurred,
                 team2LogoResId = R.drawable.ic_dplus_kia,
+                team2LogoBlur = R.drawable.ic_dk_blurred,
                 team1WinRate = "37%",
                 team2WinRate = "63%"
             )

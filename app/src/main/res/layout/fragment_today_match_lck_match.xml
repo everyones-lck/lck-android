@@ -22,7 +22,8 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +36,7 @@
                 android:id="@+id/iv_today_match_no_match_star1"
                 android:layout_width="197dp"
                 android:layout_height="181dp"
-                android:src="@drawable/ic_no_match_big_star"
+                android:src="@drawable/ic_no_match_big_star_blurred"
                 android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -45,7 +46,7 @@
                 android:id="@+id/iv_today_match_no_match_star2"
                 android:layout_width="139dp"
                 android:layout_height="126dp"
-                android:src="@drawable/ic_no_match_small_star"
+                android:src="@drawable/ic_no_match_small_star_blurred"
                 android:layout_marginBottom="100dp"
                 android:layout_marginEnd="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +60,7 @@
                 style="@style/TextAppearance.LCK.Body1"
                 android:text="No Matches"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

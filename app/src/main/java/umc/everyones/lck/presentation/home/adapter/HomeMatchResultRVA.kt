@@ -24,7 +24,7 @@ class HomeMatchResultRVA(
     inner class ViewHolder(private val binding: ItemHomeMatchResultBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: LckMatch) {
-            binding.ivHomeResultLogo1.setImageResource(item.team1LogoResId)
+            binding.ivHomeResultLogo1.setImageResource(item.team1LogoBlur)
             binding.tvHomeResultDate1.text = item.matchDate
             binding.tvHomeResultTeam1.text = item.team1Name  // 여기에 조건에 따라 우승 팀 이름을 표시할 수 있습니다.
             binding.tvHomeResultTeam2.text = item.team2Name

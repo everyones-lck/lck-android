@@ -28,7 +28,9 @@ class TodayMatchLckMatchFragment : BaseFragment<FragmentTodayMatchLckMatchBindin
                 team1Name = "Gen.G",
                 team2Name = "T1",
                 team1LogoResId = R.drawable.ic_gen_g,
+                team1LogoBlur = R.drawable.ic_geng_blurred,
                 team2LogoResId = R.drawable.ic_t1,
+                team2LogoBlur = R.drawable.ic_t1_blurred,
                 team1WinRate = "60%",
                 team2WinRate = "40%"
             ),
@@ -38,7 +40,9 @@ class TodayMatchLckMatchFragment : BaseFragment<FragmentTodayMatchLckMatchBindin
                 team1Name = "DRX",
                 team2Name = "DK",
                 team1LogoResId = R.drawable.ic_drx,
+                team1LogoBlur = R.drawable.ic_drx_blurred,
                 team2LogoResId = R.drawable.ic_dplus_kia,
+                team2LogoBlur = R.drawable.ic_dk_blurred,
                 team1WinRate = "37%",
                 team2WinRate = "63%"
             )

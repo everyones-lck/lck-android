@@ -39,9 +39,6 @@ class PlayerAdapter(private val playerList: List<PlayerData>) :
         holder.playerTeamLogo.bringToFront()
         holder.playerName.bringToFront()
         holder.playerPosition.bringToFront()
-
-        holder.itemView.invalidate()
-        holder.itemView.requestLayout()
     }
 
     override fun getItemCount() = playerList.size

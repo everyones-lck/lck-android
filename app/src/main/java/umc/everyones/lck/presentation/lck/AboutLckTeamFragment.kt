@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import umc.everyones.lck.R
@@ -27,9 +28,11 @@ class AboutLckTeamFragment : Fragment() {
             childFragmentManager.beginTransaction()
                 .replace(R.id.fragment_about_lck_team_container, AboutLckRoasterFragment()) // 초기 프래그먼트
                 .commit()
+
+            tabLayout.getTabAt(0)?.select()
+            updateTabTitleFont(tabLayout.getTabAt(0), true)
         }
 
-        // 탭 클릭 시 프래그먼트를 교체합니다.
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val fragment = when (tab?.position) {
@@ -42,11 +45,11 @@ class AboutLckTeamFragment : Fragment() {
                     .replace(R.id.fragment_about_lck_team_container, fragment)
                     .commit()
                 // 선택된 탭의 타이틀 폰트 변경
-                updateTabTitleFont(tab)
+                updateTabTitleFont(tab, true)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                // 선택 해제 시 특별한 동작이 필요하지 않으면 비워둡니다.
+                updateTabTitleFont(tab, false)
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -54,14 +57,19 @@ class AboutLckTeamFragment : Fragment() {
             }
         })
 
-        // 초기 탭 선택
         tabLayout.getTabAt(0)?.select()
     }
 
-    private fun updateTabTitleFont(tab: TabLayout.Tab?) {
+    private fun updateTabTitleFont(tab: TabLayout.Tab?, isSelected: Boolean) {
         tab?.let {
-            val tabTextView = it.customView as? TextView
-            tabTextView?.setTextAppearance(requireContext(), R.style.TextAppearance_LCK_Head1)
+            val tabTextView = (it.view as ViewGroup).getChildAt(1) as? TextView
+            if (isSelected) {
+                tabTextView?.setTextAppearance(R.style.TextAppearance_LCK_Head1)
+                tabTextView?.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
+            } else {
+                tabTextView?.setTextAppearance(R.style.TextAppearance_LCK_Head2)
+                tabTextView?.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
+            }
         }
     }
 }

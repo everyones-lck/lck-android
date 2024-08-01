@@ -4,6 +4,6 @@ data class PlayerData(
     val playerImg: Int,
     val teamColor: Int,
     val name: String,
-    val team: Int,
+    val teamLogo: Int,
     val position: Int
 )

@@ -8,16 +8,26 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.R
 
-class PlayerAdapter(private val playerList: List<PlayerData>) :
-    RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
+class PlayerAdapter(
+    private val playerList: List<PlayerData>,
+    private val listener: OnPlayerItemClickListener
+) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
 
-
-    class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val playerName: TextView = itemView.findViewById(R.id.tv_about_lck_player_name)
         val playerTeamLogo: ImageView = itemView.findViewById(R.id.iv_about_lck_player_team_logo)
         val playerImage: ImageView = itemView.findViewById(R.id.iv_about_lck_player)
         val teamColorImage: ImageView = itemView.findViewById(R.id.iv_about_lck_player_team_color)
         val playerPosition: ImageView = itemView.findViewById(R.id.iv_about_lck_player_position)
+
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onPlayerItemClick(playerList[position])
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
@@ -31,8 +41,8 @@ class PlayerAdapter(private val playerList: List<PlayerData>) :
         holder.playerName.text = player.name
         holder.playerImage.setImageResource(player.playerImg)
         holder.teamColorImage.setImageResource(player.teamColor)
-        holder.playerTeamLogo.setImageResource(player.team)
-        holder.playerPosition.setImageResource((player.position))
+        holder.playerTeamLogo.setImageResource(player.teamLogo)
+        holder.playerPosition.setImageResource(player.position)
 
         holder.playerImage.bringToFront()
         holder.teamColorImage.bringToFront()
@@ -43,3 +53,4 @@ class PlayerAdapter(private val playerList: List<PlayerData>) :
 
     override fun getItemCount() = playerList.size
 }
+

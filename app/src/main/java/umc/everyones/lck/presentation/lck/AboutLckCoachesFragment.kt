@@ -11,19 +11,22 @@ import umc.everyones.lck.R
 
 class AboutLckCoachesFragment : Fragment() {
 
+    private lateinit var listener: OnPlayerItemClickListener
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_about_lck_roaster, container, false)
+        listener = parentFragment as OnPlayerItemClickListener
+        return inflater.inflate(R.layout.fragment_about_lck_coaches, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.rv_about_lck_roaster)
+        val recyclerView: RecyclerView = view.findViewById(R.id.rv_about_lck_coaches)
         recyclerView.layoutManager = GridLayoutManager(context, 3)
-        recyclerView.adapter = PlayerAdapter(getPlayers())
+        recyclerView.adapter = PlayerAdapter(getPlayers(), listener)
     }
 
     private fun getPlayers(): List<PlayerData> {

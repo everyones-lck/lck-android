@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import umc.everyones.lck.R
 
-class AboutLckTeamFragment : Fragment() {
+class AboutLckTeamFragment : Fragment(), OnPlayerItemClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,6 +74,13 @@ class AboutLckTeamFragment : Fragment() {
         }
 
         tabLayout.getTabAt(0)?.select()
+    }
+
+    override fun onPlayerItemClick(player: PlayerData) {
+        childFragmentManager.beginTransaction()
+            .replace(R.id.fragment_about_lck_team_to_history_container, AboutLckTeamPlayerFragment())
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun updateTabTitleFont(tab: TabLayout.Tab?, isSelected: Boolean) {

@@ -24,6 +24,7 @@
     <color name="white_20">#33FFFFFF</color>
     <color name="white_90">#E6FFFFFF</color>
     <color name="gray_detail">#9F9F9F</color>
+    <color name="gray_dayOfWeek">#767A81</color>
     <color name="gray_line">#BBBBBB</color>
     <color name="gray_spinner_bg">#D9D9D9</color>
     <color name="gray_comment_et_bg">#33D9D9D9</color>
@@ -31,4 +32,5 @@
     <color name="selected">#33FFFFFF</color>
     <color name="Transparency">#00FFFFFF</color>
     <color name="text_high_light">#9FA0A5</color>
+    <color name="green">#32D892</color>
 </resources>

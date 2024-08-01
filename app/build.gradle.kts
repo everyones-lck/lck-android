@@ -119,4 +119,8 @@ dependencies {
 
     // naver map
     implementation("com.naver.maps:map-sdk:3.19.0")
+
+    // calender
+    implementation ("com.github.prolificinteractive:material-calendarview:2.0.1")
+    implementation ("com.jakewharton.threetenabp:threetenabp:1.2.1")
 }

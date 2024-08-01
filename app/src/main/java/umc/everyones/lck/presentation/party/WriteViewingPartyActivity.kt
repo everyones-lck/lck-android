@@ -39,6 +39,11 @@ class WriteViewingPartyActivity :
         binding.ivWriteClose.setOnClickListener {
             finish()
         }
+
+        binding.tvWriteViewingPartyDate.setOnClickListener {
+            val dialog = CalendarDialogFragment()
+            dialog.show(supportFragmentManager, dialog.tag)
+        }
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {

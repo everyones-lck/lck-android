@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rect_4_white_fill">
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendar_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:layout_marginTop="12dp"
+            android:theme="@style/CalenderViewCustom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
+            app:mcv_firstDayOfWeek="monday"
+            app:mcv_headerTextAppearance="@style/TextAppearance.LCK.Bold.DateTitle_18sp"
+            app:mcv_leftArrow="@drawable/ic_arrow_previous"
+            app:mcv_rightArrow="@drawable/ic_arrow_next"
+            app:mcv_selectionMode="single"
+            app:mcv_showOtherDates="defaults"
+            app:mcv_weekDayTextAppearance="@style/TextAppearance.LCK.DayOfWeek"
+            android:elevation="8dp"/>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginHorizontal="8dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="@id/calendar_view"
+            app:layout_constraintStart_toStartOf="@id/calendar_view"
+            app:layout_constraintTop_toBottomOf="@id/calendar_view" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

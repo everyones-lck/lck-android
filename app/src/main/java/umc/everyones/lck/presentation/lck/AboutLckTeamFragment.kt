@@ -23,8 +23,9 @@ class AboutLckTeamFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tabLayout: TabLayout = view.findViewById(R.id.tb_about_lck_team_t1)
-        val backButton: ImageView = view.findViewById(R.id.iv_about_lck_team_t1_pre)
+        val tabLayout: TabLayout = view.findViewById(R.id.tb_about_lck_team)
+        val backButton: ImageView = view.findViewById(R.id.iv_about_lck_team_pre)
+        val nextButton: ImageView = view.findViewById(R.id.iv_about_lck_team_next)
 
         if (savedInstanceState == null) {
             childFragmentManager.beginTransaction()
@@ -60,7 +61,14 @@ class AboutLckTeamFragment : Fragment() {
 
         backButton.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_about_lck_container, AboutLCKFragment())
+                .replace(R.id.fragment_about_lck_to_team_container, AboutLCKFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        nextButton.setOnClickListener {
+            childFragmentManager.beginTransaction()
+                .replace(R.id.fragment_about_lck_team_to_history_container, AboutLckTeamHistoryFragment())
                 .addToBackStack(null)
                 .commit()
         }

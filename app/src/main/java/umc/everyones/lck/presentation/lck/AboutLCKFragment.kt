@@ -79,19 +79,19 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
         binding.viewAboutLckRect1.setOnClickListener {
             childFragmentManager.beginTransaction()
-                .replace(R.id.fragment_about_lck_container, AboutLckTeamFragment())
+                .replace(R.id.fragment_about_lck_to_team_container, AboutLckTeamFragment())
                 .addToBackStack(null)
                 .commit()
         }
         binding.viewAboutLckRect2.setOnClickListener {
             childFragmentManager.beginTransaction()
-                .replace(R.id.fragment_about_lck_container, AboutLckTeamFragment())
+                .replace(R.id.fragment_about_lck_to_team_container, AboutLckTeamFragment())
                 .addToBackStack(null)
                 .commit()
         }
         binding.viewAboutLckRect3.setOnClickListener {
             childFragmentManager.beginTransaction()
-                .replace(R.id.fragment_about_lck_container, AboutLckTeamFragment())
+                .replace(R.id.fragment_about_lck_to_team_container, AboutLckTeamFragment())
                 .addToBackStack(null)
                 .commit()
         }
@@ -99,7 +99,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
     override fun onTeamClick(team: RankingData) {
         childFragmentManager.beginTransaction()
-            .replace(R.id.fragment_about_lck_container, AboutLckTeamFragment())
+            .replace(R.id.fragment_about_lck_to_team_container, AboutLckTeamFragment())
             .addToBackStack(null)
             .commit()
     }

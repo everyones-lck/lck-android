@@ -20,10 +20,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:defaultNavHost="true"
-            app:layout_constraintBottom_toTopOf="@+id/main_bnv"
+            app:layout_constraintBottom_toTopOf="@id/main_bnv"
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/main_graph" />
-
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/main_bnv"
@@ -36,14 +35,12 @@
             android:elevation="4dp"
             app:itemIconTint="@color/white"
             app:itemTextColor="@color/white"
-            app:itemTextAppearanceActive="@style/TextAppearance.LCK.Bnv"
-            app:itemTextAppearanceInactive="@style/TextAppearance.LCK.Bnv"
+            app:itemTextAppearanceActive="@style/TextAppearance.LCK.Light.Detail_10sp"
+            app:itemTextAppearanceInactive="@style/TextAppearance.LCK.Light.Detail_10sp"
             app:itemBackground="@color/bottom_bar"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
             app:menu="@menu/main_menu" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

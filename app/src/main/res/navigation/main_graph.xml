@@ -9,43 +9,52 @@
         android:id="@+id/aboutLCKFragment"
         android:name="umc.everyones.lck.presentation.lck.AboutLCKFragment"
         android:label="AboutLCKFragment"
-        tools:layout="@layout/fragment_about_lck"/>
-    <fragment
-        android:id="@+id/boardFragment"
-        android:name="umc.everyones.lck.presentation.board.BoardFragment"
-        android:label="BoardFragment"
-        tools:layout="@layout/fragment_board"/>
+        tools:layout="@layout/fragment_about_lck" />
     <fragment
         android:id="@+id/homeFragment"
         android:name="umc.everyones.lck.presentation.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/todayMatchFragment"
         android:name="umc.everyones.lck.presentation.match.TodayMatchFragment"
         android:label="TodayMatchFragment"
-        tools:layout="@layout/fragment_today_match">
-        <action
-            android:id="@+id/goToPrediction"
-            app:destination="@id/todayMatchPredictionFragment" />
-        <action
-            android:id="@+id/goToTodayPog"
-            app:destination="@id/todayMatchTodayPogFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/viewingPartyFragment"
-        android:name="umc.everyones.lck.presentation.party.ViewingPartyFragment"
-        android:label="ViewingPartyFragment"
-        tools:layout="@layout/fragment_viewing_party"/>
+        tools:layout="@layout/fragment_today_match" />
 
     <fragment
-        android:id="@+id/todayMatchPredictionFragment"
-        android:name="umc.everyones.lck.presentation.match.TodayMatchPredictionFragment"
-        android:label="TodayMatchPredictionFragment"
-        tools:layout="@layout/fragment_today_match_prediction"/>
-    <fragment
-        android:id="@+id/todayMatchTodayPogFragment"
-        android:name="umc.everyones.lck.presentation.match.TodayMatchTodayPogFragment"
-        android:label="TodayMatchTodayPogFragment"
-        tools:layout="@layout/fragment_today_match_today_pog"/>
+        android:id="@+id/communityFragment"
+        android:name="umc.everyones.lck.presentation.community.CommunityFragment"
+        android:label="communityFragment"
+        tools:layout="@layout/fragment_community" />
+    <navigation android:id="@+id/viewingPartyTab"
+        app:startDestination="@id/viewingPartyFragment">
+        <fragment
+            android:id="@+id/viewingPartyFragment"
+            android:name="umc.everyones.lck.presentation.party.ViewingPartyFragment"
+            android:label="ViewingPartyFragment"
+            tools:layout="@layout/fragment_community" >
+            <action
+                android:id="@+id/action_viewingPartyFragment_to_readViewingPartyFragment"
+                app:destination="@id/readViewingPartyFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/readViewingPartyFragment"
+            android:name="umc.everyones.lck.presentation.party.ReadViewingPartyFragment"
+            android:label="ReadViewingPartyFragment"
+            tools:layout="@layout/fragment_read_viewing_party">
+            <argument
+                android:name="postId"
+                app:argType="integer" />
+            <action
+                android:id="@+id/action_readViewingPartyFragment_to_participantsFragment"
+                app:destination="@id/participantsFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/participantsFragment"
+            android:name="umc.everyones.lck.presentation.party.ParticipantsFragment"
+            android:label="ParticipantsFragment"
+            tools:layout="@layout/fragment_participants"/>
+    </navigation>
+
 </navigation>
+

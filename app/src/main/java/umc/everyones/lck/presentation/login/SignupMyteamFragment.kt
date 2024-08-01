@@ -1,42 +1,63 @@
 package umc.everyones.lck.presentation.login
 
+import android.net.Uri
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.widget.ImageView
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.DialogMyteamConfirmBinding
 import umc.everyones.lck.databinding.FragmentSignupMyteamBinding
 import umc.everyones.lck.presentation.base.BaseFragment
-
-import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import umc.everyones.lck.util.TeamData
 
 @AndroidEntryPoint
 class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.fragment_signup_myteam) {
 
     private var selectedTeamName: String? = null
-    private val args: SignupMyteamFragmentArgs by navArgs()
+    private val viewModel: SignupViewModel by viewModels()
 
     override fun initObserver() {
-        // No observers needed here
+        // No specific observers are needed for now
     }
 
     override fun initView() {
-        val nickname = args.nickname
-        val profileImageUri = args.profileImageUri
+        // Get ViewModel data
+        val nickname = viewModel.nickname.value ?: ""
+        val profileImageUri = viewModel.profileImageUri.value?.toString()
 
+        // Log the values for debugging
+        Log.d("SignupMyteamFragment", "Initial Nickname: $nickname")
+        Log.d("SignupMyteamFragment", "Initial Profile Image URI: $profileImageUri")
+
+        // Set up team selection
         setupTeamSelection { teamName ->
             selectedTeamName = teamName
+            Log.d("SignupMyteamFragment", "Selected team: $selectedTeamName")
         }
 
+        // Next button click listener
         binding.ivSignupMyteamNext.setOnClickListener {
             if (selectedTeamName == null) {
                 showTeamConfirmDialog(nickname, profileImageUri)
             } else {
-                navigateToSignupSuccess(nickname, profileImageUri, selectedTeamName)
+                lifecycleScope.launch {
+                    try {
+                        // Add user and navigate after successful insertion
+                        viewModel.addUser(profileImageUri ?: "", selectedTeamName ?: "default_team")
+                        findNavController().navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment)
+                        Log.d("SignupMyteamFragment", "User added with team: $selectedTeamName")
+                    } catch (e: Exception) {
+                        Log.e("SignupMyteamFragment", "Error adding user", e)
+                    }
+                }
             }
         }
     }
@@ -45,17 +66,16 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
         TeamData.teamLogos.forEach { (imageViewId, teamName) ->
             val imageView = binding.root.findViewById<ImageView>(imageViewId)
             imageView.setOnClickListener {
-                if (selectedTeamName == teamName) {
-                    selectedTeamName = null
+                selectedTeamName = if (selectedTeamName == teamName) {
+                    null // 선택된 팀을 다시 클릭하면 선택 해제
                 } else {
-                    selectedTeamName = teamName
+                    teamName
                 }
                 updateTeamSelectionUI()
                 onTeamSelected(selectedTeamName)
             }
         }
     }
-
 
     private fun updateTeamSelectionUI() {
         TeamData.teamLogos.forEach { (imageViewId, teamName) ->
@@ -91,17 +111,15 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
 
         dialogBinding.btnConfirm.setOnClickListener {
             dialog.dismiss()
-            navigateToSignupSuccess(nickname, profileImageUri, selectedTeamName)
+            lifecycleScope.launch {
+                try {
+                    viewModel.addUser(profileImageUri ?: "", selectedTeamName ?: "default_team")
+                    findNavController().navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment)
+                    Log.d("SignupMyteamFragment", "User added with default team")
+                } catch (e: Exception) {
+                    Log.e("SignupMyteamFragment", "Error adding user", e)
+                }
+            }
         }
-    }
-
-    private fun navigateToSignupSuccess(nickname: String, profileImageUri: String?, selectedTeamName: String?) {
-        val action = SignupMyteamFragmentDirections
-            .actionSignupMyteamFragmentToSignupSuccessFragment(
-                nickname = nickname,
-                profileImageUri = profileImageUri ?: "",
-                selectedTeam = selectedTeamName ?: ""
-            )
-        findNavController().navigate(action)
     }
 }

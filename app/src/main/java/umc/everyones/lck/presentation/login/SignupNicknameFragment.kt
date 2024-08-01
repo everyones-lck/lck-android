@@ -1,11 +1,12 @@
 package umc.everyones.lck.presentation.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentSignupNicknameBinding
@@ -16,7 +17,7 @@ import umc.everyones.lck.util.NicknameManager
 class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.layout.fragment_signup_nickname) {
 
     private lateinit var nicknameManager: NicknameManager
-    private val args: SignupNicknameFragmentArgs by navArgs()
+    private val viewModel: SignupViewModel by viewModels()
 
     override fun initObserver() {
         // No observers needed here
@@ -31,11 +32,17 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
 
         binding.ivSignupNicknameNext.setOnClickListener {
             val nickname = binding.etSignupNicknameName.text.toString()
+            // 닉네임 유효성 검사가 통과하면
             if (validateNickname(nickname)) {
-                val action = SignupNicknameFragmentDirections
-                    .actionSignupNicknameFragmentToSignupProfileFragment(nickname)
-                findNavController().navigate(action)
+                viewModel.setNickname(nickname) // ViewModel에 닉네임 저장
+                Log.d("SignupNicknameFragment", "Nickname set: $nickname")
+                viewModel.setProfileImageUri(null) // 이후에 프로필 사진 선택할 때 업데이트
+
+                // 다음 프래그먼트로 이동
+                findNavController().navigate(R.id.action_signupNicknameFragment_to_signupProfileFragment)
             }
+            val nickname2 = viewModel.nickname.value
+            Log.d("SignupViewModel", "전달: $nickname2")
         }
     }
 
@@ -75,3 +82,4 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
         return isValid
     }
 }
+

@@ -1,11 +1,13 @@
 package umc.everyones.lck.presentation.lck
 
+import android.app.DatePickerDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentAboutLckBinding
 import umc.everyones.lck.presentation.base.BaseFragment
+import java.util.Calendar
 
 class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment_about_lck), OnTeamClickListener {
 
@@ -13,6 +15,9 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
     private lateinit var matchVPAdapter: MatchVPAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var rankingAdapter: RankingAdapter
+
+    private var isDatePickerDialogVisible = false
+    private var datePickerDialog: CustomDatePickerDialog? = null
 
     override fun initObserver() {
     }
@@ -77,6 +82,10 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         val verticalSpaceHeightPx = (10 * resources.displayMetrics.density).toInt()
         recyclerView.addItemDecoration(VerticalSpaceItemDecoration(verticalSpaceHeightPx))
 
+        binding.ivAboutLckCalendar.setOnClickListener {
+            toggleDatePickerDialog()
+        }
+
         binding.viewAboutLckRect1.setOnClickListener {
             childFragmentManager.beginTransaction()
                 .replace(R.id.fragment_about_lck_to_team_container, AboutLckTeamFragment())
@@ -95,6 +104,34 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
                 .addToBackStack(null)
                 .commit()
         }
+    }
+    private fun toggleDatePickerDialog() {
+        if (isDatePickerDialogVisible) {
+            datePickerDialog?.dismiss()
+            isDatePickerDialogVisible = false
+        } else {
+            showCustomDatePickerDialog()
+        }
+    }
+
+    private fun showCustomDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        datePickerDialog = CustomDatePickerDialog(
+            requireContext(),
+            DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
+                // 날짜가 선택되었을 때의 동작
+            },
+            year,
+            month,
+            day
+        )
+
+        datePickerDialog?.show()
+        isDatePickerDialogVisible = true
     }
 
     override fun onTeamClick(team: RankingData) {

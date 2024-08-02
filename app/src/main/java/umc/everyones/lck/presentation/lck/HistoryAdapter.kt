@@ -35,6 +35,8 @@ class HistoryAdapter(private val items: List<HistoryData>) :
         // 세부 항목 어댑터 설정
         holder.detailsRecyclerView.layoutManager = LinearLayoutManager(holder.detailsRecyclerView.context)
         holder.detailsRecyclerView.adapter = HistoryDetailAdapter(item.details)
+        holder.detailsRecyclerView.setHasFixedSize(true)
+        holder.detailsRecyclerView.isNestedScrollingEnabled = true
 
         holder.itemView.setOnClickListener {
             item.isExpanded = !item.isExpanded

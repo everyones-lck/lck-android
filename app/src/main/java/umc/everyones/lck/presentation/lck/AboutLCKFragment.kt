@@ -138,8 +138,8 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
     }
 
     private fun updateSelectedDate(year: Int, month: Int, day: Int) {
-        val dateTextView: TextView = binding.tvAboutLckDate // 레이아웃 XML에 설정된 ID 사용
-        val formattedDate = String.format("%d.%02d.%02d", year, month + 1, day) // 날짜 형식 지정
+        val dateTextView: TextView = binding.tvAboutLckDate
+        val formattedDate = String.format("%d.%02d.%02d", year, month + 1, day)
         dateTextView.text = formattedDate
     }
     override fun onTeamClick(team: RankingData) {

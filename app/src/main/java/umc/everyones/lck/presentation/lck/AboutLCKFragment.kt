@@ -1,6 +1,6 @@
 package umc.everyones.lck.presentation.lck
 
-import android.app.DatePickerDialog
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -68,11 +68,11 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
         val teams = listOf(
             RankingData(R.drawable.ic_dplus_kia, "DK"),
-            RankingData(R.drawable.ic_hanhwa, "한화생명"),
+            RankingData(R.drawable.ic_hanhwa, "HLE"),
             RankingData(R.drawable.ic_drx, "DRX"),
-            RankingData(R.drawable.ic_nongshim_red_force, "농심"),
+            RankingData(R.drawable.ic_nongshim_red_force, "NS"),
             RankingData(R.drawable.ic_bnk, "BNK"),
-            RankingData(R.drawable.ic_ok_saving_bank_brion, "OK저축은행"),
+            RankingData(R.drawable.ic_ok_saving_bank_brion, "BRO"),
             RankingData(R.drawable.ic_kt_rolster, "KT")
         )
 
@@ -81,6 +81,10 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
         val verticalSpaceHeightPx = (10 * resources.displayMetrics.density).toInt()
         recyclerView.addItemDecoration(VerticalSpaceItemDecoration(verticalSpaceHeightPx))
+
+        // 오늘 날짜를 초기값으로 설정
+        val calendar = Calendar.getInstance()
+        updateSelectedDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
 
         binding.ivAboutLckCalendar.setOnClickListener {
             toggleDatePickerDialog()
@@ -122,18 +126,22 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
         datePickerDialog = CustomDatePickerDialog(
             requireContext(),
-            DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
-                // 날짜가 선택되었을 때의 동작
-            },
             year,
             month,
             day
-        )
+        ) { selectedYear, selectedMonth, selectedDay ->
+            updateSelectedDate(selectedYear, selectedMonth, selectedDay)
+        }
 
         datePickerDialog?.show()
         isDatePickerDialogVisible = true
     }
 
+    private fun updateSelectedDate(year: Int, month: Int, day: Int) {
+        val dateTextView: TextView = binding.tvAboutLckDate // 레이아웃 XML에 설정된 ID 사용
+        val formattedDate = String.format("%d.%02d.%02d", year, month + 1, day) // 날짜 형식 지정
+        dateTextView.text = formattedDate
+    }
     override fun onTeamClick(team: RankingData) {
         childFragmentManager.beginTransaction()
             .replace(R.id.fragment_about_lck_to_team_container, AboutLckTeamFragment())

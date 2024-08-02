@@ -14,13 +14,11 @@ import umc.everyones.lck.R
 
 class CustomDatePickerDialog(
     context: Context,
-    listener: OnDateSetListener,
     private val year: Int,
     private val month: Int,
-    private val dayOfMonth: Int
-) : DatePickerDialog(context,listener, year, month, dayOfMonth) {
-
-    private var listener: OnDateSetListener = listener
+    private val dayOfMonth: Int,
+    private val dateSelectedCallback: (Int, Int, Int) -> Unit // 콜백 함수 추가
+) : DatePickerDialog(context, null, year, month, dayOfMonth) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +54,7 @@ class CustomDatePickerDialog(
 
             // DatePicker에서 날짜 선택 시 다이얼로그 종료
             datePicker.init(year, month, dayOfMonth) { _, selectedYear, selectedMonth, selectedDay ->
-                listener.onDateSet(datePicker, selectedYear, selectedMonth, selectedDay)
+                dateSelectedCallback(selectedYear, selectedMonth, selectedDay) // 콜백 호출
                 dismiss()
             }
             customizeDatePicker(datePicker)
@@ -88,10 +86,8 @@ class CustomDatePickerDialog(
             datePicker.setBackgroundColor(android.graphics.Color.TRANSPARENT)
             val balloonBackground: Drawable = context.getDrawable(R.drawable.bg_calendar_balloon)!!
             datePicker.background = balloonBackground
-
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 }
-

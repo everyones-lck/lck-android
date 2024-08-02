@@ -136,7 +136,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Gen.G"
+                        android:text="Gen"
                         android:textSize="12sp"
                         android:textColor="@color/white"
                         android:layout_gravity="center"
@@ -157,7 +157,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="광동"
+                        android:text="KDF"
                         android:textSize="12sp"
                         android:textColor="@color/white"
                         android:layout_gravity="center"

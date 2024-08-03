@@ -1,4 +1,4 @@
-package umc.everyones.lck.presentation.lck
+package umc.everyones.lck.presentation.lck.adapter
 
 import android.view.LayoutInflater
 import android.view.View

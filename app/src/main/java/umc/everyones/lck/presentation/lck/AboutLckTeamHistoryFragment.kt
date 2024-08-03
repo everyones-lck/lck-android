@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.R
+import umc.everyones.lck.presentation.lck.adapter.HistoryAdapter
+import umc.everyones.lck.presentation.lck.data.HistoryData
 
 class AboutLckTeamHistoryFragment : Fragment() {
 

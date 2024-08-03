@@ -1,4 +1,4 @@
-package umc.everyones.lck.presentation.lck
+package umc.everyones.lck.presentation.lck.util
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

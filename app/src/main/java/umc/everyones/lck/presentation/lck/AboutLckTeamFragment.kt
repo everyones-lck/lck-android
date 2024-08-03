@@ -10,6 +10,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import umc.everyones.lck.R
+import umc.everyones.lck.presentation.lck.data.PlayerData
+import umc.everyones.lck.presentation.lck.util.OnPlayerItemClickListener
 
 class AboutLckTeamFragment : Fragment(), OnPlayerItemClickListener {
 

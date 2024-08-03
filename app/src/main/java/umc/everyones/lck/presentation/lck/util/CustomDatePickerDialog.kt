@@ -1,4 +1,4 @@
-package umc.everyones.lck.presentation.lck
+package umc.everyones.lck.presentation.lck.util
 
 import android.app.DatePickerDialog
 import android.content.Context

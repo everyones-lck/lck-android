@@ -1,4 +1,4 @@
-package umc.everyones.lck.presentation.lck
+package umc.everyones.lck.presentation.lck.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.R
+import umc.everyones.lck.presentation.lck.util.OnTeamClickListener
+import umc.everyones.lck.presentation.lck.data.RankingData
 
 class RankingAdapter(
     private val teams: List<RankingData>,

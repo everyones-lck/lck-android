@@ -43,7 +43,7 @@
             app:layout_constraintBottom_toBottomOf="@id/tv_about_lck_winning_history"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <umc.everyones.lck.presentation.lck.CustomRecyclerView
+        <umc.everyones.lck.presentation.lck.util.CustomRecyclerView
             android:id="@+id/rv_about_lck_history_details"
             android:layout_width="match_parent"
             android:layout_height="110dp"

@@ -1,14 +1,14 @@
-package umc.everyones.lck.presentation.lck
+package umc.everyones.lck.presentation.lck.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.R
+import umc.everyones.lck.presentation.lck.data.PlayerCareerData
 
 class PlayerCareerAdapter(private val items: List<PlayerCareerData>) :
     RecyclerView.Adapter<PlayerCareerAdapter.PlayerCareerViewHolder>() {
@@ -35,6 +35,8 @@ class PlayerCareerAdapter(private val items: List<PlayerCareerData>) :
         // 세부 항목 어댑터 설정
         holder.detailsRecyclerView.layoutManager = LinearLayoutManager(holder.detailsRecyclerView.context)
         holder.detailsRecyclerView.adapter = PlayerCareerDetailAdapter(item.details)
+        holder.detailsRecyclerView.setHasFixedSize(true)
+        holder.detailsRecyclerView.isNestedScrollingEnabled = true
 
         holder.itemView.setOnClickListener {
             item.isExpanded = !item.isExpanded

@@ -7,9 +7,17 @@ import androidx.viewpager2.widget.ViewPager2
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentAboutLckBinding
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.presentation.lck.adapter.MatchVPAdapter
+import umc.everyones.lck.presentation.lck.adapter.RankingAdapter
+import umc.everyones.lck.presentation.lck.data.MatchData
+import umc.everyones.lck.presentation.lck.data.RankingData
+import umc.everyones.lck.presentation.lck.util.CustomDatePickerDialog
+import umc.everyones.lck.presentation.lck.util.OnTeamClickListener
+import umc.everyones.lck.presentation.lck.util.VerticalSpaceItemDecoration
 import java.util.Calendar
 
-class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment_about_lck), OnTeamClickListener {
+class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment_about_lck),
+    OnTeamClickListener {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var matchVPAdapter: MatchVPAdapter

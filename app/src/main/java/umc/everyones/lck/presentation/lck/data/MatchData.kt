@@ -1,4 +1,4 @@
-package umc.everyones.lck.presentation.lck
+package umc.everyones.lck.presentation.lck.data
 
 data class MatchData(
     val matchTitle: String? = null,

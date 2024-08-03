@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.R
+import umc.everyones.lck.presentation.lck.adapter.PlayerAdapter
+import umc.everyones.lck.presentation.lck.data.PlayerData
+import umc.everyones.lck.presentation.lck.util.OnPlayerItemClickListener
 
 class AboutLckClRoasterFragment : Fragment() {
 

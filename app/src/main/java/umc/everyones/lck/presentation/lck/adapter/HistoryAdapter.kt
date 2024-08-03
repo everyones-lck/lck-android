@@ -1,14 +1,14 @@
-package umc.everyones.lck.presentation.lck
+package umc.everyones.lck.presentation.lck.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.R
+import umc.everyones.lck.presentation.lck.data.HistoryData
 
 class HistoryAdapter(private val items: List<HistoryData>) :
     RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {

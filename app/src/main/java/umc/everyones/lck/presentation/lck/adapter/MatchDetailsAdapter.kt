@@ -25,7 +25,7 @@ class MatchDetailsAdapter(private val matchDetails: List<MatchData>) :
 
     override fun getItemCount(): Int = matchDetails.size
 
-    class MatchDetailViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MatchDetailViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val ivTeam1: ImageView = itemView.findViewById(R.id.iv_about_lck_team1)
         private val ivTeam2: ImageView = itemView.findViewById(R.id.iv_about_lck_team2)
         private val tvMatchTitle: TextView = itemView.findViewById(R.id.tv_match_title)

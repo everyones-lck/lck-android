@@ -1,33 +1,27 @@
 package umc.everyones.lck.presentation.lck
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.R
+import umc.everyones.lck.databinding.FragmentAboutLckRoasterBinding
+import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.lck.adapter.PlayerAdapter
 import umc.everyones.lck.presentation.lck.data.PlayerData
 import umc.everyones.lck.presentation.lck.util.OnPlayerItemClickListener
 
-class AboutLckRoasterFragment : Fragment() {
+class AboutLckRoasterFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R.layout.fragment_about_lck_roaster) {
 
     private lateinit var listener: OnPlayerItemClickListener
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        listener = parentFragment as OnPlayerItemClickListener
-        return inflater.inflate(R.layout.fragment_about_lck_roaster, container, false)
+    override fun initObserver() {
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val recyclerView: RecyclerView = view.findViewById(R.id.rv_about_lck_roaster)
+    override fun initView() {
+        listener = parentFragment as OnPlayerItemClickListener
+        initRecyclerView()
+    }
+    private fun initRecyclerView() {
+        val recyclerView: RecyclerView = binding.rvAboutLckRoaster
         recyclerView.layoutManager = GridLayoutManager(context, 3)
         recyclerView.adapter = PlayerAdapter(getPlayers(), listener)
     }

@@ -31,7 +31,7 @@ class MatchVPAdapter : RecyclerView.Adapter<MatchVPAdapter.MatchViewHolder>() {
         notifyItemInserted(matchDetailsList.size - 1)
     }
 
-    class MatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val recyclerView: RecyclerView = itemView.findViewById(R.id.rv_about_lck_match_details)
 
         fun bind(matchDetails: List<MatchData>) {

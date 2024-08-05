@@ -1,42 +1,29 @@
 package umc.everyones.lck.presentation.lck
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import umc.everyones.lck.R
+import umc.everyones.lck.databinding.FragmentAboutLckTeamBinding
+import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.lck.data.PlayerData
 import umc.everyones.lck.presentation.lck.util.OnPlayerItemClickListener
 
-class AboutLckTeamFragment : Fragment(), OnPlayerItemClickListener {
+class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.fragment_about_lck_team),
+    OnPlayerItemClickListener {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_about_lck_team, container, false)
+    override fun initObserver() {
+
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val tabLayout: TabLayout = view.findViewById(R.id.tb_about_lck_team)
-        val backButton: ImageView = view.findViewById(R.id.iv_about_lck_team_pre)
-        val nextButton: ImageView = view.findViewById(R.id.iv_about_lck_team_next)
-
-        if (savedInstanceState == null) {
-            childFragmentManager.beginTransaction()
-                .replace(R.id.fragment_about_lck_team_container, AboutLckRoasterFragment()) // 초기 프래그먼트
-                .commit()
-
-            tabLayout.getTabAt(0)?.select()
-            updateTabTitleFont(tabLayout.getTabAt(0), true)
-        }
+    override fun initView() {
+        val tabLayout: TabLayout = binding.tbAboutLckTeam
+        val backButton: ImageView = binding.ivAboutLckTeamPre
+        val nextButton: ImageView = binding.ivAboutLckTeamNext
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -47,7 +34,7 @@ class AboutLckTeamFragment : Fragment(), OnPlayerItemClickListener {
                     else -> throw IllegalArgumentException("Invalid tab position")
                 }
                 childFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_about_lck_team_container, fragment)
+                    .replace(R.id.fcv_about_lck_team_container, fragment)
                     .commit()
                 updateTabTitleFont(tab, true)
             }
@@ -63,14 +50,14 @@ class AboutLckTeamFragment : Fragment(), OnPlayerItemClickListener {
 
         backButton.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_about_lck_to_team_container, AboutLCKFragment())
+                .replace(R.id.fcv_about_lck_to_team_container, AboutLCKFragment())
                 .addToBackStack(null)
                 .commit()
         }
 
         nextButton.setOnClickListener {
             childFragmentManager.beginTransaction()
-                .replace(R.id.fragment_about_lck_team_to_history_container, AboutLckTeamHistoryFragment())
+                .replace(R.id.fcv_about_lck_team_to_history_container, AboutLckTeamHistoryFragment())
                 .addToBackStack(null)
                 .commit()
         }
@@ -78,9 +65,26 @@ class AboutLckTeamFragment : Fragment(), OnPlayerItemClickListener {
         tabLayout.getTabAt(0)?.select()
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initView()
+
+        val tabLayout: TabLayout = binding.tbAboutLckTeam
+
+        if (savedInstanceState == null) {
+            childFragmentManager.beginTransaction()
+                .replace(R.id.fcv_about_lck_team_container, AboutLckRoasterFragment()) // 초기 프래그먼트
+                .commit()
+
+            tabLayout.getTabAt(0)?.select()
+            updateTabTitleFont(tabLayout.getTabAt(0), true)
+        }
+    }
+
     override fun onPlayerItemClick(player: PlayerData) {
         childFragmentManager.beginTransaction()
-            .replace(R.id.fragment_about_lck_team_to_history_container, AboutLckTeamPlayerFragment())
+            .replace(R.id.fcv_about_lck_team_to_history_container, AboutLckTeamPlayerFragment())
             .addToBackStack(null)
             .commit()
     }

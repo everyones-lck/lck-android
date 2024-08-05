@@ -1,26 +1,25 @@
 package umc.everyones.lck.presentation.lck
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.R
+import umc.everyones.lck.databinding.FragmentAboutLckTeamPlayerBinding
+import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.lck.adapter.PlayerCareerAdapter
 import umc.everyones.lck.presentation.lck.data.PlayerCareerData
 
-class AboutLckTeamPlayerFragment : Fragment() {
+class AboutLckTeamPlayerFragment : BaseFragment<FragmentAboutLckTeamPlayerBinding>(R.layout.fragment_about_lck_team_player) {
+    override fun initObserver() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_about_lck_team_player, container, false)
+    }
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_about_lck_team_player)
+    override fun initView() {
+        initRecyclerView()
+        initBackButton()
+    }
+
+    private fun initRecyclerView() {
+        val recyclerView: RecyclerView = binding.rvAboutLckTeamPlayer
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.isNestedScrollingEnabled = false
 
@@ -31,12 +30,11 @@ class AboutLckTeamPlayerFragment : Fragment() {
 
         val adapter = PlayerCareerAdapter(items)
         recyclerView.adapter = adapter
-
-        val backButton = view.findViewById<ImageView>(R.id.iv_about_lck_team_player_pre)
+    }
+    private fun initBackButton() {
+        val backButton = binding.ivAboutLckTeamPlayerPre
         backButton.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-
-        return view
     }
 }

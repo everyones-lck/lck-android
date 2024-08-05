@@ -29,7 +29,7 @@ class RankingAdapter(
         return teams.size
     }
 
-    class RankingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class RankingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageViewTeamLogo: ImageView = itemView.findViewById(R.id.iv_about_lck_ranking)
         private val textViewTeamName: TextView = itemView.findViewById(R.id.tv_about_lck_ranking)
 

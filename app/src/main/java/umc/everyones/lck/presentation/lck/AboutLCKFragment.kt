@@ -19,9 +19,7 @@ import java.util.Calendar
 class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment_about_lck),
     OnTeamClickListener {
 
-    private lateinit var viewPager: ViewPager2
     private lateinit var matchVPAdapter: MatchVPAdapter
-    private lateinit var recyclerView: RecyclerView
     private lateinit var rankingAdapter: RankingAdapter
 
     private var isDatePickerDialogVisible = false
@@ -31,9 +29,14 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
     }
 
     override fun initView() {
-        viewPager = binding.vpAboutLckMatch
-        recyclerView = binding.rvAboutLckRanking
+        initMatchViewPager()
+        initRankingRecyclerView()
+        initBackButton()
+        initCalendarButton()
+    }
 
+    private fun initMatchViewPager() {
+        val viewPager: ViewPager2 = binding.vpAboutLckMatch
         matchVPAdapter = MatchVPAdapter()
 
         // 각 페이지에 들어갈 MatchData 객체를 생성
@@ -71,7 +74,10 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         val recyclerViewMatches = viewPager.getChildAt(0) as RecyclerView
         recyclerViewMatches.setPadding(pageMarginPx, 0, pageMarginPx, 0)
         recyclerViewMatches.clipToPadding = false
+    }
 
+    private fun initRankingRecyclerView() {
+        val recyclerView: RecyclerView = binding.rvAboutLckRanking
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         val teams = listOf(
@@ -89,34 +95,38 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
         val verticalSpaceHeightPx = (10 * resources.displayMetrics.density).toInt()
         recyclerView.addItemDecoration(VerticalSpaceItemDecoration(verticalSpaceHeightPx))
+    }
 
-        // 오늘 날짜를 초기값으로 설정
-        val calendar = Calendar.getInstance()
-        updateSelectedDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
-
-        binding.ivAboutLckCalendar.setOnClickListener {
-            toggleDatePickerDialog()
-        }
-
+    private fun initBackButton() {
         binding.viewAboutLckRect1.setOnClickListener {
             childFragmentManager.beginTransaction()
-                .replace(R.id.fragment_about_lck_to_team_container, AboutLckTeamFragment())
+                .replace(R.id.fcv_about_lck_to_team_container, AboutLckTeamFragment())
                 .addToBackStack(null)
                 .commit()
         }
         binding.viewAboutLckRect2.setOnClickListener {
             childFragmentManager.beginTransaction()
-                .replace(R.id.fragment_about_lck_to_team_container, AboutLckTeamFragment())
+                .replace(R.id.fcv_about_lck_to_team_container, AboutLckTeamFragment())
                 .addToBackStack(null)
                 .commit()
         }
         binding.viewAboutLckRect3.setOnClickListener {
             childFragmentManager.beginTransaction()
-                .replace(R.id.fragment_about_lck_to_team_container, AboutLckTeamFragment())
+                .replace(R.id.fcv_about_lck_to_team_container, AboutLckTeamFragment())
                 .addToBackStack(null)
                 .commit()
         }
     }
+
+    private fun initCalendarButton() {
+        binding.ivAboutLckCalendar.setOnClickListener {
+            toggleDatePickerDialog()
+        }
+        // 오늘 날짜를 초기값으로 설정
+        val calendar = Calendar.getInstance()
+        updateSelectedDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+    }
+
     private fun toggleDatePickerDialog() {
         if (isDatePickerDialogVisible) {
             datePickerDialog?.dismiss()
@@ -150,11 +160,11 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         val formattedDate = String.format("%d.%02d.%02d", year, month + 1, day)
         dateTextView.text = formattedDate
     }
+
     override fun onTeamClick(team: RankingData) {
         childFragmentManager.beginTransaction()
-            .replace(R.id.fragment_about_lck_to_team_container, AboutLckTeamFragment())
+            .replace(R.id.fcv_about_lck_to_team_container, AboutLckTeamFragment())
             .addToBackStack(null)
             .commit()
     }
 }
-

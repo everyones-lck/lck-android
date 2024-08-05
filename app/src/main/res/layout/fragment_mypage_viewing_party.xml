@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="umc.everyones.lck.presentation.mypage.MyPageViewingPartyFragment"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,7 +15,6 @@
         android:layout_height="match_parent"
         tools:context=".presentation.MainActivity"
         android:background="@drawable/bg_gradient_color">
-
 
         <ImageView
             android:id="@+id/iv_mypage_viewing_party_back"
@@ -67,6 +68,7 @@
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"

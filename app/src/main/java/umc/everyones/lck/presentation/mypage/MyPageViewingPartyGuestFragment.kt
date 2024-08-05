@@ -1,3 +1,4 @@
+// MyPageViewingPartyGuestFragment.kt
 package umc.everyones.lck.presentation.mypage
 
 import android.os.Bundle
@@ -15,7 +16,6 @@ class MyPageViewingPartyGuestFragment : BaseFragment<FragmentMypageViewingPartyG
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // ViewModel을 바인딩합니다
         binding.lifecycleOwner = viewLifecycleOwner
 
         initView()
@@ -23,7 +23,7 @@ class MyPageViewingPartyGuestFragment : BaseFragment<FragmentMypageViewingPartyG
     }
 
     override fun initView() {
-        adapter = MyPageViewingPartyAdapter(emptyList())
+        adapter = MyPageViewingPartyAdapter(emptyList(), isHost = false) // isHost를 false로 설정
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = this@MyPageViewingPartyGuestFragment.adapter

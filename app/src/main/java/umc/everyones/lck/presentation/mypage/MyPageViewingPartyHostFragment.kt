@@ -1,3 +1,4 @@
+// MyPageViewingPartyHostFragment.kt
 package umc.everyones.lck.presentation.mypage
 
 import android.os.Bundle
@@ -22,7 +23,7 @@ class MyPageViewingPartyHostFragment : BaseFragment<FragmentMypageViewingPartyHo
     }
 
     override fun initView() {
-        adapter = MyPageViewingPartyAdapter(emptyList())
+        adapter = MyPageViewingPartyAdapter(emptyList(), isHost = true) // isHost를 true로 설정
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = this@MyPageViewingPartyHostFragment.adapter

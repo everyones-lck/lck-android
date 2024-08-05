@@ -31,7 +31,7 @@ class MyPageViewingPartyFragment : BaseFragment<FragmentMypageViewingPartyBindin
     }
 
     private fun setupTabLayout() {
-        TabLayoutMediator(binding.tabMypageCommunityPostComment, binding.viewPager) { tab, position ->
+        TabLayoutMediator(binding.tabMypageViewingPartyGuestHost, binding.viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "Guest"
                 1 -> "Host"

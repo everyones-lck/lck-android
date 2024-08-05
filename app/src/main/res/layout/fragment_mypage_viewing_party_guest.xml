@@ -17,7 +17,6 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp"
-            android:background="@drawable/bg_mypage_viewing_party"/>
+            android:padding="16dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

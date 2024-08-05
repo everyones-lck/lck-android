@@ -16,7 +16,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="16.25dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="14dp"
             android:src="@drawable/ic_arrow_previous"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -64,6 +64,7 @@
             app:tabTextColor="@color/white"
             app:tabSelectedTextColor="@color/white"
             app:tabTextAppearance="@style/TextAppearance.LCK.Head2"
+            app:tabRippleColor="#00FFFFFF"
             app:layout_constraintTop_toBottomOf="@id/iv_about_lck_team_logo">
 
             <com.google.android.material.tabs.TabItem

@@ -4,6 +4,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentAboutLckBinding
 import umc.everyones.lck.presentation.base.BaseFragment
@@ -16,6 +17,7 @@ import umc.everyones.lck.presentation.lck.util.OnTeamClickListener
 import umc.everyones.lck.presentation.lck.util.VerticalSpaceItemDecoration
 import java.util.Calendar
 
+@AndroidEntryPoint
 class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment_about_lck),
     OnTeamClickListener {
 

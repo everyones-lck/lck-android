@@ -2,6 +2,7 @@ package umc.everyones.lck.presentation.lck
 
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentAboutLckCoachesBinding
 import umc.everyones.lck.presentation.base.BaseFragment
@@ -9,6 +10,7 @@ import umc.everyones.lck.presentation.lck.adapter.PlayerAdapter
 import umc.everyones.lck.presentation.lck.data.PlayerData
 import umc.everyones.lck.presentation.lck.util.OnPlayerItemClickListener
 
+@AndroidEntryPoint
 class AboutLckCoachesFragment : BaseFragment<FragmentAboutLckCoachesBinding>(R.layout.fragment_about_lck_coaches) {
 
     private lateinit var listener: OnPlayerItemClickListener

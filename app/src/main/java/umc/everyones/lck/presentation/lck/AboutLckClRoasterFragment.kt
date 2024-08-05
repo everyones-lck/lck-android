@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentAboutLckClRoasterBinding
 import umc.everyones.lck.databinding.FragmentAboutLckCoachesBinding
@@ -14,7 +15,7 @@ import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.lck.adapter.PlayerAdapter
 import umc.everyones.lck.presentation.lck.data.PlayerData
 import umc.everyones.lck.presentation.lck.util.OnPlayerItemClickListener
-
+@AndroidEntryPoint
 class AboutLckClRoasterFragment : BaseFragment<FragmentAboutLckClRoasterBinding>(R.layout.fragment_about_lck_cl_roaster) {
 
     private lateinit var listener: OnPlayerItemClickListener

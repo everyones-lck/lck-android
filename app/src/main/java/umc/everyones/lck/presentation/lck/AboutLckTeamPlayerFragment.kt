@@ -2,12 +2,14 @@ package umc.everyones.lck.presentation.lck
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentAboutLckTeamPlayerBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.lck.adapter.PlayerCareerAdapter
 import umc.everyones.lck.presentation.lck.data.PlayerCareerData
 
+@AndroidEntryPoint
 class AboutLckTeamPlayerFragment : BaseFragment<FragmentAboutLckTeamPlayerBinding>(R.layout.fragment_about_lck_team_player) {
     override fun initObserver() {
 

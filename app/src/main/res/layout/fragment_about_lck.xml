@@ -353,7 +353,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                     app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect1" />
 
                 <View
-                    android:id="@+id/view_about_lck_tranparent"
+                    android:id="@+id/view_about_lck_transparent"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_marginTop="50dp"

@@ -35,6 +35,9 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         binding.tvMypageProfileLogoutText.setOnClickListener {
             showProfileDialog()
         }
+        binding.ivMypageProfileBack.setOnClickListener{
+            requireActivity().onBackPressed()
+        }
 
         // Update UI with user's tier color
         updateTierUI()

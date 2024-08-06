@@ -27,11 +27,12 @@ class MyPageCommunityViewModel : ViewModel() {
         val postList = listOf(
             "배고프다",
             "오늘 LCK 재밌었다",
-            "우와우와우와우"
+            "우와우와우와우",
+            "UMC 6th"
         )
         val commentsList = listOf(
             "가나다라마바사아자차카타파하",
-            "수수수수퍼보나 사건은 다가와 ah oh ay",
+            "슈슈슈슈퍼노바 사건은 다가와 ah oh ay",
             "그대 나의 작은 심장에 귀 기울일 때에 입을 꼭 맞추어 내 숨을 가져가도 돼요",
             "나 그대의 품에 안겨서 입을 맞추고 Rock 'n' roll save my life",
             "그땐 난 어떤 마음이었길래 내 모든 걸 주고도 웃을 수 있었나",

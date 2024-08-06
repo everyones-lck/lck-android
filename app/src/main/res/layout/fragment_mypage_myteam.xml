@@ -109,7 +109,7 @@
                 android:id="@+id/btn_mypage_myteam_arrow"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:background="@drawable/ic_arrow_down"
+                android:background="@color/Transparency"
                 app:layout_constraintTop_toTopOf="@id/tv_mypage_myteam_text"
                 app:layout_constraintEnd_toEndOf="@id/view_mypage_myteam_bar1"
                 app:layout_constraintBottom_toBottomOf="@id/tv_mypage_myteam_text"
@@ -145,7 +145,7 @@
 
                     <TableRow>
                         <ImageView
-                            android:id="@+id/iv_selected_myteam_hanhwa"
+                            android:id="@+id/iv_mypage_myteam_hanhwa"
                             android:layout_width="72dp"
                             android:layout_height="72dp"
                             android:layout_margin="4dp"
@@ -153,7 +153,7 @@
                             android:src="@drawable/ic_hanhwa"
                             android:background="@drawable/shape_team_background"/>
                         <ImageView
-                            android:id="@+id/iv_selected_myteam_gen_g"
+                            android:id="@+id/iv_mypage_myteam_gen_g"
                             android:layout_width="72dp"
                             android:layout_height="72dp"
                             android:layout_margin="4dp"
@@ -161,7 +161,7 @@
                             android:src="@drawable/ic_gen_g"
                             android:background="@drawable/shape_team_background"/>
                         <ImageView
-                            android:id="@+id/iv_selected_myteam_t1"
+                            android:id="@+id/iv_mypage_myteam_t1"
                             android:layout_width="72dp"
                             android:layout_height="72dp"
                             android:layout_margin="4dp"
@@ -172,7 +172,7 @@
 
                     <TableRow>
                         <ImageView
-                            android:id="@+id/iv_selected_myteam_kwangdong_freecs"
+                            android:id="@+id/iv_mypage_myteam_kwangdong_freecs"
                             android:layout_width="72dp"
                             android:layout_height="72dp"
                             android:layout_margin="4dp"
@@ -180,7 +180,7 @@
                             android:src="@drawable/ic_kwangdong_freecs"
                             android:background="@drawable/shape_team_background"/>
                         <ImageView
-                            android:id="@+id/iv_selected_myteam_bnk"
+                            android:id="@+id/iv_mypage_myteam_bnk"
                             android:layout_width="72dp"
                             android:layout_height="72dp"
                             android:layout_margin="4dp"
@@ -188,7 +188,7 @@
                             android:src="@drawable/ic_bnk"
                             android:background="@drawable/shape_team_background"/>
                         <ImageView
-                            android:id="@+id/iv_selected_myteam_nongshim_red_force"
+                            android:id="@+id/iv_mypage_myteam_nongshim_red_force"
                             android:layout_width="72dp"
                             android:layout_height="72dp"
                             android:layout_margin="4dp"
@@ -199,7 +199,7 @@
 
                     <TableRow>
                         <ImageView
-                            android:id="@+id/iv_selected_myteam_drx"
+                            android:id="@+id/iv_mypage_myteam_drx"
                             android:layout_width="72dp"
                             android:layout_height="72dp"
                             android:layout_margin="4dp"
@@ -207,7 +207,7 @@
                             android:src="@drawable/ic_drx"
                             android:background="@drawable/shape_team_background"/>
                         <ImageView
-                            android:id="@+id/iv_selected_myteam_ok_saving_bank_brion"
+                            android:id="@+id/iv_mypage_myteam_ok_saving_bank_brion"
                             android:layout_width="72dp"
                             android:layout_height="72dp"
                             android:layout_margin="4dp"
@@ -215,7 +215,7 @@
                             android:src="@drawable/ic_ok_saving_bank_brion"
                             android:background="@drawable/shape_team_background"/>
                         <ImageView
-                            android:id="@+id/iv_selected_myteam_dplus_kia"
+                            android:id="@+id/iv_mypage_myteam_dplus_kia"
                             android:layout_width="72dp"
                             android:layout_height="72dp"
                             android:layout_margin="4dp"
@@ -226,7 +226,7 @@
 
                     <TableRow>
                         <ImageView
-                            android:id="@+id/iv_selected_myteam_kt_rolster"
+                            android:id="@+id/iv_mypage_myteam_kt_rolster"
                             android:layout_width="72dp"
                             android:layout_height="72dp"
                             android:layout_margin="4dp"

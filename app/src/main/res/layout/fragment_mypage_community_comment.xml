@@ -6,21 +6,17 @@
     <data>
         <variable
             name="viewModel"
-            type="umc.everyones.lck.presentation.mypage.viewingparty.MyPageViewingPartyViewModel"/>
+            type="umc.everyones.lck.presentation.mypage.community.MyPageCommunityViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!-- RecyclerView 추가 -->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:context=".presentation.mypage.viewingparty.MyPageViewingPartyHostFragment"/>
-
+            android:padding="16dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

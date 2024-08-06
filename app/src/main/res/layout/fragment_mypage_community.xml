@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <!-- ViewModel, 변수 등을 여기에 바인딩할 수 있습니다 -->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,7 @@
             android:id="@+id/tv_mypage_community_topbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MY Team"
+            android:text="MY Post &amp; Comment"
             style="@style/TextAppearance.LCK.Bold.Title1_22sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,12 +66,13 @@
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:overScrollMode="never"
             app:layout_constraintTop_toBottomOf="@id/tab_mypage_community_post_comment"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

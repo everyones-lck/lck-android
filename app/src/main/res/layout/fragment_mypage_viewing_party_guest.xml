@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="umc.everyones.lck.presentation.mypage.MyPageViewingPartyViewModel" />
+            type="umc.everyones.lck.presentation.mypage.viewingparty.MyPageViewingPartyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

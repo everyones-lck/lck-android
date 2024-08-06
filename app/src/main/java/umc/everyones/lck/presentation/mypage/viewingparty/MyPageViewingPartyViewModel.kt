@@ -1,11 +1,10 @@
-package umc.everyones.lck.presentation.mypage
+package umc.everyones.lck.presentation.mypage.viewingparty
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import umc.everyones.lck.data.models.ViewingPartyItem
 import java.util.Calendar
-import java.util.Date
 
 class MyPageViewingPartyViewModel : ViewModel() {
     private val _viewingPartyItems = MutableLiveData<List<ViewingPartyItem>>()

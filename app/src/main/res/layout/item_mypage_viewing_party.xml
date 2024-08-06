@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="umc.everyones.lck.presentation.mypage.MyPageViewingPartyViewModel" />
+            type="umc.everyones.lck.presentation.mypage.viewingparty.MyPageViewingPartyViewModel" />
         <variable
             name="item"
             type="umc.everyones.lck.data.models.ViewingPartyItem" />
@@ -41,7 +41,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="22dp"/>
+                android:layout_marginTop="22dp"
+                tools:text="Sample Title"/>
 
             <TextView
                 android:id="@+id/tv_mypage_viewing_party_date"
@@ -55,7 +56,8 @@
                 android:background="@drawable/shape_rect_12_black_line"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="4dp"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="8dp"
+                tools:text="XXXX.XX.XX"/>
 
             <TextView
                 android:id="@+id/tv_mypage_viewing_party_shortcuts"

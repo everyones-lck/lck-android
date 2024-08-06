@@ -69,14 +69,14 @@
 
     <fragment
         android:id="@+id/myPageCommunityFragment"
-        android:name="umc.everyones.lck.presentation.mypage.MyPageCommunityFragment"
+        android:name="umc.everyones.lck.presentation.mypage.community.MyPageCommunityFragment"
         android:label="MyPage Community Fragment"
         tools:layout="@layout/fragment_mypage_community">
     </fragment>
 
     <fragment
         android:id="@+id/myPageViewingPartyFragment"
-        android:name="umc.everyones.lck.presentation.mypage.MyPageViewingPartyFragment"
+        android:name="umc.everyones.lck.presentation.mypage.viewingparty.MyPageViewingPartyFragment"
         android:label="MyPage Viewing Party Fragment"
         tools:layout="@layout/fragment_mypage_viewing_party">
     </fragment>

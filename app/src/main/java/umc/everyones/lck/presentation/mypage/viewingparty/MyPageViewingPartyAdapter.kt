@@ -1,4 +1,4 @@
-package umc.everyones.lck.presentation.mypage
+package umc.everyones.lck.presentation.mypage.viewingparty
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

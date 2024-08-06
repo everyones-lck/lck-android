@@ -1,7 +1,5 @@
-package umc.everyones.lck.presentation.mypage
+package umc.everyones.lck.presentation.mypage.viewingparty
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import umc.everyones.lck.R

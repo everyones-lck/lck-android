@@ -1,4 +1,4 @@
-package umc.everyones.lck.presentation.mypage
+package umc.everyones.lck.presentation.mypage.viewingparty
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

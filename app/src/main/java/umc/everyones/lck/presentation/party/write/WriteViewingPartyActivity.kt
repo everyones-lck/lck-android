@@ -31,13 +31,17 @@ class WriteViewingPartyActivity :
     BaseActivity<ActivityWriteViewingPartyBinding>(R.layout.activity_write_viewing_party),
     OnMapReadyCallback {
     private var naverMap: NaverMap? = null
+    private val viewingPartyMarker = Marker()
 
     private val viewModel: WriteViewingPartyViewModel by viewModels()
     override fun initObserver() {
         repeatOnStarted {
             viewModel.latLng.collect{ latLng ->
-                val marker = Marker()
-                marker.apply {
+                if(!latLng.isValid){
+                    showCustomSnackBar(binding.root, "주소를 정확히 입력해주세요")
+                    return@collect
+                }
+                viewingPartyMarker.apply {
                     position = latLng
                     icon = OverlayImage.fromResource(R.drawable.img_marker)
                     map = naverMap
@@ -161,7 +165,7 @@ class WriteViewingPartyActivity :
                 // 제목이나 본문 입력하지 않을 시 예외처리
                 if (etWriteViewingPartyName.text.isEmpty() || etWriteViewingPartyMoney.text.isEmpty() ||
                     etWriteViewingPartyParticipantMinimum.text.isEmpty() || etWriteViewingPartyParticipantMaximum.text.isEmpty() ||
-                    etWriteViewingPartyCondition.text.isEmpty()
+                    etWriteViewingPartyCondition.text.isEmpty() || tvWriteViewingPartyDate.text == "시간을 입력하세요" || viewingPartyMarker.map == null
                 ) {
                     showCustomSnackBar(binding.tvWriteGuide, "필수 항목을 입력하지 않았습니다")
                     return@setOnClickListener

@@ -1,5 +1,6 @@
 package umc.everyones.lck.presentation.party.write
 
+import android.util.Log
 import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import com.umc.ttoklip.data.repository.naver.NaverRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
+import umc.everyones.lck.util.network.onFail
 import umc.everyones.lck.util.network.onSuccess
 
 @HiltViewModel
@@ -31,9 +33,14 @@ class WriteViewingPartyViewModel @Inject constructor(
             naverRepository.fetchGeocoding(query).onSuccess { response ->
                 val result = response.addresses.firstOrNull()
                 if(result != null){
+                    Log.d("result", result.toString())
                     val latLng = LatLng(result.y.toDouble(), result.x.toDouble())
                     _latLng.emit(latLng)
+                } else {
+                    _latLng.emit(LatLng.INVALID)
                 }
+            }.onFail {
+                _latLng.emit(LatLng.INVALID)
             }
         }
     }

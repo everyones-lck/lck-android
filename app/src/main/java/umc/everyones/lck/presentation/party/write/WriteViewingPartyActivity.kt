@@ -161,6 +161,12 @@ class WriteViewingPartyActivity :
     private fun writeDone() {
         with(binding) {
             ivWriteDone.setOnClickListener {
+                
+                if (etWriteViewingPartyParticipantMaximum.text.toString().replace(",", "").toInt() <
+                    etWriteViewingPartyParticipantMinimum.text.toString().replace(",", "").toInt()){
+                    showCustomSnackBar(binding.tvWriteGuide, "최소 인원이 최대 인원보다 많습니다")
+                    return@setOnClickListener
+                }
 
                 // 제목이나 본문 입력하지 않을 시 예외처리
                 if (etWriteViewingPartyName.text.isEmpty() || etWriteViewingPartyMoney.text.isEmpty() ||

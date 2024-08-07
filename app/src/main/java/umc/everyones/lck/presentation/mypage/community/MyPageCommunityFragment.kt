@@ -13,12 +13,11 @@ class MyPageCommunityFragment : BaseFragment<FragmentMypageCommunityBinding>(R.l
 
     }
     override fun initView() {
-        // 뒤로가기 버튼 클릭 시 동작
+
         binding.ivMypageCommunityBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
 
-        // ViewPager2와 TabLayout 초기화
         val pagerAdapter = MyPageCommunityPagerAdapter(this)
         binding.viewPager.adapter = pagerAdapter
 

@@ -23,7 +23,7 @@ class MyPageViewingPartyGuestFragment : BaseFragment<FragmentMypageViewingPartyG
     }
 
     override fun initView() {
-        adapter = MyPageViewingPartyAdapter(emptyList(), isHost = false) // isHost를 false로 설정
+        adapter = MyPageViewingPartyAdapter(emptyList(), isHost = false)
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = this@MyPageViewingPartyGuestFragment.adapter

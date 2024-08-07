@@ -17,7 +17,7 @@ class MyPageCommunityPostFragment : BaseFragment<FragmentMypageCommunityPostBind
         adapter = MyPageCommunityItemAdapter()
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
-        binding.viewModel = viewModel  // ViewModel을 데이터 바인딩에 연결
+        binding.viewModel = viewModel
     }
 
     override fun initObserver() {

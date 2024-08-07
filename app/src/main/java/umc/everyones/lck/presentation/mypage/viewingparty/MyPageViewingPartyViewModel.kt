@@ -15,7 +15,7 @@ class MyPageViewingPartyViewModel : ViewModel() {
         val items = List(10) { index ->
             ViewingPartyItem(
                 title = "Title $index",
-                date = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, index - 4) }.time // 8월 1일부터 생성
+                date = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, index - 4) }.time
             )
         }
         _viewingPartyItems.value = items

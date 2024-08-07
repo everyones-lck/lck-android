@@ -14,8 +14,8 @@ class MyPageViewingPartyPagerAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> MyPageViewingPartyGuestFragment() // 실제 Fragment로 대체
-            1 -> MyPageViewingPartyHostFragment() // 실제 Fragment로 대체
+            0 -> MyPageViewingPartyGuestFragment()
+            1 -> MyPageViewingPartyHostFragment()
             else -> throw IllegalStateException("Unexpected position: $position")
         }
     }

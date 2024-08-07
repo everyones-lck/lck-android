@@ -20,7 +20,7 @@ class MyPageViewingPartyFragment : BaseFragment<FragmentMypageViewingPartyBindin
     }
 
     override fun initObserver() {
-        // ViewModel 관찰 코드가 필요할 경우 추가
+
     }
 
     private fun setupViewPager() {

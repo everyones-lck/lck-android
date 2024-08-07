@@ -15,14 +15,12 @@ class MyPageViewingPartyAdapter(
     inner class ViewHolder(private val binding: ItemMypageViewingPartyBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ViewingPartyItem) {
-            // Check if the party date is in the past
             val isPastParty = item.date.before(Date())
 
-            // Binding the item, isHost, and isPastParty
             binding.item = item
             binding.isHost = isHost
             binding.isPastParty = isPastParty
-            binding.executePendingBindings() // Update binding immediately
+            binding.executePendingBindings()
         }
     }
 

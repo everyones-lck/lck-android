@@ -14,7 +14,6 @@ class MyPageCommunityCommentFragment : BaseFragment<FragmentMypageCommunityComme
     private lateinit var adapter: MyPageCommunityItemAdapter
 
     override fun initView() {
-        // RecyclerView 초기화
         adapter = MyPageCommunityItemAdapter()
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter

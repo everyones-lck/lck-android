@@ -71,8 +71,38 @@
 
     <style name="TextAppearance.LCK.Light.Warning">
         <item name="fontFamily">@font/cafe_ohsquare_air</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12sp</item>3
         <item name="android:textColor">@color/warning</item>
+    </style>
+
+    <style name="TextAppearance.Bronze" parent="TextAppearance.LCK">
+        <item name="android:textColor">#966C00</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/cafe_ohsquare</item>
+    </style>
+
+    <style name="TextAppearance.Silver" parent="TextAppearance.LCK">
+        <item name="android:textColor">#D7D7D7</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/cafe_ohsquare</item>
+    </style>
+
+    <style name="TextAppearance.Gold" parent="TextAppearance.LCK">
+        <item name="android:textColor">#E0A50E</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/cafe_ohsquare</item>
+    </style>
+
+    <style name="TextAppearance.Master" parent="TextAppearance.LCK">
+        <item name="android:textColor">#AB71C6</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/cafe_ohsquare</item>
+    </style>
+
+    <style name="TextAppearance.Challenger" parent="TextAppearance.LCK">
+        <item name="android:textColor">#5D6AAD</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/cafe_ohsquare</item>
     </style>
 
 </resources>

@@ -17,6 +17,19 @@ object TeamData {
         R.id.iv_signup_myteam_kt_rolster to "KT Rolster"
     )
 
+    val myteamLogos = mapOf(
+        R.id.iv_mypage_myteam_hanhwa to "Hanhwa",
+        R.id.iv_mypage_myteam_gen_g to "Gen.G",
+        R.id.iv_mypage_myteam_t1 to "T1",
+        R.id.iv_mypage_myteam_kwangdong_freecs to "Kwangdong Freecs",
+        R.id.iv_mypage_myteam_bnk to "BNK",
+        R.id.iv_mypage_myteam_nongshim_red_force to "Nongshim Red Force",
+        R.id.iv_mypage_myteam_drx to "DRX",
+        R.id.iv_mypage_myteam_ok_saving_bank_brion to "OK Saving Bank Brion",
+        R.id.iv_mypage_myteam_dplus_kia to "Dplus Kia",
+        R.id.iv_mypage_myteam_kt_rolster to "KT Rolster"
+    )
+
     val signupSuccessTeamBackground = mapOf(
         "Hanhwa" to R.drawable.img_signup_success_hanhwa_logo,
         "Gen.G" to R.drawable.img_signup_success_gen_g_logo,

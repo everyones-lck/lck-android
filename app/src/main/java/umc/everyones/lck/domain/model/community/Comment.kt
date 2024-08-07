@@ -6,5 +6,6 @@ data class Comment(
     val favoriteTeam: String,
     val body: String,
     val date: String,
-    val profileImageUrl: String
+    val profileImageUrl: String,
+    val category: String
 )

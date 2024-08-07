@@ -21,8 +21,8 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="TextAppearance.LCK.Bold.DateTitle_18sp">
-        <item name="android:textSize">18sp</item>
+    <style name="TextAppearance.LCK.Bold.DateTitle_16sp">
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/gray</item>
     </style>
 
@@ -33,7 +33,7 @@
     <style name="TextAppearance.LCK.DayOfWeek">
         <item name="android:textSize">14sp</item>
         <item name="fontFamily">@font/cafe_ohsquare</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/gray_dayOfWeek</item>
     </style>
 
     <style name="TextAppearance.LCK.Bold.Level_12sp">

@@ -123,4 +123,6 @@ dependencies {
     // calender
     implementation ("com.github.prolificinteractive:material-calendarview:2.0.1")
     implementation ("com.jakewharton.threetenabp:threetenabp:1.2.1")
+
+    implementation ("io.github.ShawnLin013:number-picker:2.4.13")
 }

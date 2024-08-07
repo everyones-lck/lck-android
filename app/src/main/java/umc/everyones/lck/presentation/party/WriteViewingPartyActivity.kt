@@ -3,34 +3,57 @@ package umc.everyones.lck.presentation.party
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.MotionEvent
+import android.view.inputmethod.EditorInfo
+import androidx.activity.viewModels
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.NaverMapOptions
 import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
+import com.naver.maps.map.util.MarkerIcons
+import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWriteViewingPartyBinding
 import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.community.WritePostActivity
 import umc.everyones.lck.util.extension.addDecimalFormattedTextWatcher
+import umc.everyones.lck.util.extension.repeatOnStarted
+import umc.everyones.lck.util.extension.setOnEditorActionListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.showKeyboard
 import umc.everyones.lck.util.extension.validateMaxLength
 import java.text.DecimalFormat
 
+@AndroidEntryPoint
 class WriteViewingPartyActivity :
     BaseActivity<ActivityWriteViewingPartyBinding>(R.layout.activity_write_viewing_party),
     OnMapReadyCallback {
     private var naverMap: NaverMap? = null
-    override fun initObserver() {
 
+    private val viewModel: WriteViewingPartyViewModel by viewModels()
+    override fun initObserver() {
+        repeatOnStarted {
+            viewModel.latLng.collect{ latLng ->
+                val marker = Marker()
+                marker.apply {
+                    position = latLng
+                    icon = OverlayImage.fromResource(R.drawable.img_marker)
+                    map = naverMap
+                }
+                naverMap?.moveCamera(CameraUpdate.scrollTo(latLng))
+            }
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun initView() {
         initNaverMap()
         addDecimalFormat()
+        setViewingPartyPlace()
         validateViewingPartyName()
         validateViewingPartyCondition()
         validateViewingPartyEtc()
@@ -42,6 +65,7 @@ class WriteViewingPartyActivity :
 
         binding.tvWriteViewingPartyDate.setOnClickListener {
             val dialog = CalendarDialogFragment()
+            dialog.showBelowView(binding.tvWriteViewingPartyDate)
             dialog.show(supportFragmentManager, dialog.tag)
         }
     }
@@ -141,6 +165,13 @@ class WriteViewingPartyActivity :
 
                 finish()
             }
+        }
+    }
+
+    private fun setViewingPartyPlace(){
+        binding.etWriteViewingPartyAddress.setOnEditorActionListener(EditorInfo.IME_ACTION_DONE) {
+            Log.d("geoCoding", binding.etWriteViewingPartyAddress.text.toString())
+            viewModel.fetchGeoCoding(binding.etWriteViewingPartyAddress.text.toString())
         }
     }
 

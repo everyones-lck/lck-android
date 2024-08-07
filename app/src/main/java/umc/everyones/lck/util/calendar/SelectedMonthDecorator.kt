@@ -1,4 +1,4 @@
-package kr.ac.tukorea.whereareu.util.calendar
+package umc.everyones.lck.util.calendar
 
 import android.content.Context
 import android.text.style.ForegroundColorSpan

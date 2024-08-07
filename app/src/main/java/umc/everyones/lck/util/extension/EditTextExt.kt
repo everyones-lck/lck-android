@@ -72,3 +72,14 @@ fun EditText.showKeyboard(){
     val inputMethodManager = this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }
+
+fun EditText.setOnEditorActionListener(action: Int, invoke: () -> Unit){
+    setOnEditorActionListener { _, actionId, _ ->
+        if(actionId == action){
+            invoke()
+            true
+        } else {
+            false
+        }
+    }
+}

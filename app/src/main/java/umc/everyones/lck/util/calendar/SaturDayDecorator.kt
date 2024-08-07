@@ -1,4 +1,4 @@
-package kr.ac.tukorea.whereareu.util.calendar
+package umc.everyones.lck.util.calendar
 
 import android.content.Context
 import android.graphics.Color
@@ -9,6 +9,7 @@ import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 import org.threeten.bp.DayOfWeek
 import umc.everyones.lck.R
+import umc.everyones.lck.util.extension.drawableOf
 
 class SaturdayDecorator(val context: Context) : DayViewDecorator {
     override fun shouldDecorate(day: CalendarDay): Boolean {
@@ -17,6 +18,6 @@ class SaturdayDecorator(val context: Context) : DayViewDecorator {
     }
 
     override fun decorate(view: DayViewFacade) {
-        view.addSpan(object: ForegroundColorSpan(ContextCompat.getColor(context, R.color.black)){})
+        view.addSpan(object: ForegroundColorSpan(ContextCompat.getColor(context, R.color.drx)){})
     }
 }

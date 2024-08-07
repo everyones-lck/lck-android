@@ -1,24 +1,27 @@
 package umc.everyones.lck.presentation.party
 
-import android.icu.util.LocaleData
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import android.app.Dialog
+import android.os.Bundle
+import android.view.Gravity
+import android.view.View
+import android.widget.NumberPicker
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
-import kotlinx.coroutines.flow.collect
-import kr.ac.tukorea.whereareu.util.calendar.DayDecorator
-import kr.ac.tukorea.whereareu.util.calendar.SaturdayDecorator
-import kr.ac.tukorea.whereareu.util.calendar.SelectedMonthDecorator
-import kr.ac.tukorea.whereareu.util.calendar.SundayDecorator
-import kr.ac.tukorea.whereareu.util.calendar.TodayDecorator
+import umc.everyones.lck.util.calendar.DayDecorator
+import umc.everyones.lck.util.calendar.SaturdayDecorator
+import umc.everyones.lck.util.calendar.SelectedMonthDecorator
+import umc.everyones.lck.util.calendar.SundayDecorator
+import umc.everyones.lck.util.calendar.TodayDecorator
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.DialogCalendarBinding
 import umc.everyones.lck.presentation.base.BaseDialogFragment
-import java.time.LocalDate
+import kotlin.math.max
+import kotlin.math.min
 
 class CalendarDialogFragment: BaseDialogFragment<DialogCalendarBinding>(R.layout.dialog_calendar) {
     private var onCalendarClickListener: OnCalendarClickListener? = null
     private var selectedDates = listOf<org.threeten.bp.LocalDate>()
+    private var anchorView: View? = null
 
     fun setOnCalendarClickListener(listener: OnCalendarClickListener){
         this.onCalendarClickListener = listener
@@ -28,6 +31,21 @@ class CalendarDialogFragment: BaseDialogFragment<DialogCalendarBinding>(R.layout
     }
 
     override fun initView() {
+        binding.numberPickerHour.apply {
+            maxValue = 12
+            minValue = 1
+            setFormatter { value ->
+                String.format("%02d", value)
+            }
+        }
+
+        binding.numberPickerMinute.apply {
+            maxValue = 59
+            minValue = 0
+            setFormatter { value ->
+                String.format("%02d", value)
+            }
+        }
         val dayDecorator = DayDecorator(requireContext())
         val todayDecorator = TodayDecorator(requireContext())
         val sundayDecorator = SundayDecorator(requireContext())
@@ -76,5 +94,23 @@ class CalendarDialogFragment: BaseDialogFragment<DialogCalendarBinding>(R.layout
 
     interface OnCalendarClickListener{
         fun onClick(date: CalendarDay)
+    }
+
+    fun showBelowView(view: View) {
+        anchorView = view
+    }
+
+    private fun positionDialogBelowView(view: View, dialog: Dialog) {
+        // Calculate the position of the view
+        val location = IntArray(2)
+        view.getLocationOnScreen(location)
+
+        val dialogWindow = dialog.window ?: return
+        dialogWindow.attributes.apply {
+            gravity = Gravity.TOP or Gravity.START
+            x = location[0] // x coordinate of the view
+            y = location[1] + view.height // y coordinate plus the view's height
+        }
+        dialogWindow.attributes = dialogWindow.attributes
     }
 }

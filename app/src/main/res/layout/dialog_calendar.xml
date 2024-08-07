@@ -24,23 +24,68 @@
             app:layout_constraintTop_toTopOf="parent"
             app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
             app:mcv_firstDayOfWeek="monday"
-            app:mcv_headerTextAppearance="@style/TextAppearance.LCK.Bold.DateTitle_18sp"
+            app:mcv_headerTextAppearance="@style/TextAppearance.LCK.Bold.DateTitle_16sp"
             app:mcv_leftArrow="@drawable/ic_arrow_previous"
             app:mcv_rightArrow="@drawable/ic_arrow_next"
             app:mcv_selectionMode="single"
-            app:mcv_showOtherDates="defaults"
             app:mcv_weekDayTextAppearance="@style/TextAppearance.LCK.DayOfWeek"
             android:elevation="8dp"/>
 
-        <View
-            android:id="@+id/line"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginHorizontal="8dp"
-            android:background="@color/gray"
-            app:layout_constraintEnd_toEndOf="@id/calendar_view"
-            app:layout_constraintStart_toStartOf="@id/calendar_view"
-            app:layout_constraintTop_toBottomOf="@id/calendar_view" />
+        <LinearLayout
+            android:id="@+id/temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/calendar_view"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="-40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/number_picker_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/temp"
+                app:np_dividerThickness="0dp"
+                app:np_fadingEdgeStrength="1"
+                app:np_hideWheelUntilFocused="true"
+                app:np_itemSpacing="1dp"
+                app:np_max="23"
+                app:np_min="1"
+                app:np_selectedTextSize="40dp"
+                app:np_wrapSelectorWheel="true" />
+
+            <TextView
+                android:id="@+id/tv_divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":"
+                android:textSize="30sp"
+                android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+                app:layout_constraintTop_toTopOf="@id/number_picker_hour"
+                app:layout_constraintBottom_toBottomOf="@id/number_picker_hour"
+                app:layout_constraintEnd_toStartOf="@id/number_picker_minute"
+                app:layout_constraintStart_toEndOf="@id/number_picker_hour"/>
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/number_picker_minute"
+                app:layout_constraintTop_toBottomOf="@id/temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:np_dividerThickness="0dp"
+                app:np_wrapSelectorWheel="true"
+                app:np_min="0"
+                app:np_max="59"
+                app:np_hideWheelUntilFocused="true"
+                app:np_selectedTextSize="40dp"
+                app:np_itemSpacing="1dp"
+                />
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

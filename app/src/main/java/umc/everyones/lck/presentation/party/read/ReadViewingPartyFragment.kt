@@ -1,4 +1,4 @@
-package umc.everyones.lck.presentation.party
+package umc.everyones.lck.presentation.party.read
 
 import android.util.Log
 import androidx.fragment.app.viewModels
@@ -7,6 +7,7 @@ import androidx.navigation.fragment.navArgs
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentReadViewingPartyBinding
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.presentation.party.dialog.JoinViewingPartyDialogFragment
 import umc.everyones.lck.util.extension.showCustomSnackBar
 
 class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R.layout.fragment_read_viewing_party) {

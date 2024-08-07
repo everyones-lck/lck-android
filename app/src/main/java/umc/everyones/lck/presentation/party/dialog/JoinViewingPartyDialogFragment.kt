@@ -1,12 +1,12 @@
-package umc.everyones.lck.presentation.party
+package umc.everyones.lck.presentation.party.dialog
 
 import android.util.Log
 import androidx.fragment.app.viewModels
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.DialogJoinViewingPartyBinding
 import umc.everyones.lck.presentation.base.BaseDialogFragment
+import umc.everyones.lck.presentation.party.read.ReadViewingPartyViewModel
 import umc.everyones.lck.util.extension.repeatOnStarted
-import umc.everyones.lck.util.extension.showCustomSnackBar
 
 class JoinViewingPartyDialogFragment: BaseDialogFragment<DialogJoinViewingPartyBinding>(R.layout.dialog_join_viewing_party) {
     private val viewModel: ReadViewingPartyViewModel by viewModels({requireParentFragment()})

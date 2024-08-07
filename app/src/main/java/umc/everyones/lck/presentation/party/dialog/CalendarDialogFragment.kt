@@ -1,10 +1,8 @@
-package umc.everyones.lck.presentation.party
+package umc.everyones.lck.presentation.party.dialog
 
 import android.app.Dialog
-import android.os.Bundle
 import android.view.Gravity
 import android.view.View
-import android.widget.NumberPicker
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import umc.everyones.lck.util.calendar.DayDecorator
@@ -15,8 +13,6 @@ import umc.everyones.lck.util.calendar.TodayDecorator
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.DialogCalendarBinding
 import umc.everyones.lck.presentation.base.BaseDialogFragment
-import kotlin.math.max
-import kotlin.math.min
 
 class CalendarDialogFragment: BaseDialogFragment<DialogCalendarBinding>(R.layout.dialog_calendar) {
     private var onCalendarClickListener: OnCalendarClickListener? = null

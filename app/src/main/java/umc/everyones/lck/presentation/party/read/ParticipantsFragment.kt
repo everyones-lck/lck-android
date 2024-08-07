@@ -1,4 +1,4 @@
-package umc.everyones.lck.presentation.party
+package umc.everyones.lck.presentation.party.read
 
 import androidx.navigation.fragment.findNavController
 import umc.everyones.lck.R

@@ -1,11 +1,10 @@
-package umc.everyones.lck.presentation.party
+package umc.everyones.lck.presentation.party.write
 
 import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.naver.maps.geometry.LatLng
-import com.umc.ttoklip.data.model.naver.geocoding.GeocodingResponse
 import com.umc.ttoklip.data.repository.naver.NaverRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow

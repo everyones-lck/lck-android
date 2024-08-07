@@ -32,13 +32,13 @@
             android:elevation="8dp"/>
 
         <LinearLayout
-            android:id="@+id/temp"
+            android:id="@+id/layout_time_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/calendar_view"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_marginTop="-52dp"
+            android:layout_marginTop="-60dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -48,12 +48,11 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/temp"
                 app:np_dividerThickness="0dp"
                 app:np_hideWheelUntilFocused="true"
                 app:np_itemSpacing="1dp"
                 app:np_max="23"
-                app:np_min="1"
+                app:np_min="0"
                 app:np_selectedTextSize="48dp"
                 app:np_wrapSelectorWheel="true" />
 
@@ -71,7 +70,6 @@
 
             <com.shawnlin.numberpicker.NumberPicker
                 android:id="@+id/number_picker_minute"
-                app:layout_constraintTop_toBottomOf="@id/temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"

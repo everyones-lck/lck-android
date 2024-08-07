@@ -17,6 +17,15 @@ class WriteViewingPartyViewModel @Inject constructor(
 ) : ViewModel() {
     private val _latLng = MutableSharedFlow<LatLng>()
     val latLng: SharedFlow<LatLng> get() = _latLng
+
+    private val _date = MutableSharedFlow<String>()
+    val date: SharedFlow<String> get() = _date
+
+    fun setDate(date: String){
+        viewModelScope.launch {
+            _date.emit(date)
+        }
+    }
     fun fetchGeoCoding(query: String){
         viewModelScope.launch {
             naverRepository.fetchGeocoding(query).onSuccess { response ->

@@ -45,6 +45,13 @@ class WriteViewingPartyActivity :
                 naverMap?.moveCamera(CameraUpdate.scrollTo(latLng))
             }
         }
+
+        repeatOnStarted {
+            viewModel.date.collect{
+                binding.tvWriteViewingPartyDate.text = it
+                Log.d("date", it)
+            }
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -63,7 +70,6 @@ class WriteViewingPartyActivity :
 
         binding.tvWriteViewingPartyDate.setOnClickListener {
             val dialog = CalendarDialogFragment()
-            dialog.showBelowView(binding.tvWriteViewingPartyDate)
             dialog.show(supportFragmentManager, dialog.tag)
         }
     }

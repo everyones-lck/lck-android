@@ -123,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:gravity="end"
-                    android:text="2024 / 07 / 15 | 03:08"
+                    android:text="시간을 입력하세요"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="@id/et_write_viewing_party_name"
                     app:layout_constraintStart_toEndOf="@id/tv_write_viewing_party_date_title"

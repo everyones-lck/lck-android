@@ -1,8 +1,10 @@
 package umc.everyones.lck.presentation.party.dialog
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.view.Gravity
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import umc.everyones.lck.util.calendar.DayDecorator
@@ -13,40 +15,33 @@ import umc.everyones.lck.util.calendar.TodayDecorator
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.DialogCalendarBinding
 import umc.everyones.lck.presentation.base.BaseDialogFragment
+import umc.everyones.lck.presentation.party.write.WriteViewingPartyViewModel
+import java.sql.Date
+import java.text.SimpleDateFormat
 
-class CalendarDialogFragment: BaseDialogFragment<DialogCalendarBinding>(R.layout.dialog_calendar) {
-    private var onCalendarClickListener: OnCalendarClickListener? = null
-    private var selectedDates = listOf<org.threeten.bp.LocalDate>()
-    private var anchorView: View? = null
+class CalendarDialogFragment : BaseDialogFragment<DialogCalendarBinding>(R.layout.dialog_calendar) {
+    private var selectedDate: String = ""
+    private var hour = "00"
+    private var minute = "00"
+    private val dateFormat = "yyyy / MM / dd"
+    private val viewModel: WriteViewingPartyViewModel by activityViewModels()
 
-    fun setOnCalendarClickListener(listener: OnCalendarClickListener){
-        this.onCalendarClickListener = listener
-    }
     override fun initObserver() {
 
     }
 
+    @SuppressLint("SimpleDateFormat")
     override fun initView() {
-        binding.numberPickerHour.apply {
-            maxValue = 12
-            minValue = 1
-            setFormatter { value ->
-                String.format("%02d", value)
-            }
-        }
+        initNumberPicker()
 
-        binding.numberPickerMinute.apply {
-            maxValue = 59
-            minValue = 0
-            setFormatter { value ->
-                String.format("%02d", value)
-            }
-        }
+        val simpleDateFormat = SimpleDateFormat(dateFormat)
+
         val dayDecorator = DayDecorator(requireContext())
         val todayDecorator = TodayDecorator(requireContext())
         val sundayDecorator = SundayDecorator(requireContext())
         val saturdayDecorator = SaturdayDecorator(requireContext())
-        var selectedMonthDecorator = SelectedMonthDecorator(requireContext(), CalendarDay.today().month)
+        var selectedMonthDecorator =
+            SelectedMonthDecorator(requireContext(), CalendarDay.today().month)
 
         binding.calendarView.setTitleFormatter { day ->
             val inputText = day.date
@@ -59,54 +54,63 @@ class CalendarDialogFragment: BaseDialogFragment<DialogCalendarBinding>(R.layout
             calendarHeaderBuilder.toString()
         }
 
-        binding.calendarView.addDecorators(dayDecorator, todayDecorator, sundayDecorator, saturdayDecorator, selectedMonthDecorator)
+        binding.calendarView.addDecorators(
+            dayDecorator,
+            todayDecorator,
+            sundayDecorator,
+            saturdayDecorator,
+            selectedMonthDecorator
+        )
         binding.calendarView.setWeekDayFormatter(ArrayWeekDayFormatter(resources.getTextArray(R.array.custom_weekdays)))
 
-        binding.calendarView.setOnDateChangedListener { widget, date, selected ->
-            selectedDates = binding.calendarView.selectedDates.map { it.date }
-            if (selectedDates.isEmpty()){
-                return@setOnDateChangedListener
-            }
+        binding.calendarView.setOnDateChangedListener { _, date, _ ->
+            selectedDate = simpleDateFormat.format(Date.valueOf(date.date.toString()))
+            //Date.valueOf(date.date.toString())
         }
 
-        binding.calendarView.setOnMonthChangedListener { widget, date ->
+        binding.calendarView.setOnMonthChangedListener { _, date ->
             binding.calendarView.removeDecorators()
             binding.calendarView.invalidateDecorators()
 
             // Decorators 추가
             selectedMonthDecorator = SelectedMonthDecorator(requireContext(), date.month)
-            binding.calendarView.addDecorators(dayDecorator, todayDecorator, sundayDecorator, saturdayDecorator, selectedMonthDecorator)
+            binding.calendarView.addDecorators(
+                dayDecorator,
+                todayDecorator,
+                sundayDecorator,
+                saturdayDecorator,
+                selectedMonthDecorator
+            )
         }
 
+        binding.calendarView.selectedDate = CalendarDay.today()
+        selectedDate = simpleDateFormat.format(Date.valueOf(CalendarDay.today().date.toString()))
     }
 
-    private fun dismissDialog(){
-        dismiss()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
-
-    interface OnCalendarClickListener{
-        fun onClick(date: CalendarDay)
-    }
-
-    fun showBelowView(view: View) {
-        anchorView = view
-    }
-
-    private fun positionDialogBelowView(view: View, dialog: Dialog) {
-        // Calculate the position of the view
-        val location = IntArray(2)
-        view.getLocationOnScreen(location)
-
-        val dialogWindow = dialog.window ?: return
-        dialogWindow.attributes.apply {
-            gravity = Gravity.TOP or Gravity.START
-            x = location[0] // x coordinate of the view
-            y = location[1] + view.height // y coordinate plus the view's height
+    private fun initNumberPicker() {
+        binding.numberPickerHour.apply {
+            setFormatter { value ->
+                String.format("%02d", value)
+            }
+            setOnValueChangedListener { picker, _, _ ->
+                hour = String.format("%02d", picker.value)
+            }
         }
-        dialogWindow.attributes = dialogWindow.attributes
+
+        binding.numberPickerMinute.apply {
+            setFormatter { value ->
+                String.format("%02d", value)
+            }
+            setOnValueChangedListener { picker, _, _ ->
+                minute = String.format("%02d", picker.value)
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.setDate(
+            "$selectedDate | $hour:$minute"
+        )
     }
 }

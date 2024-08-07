@@ -44,7 +44,7 @@
 
         <TextView
             android:id="@+id/tv_today_match_title"
-            style="@style/TextAppearance.LCK.Head1"
+            style="@style/TextAppearance.LCK.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
@@ -91,7 +91,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tab_today_match_title"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:navGraph="@navigation/today_match_graph" />
+            app:navGraph="@navigation/main_graph" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

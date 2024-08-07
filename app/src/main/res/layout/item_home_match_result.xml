@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/tv_home_result_team1"
-        style="@style/TextAppearance.LCK.Head1"
+        style="@style/TextAppearance.LCK.Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -38,7 +38,7 @@
 
     <TextView
         android:id="@+id/tv_home_result_versus"
-        style="@style/TextAppearance.LCK.Body1"
+        style="@style/TextAppearance.LCK.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" vs "
@@ -49,7 +49,7 @@
 
     <TextView
         android:id="@+id/tv_home_result_team2"
-        style="@style/TextAppearance.LCK.Body1"
+        style="@style/TextAppearance.LCK.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="0dp"
@@ -61,7 +61,7 @@
 
     <TextView
         android:id="@+id/tv_home_result_date1"
-        style="@style/TextAppearance.LCK.Body1"
+        style="@style/TextAppearance.LCK.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"

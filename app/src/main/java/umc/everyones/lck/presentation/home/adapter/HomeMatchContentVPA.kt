@@ -53,7 +53,7 @@ class HomeMatchContentVPA(private val items: List<LckMatch>):
             binding.ivHomeTodayMatchBar2.backgroundTintList = ColorStateList.valueOf(team2Color)
 
             itemView.setOnClickListener {
-                it.findNavController().navigate(R.id.todayMatchFragment)
+                it.findNavController().navigate(R.id.todayMatchTab)
             }
         }
     }

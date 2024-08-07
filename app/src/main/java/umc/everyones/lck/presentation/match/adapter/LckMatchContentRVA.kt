@@ -48,12 +48,12 @@ class LckMatchContentRVA(private val items: List<LckMatch>) :
 
             binding.tvTodayMatch1Prediction.setOnClickListener {
                 // Navigate to TodayMatchPredictionFragment
-                it.findNavController().navigate(R.id.goToPrediction)
+                it.findNavController().navigate(R.id.todayMatchPredictionFragment)
             }
 
             binding.tvTodayMatch1Pog.setOnClickListener {
                 // Navigate to TodayMatchTodayPogFragment
-                it.findNavController().navigate(R.id.goToTodayPog)
+                it.findNavController().navigate(R.id.todayMatchTodayPogFragment)
             }
             // Set the weight of the bars based on winrate
             val team1WinRate = item.team1WinRate.replace("%", "").toFloat() / 100

@@ -19,7 +19,7 @@
         android:id="@+id/tv_lck_pog_player_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/TextAppearance.LCK.Body1"
+        style="@style/TextAppearance.LCK.Light"
         android:text="Deft"
         android:textSize="10sp"
         android:textColor="@color/white"

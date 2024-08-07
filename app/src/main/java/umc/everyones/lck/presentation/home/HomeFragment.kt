@@ -51,10 +51,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             )
         )
 
-//        val homeMatchContentRVA = HomeMatchContentRVA(matches)
-//        binding.rvHomeMatchContent.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//        binding.rvHomeMatchContent.adapter = homeMatchContentRVA
-
         val homeMatchContentVPA = HomeMatchContentVPA(matches)
         binding.vpHomeMatchContent.adapter = homeMatchContentVPA
         binding.indicatorHomeDot.attachTo(binding.vpHomeMatchContent)
@@ -84,7 +80,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun goCommunity() {
         binding.ivHomeCommunityBox.setOnClickListener {
-            homeViewModel.setNavigateEvent(R.id.boardFragment)
+            homeViewModel.setNavigateEvent(R.id.communityFragment)
         }
     }
 

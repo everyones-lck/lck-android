@@ -70,7 +70,7 @@
                     android:id="@+id/tv_today_match_today_pog_content_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearance.LCK.Head1"
+                    style="@style/TextAppearance.LCK.Bold"
                     android:text="Today's POG"
                     android:textSize="20sp"
                     android:textColor="@color/white"
@@ -82,7 +82,7 @@
                     android:id="@+id/tv_today_match_today_pog_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearance.LCK.Body1"
+                    style="@style/TextAppearance.LCK.Light"
                     android:text="2024 LCK Summer 1st Match"
                     android:textSize="16sp"
                     android:textColor="@color/white"
@@ -97,7 +97,7 @@
                 android:id="@+id/tv_today_match_today_pog_vote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.LCK.Body1"
+                style="@style/TextAppearance.LCK.Light"
                 android:text="투표"
                 android:textColor="@color/white"
                 android:textSize="12sp"
@@ -127,7 +127,7 @@
 
                 <TextView
                     android:id="@+id/tv_today_match_today_pog_1st"
-                    style="@style/TextAppearance.LCK.Body1"
+                    style="@style/TextAppearance.LCK.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1세트 POG를 선정해주세요"
@@ -164,7 +164,7 @@
 
                 <TextView
                     android:id="@+id/tv_today_match_today_pog_2nd"
-                    style="@style/TextAppearance.LCK.Body1"
+                    style="@style/TextAppearance.LCK.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="180dp"
@@ -200,7 +200,7 @@
 
                 <TextView
                     android:id="@+id/tv_today_match_today_pog_3rd"
-                    style="@style/TextAppearance.LCK.Body1"
+                    style="@style/TextAppearance.LCK.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="180dp"
@@ -236,7 +236,7 @@
 
                 <TextView
                     android:id="@+id/tv_today_match_today_pog_match"
-                    style="@style/TextAppearance.LCK.Body1"
+                    style="@style/TextAppearance.LCK.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="180dp"

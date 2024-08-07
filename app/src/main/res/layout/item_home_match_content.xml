@@ -65,7 +65,7 @@
 
         <TextView
             android:id="@+id/tv_home_today_match_content"
-            style="@style/TextAppearance.LCK.Body1"
+            style="@style/TextAppearance.LCK.Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -78,7 +78,7 @@
 
         <TextView
             android:id="@+id/tv_home_today_match_date"
-            style="@style/TextAppearance.LCK.Body1"
+            style="@style/TextAppearance.LCK.Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2024.07.12 17:00"
@@ -114,7 +114,7 @@
             android:id="@+id/tv_home_today_match_team1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.LCK.Body1"
+            style="@style/TextAppearance.LCK.Light"
             android:text="Gen.G"
             android:textSize="20sp"
             android:textColor="@color/white"
@@ -127,7 +127,7 @@
             android:id="@+id/tv_home_today_match_team2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.LCK.Body1"
+            style="@style/TextAppearance.LCK.Light"
             android:text="T1"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -181,7 +181,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.LCK.Body1"
+            style="@style/TextAppearance.LCK.Light"
             android:text="No Matches"
             android:textColor="@color/white"
             android:textSize="16sp"

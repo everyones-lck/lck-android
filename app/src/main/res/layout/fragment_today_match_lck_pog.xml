@@ -55,7 +55,7 @@
                 android:id="@+id/tv_today_match_pog_no_match"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.LCK.Body1"
+                style="@style/TextAppearance.LCK.Light"
                 android:text="No Matches"
                 android:textColor="@color/white"
                 android:textSize="16sp"

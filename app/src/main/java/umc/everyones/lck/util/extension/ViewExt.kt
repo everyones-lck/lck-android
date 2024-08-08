@@ -2,6 +2,7 @@ package umc.everyones.lck.util.extension
 
 import android.view.View
 
+// 클릭 리스너 디바운스
 inline fun View.setOnSingleClickListener(
     delay: Long = 1000L,
     crossinline block: (View) -> Unit,

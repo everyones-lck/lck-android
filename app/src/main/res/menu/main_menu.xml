@@ -17,12 +17,12 @@
         android:title="LCK에 대해" />
 
     <item
-        android:id="@+id/boardFragment"
-        android:icon="@drawable/sel_main_icon_bnv_board"
+        android:id="@+id/communityFragment"
+        android:icon="@drawable/sel_main_icon_bnv_community"
         android:title="커뮤니티" />
 
     <item
-        android:id="@+id/viewingPartyFragment"
+        android:id="@+id/viewingPartyTab"
         android:icon="@drawable/sel_main_icon_bnv_viewing_party"
         android:title="뷰잉파티" />
 

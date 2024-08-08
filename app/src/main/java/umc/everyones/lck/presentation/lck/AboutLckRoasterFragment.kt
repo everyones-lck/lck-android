@@ -13,19 +13,22 @@ import umc.everyones.lck.presentation.lck.util.OnPlayerItemClickListener
 @AndroidEntryPoint
 class AboutLckRoasterFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R.layout.fragment_about_lck_roaster) {
 
-    private lateinit var listener: OnPlayerItemClickListener
+    private var listener: OnPlayerItemClickListener? = null
 
     override fun initObserver() {
     }
 
     override fun initView() {
-        listener = parentFragment as OnPlayerItemClickListener
+        listener = findParentListener()
         initRecyclerView()
     }
+
     private fun initRecyclerView() {
         val recyclerView: RecyclerView = binding.rvAboutLckRoaster
         recyclerView.layoutManager = GridLayoutManager(context, 3)
-        recyclerView.adapter = PlayerAdapter(getPlayers(), listener)
+        listener?.let {
+            recyclerView.adapter = PlayerAdapter(getPlayers(), it)
+        }
     }
 
     private fun getPlayers(): List<PlayerData> {
@@ -37,4 +40,17 @@ class AboutLckRoasterFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R.l
             PlayerData(R.drawable.img_about_lck_player, R.drawable.img_about_lck_player_team_color_t1, "Faker", R.drawable.img_about_lck_player_team_logo_t1, R.drawable.img_about_lck_player_position)
         )
     }
+
+    //NavHostFragment의 호스팅으로 인해 발생하는 부모 프래그먼트 문제를 해결하기 위한 메서드
+    private fun findParentListener(): OnPlayerItemClickListener? {
+        var fragment = parentFragment
+        while (fragment != null) {
+            if (fragment is OnPlayerItemClickListener) {
+                return fragment
+            }
+            fragment = fragment.parentFragment
+        }
+        throw ClassCastException("No parent fragment implements OnPlayerItemClickListener")
+    }
 }
+

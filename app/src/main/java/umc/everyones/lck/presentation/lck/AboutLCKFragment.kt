@@ -1,6 +1,7 @@
 package umc.everyones.lck.presentation.lck
 
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -101,22 +102,13 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
     private fun initBackButton() {
         binding.viewAboutLckRect1.setOnClickListener {
-            childFragmentManager.beginTransaction()
-                .replace(R.id.fcv_about_lck_to_team_container, AboutLckTeamFragment())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
         }
         binding.viewAboutLckRect2.setOnClickListener {
-            childFragmentManager.beginTransaction()
-                .replace(R.id.fcv_about_lck_to_team_container, AboutLckTeamFragment())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
         }
         binding.viewAboutLckRect3.setOnClickListener {
-            childFragmentManager.beginTransaction()
-                .replace(R.id.fcv_about_lck_to_team_container, AboutLckTeamFragment())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
         }
     }
 
@@ -164,9 +156,6 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
     }
 
     override fun onTeamClick(team: RankingData) {
-        childFragmentManager.beginTransaction()
-            .replace(R.id.fcv_about_lck_to_team_container, AboutLckTeamFragment())
-            .addToBackStack(null)
-            .commit()
+        findNavController().navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
     }
 }

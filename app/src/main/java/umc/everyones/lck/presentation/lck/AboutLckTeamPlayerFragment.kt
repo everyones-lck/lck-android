@@ -1,5 +1,6 @@
 package umc.everyones.lck.presentation.lck
 
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +37,7 @@ class AboutLckTeamPlayerFragment : BaseFragment<FragmentAboutLckTeamPlayerBindin
     private fun initBackButton() {
         val backButton = binding.ivAboutLckTeamPlayerPre
         backButton.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
     }
 }

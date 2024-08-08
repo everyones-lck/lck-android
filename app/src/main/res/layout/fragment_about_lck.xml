@@ -6,363 +6,356 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
 </data>
 
-    <FrameLayout
-        android:id="@+id/fcv_about_lck_to_team_container"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent">
+        android:background="@drawable/bg_gradient_color">
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_gradient_color">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/tv_about_lck_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ABOUT LCK"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/cafe_ohsquare"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_about_lck_matches"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LCK Matches &amp; Results"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:fontFamily="@font/cafe_ohsquare_air"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_about_lck_title"
+                app:layout_constraintStart_toStartOf="@id/tv_about_lck_title"
+                app:layout_constraintEnd_toEndOf="@id/tv_about_lck_title"/>
+
+            <TextView
+                android:id="@+id/tv_about_lck_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2024.05.13"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/cafe_ohsquare"
+                android:layout_marginTop="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_about_lck_matches"/>
+
+            <ImageView
+                android:id="@+id/iv_about_lck_calendar"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_calendar"
+                android:layout_marginStart="96dp"
+                app:layout_constraintTop_toTopOf="@id/tv_about_lck_date"
+                app:layout_constraintStart_toEndOf="@id/tv_about_lck_date"/>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_about_lck_match"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="25dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_about_lck_date"/>
 
-                <TextView
-                    android:id="@+id/tv_about_lck_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ABOUT LCK"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/cafe_ohsquare"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+            <TextView
+                android:id="@+id/tv_about_lck_ranking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LCK Ranking"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/cafe_ohsquare"
+                android:layout_marginTop="25dp"
+                app:layout_constraintTop_toBottomOf="@id/vp_about_lck_match"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                <TextView
-                    android:id="@+id/tv_about_lck_matches"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="LCK Matches &amp; Results"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/cafe_ohsquare_air"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_about_lck_title"
-                    app:layout_constraintStart_toStartOf="@id/tv_about_lck_title"
-                    app:layout_constraintEnd_toEndOf="@id/tv_about_lck_title"/>
 
-                <TextView
-                    android:id="@+id/tv_about_lck_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2024.05.13"
-                    android:textSize="12sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/cafe_ohsquare"
-                    android:layout_marginTop="25dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_about_lck_matches"/>
+            <View
+                android:id="@+id/view_about_lck_rect1"
+                android:layout_width="96dp"
+                android:layout_height="108dp"
+                android:background="@drawable/shape_rect_8_gray_line"
+                android:layout_marginTop="25dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_about_lck_ranking"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
+            <View
+                android:id="@+id/view_about_lck_rect2"
+                android:layout_width="96dp"
+                android:layout_height="108dp"
+                android:background="@drawable/shape_rect_8_gray_line"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="5dp"
+                app:layout_goneMarginTop="27dp"
+                app:layout_constraintTop_toTopOf="@id/view_about_lck_rect1"
+                app:layout_constraintEnd_toStartOf="@id/view_about_lck_rect1" />
+
+            <View
+                android:id="@+id/view_about_lck_rect3"
+                android:layout_width="96dp"
+                android:layout_height="108dp"
+                android:background="@drawable/shape_rect_8_gray_line"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="5dp"
+                app:layout_constraintTop_toTopOf="@id/view_about_lck_rect1"
+                app:layout_constraintStart_toEndOf="@id/view_about_lck_rect1" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="@id/view_about_lck_rect1"
+                app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect1"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_rect1"
+                app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect1">
                 <ImageView
-                    android:id="@+id/iv_about_lck_calendar"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_calendar"
-                    android:layout_marginStart="96dp"
-                    app:layout_constraintTop_toTopOf="@id/tv_about_lck_date"
-                    app:layout_constraintStart_toEndOf="@id/tv_about_lck_date"/>
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/vp_about_lck_match"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="25dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_about_lck_date"/>
-
+                    android:layout_width="43dp"
+                    android:layout_height="37dp"
+                    android:src="@drawable/ic_gen_g"/>
                 <TextView
-                    android:id="@+id/tv_about_lck_ranking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="LCK Ranking"
-                    android:textSize="16sp"
+                    android:text="Gen"
+                    android:textSize="12sp"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/cafe_ohsquare"
-                    android:layout_marginTop="25dp"
-                    app:layout_constraintTop_toBottomOf="@id/vp_about_lck_match"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-
-                <View
-                    android:id="@+id/view_about_lck_rect1"
-                    android:layout_width="96dp"
-                    android:layout_height="108dp"
-                    android:background="@drawable/shape_rect_8_gray_line"
-                    android:layout_marginTop="25dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_about_lck_ranking"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-                <View
-                    android:id="@+id/view_about_lck_rect2"
-                    android:layout_width="96dp"
-                    android:layout_height="108dp"
-                    android:background="@drawable/shape_rect_8_gray_line"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="5dp"
-                    app:layout_goneMarginTop="27dp"
-                    app:layout_constraintTop_toTopOf="@id/view_about_lck_rect1"
-                    app:layout_constraintEnd_toStartOf="@id/view_about_lck_rect1" />
-
-                <View
-                    android:id="@+id/view_about_lck_rect3"
-                    android:layout_width="96dp"
-                    android:layout_height="108dp"
-                    android:background="@drawable/shape_rect_8_gray_line"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginStart="5dp"
-                    app:layout_constraintTop_toTopOf="@id/view_about_lck_rect1"
-                    app:layout_constraintStart_toEndOf="@id/view_about_lck_rect1" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintTop_toTopOf="@id/view_about_lck_rect1"
-                    app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect1"
-                    app:layout_constraintStart_toStartOf="@id/view_about_lck_rect1"
-                    app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect1">
-                    <ImageView
-                        android:layout_width="43dp"
-                        android:layout_height="37dp"
-                        android:src="@drawable/ic_gen_g"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Gen"
-                        android:textSize="12sp"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="15dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintTop_toTopOf="@id/view_about_lck_rect3"
-                    app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect3"
-                    app:layout_constraintStart_toStartOf="@id/view_about_lck_rect3"
-                    app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect3">
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/ic_kwangdong_freecs"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="KDF"
-                        android:textSize="12sp"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="15dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintTop_toTopOf="@id/view_about_lck_rect2"
-                    app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect2"
-                    app:layout_constraintStart_toStartOf="@id/view_about_lck_rect2"
-                    app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect2">
-                    <ImageView
-                        android:layout_width="75dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_t1"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="T1"
-                        android:textSize="12sp"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="15dp"/>
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/view_about_lck_line1"
-                    android:layout_width="300dp"
-                    android:layout_height="1dp"
-                    android:background="#656565"
-                    android:layout_marginTop="75dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-                <View
-                    android:id="@+id/view_about_lck_line2"
-                    android:layout_width="300dp"
-                    android:layout_height="1dp"
-                    android:background="#656565"
-                    android:layout_marginTop="125dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-                <View
-                    android:id="@+id/view_about_lck_line3"
-                    android:layout_width="300dp"
-                    android:layout_height="1dp"
-                    android:background="#656565"
-                    android:layout_marginTop="175dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-                <View
-                    android:id="@+id/view_about_lck_line4"
-                    android:layout_width="300dp"
-                    android:layout_height="1dp"
-                    android:background="#656565"
-                    android:layout_marginTop="225dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-                <View
-                    android:id="@+id/view_about_lck_line5"
-                    android:layout_width="300dp"
-                    android:layout_height="1dp"
-                    android:background="#656565"
-                    android:layout_marginTop="275dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-                <View
-                    android:id="@+id/view_about_lck_line6"
-                    android:layout_width="300dp"
-                    android:layout_height="1dp"
-                    android:background="#656565"
-                    android:layout_marginTop="325dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-
-                <TextView
-                    android:id="@+id/tv_about_lck_num4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="44dp"
-                    android:layout_marginStart="21dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
-                    app:layout_constraintStart_toStartOf="@id/view_about_lck_rect2"/>
-
+                    android:layout_marginTop="15dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="@id/view_about_lck_rect3"
+                app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect3"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_rect3"
+                app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect3">
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_kwangdong_freecs"/>
                 <TextView
-                    android:id="@+id/tv_about_lck_num5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5"
+                    android:text="KDF"
+                    android:textSize="12sp"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="21dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_line1"
-                    app:layout_constraintStart_toStartOf="@id/view_about_lck_line1"/>
+                    android:layout_marginTop="15dp"/>
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="@id/view_about_lck_rect2"
+                app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect2"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_rect2"
+                app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect2">
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_t1"/>
                 <TextView
-                    android:id="@+id/tv_about_lck_num6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6"
+                    android:text="T1"
+                    android:textSize="12sp"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="21dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_line2"
-                    app:layout_constraintStart_toStartOf="@id/view_about_lck_line2"/>
+                    android:layout_marginTop="15dp"/>
+            </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_about_lck_num7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="7"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="21dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_line3"
-                    app:layout_constraintStart_toStartOf="@id/view_about_lck_line3"/>
+            <View
+                android:id="@+id/view_about_lck_line1"
+                android:layout_width="300dp"
+                android:layout_height="1dp"
+                android:background="#656565"
+                android:layout_marginTop="75dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                <TextView
-                    android:id="@+id/tv_about_lck_num8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="8"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="21dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_line4"
-                    app:layout_constraintStart_toStartOf="@id/view_about_lck_line4"/>
+            <View
+                android:id="@+id/view_about_lck_line2"
+                android:layout_width="300dp"
+                android:layout_height="1dp"
+                android:background="#656565"
+                android:layout_marginTop="125dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                <TextView
-                    android:id="@+id/tv_about_lck_num9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="9"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="21dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_line5"
-                    app:layout_constraintStart_toStartOf="@id/view_about_lck_line5"/>
+            <View
+                android:id="@+id/view_about_lck_line3"
+                android:layout_width="300dp"
+                android:layout_height="1dp"
+                android:background="#656565"
+                android:layout_marginTop="175dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                <TextView
-                    android:id="@+id/tv_about_lck_num10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="21dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_line6"
-                    app:layout_constraintStart_toStartOf="@id/view_about_lck_line6"/>
+            <View
+                android:id="@+id/view_about_lck_line4"
+                android:layout_width="300dp"
+                android:layout_height="1dp"
+                android:background="#656565"
+                android:layout_marginTop="225dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
+            <View
+                android:id="@+id/view_about_lck_line5"
+                android:layout_width="300dp"
+                android:layout_height="1dp"
+                android:background="#656565"
+                android:layout_marginTop="275dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_about_lck_ranking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="160dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="63dp"
-                    android:clipToPadding="false"
-                    android:nestedScrollingEnabled="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect1" />
-
-                <View
-                    android:id="@+id/view_about_lck_transparent"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="50dp"
-                    android:background="#00FFFFFF"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_line6" />
+            <View
+                android:id="@+id/view_about_lck_line6"
+                android:layout_width="300dp"
+                android:layout_height="1dp"
+                android:background="#656565"
+                android:layout_marginTop="325dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_about_lck_num4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="44dp"
+                android:layout_marginStart="21dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_rect2"/>
 
-        </androidx.core.widget.NestedScrollView>
-    </FrameLayout>
+            <TextView
+                android:id="@+id/tv_about_lck_num5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="21dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line1"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_line1"/>
+
+            <TextView
+                android:id="@+id/tv_about_lck_num6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="21dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line2"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_line2"/>
+
+            <TextView
+                android:id="@+id/tv_about_lck_num7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="21dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line3"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_line3"/>
+
+            <TextView
+                android:id="@+id/tv_about_lck_num8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="21dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line4"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_line4"/>
+
+            <TextView
+                android:id="@+id/tv_about_lck_num9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="21dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line5"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_line5"/>
+
+            <TextView
+                android:id="@+id/tv_about_lck_num10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="21dp"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line6"
+                app:layout_constraintStart_toStartOf="@id/view_about_lck_line6"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_about_lck_ranking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="160dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="63dp"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect1" />
+
+            <View
+                android:id="@+id/view_about_lck_transparent"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="50dp"
+                android:background="#00FFFFFF"
+                app:layout_constraintTop_toBottomOf="@id/view_about_lck_line6" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 </layout>

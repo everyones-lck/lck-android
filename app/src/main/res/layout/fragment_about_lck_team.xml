@@ -84,21 +84,15 @@
 
         </com.google.android.material.tabs.TabLayout>
 
-        <FrameLayout
-            android:id="@+id/fcv_about_lck_team_container"
-            android:layout_width="0dp"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fcv_about_lck_team"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="30dp"
             app:layout_constraintTop_toBottomOf="@id/tb_about_lck_team"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <FrameLayout
-            android:id="@+id/fcv_about_lck_team_to_history_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="parent"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:navGraph="@navigation/about_lck_team_graph"
+            app:defaultNavHost="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

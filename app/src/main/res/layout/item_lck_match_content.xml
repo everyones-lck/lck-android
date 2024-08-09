@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_today_match_lck_match"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingTop="60dp"
+        android:paddingBottom="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_today_match_lck_match_team1_logo"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_gen_g"
+            android:alpha="0.2"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_today_match_lck_match1_content"/>
+
+        <TextView
+            android:id="@+id/tv_today_match_lck_match_team1_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.LCK.Bold"
+            android:text="Gen.G"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintEnd_toStartOf="@id/tv_today_match_lck_match1_content"
+            app:layout_constraintTop_toTopOf="@+id/tv_today_match_lck_match1_content"/>
+
+        <ImageView
+            android:id="@+id/iv_today_match_lck_match_team2_logo"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_t1"
+            android:alpha="0.2"
+            android:layout_marginStart="30dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_today_match_lck_match1_content"/>
+
+        <TextView
+            android:id="@+id/tv_today_match_lck_match_team2_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.LCK.Bold"
+            android:text="T1"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginStart="30dp"
+            app:layout_constraintStart_toEndOf="@id/tv_today_match_lck_match1_content"
+            app:layout_constraintTop_toTopOf="@+id/tv_today_match_lck_match1_content"/>
+
+        <TextView
+            android:id="@+id/tv_today_match_lck_match1_content"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            style="@style/TextAppearance.LCK.Light"
+            android:text="LCK Summer 1st Match"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toTopOf="@id/iv_today_match_lck_match_team1_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_today_match_lck_match1_date"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            style="@style/TextAppearance.LCK.Light"
+            android:text="2024.07.12 17:00"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_today_match_lck_match1_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_today_match1_prediction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="승부 예측하기"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="18dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/shape_rect_12_white_thin_line"
+            app:layout_constraintStart_toStartOf="@id/tv_today_match_lck_match1_content"
+            app:layout_constraintEnd_toStartOf="@id/tv_today_match1_pog"
+            app:layout_constraintTop_toBottomOf="@id/tv_today_match_lck_match1_date"/>
+
+        <TextView
+            android:id="@+id/tv_today_match1_pog"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="Today's POG"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="18dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/shape_rect_12_white_thin_line"
+            app:layout_constraintStart_toEndOf="@id/tv_today_match1_prediction"
+            app:layout_constraintEnd_toEndOf="@+id/tv_today_match_lck_match1_content"
+            app:layout_constraintTop_toTopOf="@id/tv_today_match1_prediction"
+            app:layout_constraintBottom_toBottomOf="@id/tv_today_match1_prediction"/>
+
+        <TextView
+            android:id="@+id/tv_today_match_team1_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.LCK.Light"
+            android:text="60%"
+            android:textSize="12sp"
+            android:textColor="@color/gen_g"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_today_match1_prediction"/>
+
+        <TextView
+            android:id="@+id/tv_today_match_team2_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.LCK.Light"
+            android:text="40%"
+            android:textSize="12sp"
+            android:textColor="@color/t1"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_today_match1_prediction"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_today_match_team1_percent">
+
+            <TextView
+                android:id="@+id/tv_today_match_team1_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-10dp"
+                android:layout_weight="60"
+                android:background="@drawable/shape_rect_12_white_fill"
+                android:backgroundTint="@color/gen_g"
+                android:paddingVertical="2dp"
+                android:textSize="2dp"
+                android:layout_marginEnd="2dp"/>
+
+            <TextView
+                android:id="@+id/tv_today_match_team2_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="-10dp"
+                android:layout_weight="40"
+                android:background="@drawable/shape_rect_12_white_fill"
+                android:backgroundTint="@color/t1"
+                android:paddingVertical="2dp"
+                android:textSize="2dp"
+                android:layout_marginStart="2dp"/>
+
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

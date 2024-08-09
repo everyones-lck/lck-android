@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient_color">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_today_match_prediction_topbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_today_match_prediction_logo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_modu_logo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/iv_today_match_prediction_my_page"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_my_page"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_today_match_prediction_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_today_match_prediction_topbar">
+
+            <ImageView
+                android:id="@+id/iv_today_match_prediction_back"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_arrow_thin_previous"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_today_match_prediction_content_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.LCK.Bold"
+                    android:text="승부 예측"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tv_today_match_prediction_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.LCK.Light"
+                    android:text="2024 LCK Summer 1st Match"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_today_match_prediction_content_title"
+                    app:layout_constraintStart_toStartOf="@+id/tv_today_match_prediction_content_title"
+                    app:layout_constraintEnd_toEndOf="@id/tv_today_match_prediction_content_title"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            
+            <TextView
+                android:id="@+id/tv_today_match_prediction_vote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.LCK.Light"
+                android:text="투표"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_gravity="center"
+                android:paddingVertical="4dp"
+                android:paddingHorizontal="8dp"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/shape_rect_12_white_thin_line"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_today_match_prediction_vote_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.LCK.Light"
+            android:textColor="@color/warning"
+            android:text="오늘의 승리팀을 예측해보세요!"
+            android:textSize="16sp"
+            android:layout_marginTop="45dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_today_match_prediction_title"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_today_match_prediction"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="40dp"
+            tools:listitem="@layout/item_today_match_prediction"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:overScrollMode="never"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_today_match_prediction_vote_text"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

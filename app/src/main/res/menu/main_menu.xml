@@ -7,7 +7,7 @@
         android:title="홈" />
 
     <item
-        android:id="@+id/todayMatchFragment"
+        android:id="@+id/todayMatchTab"
         android:icon="@drawable/sel_main_icon_bnv_today_match"
         android:title="오늘의 매치" />
 

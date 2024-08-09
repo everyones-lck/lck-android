@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -9,74 +9,52 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <View
-            android:id="@+id/view_about_lck_match"
-            android:layout_width="299dp"
-            android:layout_height="73dp"
-            android:background="@drawable/shape_rect_8_gray_line"
-            android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:paddingVertical="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/shape_rect_8_gray_line"
+        android:paddingHorizontal="24dp">
+        <ImageView
+            android:id="@+id/iv_about_lck_team1"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        <TextView
+            android:id="@+id/tv_match_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cafe_ohsquare_air"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="8sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_about_lck_team1"
+            app:layout_constraintEnd_toStartOf="@id/iv_about_lck_team2"/>
+        <TextView
+            android:id="@+id/tv_match_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/cafe_ohsquare_air"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="8sp"
+            app:layout_constraintStart_toStartOf="@id/tv_match_title"
+            app:layout_constraintEnd_toEndOf="@id/tv_match_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_match_title"/>
+        <ImageView
+            android:id="@+id/iv_about_lck_team2"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <LinearLayout
-            android:id="@+id/layout_about_lck_match_team"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintHorizontal_bias="0.5"
-            android:gravity="center"
-            app:layout_constraintStart_toStartOf="@id/view_about_lck_match"
-            app:layout_constraintEnd_toEndOf="@id/view_about_lck_match"
-            app:layout_constraintTop_toTopOf="@id/view_about_lck_match"
-            app:layout_constraintBottom_toBottomOf="@id/view_about_lck_match">
-
-            <ImageView
-                android:id="@+id/iv_about_lck_team1"
-                android:layout_width="36.8dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center_vertical"
-                android:visibility="gone"/>
-
-            <LinearLayout
-                android:id="@+id/layout_about_lck_match_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="22.3dp"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/tv_match_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/cafe_ohsquare_air"
-                    android:textSize="8sp"
-                    android:textColor="@color/white"
-                    android:gravity="center"/>
-
-                <TextView
-                    android:id="@+id/tv_match_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/cafe_ohsquare_air"
-                    android:textSize="8sp"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"/>
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/iv_about_lck_team2"
-                android:layout_width="55dp"
-                android:layout_height="22dp"
-                android:layout_marginStart="22.3dp"
-                android:layout_gravity="center_vertical"
-                android:visibility="gone"/>
-        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

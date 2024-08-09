@@ -39,15 +39,12 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
                     2 -> navController.navigate(R.id.aboutLckClRoasterFragment)
                     else -> throw IllegalArgumentException("Invalid tab position")
                 }
-                updateTabTitleFont(tab, true)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                updateTabTitleFont(tab, false)
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                // 탭 재선택 시 동작
             }
         })
 
@@ -75,7 +72,6 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
             navHostFragment.navController.navigate(R.id.aboutLckRoasterFragment)
 
             tabLayout.getTabAt(0)?.select()
-            updateTabTitleFont(tabLayout.getTabAt(0), true)
         }
     }
 
@@ -83,16 +79,4 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
         findNavController().navigate(R.id.action_aboutLCKTeamFragment_to_aboutLckTeamPlayerFragment)
     }
 
-    private fun updateTabTitleFont(tab: TabLayout.Tab?, isSelected: Boolean) {
-        tab?.let {
-            val tabTextView = (it.view as ViewGroup).getChildAt(1) as? TextView
-            if (isSelected) {
-                tabTextView?.setTextAppearance(R.style.TextAppearance_LCK_Head1)
-                tabTextView?.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
-            } else {
-                tabTextView?.setTextAppearance(R.style.TextAppearance_LCK_Head2)
-                tabTextView?.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
-            }
-        }
-    }
 }

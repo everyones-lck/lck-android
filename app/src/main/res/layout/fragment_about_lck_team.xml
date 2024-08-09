@@ -63,7 +63,8 @@
             app:tabIndicatorHeight="0dp"
             app:tabTextColor="@color/white"
             app:tabSelectedTextColor="@color/white"
-            app:tabTextAppearance="@style/TextAppearance.LCK.Head2"
+            app:tabTextAppearance="@style/TextAppearance.LCK.Light.Level_12sp"
+            app:tabSelectedTextAppearance="@style/TextAppearance.LCK.Bold.Level_12sp"
             app:tabRippleColor="#00FFFFFF"
             app:layout_constraintTop_toBottomOf="@id/iv_about_lck_team_logo">
 

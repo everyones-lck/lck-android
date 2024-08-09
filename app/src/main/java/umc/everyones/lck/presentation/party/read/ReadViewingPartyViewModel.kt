@@ -1,4 +1,4 @@
-package umc.everyones.lck.presentation.party
+package umc.everyones.lck.presentation.party.read
 
 import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel

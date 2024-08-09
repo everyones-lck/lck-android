@@ -7,6 +7,8 @@ import umc.everyones.lck.databinding.FragmentViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.party.adapter.ViewingPartyRVA
+import umc.everyones.lck.presentation.party.write.WriteViewingPartyActivity
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.fragment_viewing_party) {
@@ -23,6 +25,13 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
 
     override fun initView() {
         initViewingPartyRVAdapter()
+        goToWriteViewingParty()
+    }
+
+    private fun goToWriteViewingParty(){
+        binding.fabViewingPartyWrite.setOnSingleClickListener {
+            startActivity(WriteViewingPartyActivity.newIntent(requireContext()))
+        }
     }
 
     private fun initViewingPartyRVAdapter(){

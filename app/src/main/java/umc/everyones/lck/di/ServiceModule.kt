@@ -5,7 +5,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import umc.everyones.lck.data.service.NaverService
 import umc.everyones.lck.data.service.TestService
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -18,6 +20,12 @@ object ServiceModule {
     @Provides
     @Singleton
     fun provideTestService(retrofit: Retrofit): TestService {
+        return retrofit.buildService()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNaverService(@Named("naver") retrofit: Retrofit): NaverService {
         return retrofit.buildService()
     }
 }

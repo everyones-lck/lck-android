@@ -39,7 +39,7 @@
         </fragment>
         <fragment
             android:id="@+id/readViewingPartyFragment"
-            android:name="umc.everyones.lck.presentation.party.ReadViewingPartyFragment"
+            android:name="umc.everyones.lck.presentation.party.read.ReadViewingPartyFragment"
             android:label="ReadViewingPartyFragment"
             tools:layout="@layout/fragment_read_viewing_party">
             <argument
@@ -51,7 +51,7 @@
         </fragment>
         <fragment
             android:id="@+id/participantsFragment"
-            android:name="umc.everyones.lck.presentation.party.ParticipantsFragment"
+            android:name="umc.everyones.lck.presentation.party.read.ParticipantsFragment"
             android:label="ParticipantsFragment"
             tools:layout="@layout/fragment_participants"/>
     </navigation>

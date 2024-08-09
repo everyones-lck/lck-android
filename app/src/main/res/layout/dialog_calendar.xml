@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rect_4_white_fill">
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendar_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:layout_marginTop="12dp"
+            android:theme="@style/CalenderViewCustom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
+            app:mcv_firstDayOfWeek="monday"
+            app:mcv_headerTextAppearance="@style/TextAppearance.LCK.Bold.DateTitle_16sp"
+            app:mcv_leftArrow="@drawable/ic_arrow_previous"
+            app:mcv_rightArrow="@drawable/ic_arrow_next"
+            app:mcv_selectionMode="single"
+            app:mcv_weekDayTextAppearance="@style/TextAppearance.LCK.DayOfWeek"
+            android:elevation="8dp"/>
+
+        <LinearLayout
+            android:id="@+id/layout_time_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/calendar_view"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="-60dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/number_picker_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:np_dividerThickness="0dp"
+                app:np_hideWheelUntilFocused="true"
+                app:np_itemSpacing="1dp"
+                app:np_max="23"
+                app:np_min="0"
+                app:np_selectedTextSize="48dp"
+                app:np_wrapSelectorWheel="true" />
+
+            <TextView
+                android:id="@+id/tv_divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":"
+                android:textSize="30sp"
+                android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+                app:layout_constraintTop_toTopOf="@id/number_picker_hour"
+                app:layout_constraintBottom_toBottomOf="@id/number_picker_hour"
+                app:layout_constraintEnd_toStartOf="@id/number_picker_minute"
+                app:layout_constraintStart_toEndOf="@id/number_picker_hour"/>
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/number_picker_minute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:np_dividerThickness="0dp"
+                app:np_fadingEdgeStrength="1"
+                app:np_wrapSelectorWheel="true"
+                app:np_min="0"
+                app:np_max="59"
+                app:np_hideWheelUntilFocused="true"
+                app:np_selectedTextSize="48dp"
+                app:np_itemSpacing="1dp"
+                />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

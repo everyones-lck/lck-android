@@ -1,5 +1,6 @@
 package umc.everyones.lck.presentation
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -10,6 +11,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.presentation.login.LoginActivity
 import umc.everyones.lck.util.LoginManager
 
+@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 

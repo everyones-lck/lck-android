@@ -39,11 +39,7 @@ class RankingAdapter(
             textViewTeamName.text = team.teamNameTop
             rankingTv.text = team.ranking.toString()
 
-            imageViewTeamLogo.setOnClickListener {
-                listener.onTeamClick(team)
-            }
-
-            textViewTeamName.setOnClickListener {
+            itemView.setOnClickListener {
                 listener.onTeamClick(team)
             }
         }

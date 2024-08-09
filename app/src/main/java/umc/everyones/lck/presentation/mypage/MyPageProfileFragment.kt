@@ -59,8 +59,6 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
             "Challenger" to R.style.TextAppearance_Challenger
         )
 
-        // 기본 상태로 초기화 필요 없음
-
         // 사용자 티어에 해당하는 요소만 업데이트
         binding.viewMypageProfileCircleBronze.setBackgroundResource(tierBackgrounds[tier]!!)
         binding.tvMypageProfileBronzeText.setTextAppearance(requireContext(), tierStyles[tier]!!)

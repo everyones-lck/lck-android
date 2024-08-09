@@ -10,15 +10,6 @@
         android:name="umc.everyones.lck.presentation.mypage.MyPageFragment"
         android:label="MyPage Fragment"
         tools:layout="@layout/fragment_mypage_main">
-        <argument
-            android:name="nickname"
-            app:argType="string" />
-        <argument
-            android:name="profileImageUri"
-            app:argType="string" />
-        <argument
-            android:name="selectedTeam"
-            app:argType="string" />
         <action
             android:id="@+id/action_myPageFragment_to_myPageProfileFragment"
             app:destination="@id/myPageProfileFragment"/>

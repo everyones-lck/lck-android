@@ -39,22 +39,10 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
                 showTeamConfirmDialog(profileImageUri)
             } else {
                 lifecycleScope.launch {
-                    try {
-                        // User 추가
-                        viewModel.addUser(profileImageUri ?: "", selectedTeamName ?: "default_team")
+                    // User 추가
+                    viewModel.addUser(profileImageUri ?: "", selectedTeamName ?: "default_team")
 
-                        // 데이터 번들 생성
-                        val bundle = Bundle().apply {
-                            putString("profileImageUri", profileImageUri)
-                            putString("teamName", selectedTeamName) // 선택된 팀 이름 전달
-                        }
-
-                        // 번들을 포함한 내비게이션
-                        navigator.navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment, bundle)
-                        Log.d("SignupMyteamFragment", "User added with team: $selectedTeamName")
-                    } catch (e: Exception) {
-                        Log.e("SignupMyteamFragment", "Error adding user", e)
-                    }
+                    findNavController().navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment)
                 }
             }
         }
@@ -109,19 +97,9 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
         dialogBinding.btnConfirm.setOnClickListener {
             dialog.dismiss()
             lifecycleScope.launch {
-                try {
-                    viewModel.addUser(profileImageUri ?: "", selectedTeamName ?: "default_team")
+                viewModel.addUser(profileImageUri ?: "", selectedTeamName ?: "default_team")
 
-                    val bundle = Bundle().apply {
-                        putString("nickname", viewModel.nickname.value)
-                        putString("profileImageUri", profileImageUri)
-                        putString("teamName", selectedTeamName)
-                    }
-                    navigator.navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment, bundle)
-                    Log.d("SignupMyteamFragment", "User added with default team")
-                } catch (e: Exception) {
-                    Log.e("SignupMyteamFragment", "Error adding user", e)
-                }
+                findNavController().navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment)
             }
         }
     }

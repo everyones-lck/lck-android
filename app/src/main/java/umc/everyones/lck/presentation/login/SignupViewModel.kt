@@ -42,14 +42,19 @@ class SignupViewModel @Inject constructor(
         if (nick != null) {
             viewModelScope.launch {
                 try {
-                    val user = User(
-                        nickname = nick,
-                        profileUri = profileImageUri,
-                        team = team,
-                        tier = tier
-                    )
-                    users.add(user)
-                    Log.d("SignupViewModel", "User added: $user")
+                    if (nicknameManager.isNicknameDuplicate(nick)) {
+                        Log.e("SignupViewModel", "Nickname already exists")
+                    } else {
+                        val user = User(
+                            nickname = nick,
+                            profileUri = profileImageUri,
+                            team = team,
+                            tier = tier
+                        )
+                        users.add(user)
+                        nicknameManager.addNickname(nick)
+                        Log.d("SignupViewModel", "User added: $user")
+                    }
                 } catch (e: Exception) {
                     Log.e("SignupViewModel", "Error adding user", e)
                 }
@@ -62,4 +67,15 @@ class SignupViewModel @Inject constructor(
     suspend fun getUser(nickname: String): User? {
         return users.find { it.nickname == nickname }
     }
+
+    fun getCurrentUser(): User? {
+        val currentNickname = _nickname.value
+        Log.d("SignupViewModel", "Getting user for nickname: $currentNickname")
+        return if (currentNickname != null) {
+            users.find { it.nickname == currentNickname }
+        } else {
+            null
+        }
+    }
 }
+

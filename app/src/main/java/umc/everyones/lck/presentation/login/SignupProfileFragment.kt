@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -27,7 +28,7 @@ import umc.everyones.lck.presentation.base.BaseFragment
 @AndroidEntryPoint
 class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layout.fragment_signup_profile) {
 
-    private val viewModel: SignupViewModel by viewModels()
+    private val viewModel: SignupViewModel by activityViewModels()
     private lateinit var pickImageLauncher: ActivityResultLauncher<Intent>
     private var profileImageUri: Uri? = null
 

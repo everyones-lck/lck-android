@@ -1,5 +1,6 @@
 package umc.everyones.lck.presentation.mypage
 
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentMypageProfileEditBinding
@@ -15,7 +16,7 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
     override fun initView() {
         // 뒤로가기 버튼 클릭 시 이동
         binding.ivMypageProfileEditBack.setOnClickListener {
-            requireActivity().onBackPressed()
+            findNavController().navigateUp()
         }
     }
 }

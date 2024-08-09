@@ -4,7 +4,6 @@ plugins {
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
-    id("kotlin-kapt")
 }
 
 android {
@@ -40,11 +39,6 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
-    }
-    kapt {
-        arguments {
-            arg("room.schemaLocation", "$projectDir/schemas".toString())
-        }
     }
 }
 
@@ -105,10 +99,4 @@ dependencies {
 
     //indicator : https://github.com/tommybuonomo/dotsindicator?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=7127
     implementation("com.tbuonomo:dotsindicator:5.0")
-
-    //RoomDB 설정
-    implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-
 }

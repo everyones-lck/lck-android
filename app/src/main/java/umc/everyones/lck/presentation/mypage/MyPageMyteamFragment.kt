@@ -61,7 +61,7 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
         }
 
         binding.ivMypageMyteamBack.setOnClickListener{
-            requireActivity().onBackPressed()
+            findNavController().navigateUp()
         }
     }
 

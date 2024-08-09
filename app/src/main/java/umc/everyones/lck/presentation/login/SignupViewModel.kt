@@ -10,32 +10,31 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import umc.everyones.lck.User
-import umc.everyones.lck.UserDao
 import umc.everyones.lck.util.NicknameManager
 import javax.inject.Inject
 
 @HiltViewModel
 class SignupViewModel @Inject constructor(
     application: Application,
-    private val userDao: UserDao,
     private val nicknameManager: NicknameManager
 ) : AndroidViewModel(application) {
 
     private val _profileImageUri = MutableLiveData<Uri?>()
     val profileImageUri: LiveData<Uri?> get() = _profileImageUri
 
-    private val _nickname = MutableLiveData<String?>()
-    val nickname: LiveData<String?> get() = _nickname
+    private val _nickname = MutableLiveData<String>()
+    val nickname: LiveData<String> get() = _nickname
+
+    private val users = mutableListOf<User>()
 
     fun setProfileImageUri(uri: Uri?) {
         _profileImageUri.value = uri
         Log.d("SignupViewModel", "Profile Image URI set to: $uri")
     }
 
-    fun setNickname(nick: String) {
-        _nickname.value = nick
-        Log.d("SignupViewModel", "setNickname called with: $nick")
-        Log.d("SignupViewModel", "Current nickname LiveData value: ${_nickname.value}")
+    fun setNickname(nickname: String) {
+        _nickname.value = nickname
+        Log.d("SignupViewModel", "Nickname set to: $nickname")
     }
 
     fun addUser(profileImageUri: String, team: String, tier: String = "Bronze") {
@@ -44,13 +43,13 @@ class SignupViewModel @Inject constructor(
             viewModelScope.launch {
                 try {
                     val user = User(
-                        name = nick,
+                        nickname = nick,
                         profileUri = profileImageUri,
                         team = team,
                         tier = tier
                     )
-                    userDao.insertUser(user)
-                    Log.d("SignupViewModel", "User added successfully: $user")
+                    users.add(user)
+                    Log.d("SignupViewModel", "User added: $user")
                 } catch (e: Exception) {
                     Log.e("SignupViewModel", "Error adding user", e)
                 }
@@ -61,6 +60,6 @@ class SignupViewModel @Inject constructor(
     }
 
     suspend fun getUser(nickname: String): User? {
-        return userDao.getUserByNickname(nickname)
+        return users.find { it.nickname == nickname }
     }
 }

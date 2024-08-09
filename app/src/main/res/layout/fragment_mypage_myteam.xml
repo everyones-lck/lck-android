@@ -86,7 +86,7 @@
 
             <View
                 android:id="@+id/view_mypage_myteam_bar1"
-                android:layout_width="370dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/white_20"
                 app:layout_constraintTop_toBottomOf="@id/tv_mypage_myteam_team_name"
@@ -241,7 +241,7 @@
 
             <View
                 android:id="@+id/view_mypage_myteam_bar2"
-                android:layout_width="370dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/white_20"
                 app:layout_constraintTop_toBottomOf="@id/layout_mypage_myteam_list"

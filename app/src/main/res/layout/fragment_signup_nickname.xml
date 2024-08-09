@@ -75,6 +75,7 @@
             android:layout_height="wrap_content"
             android:hint="닉네임을 입력해주세요"
             android:textColorHint="@color/white"
+            android:maxLines="@integer/material_motion_duration_long_1"
             style="@style/TextAppearance.LCK.Light.Body_14sp"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/view_signup_nickname_bar"

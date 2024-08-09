@@ -1,6 +1,7 @@
 package umc.everyones.lck.presentation.mypage.viewingparty
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentMypageViewingPartyBinding
@@ -15,7 +16,7 @@ class MyPageViewingPartyFragment : BaseFragment<FragmentMypageViewingPartyBindin
         setupTabLayout()
 
         binding.ivMypageViewingPartyBack.setOnClickListener {
-            requireActivity().onBackPressed()
+            findNavController().navigateUp()
         }
     }
 

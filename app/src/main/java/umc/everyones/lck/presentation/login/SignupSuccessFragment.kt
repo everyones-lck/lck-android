@@ -4,71 +4,82 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import umc.everyones.lck.R
+import umc.everyones.lck.User
 import umc.everyones.lck.databinding.FragmentSignupSuccessBinding
 import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseFragment
-import umc.everyones.lck.util.NicknameManager
 import umc.everyones.lck.util.TeamData
-import androidx.navigation.fragment.navArgs
-import kotlinx.coroutines.launch
-import umc.everyones.lck.User
 
 @AndroidEntryPoint
 class SignupSuccessFragment : BaseFragment<FragmentSignupSuccessBinding>(R.layout.fragment_signup_success) {
 
-    private val viewModel: SignupViewModel by viewModels()
-    private lateinit var nicknameManager: NicknameManager
-    private val nickname: String by lazy {
-        arguments?.getString("nickname") ?: ""
-    }
+    private val viewModel: SignupViewModel by activityViewModels()
 
     override fun initObserver() {
         // No observers needed for this fragment
     }
 
     override fun initView() {
-        nicknameManager = NicknameManager(requireContext())
+        // 번들로 전달된 데이터 추출
+        val profileImageUri = arguments?.getString("profileImageUri") ?: ""
+        val teamName = arguments?.getString("teamName") ?: "default_team" // 기본값 처리
 
-        // Fetch user details from ViewModel
+        // ViewModel에서 nickname 값 가져오기
+        val nickname = viewModel.nickname.value ?: ""
+
+        Log.d("SignupSuccessFragment", "Received profileImageUri: $profileImageUri, teamName: $teamName, nickname: $nickname")
+
+        // 사용자 정보 로드 및 화면 표시
         lifecycleScope.launch {
-            val user = viewModel.getUser(nickname)
-            if (user != null) {
-                displayUserInfo(user)
+            if (nickname.isNotEmpty()) {
+                val user = viewModel.getUser(nickname)
+                if (user != null) {
+                    displayUserInfo(user, teamName)
+                } else {
+                    Log.e("SignupSuccessFragment", "User not found for nickname: $nickname")
+                }
+            } else {
+                Log.e("SignupSuccessFragment", "Nickname is empty")
             }
         }
 
         // Handle Next button click
         binding.ivSignupSuccessNext.setOnClickListener {
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
+            Intent(requireContext(), MainActivity::class.java).apply {
+                startActivity(this)
+            }
             requireActivity().finish()
         }
     }
 
-    private fun displayUserInfo(user: User) {
+    private fun displayUserInfo(user: User, teamName: String) {
         Log.d("SignupSuccessFragment", "User: $user")
-        // Display user info
-        binding.tvSignupSuccessCongratulation.text = "${user.name} 님 가입을 축하드립니다!"
 
-        // Set team logo
-        val teamLogoResId = TeamData.getSignupSuccessTeamLogo(user.team)
-        binding.ivSignupSuccessBackgroundLogo.setImageResource(teamLogoResId)
+        // 닉네임을 텍스트에 반영
+        binding.tvSignupSuccessCongratulation.text = "${user.nickname}님 가입을 축하드립니다!"
 
-        // Load profile image or set default
+        // 팀 로고 설정 - 배경 이미지 변경
+        val teamLogoResId = TeamData.getSignupSuccessTeamLogo(teamName)
+        if (teamLogoResId != android.R.color.transparent) {
+            binding.ivSignupSuccessBackgroundLogo.setImageResource(teamLogoResId)
+        } else {
+            Log.e("SignupSuccessFragment", "Team logo not found for team: $teamName")
+        }
+
+        // 프로필 이미지 로드
         if (user.profileUri.isNotEmpty()) {
             Glide.with(this)
                 .load(Uri.parse(user.profileUri))
-                .placeholder(R.drawable.img_signup_profile) // Default image
+                .placeholder(R.drawable.img_signup_profile)
                 .into(binding.ivSignupSuccessProfile)
         } else {
-            binding.ivSignupSuccessProfile.setImageResource(R.drawable.img_signup_profile) // Default image
+            binding.ivSignupSuccessProfile.setImageResource(R.drawable.img_signup_profile)
         }
     }
 }

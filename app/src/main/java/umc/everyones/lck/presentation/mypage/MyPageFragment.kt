@@ -57,7 +57,7 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
             val intent = Intent(requireContext(), MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-            requireActivity().finish()
+            findNavController().navigateUp()
         }
 
         // 프로필 텍스트 클릭 시 MyPageProfileFragment로 이동

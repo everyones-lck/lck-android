@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,7 +18,7 @@ import umc.everyones.lck.util.NicknameManager
 class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.layout.fragment_signup_nickname) {
 
     private lateinit var nicknameManager: NicknameManager
-    private val viewModel: SignupViewModel by viewModels()
+    private val viewModel: SignupViewModel by activityViewModels()
 
     override fun initObserver() {
         // No observers needed here
@@ -82,4 +83,3 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
         return isValid
     }
 }
-

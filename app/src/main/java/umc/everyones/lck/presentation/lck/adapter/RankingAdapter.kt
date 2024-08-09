@@ -32,10 +32,12 @@ class RankingAdapter(
     inner class RankingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageViewTeamLogo: ImageView = itemView.findViewById(R.id.iv_about_lck_ranking)
         private val textViewTeamName: TextView = itemView.findViewById(R.id.tv_about_lck_ranking)
+        private val rankingTv: TextView = itemView.findViewById(R.id.tv_about_lck_ranking)
 
         fun bind(team: RankingData, listener: OnTeamClickListener) {
             imageViewTeamLogo.setImageResource(team.logoResIdTop)
             textViewTeamName.text = team.teamNameTop
+            rankingTv.text = team.ranking.toString()
 
             imageViewTeamLogo.setOnClickListener {
                 listener.onTeamClick(team)

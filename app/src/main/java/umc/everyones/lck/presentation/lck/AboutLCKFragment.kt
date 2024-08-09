@@ -84,13 +84,13 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         val teams = listOf(
-            RankingData(R.drawable.ic_dplus_kia, "DK"),
-            RankingData(R.drawable.ic_hanhwa, "HLE"),
-            RankingData(R.drawable.ic_drx, "DRX"),
-            RankingData(R.drawable.ic_nongshim_red_force, "NS"),
-            RankingData(R.drawable.ic_bnk, "BNK"),
-            RankingData(R.drawable.ic_ok_saving_bank_brion, "BRO"),
-            RankingData(R.drawable.ic_kt_rolster, "KT")
+            RankingData(4, R.drawable.ic_dplus_kia, "DK"),
+            RankingData(5, R.drawable.ic_hanhwa, "HLE"),
+            RankingData(6, R.drawable.ic_drx, "DRX"),
+            RankingData(7, R.drawable.ic_nongshim_red_force, "NS"),
+            RankingData(8, R.drawable.ic_bnk, "BNK"),
+            RankingData(9, R.drawable.ic_ok_saving_bank_brion, "BRO"),
+            RankingData(10, R.drawable.ic_kt_rolster, "KT")
         )
 
         rankingAdapter = RankingAdapter(teams, this)

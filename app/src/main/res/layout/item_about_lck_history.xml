@@ -12,9 +12,10 @@
 
         <View
             android:id="@+id/view_about_lck_history_line1"
-            android:layout_width="345dp"
-            android:layout_height="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:background="#656565"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

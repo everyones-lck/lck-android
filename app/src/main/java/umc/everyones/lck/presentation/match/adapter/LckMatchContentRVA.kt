@@ -55,18 +55,8 @@ class LckMatchContentRVA(private val items: List<LckMatch>,
             binding.tvTodayMatchTeam1Bar.backgroundTintList = ColorStateList.valueOf(team1Color)
             binding.tvTodayMatchTeam2Bar.backgroundTintList = ColorStateList.valueOf(team2Color)
 
-<<<<<<< Updated upstream
-            binding.tvTodayMatch1Prediction.setOnClickListener {
-                // Navigate to TodayMatchPredictionFragment
-                it.findNavController().navigate(R.id.todayMatchPredictionFragment)
-            }
-
-            binding.tvTodayMatch1Pog.setOnClickListener {
-                // Navigate to TodayMatchTodayPogFragment
-=======
             // "POG 투표하기" 버튼 클릭 시 TodayMatchTodayPogFragment로 이동
             binding.tvTodayMatch1Pog.setOnClickListener {
->>>>>>> Stashed changes
                 it.findNavController().navigate(R.id.todayMatchTodayPogFragment)
             }
             // 팀 승률에 따라 승률 바의 비율을 설정

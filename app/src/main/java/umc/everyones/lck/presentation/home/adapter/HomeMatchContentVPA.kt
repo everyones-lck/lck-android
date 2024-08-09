@@ -53,11 +53,7 @@ class HomeMatchContentVPA(private val items: List<LckMatch>, private val onClick
             binding.ivHomeTodayMatchBar2.backgroundTintList = ColorStateList.valueOf(team2Color)
 
             itemView.setOnClickListener {
-<<<<<<< Updated upstream
-                it.findNavController().navigate(R.id.todayMatchTab)
-=======
                 onClick()
->>>>>>> Stashed changes
             }
         }
     }

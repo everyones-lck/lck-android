@@ -51,13 +51,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             )
         )
 
-<<<<<<< Updated upstream
-        val homeMatchContentVPA = HomeMatchContentVPA(matches)
-=======
         val homeMatchContentVPA = HomeMatchContentVPA(matches) {
             homeViewModel.setNavigateEvent(R.id.todayMatchTab)
         }
->>>>>>> Stashed changes
         binding.vpHomeMatchContent.adapter = homeMatchContentVPA
         binding.indicatorHomeDot.attachTo(binding.vpHomeMatchContent)
 

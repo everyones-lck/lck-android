@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -56,7 +57,7 @@
                 android:id="@+id/iv_today_match_prediction_back"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:layout_marginEnd="35dp"
+                android:layout_marginEnd="25dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_arrow_thin_previous"/>
 
@@ -103,7 +104,7 @@
                 android:layout_gravity="center"
                 android:paddingVertical="4dp"
                 android:paddingHorizontal="8dp"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="25dp"
                 android:background="@drawable/shape_rect_12_white_thin_line"/>
 
         </LinearLayout>
@@ -120,107 +121,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_today_match_prediction_title"/>
-        
-        <ImageView
-            android:id="@+id/iv_today_match_prediction_team1_box"
-            android:layout_width="121dp"
-            android:layout_height="155dp"
-            android:src="@drawable/shape_rect_8_white_line"
-            android:layout_marginTop="40dp"
-            android:layout_marginStart="50dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_today_match_prediction_vote_text"
-            app:layout_constraintStart_toStartOf="@+id/layout_today_match_prediction_title"/>
-        
-        <ImageView
-            android:id="@+id/iv_today_match_prediction_team1_logo"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_gen_g"
-            android:layout_marginTop="22dp"
-            android:layout_marginHorizontal="22dp"
-            android:layout_marginBottom="60dp"
-            app:layout_constraintTop_toTopOf="@id/iv_today_match_prediction_team1_box"
-            app:layout_constraintStart_toStartOf="@id/iv_today_match_prediction_team1_box"
-            app:layout_constraintEnd_toEndOf="@id/iv_today_match_prediction_team1_box"
-            app:layout_constraintBottom_toBottomOf="@id/iv_today_match_prediction_team1_box"/>
 
-        <ImageView
-            android:id="@+id/iv_today_match_prediction_team2_box"
-            android:layout_width="121dp"
-            android:layout_height="155dp"
-            android:src="@drawable/shape_rect_8_white_line"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="50dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_today_match_prediction_vote_text"
-            app:layout_constraintEnd_toEndOf="@+id/layout_today_match_prediction_title"/>
-
-        <ImageView
-            android:id="@+id/iv_today_match_prediction_team2_logo"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_t1"
-            android:layout_marginTop="22dp"
-            android:layout_marginHorizontal="22dp"
-            android:layout_marginBottom="60dp"
-            app:layout_constraintTop_toTopOf="@id/iv_today_match_prediction_team2_box"
-            app:layout_constraintStart_toStartOf="@id/iv_today_match_prediction_team2_box"
-            app:layout_constraintEnd_toEndOf="@id/iv_today_match_prediction_team2_box"
-            app:layout_constraintBottom_toBottomOf="@id/iv_today_match_prediction_team2_box"/>
-
-        <RadioGroup
-            android:id="@+id/rg_today_match_prediction_group"
-            android:layout_width="0dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_today_match_prediction"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@id/iv_today_match_prediction_team1_box"
-            app:layout_constraintEnd_toEndOf="@id/iv_today_match_prediction_team2_box"
-            app:layout_constraintTop_toTopOf="@id/iv_today_match_prediction_team1_box"
-            app:layout_constraintBottom_toBottomOf="@id/iv_today_match_prediction_team2_box">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_today_match_prediction_container1"
-                android:layout_width="121dp"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:focusable="true">
-
-                <RadioButton
-                    android:id="@+id/btn_today_match_prediction_radio1"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:background="@drawable/sel_today_match_prediction_radio"
-                    android:button="@null"
-                    android:layout_marginBottom="19dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_today_match_prediction_container2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_marginStart="35dp">
-
-                <RadioButton
-                    android:id="@+id/btn_today_match_prediction_radio2"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:background="@drawable/sel_today_match_prediction_radio"
-                    android:button="@null"
-                    android:layout_marginBottom="19dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-        </RadioGroup>
+            android:layout_marginTop="40dp"
+            tools:listitem="@layout/item_today_match_prediction"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:overScrollMode="never"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_today_match_prediction_vote_text"/>
 
 
 

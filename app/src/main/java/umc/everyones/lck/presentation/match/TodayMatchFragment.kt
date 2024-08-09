@@ -3,10 +3,12 @@ package umc.everyones.lck.presentation.match
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentTodayMatchBinding
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.presentation.match.adapter.TodayMatchVPA
 
 @AndroidEntryPoint
 class TodayMatchFragment : BaseFragment<FragmentTodayMatchBinding>(R.layout.fragment_today_match) {
@@ -25,29 +27,16 @@ class TodayMatchFragment : BaseFragment<FragmentTodayMatchBinding>(R.layout.frag
         tabLayout.addTab(tabLayout.newTab().setText("LCK Match"))
         tabLayout.addTab(tabLayout.newTab().setText("LCK POG"))
 
-        // 초기 화면 설정
-        replaceFragment(TodayMatchLckMatchFragment())
+        with(binding){
+            vpTodayMatchContainer.adapter = TodayMatchVPA(this@TodayMatchFragment)
 
-        // 탭 선택 리스너 설정
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                val fragment: Fragment = when (tab.position) {
-                    0 -> TodayMatchLckMatchFragment()
-                    1 -> TodayMatchLckPogFragment()
-                    else -> throw IllegalStateException("Unexpected tab position")
-                }
-                replaceFragment(fragment)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-
-            override fun onTabReselected(tab: TabLayout.Tab) {}
-        })
+            TabLayoutMediator(tabTodayMatchTitle, vpTodayMatchContainer){tab, position ->
+                tab.text = tabTitles[position]
+            }.attach()
+        }
     }
 
-    private fun replaceFragment(fragment: Fragment) {
-        childFragmentManager.commit {
-            replace(R.id.fcv_today_match_fragment, fragment)
-        }
+    companion object {
+        private val tabTitles = listOf("LCK Match", "LCK POG")
     }
 }

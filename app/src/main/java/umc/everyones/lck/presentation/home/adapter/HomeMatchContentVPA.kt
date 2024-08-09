@@ -10,7 +10,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ItemHomeMatchContentBinding
 import umc.everyones.lck.domain.model.todayMatch.LckMatch
 
-class HomeMatchContentVPA(private val items: List<LckMatch>):
+class HomeMatchContentVPA(private val items: List<LckMatch>, private val onClick: () -> Unit):
     RecyclerView.Adapter<HomeMatchContentVPA.HomeMatchContentViewHolder>(){
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -53,14 +53,18 @@ class HomeMatchContentVPA(private val items: List<LckMatch>):
             binding.ivHomeTodayMatchBar2.backgroundTintList = ColorStateList.valueOf(team2Color)
 
             itemView.setOnClickListener {
+<<<<<<< Updated upstream
                 it.findNavController().navigate(R.id.todayMatchTab)
+=======
+                onClick()
+>>>>>>> Stashed changes
             }
         }
     }
     private val teamColorMap = mapOf(
         "Gen.G" to R.color.gen_g,
         "T1" to R.color.t1,
-        "DK" to R.color.dplus_kia,
+        "DK" to R.color.gray_indicator,
         "DRX" to R.color.drx
         // 추가적인 팀과 색상 매핑
     )

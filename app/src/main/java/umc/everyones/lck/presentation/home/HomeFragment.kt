@@ -51,7 +51,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             )
         )
 
+<<<<<<< Updated upstream
         val homeMatchContentVPA = HomeMatchContentVPA(matches)
+=======
+        val homeMatchContentVPA = HomeMatchContentVPA(matches) {
+            homeViewModel.setNavigateEvent(R.id.todayMatchTab)
+        }
+>>>>>>> Stashed changes
         binding.vpHomeMatchContent.adapter = homeMatchContentVPA
         binding.indicatorHomeDot.attachTo(binding.vpHomeMatchContent)
 
@@ -68,7 +74,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun goMatchResult() {
         binding.layoutHomeMatchResult.setOnClickListener {
-            homeViewModel.setNavigateEvent(R.id.aboutLCKFragment)
+            homeViewModel.setNavigateEvent(R.id.todayMatchTab)
         }
     }
 
@@ -86,16 +92,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun goViewingParty() {
         binding.ivHomeViewingPartyBox.setOnClickListener {
-            homeViewModel.setNavigateEvent(R.id.viewingPartyFragment)
+            homeViewModel.setNavigateEvent(R.id.viewingPartyTab)
         }
     }
 
-    private fun setupMypageButton() {
-        binding.btnmypage.setOnClickListener {
-
-            val intent = Intent(requireContext(), MyPageActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish() // Finish the current activity
-        }
-    }
+//    private fun setupMypageButton() {
+//        binding.btnmypage.setOnClickListener {
+//
+//            val intent = Intent(requireContext(), MyPageActivity::class.java)
+//            startActivity(intent)
+//            requireActivity().finish() // Finish the current activity
+//        }
+//    }
 }

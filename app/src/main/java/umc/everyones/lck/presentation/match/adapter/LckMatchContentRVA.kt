@@ -1,6 +1,7 @@
 package umc.everyones.lck.presentation.match.adapter
 
 import android.content.res.ColorStateList
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -11,7 +12,8 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ItemLckMatchContentBinding
 import umc.everyones.lck.domain.model.todayMatch.LckMatch
 
-class LckMatchContentRVA(private val items: List<LckMatch>) :
+class LckMatchContentRVA(private val items: List<LckMatch>,
+                         private val onPredictClick: (Int, Int) -> Unit) :
     RecyclerView.Adapter<LckMatchContentRVA.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemLckMatchContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -37,15 +39,23 @@ class LckMatchContentRVA(private val items: List<LckMatch>) :
             binding.tvTodayMatchTeam1Percent.text = item.team1WinRate
             binding.tvTodayMatchTeam2Percent.text = item.team2WinRate
 
+            // 승부 예측하기 버튼 클릭 시, 로고 전달
+            binding.tvTodayMatch1Prediction.setOnClickListener {
+                onPredictClick(item.team1LogoResId, item.team2LogoResId)
+            }
+
             val context = binding.root.context
             val team1Color = ContextCompat.getColor(context, teamColorMap[item.team1Name] ?: R.color.white)
             val team2Color = ContextCompat.getColor(context, teamColorMap[item.team2Name] ?: R.color.black)
 
+            // 팀 승률 텍스트 색상 설정
             binding.tvTodayMatchTeam1Percent.setTextColor(team1Color)
             binding.tvTodayMatchTeam2Percent.setTextColor(team2Color)
+            // 팀 승률 바 색상 설정
             binding.tvTodayMatchTeam1Bar.backgroundTintList = ColorStateList.valueOf(team1Color)
             binding.tvTodayMatchTeam2Bar.backgroundTintList = ColorStateList.valueOf(team2Color)
 
+<<<<<<< Updated upstream
             binding.tvTodayMatch1Prediction.setOnClickListener {
                 // Navigate to TodayMatchPredictionFragment
                 it.findNavController().navigate(R.id.todayMatchPredictionFragment)
@@ -53,9 +63,13 @@ class LckMatchContentRVA(private val items: List<LckMatch>) :
 
             binding.tvTodayMatch1Pog.setOnClickListener {
                 // Navigate to TodayMatchTodayPogFragment
+=======
+            // "POG 투표하기" 버튼 클릭 시 TodayMatchTodayPogFragment로 이동
+            binding.tvTodayMatch1Pog.setOnClickListener {
+>>>>>>> Stashed changes
                 it.findNavController().navigate(R.id.todayMatchTodayPogFragment)
             }
-            // Set the weight of the bars based on winrate
+            // 팀 승률에 따라 승률 바의 비율을 설정
             val team1WinRate = item.team1WinRate.replace("%", "").toFloat() / 100
             val team2WinRate = item.team2WinRate.replace("%", "").toFloat() / 100
 

@@ -48,7 +48,7 @@
             style="@style/TextAppearance.LCK.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:text="Today's Matches"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -71,7 +71,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_home_match_content"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
+            android:layout_height="200dp"
             android:layout_marginTop="28dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +97,7 @@
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:layout_marginEnd="260dp"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="@id/vp_home_match_content"
             app:layout_constraintEnd_toEndOf="@id/vp_home_match_content"
             app:layout_constraintTop_toBottomOf="@id/indicator_home_dot">
@@ -117,9 +117,9 @@
 
             <ImageView
                 android:id="@+id/iv_home_match_result_arrow"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/ic_arrow_right"
                 app:layout_constraintStart_toStartOf="@id/tv_home_match_result"
                 app:layout_constraintTop_toBottomOf="@id/tv_home_match_result" />
@@ -129,11 +129,15 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_home_match_result"
             android:layout_width="wrap_content"
-            android:layout_height="88dp"
+            android:layout_height="80dp"
             android:orientation="horizontal"
             tools:listitem="@layout/item_home_match_result"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+<<<<<<< Updated upstream
             android:layout_marginTop="43dp"
+=======
+            android:layout_marginTop="30dp"
+>>>>>>> Stashed changes
             android:overScrollMode="never"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constrainedWidth="true"
@@ -194,8 +198,8 @@
 
                 <ImageView
                     android:id="@+id/iv_home_about_lck_arrow"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/ic_arrow_right"
                     android:layout_marginTop="19dp"
                     android:layout_marginEnd="13dp"
@@ -303,31 +307,31 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!--로그아웃 대충 구현이라 삭제해주세요-->
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Logout"
-            style="@style/TextAppearance.LCK.Light.Body_14sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/main_bnv"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="75dp"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        &lt;!&ndash;로그아웃 대충 구현이라 삭제해주세요&ndash;&gt;-->
+<!--        <Button-->
+<!--            android:id="@+id/btnLogout"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Logout"-->
+<!--            style="@style/TextAppearance.LCK.Light.Body_14sp"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/main_bnv"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:layout_marginEnd="75dp"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <!--마이 페이지 대충 구현 -->
-        <Button
-            android:id="@+id/btnmypage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="My Page"
-            style="@style/TextAppearance.LCK.Light.Body_14sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/main_bnv"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="75dp"
-            app:layout_constraintTop_toTopOf="parent"/>
+<!--        &lt;!&ndash;마이 페이지 대충 구현 &ndash;&gt;-->
+<!--        <Button-->
+<!--            android:id="@+id/btnmypage"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="My Page"-->
+<!--            style="@style/TextAppearance.LCK.Light.Body_14sp"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/main_bnv"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            android:layout_marginStart="75dp"-->
+<!--            app:layout_constraintTop_toTopOf="parent"/>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

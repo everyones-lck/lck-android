@@ -1,6 +1,6 @@
 package umc.everyones.lck.data.service
 
-import com.umc.ttoklip.data.model.naver.geocoding.GeocodingResponse
+import umc.everyones.lck.data.dto.response.naver.geocoding.GeocodingResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

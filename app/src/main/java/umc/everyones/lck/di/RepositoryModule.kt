@@ -2,8 +2,8 @@ package umc.everyones.lck.di
 
 import android.app.Application
 import android.content.Context
-import com.umc.ttoklip.data.repository.naver.NaverRepository
-import com.umc.ttoklip.data.repository.naver.NaverRepositoryImpl
+import umc.everyones.lck.domain.repository.NaverRepository
+import umc.everyones.lck.data.repositoryImpl.NaverRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

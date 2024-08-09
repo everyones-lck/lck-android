@@ -1,6 +1,6 @@
-package com.umc.ttoklip.data.repository.naver
+package umc.everyones.lck.domain.repository
 
-import com.umc.ttoklip.data.model.naver.geocoding.GeocodingResponse
+import umc.everyones.lck.data.dto.response.naver.geocoding.GeocodingResponse
 import umc.everyones.lck.util.network.NetworkResult
 
 

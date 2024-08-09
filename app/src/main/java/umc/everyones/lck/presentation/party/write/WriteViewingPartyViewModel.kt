@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.naver.maps.geometry.LatLng
-import com.umc.ttoklip.data.repository.naver.NaverRepository
+import umc.everyones.lck.domain.repository.NaverRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch

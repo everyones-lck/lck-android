@@ -78,7 +78,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun goAboutLck() {
         binding.ivHomeAboutLckBox.setOnClickListener {
-            homeViewModel.setNavigateEvent(R.id.aboutLCKFragment)
+            homeViewModel.setNavigateEvent(R.id.about_lck_graph)
         }
     }
 

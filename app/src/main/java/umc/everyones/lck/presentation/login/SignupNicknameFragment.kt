@@ -19,6 +19,7 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
 
     private lateinit var nicknameManager: NicknameManager
     private val viewModel: SignupViewModel by activityViewModels()
+    private val navigator by lazy { findNavController() }
 
     override fun initObserver() {
         // No observers needed here
@@ -39,8 +40,7 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
                 Log.d("SignupNicknameFragment", "Nickname set: $nickname")
                 viewModel.setProfileImageUri(null) // 이후에 프로필 사진 선택할 때 업데이트
 
-                // 다음 프래그먼트로 이동
-                findNavController().navigate(R.id.action_signupNicknameFragment_to_signupProfileFragment)
+                navigator.navigate(R.id.action_signupNicknameFragment_to_signupProfileFragment)
             }
             val nickname2 = viewModel.nickname.value
             Log.d("SignupViewModel", "전달: $nickname2")

@@ -31,6 +31,7 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
     private val viewModel: SignupViewModel by activityViewModels()
     private lateinit var pickImageLauncher: ActivityResultLauncher<Intent>
     private var profileImageUri: Uri? = null
+    private val navigator by lazy { findNavController() }
 
     // 권한 요청 코드 정의
     private val REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 1001
@@ -115,7 +116,7 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
     }
 
     private fun navigateToSignupMyTeam() {
-        findNavController().navigate(R.id.action_signupProfileFragment_to_signupMyteamFragment)
+        navigator.navigate(R.id.action_signupProfileFragment_to_signupMyteamFragment)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

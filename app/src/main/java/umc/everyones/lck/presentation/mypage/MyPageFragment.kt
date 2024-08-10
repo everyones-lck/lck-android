@@ -25,6 +25,7 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
     private val myPageViewModel: MyPageViewModel by activityViewModels()
     private val signupViewModel: SignupViewModel by activityViewModels() // SignupViewModel을 가져옵니다.
     private val teamLogos = TeamData.mypageTeamBackground
+    private val navigator by lazy { findNavController() }
 
     override fun initObserver() {
         myPageViewModel.user.observe(viewLifecycleOwner) { user ->
@@ -68,23 +69,23 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
             val intent = Intent(requireContext(), MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-            findNavController().navigateUp()
+            navigator.navigateUp()
         }
 
         binding.tvMypageMainMyprofileText.setOnClickListener {
-            findNavController().navigate(R.id.action_myPageFragment_to_myPageProfileFragment)
+            navigator.navigate(R.id.action_myPageFragment_to_myPageProfileFragment)
         }
 
         binding.tvMypageMainMyteamText.setOnClickListener {
-            findNavController().navigate(R.id.action_myPageFragment_to_myPageMyteamFragment)
+            navigator.navigate(R.id.action_myPageFragment_to_myPageMyteamFragment)
         }
 
         binding.tvMypageMainCommunityText.setOnClickListener {
-            findNavController().navigate(R.id.action_myPageFragment_to_myPageCommunityFragment)
+            navigator.navigate(R.id.action_myPageFragment_to_myPageCommunityFragment)
         }
 
         binding.tvMypageMainViewingPartyText.setOnClickListener {
-            findNavController().navigate(R.id.action_myPageFragment_to_myPageViewingPartyFragment)
+            navigator.navigate(R.id.action_myPageFragment_to_myPageViewingPartyFragment)
         }
     }
 }

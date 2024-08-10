@@ -15,6 +15,7 @@ import umc.everyones.lck.util.LoginManager
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
     private lateinit var loginManager: LoginManager
+    private val navigator by lazy { findNavController() }
 
     override fun initObserver() {
 
@@ -26,7 +27,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         binding.ivLoginKakao.setOnClickListener {
             // 로그인 성공 시 처리
             loginManager.setLoggedIn(true)
-            findNavController().navigate(R.id.action_loginFragment_to_signupNicknameFragment)
+            navigator.navigate(R.id.action_loginFragment_to_signupNicknameFragment)
         }
     }
 }

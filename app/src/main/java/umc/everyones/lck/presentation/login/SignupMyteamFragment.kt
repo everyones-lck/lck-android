@@ -42,7 +42,7 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
                     // User 추가
                     viewModel.addUser(profileImageUri ?: "", selectedTeamName ?: "default_team")
 
-                    findNavController().navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment)
+                    navigator.navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment)
                 }
             }
         }

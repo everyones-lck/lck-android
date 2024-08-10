@@ -15,6 +15,8 @@ import umc.everyones.lck.util.LoginManager
 @AndroidEntryPoint
 class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layout.fragment_mypage_profile) {
 
+    private val navigator by lazy { findNavController() }
+
     override fun initObserver() {
         // Initialize observers if needed
     }
@@ -22,18 +24,18 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
     override fun initView() {
         // Initialize views and set up listeners
         binding.tvMypageProfileEditText.setOnClickListener {
-            findNavController().navigate(R.id.action_myPageProfileFragment_to_myPageProfileEditFragment)
+            navigator.navigate(R.id.action_myPageProfileFragment_to_myPageProfileEditFragment)
         }
 
         binding.tvMypageProfileWithdrawText.setOnClickListener {
-            findNavController().navigate(R.id.action_myPageProfileFragment_to_myPageProfileWithdrawFragment)
+            navigator.navigate(R.id.action_myPageProfileFragment_to_myPageProfileWithdrawFragment)
         }
 
         binding.tvMypageProfileLogoutText.setOnClickListener {
             showProfileDialog()
         }
         binding.ivMypageProfileBack.setOnClickListener{
-            findNavController().navigateUp()
+            navigator.navigateUp()
         }
 
         // Update UI with user's tier color

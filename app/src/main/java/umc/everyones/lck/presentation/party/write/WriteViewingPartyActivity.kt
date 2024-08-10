@@ -37,11 +37,13 @@ class WriteViewingPartyActivity :
     override fun initObserver() {
         repeatOnStarted {
             viewModel.latLng.collect { latLng ->
+                // 잘못된 위경도 좌표가 왔을 떄 예외처리
                 if (!latLng.isValid) {
                     showCustomSnackBar(binding.root, "주소를 정확히 입력해주세요")
                     return@collect
                 }
 
+                // 지도에 마커 띄우고 카메라 이동
                 viewingPartyMarker.apply {
                     position = latLng
                     icon = OverlayImage.fromResource(R.drawable.img_marker)
@@ -53,9 +55,9 @@ class WriteViewingPartyActivity :
         }
 
         repeatOnStarted {
+            // 달력에서 선택한 날짜 및 시간 반영
             viewModel.date.collect {
                 binding.tvWriteViewingPartyDate.text = it
-                Log.d("date", it)
             }
         }
     }
@@ -66,7 +68,7 @@ class WriteViewingPartyActivity :
         addDecimalFormat()
         setViewingPartyPlace()
         validateViewingPartyName()
-        validateViewingPartyCondition()
+        validateViewingPartyQualify()
         validateViewingPartyEtc()
         showKeyBoard()
         writeDone()
@@ -104,6 +106,7 @@ class WriteViewingPartyActivity :
         }
     }
 
+    // 뷰잉파티 이름 유효성 검사
     private fun validateViewingPartyName() {
         with(binding) {
             etWriteViewingPartyName.validateMaxLength(this@WriteViewingPartyActivity, 20,
@@ -117,7 +120,8 @@ class WriteViewingPartyActivity :
         }
     }
 
-    private fun validateViewingPartyCondition() {
+    // 뷰잉파티 참여 자격 및 조건 유효성 검사
+    private fun validateViewingPartyQualify() {
         with(binding) {
             etWriteViewingPartyQualify.validateMaxLength(this@WriteViewingPartyActivity, 100,
                 onLengthExceeded = {
@@ -130,6 +134,7 @@ class WriteViewingPartyActivity :
         }
     }
 
+    // 뷰잉파티 기타 유효성 검사
     private fun validateViewingPartyEtc() {
         with(binding) {
             etWriteViewingPartyEtc.validateMaxLength(this@WriteViewingPartyActivity, 1000,
@@ -143,6 +148,7 @@ class WriteViewingPartyActivity :
         }
     }
 
+    // 숫자 입력 시 #,### 형식으로 콤마 추가
     private fun addDecimalFormat() {
         with(binding) {
             etWriteViewingPartyPrice.addDecimalFormattedTextWatcher(this@WriteViewingPartyActivity)
@@ -163,6 +169,7 @@ class WriteViewingPartyActivity :
         }
     }
 
+    // 뷰잉파티 등록 버튼 눌렀을 때
     private fun writeDone() {
         with(binding) {
             ivWriteDone.setOnClickListener {
@@ -208,6 +215,7 @@ class WriteViewingPartyActivity :
         }
     }
 
+    // 뷰잉파티 개최 장소 설정
     private fun setViewingPartyPlace() {
         binding.etWriteViewingPartyAddress.setOnEditorActionListener(EditorInfo.IME_ACTION_DONE) {
             Log.d("geoCoding", binding.etWriteViewingPartyAddress.text.toString())

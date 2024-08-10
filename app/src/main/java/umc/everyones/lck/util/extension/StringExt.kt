@@ -22,7 +22,13 @@ fun String.combineNicknameAndTeam(team: String): String{
 }
 
 @SuppressLint("SimpleDateFormat")
-fun LocalDateTime.toPartyDateToString(): String {
+fun LocalDateTime.listPartyDateToString(): String {
     val simpleDateFormat = SimpleDateFormat("yy.MM.dd")
+    return simpleDateFormat.format(this)
+}
+
+@SuppressLint("SimpleDateFormat")
+fun LocalDateTime.partyDateToString(): String {
+    val simpleDateFormat = SimpleDateFormat("yy.MM.dd hh:mm")
     return simpleDateFormat.format(this)
 }

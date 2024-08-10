@@ -1,13 +1,9 @@
 package umc.everyones.lck.data.dto.response.party
 
-import android.annotation.SuppressLint
-import android.os.Build
-import androidx.annotation.RequiresApi
 import umc.everyones.lck.domain.model.party.ViewingPartyElementModel
 import umc.everyones.lck.domain.model.party.ViewingPartyListModel
 import umc.everyones.lck.util.extension.combineNicknameAndTeam
-import umc.everyones.lck.util.extension.toPartyDateToString
-import java.text.SimpleDateFormat
+import umc.everyones.lck.util.extension.listPartyDateToString
 import java.time.LocalDateTime
 
 data class ViewingPartyListResponseDto(
@@ -27,7 +23,7 @@ data class ViewingPartyListResponseDto(
         val location: String
     ){
         fun toViewingPartyListElementModel() =
-            ViewingPartyElementModel(id, name, userName.combineNicknameAndTeam(teamName), photoURL, partyDate.toPartyDateToString(), latitude, longitude, location)
+            ViewingPartyElementModel(id, name, userName.combineNicknameAndTeam(teamName), photoURL, partyDate.listPartyDateToString(), latitude, longitude, location)
     }
 
     fun toViewingPartyListModel() =

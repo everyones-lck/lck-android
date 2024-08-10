@@ -2,7 +2,9 @@ package umc.everyones.lck.data.dto.response.party
 
 import umc.everyones.lck.domain.model.party.ReadViewingPartyModel
 import umc.everyones.lck.util.extension.combineNicknameAndTeam
-import umc.everyones.lck.util.extension.toPartyDateToString
+import umc.everyones.lck.util.extension.listPartyDateToString
+import umc.everyones.lck.util.extension.partyDateToString
+import java.text.DecimalFormat
 import java.time.LocalDateTime
 
 data class ReadViewingPartyResponseDto(
@@ -26,13 +28,12 @@ data class ReadViewingPartyResponseDto(
             ownerName.combineNicknameAndTeam(ownerTeam),
             ownerImage,
             qualify,
-            partyDate.toPartyDateToString(),
+            partyDate.partyDateToString(),
             location,
             latitude,
             longitude,
-            price,
-            lowParticipate,
-            highParticipate,
+            "₩ ${DecimalFormat("#,###").format(price)}",
+            "$lowParticipate - $highParticipate 명",
             etc
         )
 }

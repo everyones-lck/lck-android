@@ -32,7 +32,7 @@ class ReadViewingPartyViewModel @Inject constructor(
         data class Fail(val message: String): ReadViewingPartyEvent()
     }
 
-    fun eventReadViewingParty(event: ReadViewingPartyEvent){
+    private fun eventReadViewingParty(event: ReadViewingPartyEvent){
         viewModelScope.launch {
             _readViewingPartyEvent.emit(event)
         }
@@ -50,9 +50,9 @@ class ReadViewingPartyViewModel @Inject constructor(
         viewModelScope.launch {
             repository.fetchViewingParty(postId.value).onSuccess { response ->
                 Log.d("fetchViewingParty", response.toString())
-                _readViewingPartyEvent.emit(ReadViewingPartyEvent.Read(response))
+                eventReadViewingParty(ReadViewingPartyEvent.Read(response))
             }.onFailure {
-                _readViewingPartyEvent.emit(ReadViewingPartyEvent.Fail("뷰잉파티를 조회하지 못했습니다"))
+                eventReadViewingParty(ReadViewingPartyEvent.Fail("뷰잉파티를 조회하지 못했습니다"))
             }
         }
     }
@@ -61,9 +61,9 @@ class ReadViewingPartyViewModel @Inject constructor(
         viewModelScope.launch{
             repository.joinViewingParty(postId.value).onSuccess { response ->
                 Log.d("joinViewingParty", response.toString())
-                _readViewingPartyEvent.emit(ReadViewingPartyEvent.Success("뷰잉파티에 참여되었습니다!"))
+                eventReadViewingParty(ReadViewingPartyEvent.Success("뷰잉파티에 참여되었습니다!"))
             }.onFailure {
-                _readViewingPartyEvent.emit(ReadViewingPartyEvent.Fail("뷰잉파티에 참여하지 못했습니다"))
+                eventReadViewingParty(ReadViewingPartyEvent.Fail("뷰잉파티에 참여하지 못했습니다"))
             }
         }
     }

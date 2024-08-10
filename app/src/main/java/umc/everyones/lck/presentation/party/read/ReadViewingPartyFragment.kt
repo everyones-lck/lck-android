@@ -1,10 +1,12 @@
 package umc.everyones.lck.presentation.party.read
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentReadViewingPartyBinding
@@ -38,13 +40,26 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun handleReadViewingPartyEvent(event: ReadViewingPartyViewModel.ReadViewingPartyEvent){
         when(event){
             is ReadViewingPartyViewModel.ReadViewingPartyEvent.Fail -> {
                 showCustomSnackBar(binding.root, event.message)
             }
             is ReadViewingPartyViewModel.ReadViewingPartyEvent.Read -> {
-
+                with(binding){
+                    tvReadViewingPartyTitle.text = event.viewingParty.name
+                    tvReadQualify.text = "To. ${event.viewingParty.qualify}"
+                    tvReadDate.text = event.viewingParty.partyDate
+                    tvReadPlace.text = event.viewingParty.place
+                    tvReadPrice.text = event.viewingParty.price
+                    tvReadParticipants.text = event.viewingParty.participants
+                    tvReadEtc.text = event.viewingParty.etc
+                    tvReadWriter.text = event.viewingParty.writerInfo
+                    Glide.with(requireContext())
+                        .load(event.viewingParty.ownerImage)
+                        .into(ivReadProfileImage)
+                }
             }
             is ReadViewingPartyViewModel.ReadViewingPartyEvent.Success -> {
                 if(event.message.isNotEmpty()){
@@ -56,6 +71,8 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     override fun initView() {
         Log.d("postId", postId.toString())
+        viewModel.setPostId(postId)
+        viewModel.fetchViewingParty()
         distinguishView()
         binding.ivReadBackBtn.setOnClickListener {
             navigator.navigateUp()

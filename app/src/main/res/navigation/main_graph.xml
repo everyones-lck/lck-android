@@ -6,7 +6,6 @@
     app:startDestination="@id/homeFragment">
 
     <include app:graph="@navigation/about_lck_graph" />
-    <include app:graph="@navigation/about_lck_team_graph" />
 
     <fragment
         android:id="@+id/homeFragment"

@@ -28,6 +28,8 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
     private var isDatePickerDialogVisible = false
     private var datePickerDialog: CustomDatePickerDialog? = null
 
+    private val navigator by lazy { findNavController() }
+
     override fun initObserver() {
     }
 
@@ -102,13 +104,13 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
     private fun initBackButton() {
         binding.viewAboutLckRect1.setOnClickListener {
-            findNavController().navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
+            navigator.navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
         }
         binding.viewAboutLckRect2.setOnClickListener {
-            findNavController().navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
+            navigator.navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
         }
         binding.viewAboutLckRect3.setOnClickListener {
-            findNavController().navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
+            navigator.navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
         }
     }
 
@@ -156,6 +158,6 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
     }
 
     override fun onTeamClick(team: RankingData) {
-        findNavController().navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
+        navigator.navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
     }
 }

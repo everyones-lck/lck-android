@@ -20,6 +20,8 @@ import umc.everyones.lck.presentation.lck.util.OnPlayerItemClickListener
 class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.fragment_about_lck_team),
     OnPlayerItemClickListener {
 
+    private val navigator by lazy { findNavController() }
+
     override fun initObserver() {
 
     }
@@ -50,11 +52,11 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
 
 
         backButton.setOnClickListener {
-            findNavController().popBackStack()
+            navigator.popBackStack()
         }
 
         nextButton.setOnClickListener {
-            findNavController().navigate(R.id.action_aboutLCKTeamFragment_to_aboutLckTeamHistoryFragment)
+            navigator.navigate(R.id.action_aboutLCKTeamFragment_to_aboutLckTeamHistoryFragment)
         }
 
         tabLayout.getTabAt(0)?.select()
@@ -76,7 +78,7 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
     }
 
     override fun onPlayerItemClick(player: PlayerData) {
-        findNavController().navigate(R.id.action_aboutLCKTeamFragment_to_aboutLckTeamPlayerFragment)
+        navigator.navigate(R.id.action_aboutLCKTeamFragment_to_aboutLckTeamPlayerFragment)
     }
 
 }

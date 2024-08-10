@@ -8,7 +8,10 @@ import umc.everyones.lck.databinding.ActivityViewingPartyChatBinding
 import umc.everyones.lck.domain.model.party.ChatItem
 import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.party.adapter.ChatRVA
+import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.RECEIVER
+import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.SENDER
 import umc.everyones.lck.util.extension.drawableOf
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
 
 class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R.layout.activity_viewing_party_chat) {
@@ -17,23 +20,21 @@ class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R
     }
     override fun initView() {
         validateMessageSend()
+        initChatRVAdapter()
+        sendMessage()
+        binding.ivChatBackBtn.setOnSingleClickListener {
+            finish()
+        }
+    }
+
+    private fun initChatRVAdapter(){
         binding.rvChat.adapter = chatRVA
         val list = listOf(
-            ChatItem("ds", "dsds", 1, 1),
-            ChatItem("ds", "dsds", 0, 2),
-            ChatItem("ds", "dsds", 1, 3),
-            ChatItem("ds", "dsds", 0, 4),
-            ChatItem("ds", "dsds", 1, 5),
-            ChatItem("ds", "dsds", 0, 6),
-            ChatItem("ds", "dsds", 1, 7),
-            ChatItem("ds", "dsds", 0, 8),
-            ChatItem("ds", "dsds", 1, 9),
-            ChatItem("ds", "dsds", 0, 10),
-            ChatItem("ds", "dsds", 0, 11),
-            ChatItem("ds", "dsds", 0, 12),
-            ChatItem("ds", "dsds", 0, 13),
-            ChatItem("ds", "dsds", 0, 14),
-            )
+            ChatItem("ds", "현재 뷰파 참여 인원이 어떻게 되나요??", RECEIVER, 1),
+            ChatItem("ds", "11명 입니다!", SENDER, 2),
+            ChatItem("ds", "감사합니당", RECEIVER, 3),
+            ChatItem("ds", "네에 ☺\uFE0F", SENDER, 4),
+        )
         chatRVA.submitList(list)
     }
 
@@ -58,6 +59,17 @@ class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R
                 }
             }
         )
+    }
+
+    private fun sendMessage(){
+        with(binding){
+            ivChatSendBtn.setOnClickListener {
+                chatRVA.submitList(chatRVA.currentList.toMutableList().apply {
+                    add(ChatItem("ds", etChatInput.text.toString(), SENDER, 5))
+                })
+                etChatInput.setText("")
+            }
+        }
     }
 
     override fun initObserver() {

@@ -37,6 +37,7 @@ class ChatRVA :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(chatItem: ChatItem) {
             with(binding){
+                tvSendererChat.text = chatItem.message
                 /*Glide.with(ivParticipantProfileImage.context)
                     .load(participantItem.profileImage)
                     .into(ivParticipantProfileImage)
@@ -51,6 +52,7 @@ class ChatRVA :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(chatItem: ChatItem) {
             with(binding){
+                tvReceiverChat.text = chatItem.message
                 /*Glide.with(ivParticipantProfileImage.context)
                     .load(participantItem.profileImage)
                     .into(ivParticipantProfileImage)

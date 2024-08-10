@@ -7,15 +7,14 @@
         android:title="홈" />
 
     <item
-        android:id="@+id/todayMatchFragment"
+        android:id="@+id/todayMatchTab"
         android:icon="@drawable/sel_main_icon_bnv_today_match"
         android:title="오늘의 매치" />
 
     <item
-        android:id="@+id/aboutLCKFragment"
+        android:id="@+id/about_lck_graph"
         android:icon="@drawable/sel_main_icon_bnv_about_lck"
-        android:title="LCK에 대해"
-        />
+        android:title="LCK에 대해" />
 
     <item
         android:id="@+id/communityFragment"

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient_color">
+
+        <ImageView
+            android:id="@+id/iv_about_lck_team_pre"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16.25dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/ic_arrow_previous"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        
+        <TextView
+            android:id="@+id/tv_about_lck_team_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T1"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/cafe_ohsquare"
+            app:layout_constraintTop_toTopOf="@id/iv_about_lck_team_pre"
+            app:layout_constraintBottom_toBottomOf="@id/iv_about_lck_team_pre"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:id="@+id/iv_about_lck_team_logo"
+            android:layout_width="123.75dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_t1"
+            android:layout_marginStart="137dp"
+            android:layout_marginTop="150.5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/iv_about_lck_team_next"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_arrow_right"
+            android:layout_marginTop="9dp"
+            android:layout_marginStart="7dp"
+            app:layout_constraintStart_toEndOf="@id/iv_about_lck_team_logo"
+            app:layout_constraintTop_toTopOf="@id/iv_about_lck_team_logo"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tb_about_lck_team"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="70dp"
+            android:background="#00FFFFFF"
+            app:tabIndicatorHeight="0dp"
+            app:tabTextColor="@color/white"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextAppearance="@style/TextAppearance.LCK.Light.Level_12sp"
+            app:tabSelectedTextAppearance="@style/TextAppearance.LCK.Bold.Level_12sp"
+            app:tabRippleColor="#00FFFFFF"
+            app:layout_constraintTop_toBottomOf="@id/iv_about_lck_team_logo">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LCK Roaster" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coaches"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LCK CL Roaster"/>
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_about_lck_team"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@id/tb_about_lck_team"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

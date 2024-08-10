@@ -1,5 +1,7 @@
 package umc.everyones.lck.presentation.party
 
+import android.content.Context
+import android.content.Intent
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityViewingPartyChatBinding
 import umc.everyones.lck.domain.model.party.ChatItem
@@ -33,6 +35,11 @@ class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R
 
     override fun initObserver() {
 
+    }
+
+    companion object {
+        fun newIntent(context: Context): Intent =
+            Intent(context, ViewingPartyChatActivity::class.java)
     }
 
 }

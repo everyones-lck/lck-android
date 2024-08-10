@@ -8,6 +8,7 @@ import androidx.navigation.fragment.navArgs
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentReadViewingPartyBinding
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.presentation.party.ViewingPartyChatActivity
 import umc.everyones.lck.presentation.party.dialog.JoinViewingPartyDialogFragment
 import umc.everyones.lck.util.extension.showCustomSnackBar
 
@@ -45,7 +46,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                 tvReadParticipantCancelGuide.visibility = View.VISIBLE
                 tvReadAskToHost.text = "주최자에게 질문하기"
                 tvReadJoinViewingParty.text = "Viewing Party 참여하기"
-
+                askToHost()
                 joinViewingParty()
             }
         } else {
@@ -69,6 +70,12 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
     private fun inquireParticipantsList(){
         binding.tvReadAskToHost.setOnClickListener {
             navigator.navigate(R.id.action_readViewingPartyFragment_to_participantsFragment)
+        }
+    }
+
+    private fun askToHost(){
+        binding.tvReadAskToHost.setOnClickListener {
+            startActivity(ViewingPartyChatActivity.newIntent(requireContext()))
         }
     }
 }

@@ -3,6 +3,7 @@ package umc.everyones.lck.presentation.party
 import android.content.Context
 import android.content.Intent
 import androidx.core.widget.addTextChangedListener
+import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityViewingPartyChatBinding
 import umc.everyones.lck.domain.model.party.ChatItem
@@ -14,6 +15,7 @@ import umc.everyones.lck.util.extension.drawableOf
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
 
+@AndroidEntryPoint
 class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R.layout.activity_viewing_party_chat) {
     private val chatRVA by lazy {
         ChatRVA()

@@ -9,6 +9,8 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentTodayMatchBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.match.adapter.TodayMatchVPA
+import umc.everyones.lck.presentation.mypage.MyPageActivity
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class TodayMatchFragment : BaseFragment<FragmentTodayMatchBinding>(R.layout.fragment_today_match) {
@@ -18,6 +20,7 @@ class TodayMatchFragment : BaseFragment<FragmentTodayMatchBinding>(R.layout.frag
 
     override fun initView() {
         setupTabs()
+        goMyPage()
     }
 
     private fun setupTabs() {
@@ -33,6 +36,12 @@ class TodayMatchFragment : BaseFragment<FragmentTodayMatchBinding>(R.layout.frag
             TabLayoutMediator(tabTodayMatchTitle, vpTodayMatchContainer){tab, position ->
                 tab.text = tabTitles[position]
             }.attach()
+        }
+    }
+
+    private fun goMyPage(){
+        binding.ivMyPage.setOnSingleClickListener {
+            startActivity(MyPageActivity.newIntent(requireContext()))
         }
     }
 

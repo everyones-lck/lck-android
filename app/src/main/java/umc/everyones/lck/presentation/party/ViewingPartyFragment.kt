@@ -28,6 +28,7 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     override fun initView() {
         initViewingPartyRVAdapter()
         goToWriteViewingParty()
+        goMyPage()
     }
 
     private fun goToWriteViewingParty(){
@@ -60,12 +61,9 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
         _viewIngPartyRVA = null
     }
 
-    private fun setupMypageButton() {
-        binding.ivMyPage.setOnClickListener {
-
-            val intent = Intent(requireContext(), MyPageActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish() // Finish the current activity
+    private fun goMyPage(){
+        binding.ivMyPage.setOnSingleClickListener {
+            startActivity(MyPageActivity.newIntent(requireContext()))
         }
     }
 }

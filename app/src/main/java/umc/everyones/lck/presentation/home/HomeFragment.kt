@@ -15,6 +15,7 @@ import umc.everyones.lck.presentation.mypage.MyPageActivity
 import umc.everyones.lck.util.LoginManager
 import umc.everyones.lck.presentation.home.adapter.HomeMatchContentVPA
 import umc.everyones.lck.presentation.home.adapter.HomeMatchResultRVA
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
@@ -66,6 +67,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         goAboutLck()
         goCommunity()
         goViewingParty()
+        goMyPage()
     }
 
     private fun goMatchResult() {
@@ -76,7 +78,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun goAboutLck() {
         binding.ivHomeAboutLckBox.setOnClickListener {
-            homeViewModel.setNavigateEvent(R.id.aboutLCKFragment)
+            homeViewModel.setNavigateEvent(R.id.about_lck_graph)
         }
     }
 
@@ -92,12 +94,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
-//    private fun setupMypageButton() {
-//        binding.btnmypage.setOnClickListener {
-//
-//            val intent = Intent(requireContext(), MyPageActivity::class.java)
-//            startActivity(intent)
-//            requireActivity().finish() // Finish the current activity
-//        }
-//    }
+    private fun goMyPage(){
+        binding.ivMyPage.setOnSingleClickListener {
+            startActivity(MyPageActivity.newIntent(requireContext()))
+        }
+    }
 }

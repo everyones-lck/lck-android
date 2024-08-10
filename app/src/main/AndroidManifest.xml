@@ -33,11 +33,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="umc.everyones.lck.presentation.community.WritePostActivity"
+            android:name="umc.everyones.lck.presentation.community.write.WritePostActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="umc.everyones.lck.presentation.community.ReadPostActivity"
+            android:name="umc.everyones.lck.presentation.community.read.ReadPostActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -57,6 +57,10 @@
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="umc.everyones.lck.presentation.party.write.WriteViewingPartyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name="umc.everyones.lck.presentation.party.ViewingPartyChatActivity"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"/>
 

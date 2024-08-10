@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="post"
+            type="umc.everyones.lck.domain.model.community.Post" />
+        <variable
+            name="comment"
+            type="umc.everyones.lck.domain.model.community.Comment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_mypage_community">
+
+        <TextView
+            android:id="@+id/tv_mypage_community_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:maxLines="1"
+            android:ellipsize="end"
+            style="@style/TextAppearance.LCK.Bold.Title2_18sp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="22dp"
+            tools:text="Sample Title"/>
+
+        <TextView
+            android:id="@+id/tv_mypage_community_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            style="@style/TextAppearance.LCK.Light.Level_12sp"
+            app:layout_constraintStart_toStartOf="@id/tv_mypage_community_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_community_title"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            android:background="@drawable/shape_rect_12_black_line"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            tools:text="#Category"/>
+
+        <TextView
+            android:id="@+id/tv_mypage_community_shortcuts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="해당 게시글 바로가기   "
+            style="@style/TextAppearance.LCK.Light.Level_12sp"
+            app:layout_constraintStart_toEndOf="@id/tv_mypage_community_category"
+            app:layout_constraintTop_toTopOf="@id/tv_mypage_community_category"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            android:background="@drawable/shape_rect_12_black_line"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="27dp"/>
+
+        <ImageButton
+            android:id="@+id/btn_mypage_community_shortcuts"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@drawable/ic_arrow_right_black"
+            app:layout_constraintEnd_toEndOf="@id/tv_mypage_community_shortcuts"
+            app:layout_constraintTop_toTopOf="@id/tv_mypage_community_shortcuts"
+            app:layout_constraintBottom_toBottomOf="@id/tv_mypage_community_shortcuts"
+            android:layout_marginEnd="5dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

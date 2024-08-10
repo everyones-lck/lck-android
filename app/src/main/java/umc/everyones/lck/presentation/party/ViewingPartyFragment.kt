@@ -57,4 +57,13 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
         super.onDestroyView()
         _viewIngPartyRVA = null
     }
+
+    private fun setupMypageButton() {
+        binding.ivMyPage.setOnClickListener {
+
+            val intent = Intent(requireContext(), MyPageActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish() // Finish the current activity
+        }
+    }
 }

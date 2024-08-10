@@ -5,20 +5,71 @@
     android:label="MyPage Navigation"
     app:startDestination="@id/myPageFragment">
 
-=    <fragment
+    <fragment
         android:id="@+id/myPageFragment"
         android:name="umc.everyones.lck.presentation.mypage.MyPageFragment"
         android:label="MyPage Fragment"
         tools:layout="@layout/fragment_mypage_main">
-        <argument
-            android:name="nickname"
-            app:argType="string" />
-        <argument
-            android:name="profileImageUri"
-            app:argType="string" />
-        <argument
-            android:name="selectedTeam"
-            app:argType="string" />
+        <action
+            android:id="@+id/action_myPageFragment_to_myPageProfileFragment"
+            app:destination="@id/myPageProfileFragment"/>
+        <action
+            android:id="@+id/action_myPageFragment_to_myPageMyteamFragment"
+            app:destination="@id/myPageMyteamFragment"/>
+        <action
+            android:id="@+id/action_myPageFragment_to_myPageCommunityFragment"
+            app:destination="@+id/myPageCommunityFragment"/>
+        <action
+            android:id="@+id/action_myPageFragment_to_myPageViewingPartyFragment"
+            app:destination="@+id/myPageViewingPartyFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/myPageProfileFragment"
+        android:name="umc.everyones.lck.presentation.mypage.MyPageProfileFragment"
+        android:label="MyPage Profile Fragment"
+        tools:layout="@layout/fragment_mypage_profile">
+        <action
+            android:id="@+id/action_myPageProfileFragment_to_myPageProfileEditFragment"
+            app:destination="@id/myPageProfileEditFragment"/>
+        <action
+            android:id="@+id/action_myPageProfileFragment_to_myPageProfileWithdrawFragment"
+            app:destination="@id/myPageProfileWithdrawFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/myPageProfileEditFragment"
+        android:name="umc.everyones.lck.presentation.mypage.MyPageProfileEditFragment"
+        android:label="MyPage Profile Edit Fragment"
+        tools:layout="@layout/fragment_mypage_profile_edit">
+    </fragment>
+
+    <fragment
+        android:id="@+id/myPageProfileWithdrawFragment"
+        android:name="umc.everyones.lck.presentation.mypage.MyPageProfileWithdrawFragment"
+        android:label="MyPage Profile Withdraw Fragment"
+        tools:layout="@layout/fragment_mypage_profile_withdraw">
+    </fragment>
+
+    <fragment
+        android:id="@+id/myPageMyteamFragment"
+        android:name="umc.everyones.lck.presentation.mypage.MyPageMyteamFragment"
+        android:label="MyPage Myteam Fragment"
+        tools:layout="@layout/fragment_mypage_myteam">
+    </fragment>
+
+    <fragment
+        android:id="@+id/myPageCommunityFragment"
+        android:name="umc.everyones.lck.presentation.mypage.community.MyPageCommunityFragment"
+        android:label="MyPage Community Fragment"
+        tools:layout="@layout/fragment_mypage_community">
+    </fragment>
+
+    <fragment
+        android:id="@+id/myPageViewingPartyFragment"
+        android:name="umc.everyones.lck.presentation.mypage.viewingparty.MyPageViewingPartyFragment"
+        android:label="MyPage Viewing Party Fragment"
+        tools:layout="@layout/fragment_mypage_viewing_party">
     </fragment>
 
 </navigation>

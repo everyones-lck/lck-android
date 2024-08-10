@@ -5,11 +5,8 @@
     android:id="@+id/main_graph"
     app:startDestination="@id/homeFragment">
 
-    <fragment
-        android:id="@+id/aboutLCKFragment"
-        android:name="umc.everyones.lck.presentation.lck.AboutLCKFragment"
-        android:label="AboutLCKFragment"
-        tools:layout="@layout/fragment_about_lck" />
+    <include app:graph="@navigation/about_lck_graph" />
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="umc.everyones.lck.presentation.home.HomeFragment"
@@ -105,6 +102,5 @@
             android:label="ParticipantsFragment"
             tools:layout="@layout/fragment_participants"/>
     </navigation>
-
 </navigation>
 

@@ -7,6 +7,8 @@ import umc.everyones.lck.databinding.FragmentPostListBinding
 import umc.everyones.lck.domain.model.community.PostListItem
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.community.adapter.PostListRVA
+import umc.everyones.lck.presentation.community.read.ReadPostActivity
+import umc.everyones.lck.presentation.community.read.ReadPostViewModel
 
 class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment_post_list) {
     private val navigator by lazy {

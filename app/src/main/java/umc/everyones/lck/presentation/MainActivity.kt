@@ -23,7 +23,7 @@ import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.login.LoginActivity
 import umc.everyones.lck.presentation.mypage.MyPageFragment
 import umc.everyones.lck.util.LoginManager
-import umc.everyones.lck.presentation.community.WritePostViewModel
+import umc.everyones.lck.presentation.community.write.WritePostViewModel
 import umc.everyones.lck.presentation.home.HomeViewModel
 import umc.everyones.lck.util.extension.repeatOnStarted
 

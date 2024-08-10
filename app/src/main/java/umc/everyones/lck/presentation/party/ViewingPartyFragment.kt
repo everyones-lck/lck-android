@@ -1,11 +1,13 @@
 package umc.everyones.lck.presentation.party
 
+import android.content.Intent
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.presentation.mypage.MyPageActivity
 import umc.everyones.lck.presentation.party.adapter.ViewingPartyRVA
 import umc.everyones.lck.presentation.party.write.WriteViewingPartyActivity
 import umc.everyones.lck.util.extension.setOnSingleClickListener
@@ -35,13 +37,13 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     }
 
     private fun initViewingPartyRVAdapter(){
-        _viewIngPartyRVA = ViewingPartyRVA { postId ->
-            val action = ViewingPartyFragmentDirections.actionViewingPartyFragmentToReadViewingPartyFragment(postId)
+        _viewIngPartyRVA = ViewingPartyRVA { postId, isWriter ->
+            val action = ViewingPartyFragmentDirections.actionViewingPartyFragmentToReadViewingPartyFragment(postId, isWriter)
             navigator.navigate(action)
         }
         binding.rvViewingParty.adapter = viewingPartyRVA
         val list = listOf(
-            ViewingPartyItem(0, "", "", "", "", ""),
+            ViewingPartyItem(0, "", "", "", "", "", true),
             ViewingPartyItem(0, "", "", "", "", ""),
             ViewingPartyItem(0, "", "", "", "", ""),
             ViewingPartyItem(0, "", "", "", "", ""),

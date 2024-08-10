@@ -76,6 +76,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_read_writer_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="iv_read_delete_btn, iv_read_edit_btn"
+                    />
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_read_profile_background"
                     android:layout_width="16dp"
@@ -286,7 +293,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="주최자에게 질문하기"
+                        android:text="참여자 목록 확인하기"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -310,7 +317,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="36dp"
-                        android:text="Viewing party 참여하기"
+                        android:text="-"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -340,6 +347,7 @@
                     android:text="Viewing Party 참여는 당일 취소가 불가합니다"
                     android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                     android:textColor="@color/warning"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

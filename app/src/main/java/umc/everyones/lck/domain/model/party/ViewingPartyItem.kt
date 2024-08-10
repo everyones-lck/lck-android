@@ -6,5 +6,6 @@ data class ViewingPartyItem(
     val writer: String,
     val favoriteTeam: String,
     val date: String,
-    val address: String
+    val address: String,
+    val isWriter: Boolean = false
 )

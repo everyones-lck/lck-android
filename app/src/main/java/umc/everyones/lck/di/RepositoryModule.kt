@@ -2,6 +2,8 @@ package umc.everyones.lck.di
 
 import android.app.Application
 import android.content.Context
+import umc.everyones.lck.domain.repository.NaverRepository
+import umc.everyones.lck.data.repositoryImpl.NaverRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,6 +11,7 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import umc.everyones.lck.data.repositoryImpl.TestRepositoryImpl
+import umc.everyones.lck.data.service.NaverService
 import umc.everyones.lck.data.service.TestService
 import umc.everyones.lck.domain.repository.TestRepository
 import javax.inject.Singleton
@@ -30,4 +33,9 @@ object RepositoryModule {
     fun providesTestRepository(
         testService: TestService
     ): TestRepository = TestRepositoryImpl(testService)
+
+    @ViewModelScoped
+    @Provides
+    fun providesNaverRepository(naverService: NaverService): NaverRepository =
+        NaverRepositoryImpl(naverService)
 }

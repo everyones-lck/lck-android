@@ -20,10 +20,14 @@
     <color name="kt_rolster">#E91B3B</color>
     <color name="kwangdong_freecs">#E91B3B</color>
     <color name="drx">#0017E7</color>
+    <color name="gray_indicator">#A2A2A2</color>
     <color name="white_rectangle">#ECECEC</color>
+    <color name="tab_unselected">#B6B6B6</color>
+    <color name="transparent">#00ff0000</color>
     <color name="white_20">#33FFFFFF</color>
     <color name="white_90">#E6FFFFFF</color>
     <color name="gray_detail">#9F9F9F</color>
+    <color name="gray_dayOfWeek">#767A81</color>
     <color name="gray_line">#BBBBBB</color>
     <color name="gray_spinner_bg">#D9D9D9</color>
     <color name="gray_comment_et_bg">#33D9D9D9</color>
@@ -34,4 +38,6 @@
     <color name="gold">#E0A50E</color>
     <color name="selected">#33FFFFFF</color>
     <color name="Transparency">#00FFFFFF</color>
+    <color name="text_high_light">#9FA0A5</color>
+    <color name="green">#32D892</color>
 </resources>

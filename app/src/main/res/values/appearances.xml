@@ -21,8 +21,19 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="TextAppearance.LCK.Bold.DateTitle_16sp">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
     <style name="TextAppearance.LCK.Bold.List_14sp">
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.LCK.DayOfWeek">
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/cafe_ohsquare</item>
+        <item name="android:textColor">@color/gray_dayOfWeek</item>
     </style>
 
     <style name="TextAppearance.LCK.Bold.Level_12sp">
@@ -105,4 +116,30 @@
         <item name="fontFamily">@font/cafe_ohsquare</item>
     </style>
 
+    <style name="TextAppearance.LCK.Bnv">
+        <item name="fontFamily">@font/cafe_ohsquare_air</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="tab_unselected_style">
+        <item name="fontFamily">@font/cafe_ohsquare_air</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+
+    </style>
+
+    <style name="tab_selected_style">
+        <item name="fontFamily">@font/cafe_ohsquare</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="tab_lck_pog_text_style" parent="Widget.Design.TabLayout">
+        <item name="android:textSize">9sp</item>
+    </style>
+
+    <style name="CustomRadioButton" parent="Widget.Material3.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/sel_today_match_prediction_radio</item>
+    </style>
 </resources>

@@ -132,7 +132,8 @@
 
                 <EditText
                     android:id="@+id/et_write_title"
-                    style="@style/ThemeOverlay.Material3.TextInputEditText"
+                    style="@style/Widget.AppCompat.EditText.LCK"
+                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -140,7 +141,6 @@
                     android:hint="제목을 입력하세요"
                     android:inputType="text"
                     android:layout_marginEnd="8dp"
-                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                     app:layout_constraintStart_toEndOf="@id/tv_write_post_title"
                     app:layout_constraintEnd_toEndOf="@id/line2"
                     app:layout_constraintBaseline_toBaselineOf="@id/tv_write_post_title"/>
@@ -191,6 +191,7 @@
                     android:maxLength="2000"
                     android:layout_marginEnd="8dp"
                     android:textSize="14sp"
+                    style="@style/Widget.AppCompat.EditText.LCK"
                     android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                     app:layout_constraintStart_toStartOf="@id/tv_write_post_body"
                     app:layout_constraintTop_toBottomOf="@id/tv_write_post_body"

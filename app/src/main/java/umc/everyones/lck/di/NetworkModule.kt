@@ -5,13 +5,18 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import umc.everyones.lck.EveryonesLCKApplication
 import umc.everyones.lck.R
+import umc.everyones.lck.util.NaverInterceptor
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 // @Module: 모듈은 Hilt에게 특정 객체를 만드는 방법을 알려주는 클래스이다.
@@ -52,6 +57,24 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @Named("NaverClient")
+    fun provideNaverOKHttpClient(): OkHttpClient {
+        val interceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+        return OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(5, TimeUnit.SECONDS)
+            .addInterceptor(NaverInterceptor())
+            .addInterceptor(interceptor)
+            .retryOnConnectionFailure(false)
+            .build()
+    }
+
+    @Provides
+    @Singleton
     fun providesRetrofit(
         client: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory
@@ -60,6 +83,20 @@ object NetworkModule {
             .baseUrl(EveryonesLCKApplication.getString(R.string.base_url))
             .addConverterFactory(gsonConverterFactory)
             .client(client)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @Named("naver")
+    fun providesNaverRetrofit(
+        @Named("NaverClient") client: OkHttpClient,
+    ): Retrofit{
+        return Retrofit.Builder()
+            .client(client)
+            .baseUrl(EveryonesLCKApplication.getString(R.string. naver_url))
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 }

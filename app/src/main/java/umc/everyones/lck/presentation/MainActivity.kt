@@ -9,10 +9,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import android.content.Intent
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import umc.everyones.lck.R
@@ -22,18 +24,25 @@ import umc.everyones.lck.presentation.login.LoginActivity
 import umc.everyones.lck.presentation.mypage.MyPageFragment
 import umc.everyones.lck.util.LoginManager
 import umc.everyones.lck.presentation.community.WritePostViewModel
+import umc.everyones.lck.presentation.home.HomeViewModel
+import umc.everyones.lck.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private lateinit var navController: NavController
+    private val homeViewModel: HomeViewModel by viewModels()
     private val writePostViewModel: WritePostViewModel by viewModels()
     override fun initView() {
         initNavigator()
     }
 
     override fun initObserver() {
-        // Implement if needed
+        repeatOnStarted {
+            homeViewModel.navigateEvent.collect{
+                binding.mainBnv.selectedItemId = it
+            }
+        }
     }
 
     private fun initNavigator() {

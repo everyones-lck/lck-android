@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import dagger.hilt.android.HiltAndroidApp
@@ -15,6 +16,7 @@ class EveryonesLCKApplication : Application(), DefaultLifecycleObserver {
         super<Application>.onCreate()
         context = applicationContext
         networkConnectionChecker = NetworkConnectionChecker(context)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     override fun onStop(owner: LifecycleOwner) {

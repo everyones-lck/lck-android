@@ -11,6 +11,7 @@ import umc.everyones.lck.databinding.FragmentReadViewingPartyBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.party.ViewingPartyChatActivity
 import umc.everyones.lck.presentation.party.dialog.JoinViewingPartyDialogFragment
+import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.showCustomSnackBar
 
 @AndroidEntryPoint
@@ -30,7 +31,27 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
         args.isWriter
     }
     override fun initObserver() {
+        repeatOnStarted {
+            viewModel.readViewingPartyEvent.collect{ event ->
+                handleReadViewingPartyEvent(event)
+            }
+        }
+    }
 
+    private fun handleReadViewingPartyEvent(event: ReadViewingPartyViewModel.ReadViewingPartyEvent){
+        when(event){
+            is ReadViewingPartyViewModel.ReadViewingPartyEvent.Fail -> {
+                showCustomSnackBar(binding.root, event.message)
+            }
+            is ReadViewingPartyViewModel.ReadViewingPartyEvent.Read -> {
+
+            }
+            is ReadViewingPartyViewModel.ReadViewingPartyEvent.Success -> {
+                if(event.message.isNotEmpty()){
+                    showCustomSnackBar(binding.root, event.message)
+                }
+            }
+        }
     }
 
     override fun initView() {
@@ -62,7 +83,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
             val dialog = JoinViewingPartyDialogFragment()
             dialog.setOnJoinViewingPartyClickListener(object : JoinViewingPartyDialogFragment.OnJoinViewingPartyClickListener{
                 override fun onConfirm() {
-                    showCustomSnackBar(requireView(), "뷰잉파티에 참여되었습니다!")
+                    viewModel.joinViewingParty()
                 }
             })
             dialog.show(childFragmentManager, dialog.tag)

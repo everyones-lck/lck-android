@@ -17,7 +17,7 @@ class ViewingPartyViewModel @Inject constructor(
     fun fetchViewingPartyList(){
         viewModelScope.launch {
             repository.fetchViewingPartyList(0, 10).onSuccess {
-                Log.d("api test", it.toString())
+                Log.d("fetchViewingPartyList", it.toString())
             }
         }
     }

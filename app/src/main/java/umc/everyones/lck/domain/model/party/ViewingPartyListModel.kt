@@ -12,10 +12,9 @@ data class ViewingPartyListModel(
 data class ViewingPartyElementModel(
     val id: Long,
     val name: String,
-    val userName: String,
-    val teamName: String,
+    val writerInfo: String,
     val photoURL: String,
-    val partyDate: LocalDateTime,
+    val partyDate: String,
     val latitude: Double,
     val longitude: Double,
     val location: String

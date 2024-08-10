@@ -27,6 +27,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     override fun initView() {
         Log.d("postId", postId.toString())
+        viewModel.fetchViewingParty(postId)
         joinViewingParty()
         askToHost()
         binding.ivReadBackBtn.setOnClickListener {

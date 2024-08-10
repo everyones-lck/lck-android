@@ -89,12 +89,12 @@
             android:name="umc.everyones.lck.presentation.party.read.ReadViewingPartyFragment"
             android:label="ReadViewingPartyFragment"
             tools:layout="@layout/fragment_read_viewing_party">
-            <argument
-                android:name="postId"
-                app:argType="integer" />
             <action
                 android:id="@+id/action_readViewingPartyFragment_to_participantsFragment"
                 app:destination="@id/participantsFragment" />
+            <argument
+                android:name="postId"
+                app:argType="long" />
         </fragment>
         <fragment
             android:id="@+id/participantsFragment"

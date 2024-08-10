@@ -1,8 +1,10 @@
 package umc.everyones.lck.data.repositoryImpl.party
 
 import umc.everyones.lck.data.dto.BaseResponse
+import umc.everyones.lck.data.dto.response.party.ReadViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyListResponseDto
 import umc.everyones.lck.data.service.party.ViewingPartyService
+import umc.everyones.lck.domain.model.party.ReadViewingPartyModel
 import umc.everyones.lck.domain.model.party.ViewingPartyListModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
 import umc.everyones.lck.util.network.NetworkResult
@@ -22,5 +24,11 @@ class ViewingPartyRepositoryImpl @Inject constructor(
                 size
             )
         }) { response: BaseResponse<ViewingPartyListResponseDto> -> response.data.toViewingPartyListModel() }
+    }
+
+    override suspend fun fetchViewingParty(viewingPartyId: Long): NetworkResult<ReadViewingPartyModel> {
+        return handleApi({
+            viewingPartyService.fetchViewingParty(viewingPartyId)
+        }) {response: BaseResponse<ReadViewingPartyResponseDto> -> response.data.toReadViewingPartyModel()}
     }
 }

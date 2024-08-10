@@ -239,7 +239,7 @@
                     app:layout_constraintTop_toBottomOf="@id/line3" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/layout_write_viewing_party_money"
+                    android:id="@+id/layout_write_viewing_party_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -253,12 +253,12 @@
                         android:layout_height="wrap_content"
                         android:text="₩ "
                         android:textColor="@color/black"
-                        app:layout_constraintEnd_toStartOf="@id/et_write_viewing_party_money"
-                        app:layout_constraintTop_toTopOf="@id/et_write_viewing_party_money"
-                        app:layout_constraintBottom_toBottomOf="@id/et_write_viewing_party_money"/>
+                        app:layout_constraintEnd_toStartOf="@id/et_write_viewing_party_price"
+                        app:layout_constraintTop_toTopOf="@id/et_write_viewing_party_price"
+                        app:layout_constraintBottom_toBottomOf="@id/et_write_viewing_party_price"/>
 
                     <EditText
-                        android:id="@+id/et_write_viewing_party_money"
+                        android:id="@+id/et_write_viewing_party_price"
                         style="@style/Widget.AppCompat.EditText.LCK"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -282,7 +282,7 @@
                     android:layout_marginTop="16dp"
                     android:background="@color/gray_line"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/layout_write_viewing_party_money" />
+                    app:layout_constraintTop_toBottomOf="@id/layout_write_viewing_party_price" />
 
                 <ImageView
                     android:id="@+id/iv_board_ellipse5"
@@ -414,7 +414,7 @@
                     app:layout_constraintTop_toBottomOf="@id/line5" />
 
                 <EditText
-                    android:id="@+id/et_write_viewing_party_condition"
+                    android:id="@+id/et_write_viewing_party_qualify"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -440,7 +440,7 @@
                     android:layout_marginTop="16dp"
                     android:background="@color/gray_line"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/et_write_viewing_party_condition" />
+                    app:layout_constraintTop_toBottomOf="@id/et_write_viewing_party_qualify" />
 
                 <TextView
                     android:id="@+id/tv_write_viewing_party_etc"

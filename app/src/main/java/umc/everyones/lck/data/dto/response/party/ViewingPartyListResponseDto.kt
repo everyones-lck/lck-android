@@ -1,7 +1,7 @@
 package umc.everyones.lck.data.dto.response.party
 
-import umc.everyones.lck.domain.model.party.ViewingPartyElementModel
-import umc.everyones.lck.domain.model.party.ViewingPartyListModel
+import umc.everyones.lck.domain.model.response.party.ViewingPartyElementModel
+import umc.everyones.lck.domain.model.response.party.ViewingPartyListModel
 import umc.everyones.lck.util.extension.combineNicknameAndTeam
 import umc.everyones.lck.util.extension.listPartyDateToString
 import java.time.LocalDateTime

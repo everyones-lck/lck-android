@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import umc.everyones.lck.domain.model.party.ReadViewingPartyModel
+import umc.everyones.lck.domain.model.response.party.ReadViewingPartyModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
 
 @HiltViewModel

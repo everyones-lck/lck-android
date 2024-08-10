@@ -1,4 +1,4 @@
-package umc.everyones.lck.domain.model.party
+package umc.everyones.lck.domain.model.response.party
 
 data class ReadViewingPartyModel(
     val name: String,

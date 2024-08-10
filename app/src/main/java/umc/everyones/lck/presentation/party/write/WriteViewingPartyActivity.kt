@@ -24,6 +24,7 @@ import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnEditorActionListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.showKeyboard
+import umc.everyones.lck.util.extension.textToString
 import umc.everyones.lck.util.extension.validateMaxLength
 
 @AndroidEntryPoint
@@ -32,26 +33,27 @@ class WriteViewingPartyActivity :
     OnMapReadyCallback {
     private var naverMap: NaverMap? = null
     private val viewingPartyMarker = Marker()
-
     private val viewModel: WriteViewingPartyViewModel by viewModels()
     override fun initObserver() {
         repeatOnStarted {
-            viewModel.latLng.collect{ latLng ->
-                if(!latLng.isValid){
+            viewModel.latLng.collect { latLng ->
+                if (!latLng.isValid) {
                     showCustomSnackBar(binding.root, "주소를 정확히 입력해주세요")
                     return@collect
                 }
+
                 viewingPartyMarker.apply {
                     position = latLng
                     icon = OverlayImage.fromResource(R.drawable.img_marker)
                     map = naverMap
                 }
+
                 naverMap?.moveCamera(CameraUpdate.scrollTo(latLng))
             }
         }
 
         repeatOnStarted {
-            viewModel.date.collect{
+            viewModel.date.collect {
                 binding.tvWriteViewingPartyDate.text = it
                 Log.d("date", it)
             }
@@ -68,6 +70,7 @@ class WriteViewingPartyActivity :
         validateViewingPartyEtc()
         showKeyBoard()
         writeDone()
+
         binding.ivWriteClose.setOnClickListener {
             finish()
         }
@@ -82,11 +85,11 @@ class WriteViewingPartyActivity :
         return super.onTouchEvent(event)
     }
 
-    private fun showKeyBoard(){
-        with(binding){
+    private fun showKeyBoard() {
+        with(binding) {
             // 비용 입력
-            layoutWriteViewingPartyMoney.setOnClickListener {
-                etWriteViewingPartyMoney.showKeyboard()
+            layoutWriteViewingPartyPrice.setOnClickListener {
+                etWriteViewingPartyPrice.showKeyboard()
             }
 
             // 최소 인원 입력
@@ -116,10 +119,10 @@ class WriteViewingPartyActivity :
 
     private fun validateViewingPartyCondition() {
         with(binding) {
-            etWriteViewingPartyCondition.validateMaxLength(this@WriteViewingPartyActivity, 100,
+            etWriteViewingPartyQualify.validateMaxLength(this@WriteViewingPartyActivity, 100,
                 onLengthExceeded = {
                     showCustomSnackBar(
-                        etWriteViewingPartyCondition,
+                        etWriteViewingPartyQualify,
                         "참여 자격 및 조건은 최대 100자까지 입력할 수 있어요"
                     )
                 }
@@ -141,9 +144,11 @@ class WriteViewingPartyActivity :
     }
 
     private fun addDecimalFormat() {
-        binding.etWriteViewingPartyMoney.addDecimalFormattedTextWatcher(this)
-        binding.etWriteViewingPartyParticipantMaximum.addDecimalFormattedTextWatcher(this)
-        binding.etWriteViewingPartyParticipantMinimum.addDecimalFormattedTextWatcher(this)
+        with(binding) {
+            etWriteViewingPartyPrice.addDecimalFormattedTextWatcher(this@WriteViewingPartyActivity)
+            etWriteViewingPartyParticipantMaximum.addDecimalFormattedTextWatcher(this@WriteViewingPartyActivity)
+            etWriteViewingPartyParticipantMinimum.addDecimalFormattedTextWatcher(this@WriteViewingPartyActivity)
+        }
     }
 
     private fun initNaverMap() {
@@ -162,29 +167,48 @@ class WriteViewingPartyActivity :
         with(binding) {
             ivWriteDone.setOnClickListener {
 
-                if (etWriteViewingPartyParticipantMaximum.text.toString().isNotEmpty() && etWriteViewingPartyParticipantMinimum.text.toString().isNotEmpty()){
-                    if (etWriteViewingPartyParticipantMaximum.text.toString().replace(",", "").toInt() <
-                        etWriteViewingPartyParticipantMinimum.text.toString().replace(",", "").toInt()){
+                // 최대 최소 인원 예외처리
+                if (etWriteViewingPartyParticipantMaximum.text.toString()
+                        .isNotEmpty() && etWriteViewingPartyParticipantMinimum.text.toString()
+                        .isNotEmpty()
+                ) {
+                    if (etWriteViewingPartyParticipantMaximum.text.toString().replace(",", "")
+                            .toInt() <
+                        etWriteViewingPartyParticipantMinimum.text.toString().replace(",", "")
+                            .toInt()
+                    ) {
                         showCustomSnackBar(binding.tvWriteGuide, "최소 인원이 최대 인원보다 많습니다")
                         return@setOnClickListener
                     }
                 }
 
                 // 제목이나 본문 입력하지 않을 시 예외처리
-                if (etWriteViewingPartyName.text.isEmpty() || etWriteViewingPartyMoney.text.isEmpty() ||
+                if (etWriteViewingPartyName.text.isEmpty() || etWriteViewingPartyPrice.text.isEmpty() ||
                     etWriteViewingPartyParticipantMinimum.text.isEmpty() || etWriteViewingPartyParticipantMaximum.text.isEmpty() ||
-                    etWriteViewingPartyCondition.text.isEmpty() || tvWriteViewingPartyDate.text == "시간을 입력하세요" || viewingPartyMarker.map == null
+                    etWriteViewingPartyQualify.text.isEmpty() || tvWriteViewingPartyDate.text == "시간을 입력하세요" || viewingPartyMarker.map == null
                 ) {
                     showCustomSnackBar(binding.tvWriteGuide, "필수 항목을 입력하지 않았습니다")
                     return@setOnClickListener
                 }
 
+                // API 호출
+                viewModel.writeViewingParty(
+                    name = etWriteViewingPartyName.textToString(),
+                    date = tvWriteViewingPartyDate.textToString(),
+                    latitude = viewingPartyMarker.position.latitude,
+                    longitude = viewingPartyMarker.position.longitude,
+                    price = etWriteViewingPartyPrice.textToString(),
+                    lowParticipate = etWriteViewingPartyParticipantMinimum.textToString(),
+                    highParticipate = etWriteViewingPartyParticipantMaximum.textToString(),
+                    qualify = etWriteViewingPartyQualify.textToString(),
+                    etc = etWriteViewingPartyEtc.textToString()
+                )
                 finish()
             }
         }
     }
 
-    private fun setViewingPartyPlace(){
+    private fun setViewingPartyPlace() {
         binding.etWriteViewingPartyAddress.setOnEditorActionListener(EditorInfo.IME_ACTION_DONE) {
             Log.d("geoCoding", binding.etWriteViewingPartyAddress.text.toString())
             viewModel.fetchGeoCoding(binding.etWriteViewingPartyAddress.text.toString())

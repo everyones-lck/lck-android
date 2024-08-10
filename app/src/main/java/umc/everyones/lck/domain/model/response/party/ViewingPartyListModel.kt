@@ -1,7 +1,5 @@
-package umc.everyones.lck.domain.model.party
+package umc.everyones.lck.domain.model.response.party
 
-
-import java.time.LocalDateTime
 
 data class ViewingPartyListModel(
     val isLast: Boolean,

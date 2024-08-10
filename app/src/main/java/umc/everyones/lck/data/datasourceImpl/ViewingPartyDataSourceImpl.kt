@@ -2,9 +2,11 @@ package umc.everyones.lck.data.datasourceImpl
 
 import umc.everyones.lck.data.datasource.ViewingPartyDataSource
 import umc.everyones.lck.data.dto.BaseResponse
+import umc.everyones.lck.data.dto.request.party.WriteViewingPartyRequestDto
 import umc.everyones.lck.data.dto.response.party.JoinViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ReadViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyListResponseDto
+import umc.everyones.lck.data.dto.response.party.WriteViewingPartyResponseDto
 import umc.everyones.lck.data.service.party.ViewingPartyService
 import javax.inject.Inject
 
@@ -24,6 +26,10 @@ class ViewingPartyDataSourceImpl @Inject constructor(
 
     override suspend fun joinViewingParty(viewingPartyId: Long): BaseResponse<JoinViewingPartyResponseDto> {
         return viewingPartyService.joinViewingParty(viewingPartyId)
+    }
+
+    override suspend fun writeViewingParty(requestDto: WriteViewingPartyRequestDto): BaseResponse<WriteViewingPartyResponseDto> {
+        return viewingPartyService.writeViewingParty(requestDto)
     }
 
 }

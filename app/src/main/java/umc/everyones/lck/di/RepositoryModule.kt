@@ -45,6 +45,6 @@ object RepositoryModule {
     @ViewModelScoped
     @Provides
     fun providesViewingPartyRepository(
-        viewingPartyService: ViewingPartyService
-    ): ViewingPartyRepository = ViewingPartyRepositoryImpl(viewingPartyService)
+        viewingPartyRepositoryImpl: ViewingPartyRepositoryImpl
+    ): ViewingPartyRepository = viewingPartyRepositoryImpl
 }

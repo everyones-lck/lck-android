@@ -1,10 +1,8 @@
 package umc.everyones.lck.data.dto.request.party
 
-import java.time.LocalDateTime
-
-data class WriteViewingPartyRequestDto(
+data class EditViewingPartyRequestDto(
     val name: String,
-    val date: LocalDateTime,
+    val date: String,
     val latitude: Double,
     val longitude: Double,
     val price: Int,

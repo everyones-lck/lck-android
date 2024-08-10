@@ -16,20 +16,25 @@ class ViewingPartyDataSourceImpl @Inject constructor(
     override suspend fun fetchViewingPartyList(
         page: Int,
         size: Int
-    ): BaseResponse<ViewingPartyListResponseDto> {
-        return viewingPartyService.fetchViewingPartyList(page, size)
-    }
+    ): BaseResponse<ViewingPartyListResponseDto> =
+        viewingPartyService.fetchViewingPartyList(page, size)
 
-    override suspend fun fetchViewingParty(viewingPartyId: Long): BaseResponse<ReadViewingPartyResponseDto> {
-        return viewingPartyService.fetchViewingParty(viewingPartyId)
-    }
+    override suspend fun fetchViewingParty(viewingPartyId: Long): BaseResponse<ReadViewingPartyResponseDto> =
+        viewingPartyService.fetchViewingParty(viewingPartyId)
 
-    override suspend fun joinViewingParty(viewingPartyId: Long): BaseResponse<JoinViewingPartyResponseDto> {
-        return viewingPartyService.joinViewingParty(viewingPartyId)
-    }
 
-    override suspend fun writeViewingParty(requestDto: WriteViewingPartyRequestDto): BaseResponse<WriteViewingPartyResponseDto> {
-        return viewingPartyService.writeViewingParty(requestDto)
-    }
+    override suspend fun joinViewingParty(viewingPartyId: Long): BaseResponse<JoinViewingPartyResponseDto> =
+        viewingPartyService.joinViewingParty(viewingPartyId)
+
+
+    override suspend fun writeViewingParty(requestDto: WriteViewingPartyRequestDto): BaseResponse<WriteViewingPartyResponseDto> =
+        viewingPartyService.writeViewingParty(requestDto)
+
+
+    override suspend fun editViewingParty(
+        viewingPartyId: Long,
+        requestDto: WriteViewingPartyRequestDto
+    ): BaseResponse<WriteViewingPartyResponseDto> =
+        viewingPartyService.editViewingParty(viewingPartyId, requestDto)
 
 }

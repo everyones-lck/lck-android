@@ -50,25 +50,52 @@ class WriteViewingPartyViewModel @Inject constructor(
     }
 
     fun writeViewingParty(
+        isEdit: Boolean,
+        postId: Long = 0L,
         name: String,
         date: String,
         latitude: Double,
         longitude: Double,
+        location: String,
         price: String,
         lowParticipate: String,
         highParticipate: String,
         qualify: String,
         etc: String
     ) {
-        viewModelScope.launch {
-            repository.writeViewingParty(
-                WriteViewingPartyModel(
-                    name, date, latitude, longitude, price, lowParticipate, highParticipate, qualify, etc
-                )
-            ).onSuccess { response ->
-                Log.d("writeViewingParty", response.toString())
-            }.onFailure {
+        val writeViewingPartyModel = WriteViewingPartyModel(
+            name,
+            date,
+            latitude,
+            longitude,
+            location,
+            price,
+            lowParticipate,
+            highParticipate,
+            qualify,
+            etc
+        )
+        Log.d("isEdit", isEdit.toString())
+        if (isEdit) {
+            viewModelScope.launch {
+                repository.editViewingParty(
+                    postId,
+                    writeViewingPartyModel
+                ).onSuccess { response ->
+                    Log.d("writeViewingParty", response.toString())
+                }.onFailure {
 
+                }
+            }
+        } else {
+            viewModelScope.launch {
+                repository.writeViewingParty(
+                    writeViewingPartyModel
+                ).onSuccess { response ->
+                    Log.d("writeViewingParty", response.toString())
+                }.onFailure {
+
+                }
             }
         }
     }

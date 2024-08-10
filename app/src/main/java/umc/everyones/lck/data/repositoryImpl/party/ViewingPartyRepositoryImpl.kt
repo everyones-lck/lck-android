@@ -32,4 +32,10 @@ class ViewingPartyRepositoryImpl @Inject constructor(
     override suspend fun writeViewingParty(request: WriteViewingPartyModel): Result<umc.everyones.lck.domain.model.response.party.WriteViewingPartyModel> =
         runCatching { viewingPartyDataSource.writeViewingParty(request.toWriteViewingPartyRequestDto()).data.toWriteViewingPartyModel() }
 
+    override suspend fun editViewingParty(
+        viewingPartyId: Long,
+        request: WriteViewingPartyModel
+    ): Result<umc.everyones.lck.domain.model.response.party.WriteViewingPartyModel> =
+        runCatching { viewingPartyDataSource.editViewingParty(viewingPartyId, request.toWriteViewingPartyRequestDto()).data.toWriteViewingPartyModel() }
+
 }

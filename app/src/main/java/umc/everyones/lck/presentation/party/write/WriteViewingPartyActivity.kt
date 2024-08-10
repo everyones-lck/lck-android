@@ -1,10 +1,9 @@
 package umc.everyones.lck.presentation.party.write
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
-import android.view.MotionEvent
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import com.naver.maps.map.CameraUpdate
@@ -17,6 +16,7 @@ import com.naver.maps.map.overlay.OverlayImage
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWriteViewingPartyBinding
+import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.party.dialog.CalendarDialogFragment
 import umc.everyones.lck.util.extension.addDecimalFormattedTextWatcher
@@ -34,6 +34,8 @@ class WriteViewingPartyActivity :
     private var naverMap: NaverMap? = null
     private val viewingPartyMarker = Marker()
     private val viewModel: WriteViewingPartyViewModel by viewModels()
+    private var isEdit = false
+    private var postId = 0L
     override fun initObserver() {
         repeatOnStarted {
             viewModel.latLng.collect { latLng ->
@@ -62,8 +64,8 @@ class WriteViewingPartyActivity :
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun initView() {
+        initEditView()
         initNaverMap()
         addDecimalFormat()
         setViewingPartyPlace()
@@ -72,19 +74,41 @@ class WriteViewingPartyActivity :
         validateViewingPartyEtc()
         showKeyBoard()
         writeDone()
+        showDatePicker()
+        closeWriteViewingParty()
+    }
 
-        binding.ivWriteClose.setOnClickListener {
-            finish()
+    private fun initEditView(){
+        val editViewingParty = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("viewingParty", WriteViewingPartyModel::class.java)
+        } else {
+            intent.getSerializableExtra("viewingParty") as WriteViewingPartyModel
         }
+        if (editViewingParty != null){
+            isEdit = true
+            postId = intent.getLongExtra("postId", 0L)
+            with(binding){
+                etWriteViewingPartyName.setText(editViewingParty.name)
+                etWriteViewingPartyPrice.setText(editViewingParty.price)
+                etWriteViewingPartyQualify.setText(editViewingParty.qualify)
+                etWriteViewingPartyParticipantMinimum.setText(editViewingParty.lowParticipate)
+                etWriteViewingPartyParticipantMaximum.setText(editViewingParty.highParticipate)
+                etWriteViewingPartyAddress.setText(editViewingParty.location)
+                etWriteViewingPartyEtc.setText(editViewingParty.etc)
+                tvWriteViewingPartyDate.text = editViewingParty.date
+                tvWriteDone.text = "수정"
 
+                viewModel.fetchGeoCoding(editViewingParty.location)
+            }
+        }
+    }
+
+    // 달력 표시
+    private fun showDatePicker(){
         binding.tvWriteViewingPartyDate.setOnClickListener {
             val dialog = CalendarDialogFragment()
             dialog.show(supportFragmentManager, dialog.tag)
         }
-    }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return super.onTouchEvent(event)
     }
 
     private fun showKeyBoard() {
@@ -172,7 +196,7 @@ class WriteViewingPartyActivity :
     // 뷰잉파티 등록 버튼 눌렀을 때
     private fun writeDone() {
         with(binding) {
-            ivWriteDone.setOnClickListener {
+            tvWriteDone.setOnClickListener {
 
                 // 최대 최소 인원 예외처리
                 if (etWriteViewingPartyParticipantMaximum.text.toString()
@@ -192,7 +216,7 @@ class WriteViewingPartyActivity :
                 // 제목이나 본문 입력하지 않을 시 예외처리
                 if (etWriteViewingPartyName.text.isEmpty() || etWriteViewingPartyPrice.text.isEmpty() ||
                     etWriteViewingPartyParticipantMinimum.text.isEmpty() || etWriteViewingPartyParticipantMaximum.text.isEmpty() ||
-                    etWriteViewingPartyQualify.text.isEmpty() || tvWriteViewingPartyDate.text == "시간을 입력하세요" || viewingPartyMarker.map == null
+                    etWriteViewingPartyQualify.text.isEmpty() || tvWriteViewingPartyDate.text == "시간을 입력하세요" //|| viewingPartyMarker.map == null
                 ) {
                     showCustomSnackBar(binding.tvWriteGuide, "필수 항목을 입력하지 않았습니다")
                     return@setOnClickListener
@@ -200,17 +224,20 @@ class WriteViewingPartyActivity :
 
                 // API 호출
                 viewModel.writeViewingParty(
+                    isEdit,
+                    postId,
                     name = etWriteViewingPartyName.textToString(),
                     date = tvWriteViewingPartyDate.textToString(),
                     latitude = viewingPartyMarker.position.latitude,
                     longitude = viewingPartyMarker.position.longitude,
+                    location = etWriteViewingPartyAddress.textToString(),
                     price = etWriteViewingPartyPrice.textToString(),
                     lowParticipate = etWriteViewingPartyParticipantMinimum.textToString(),
                     highParticipate = etWriteViewingPartyParticipantMaximum.textToString(),
                     qualify = etWriteViewingPartyQualify.textToString(),
                     etc = etWriteViewingPartyEtc.textToString()
                 )
-                finish()
+                //finish()
             }
         }
     }
@@ -223,6 +250,12 @@ class WriteViewingPartyActivity :
         }
     }
 
+    private fun closeWriteViewingParty(){
+        binding.ivWriteClose.setOnClickListener {
+            finish()
+        }
+    }
+
     override fun onMapReady(p0: NaverMap) {
 
     }
@@ -230,5 +263,10 @@ class WriteViewingPartyActivity :
     companion object {
         fun newIntent(context: Context) =
             Intent(context, WriteViewingPartyActivity::class.java)
+        fun editIntent(context: Context, postId: Long, editViewingParty: WriteViewingPartyModel) =
+            Intent(context, WriteViewingPartyActivity::class.java).apply {
+                putExtra("postId", postId)
+                putExtra("viewingParty", editViewingParty)
+            }
     }
 }

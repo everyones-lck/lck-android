@@ -13,4 +13,6 @@ interface ViewingPartyRepository {
     suspend fun joinViewingParty(viewingPartyId: Long): Result<JoinViewingPartyModel>
 
     suspend fun writeViewingParty(request: WriteViewingPartyModel): Result<umc.everyones.lck.domain.model.response.party.WriteViewingPartyModel>
+
+    suspend fun editViewingParty(viewingPartyId: Long, request: WriteViewingPartyModel): Result<umc.everyones.lck.domain.model.response.party.WriteViewingPartyModel>
 }

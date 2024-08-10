@@ -10,11 +10,14 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentReadViewingPartyBinding
+import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.party.ViewingPartyChatActivity
 import umc.everyones.lck.presentation.party.dialog.JoinViewingPartyDialogFragment
+import umc.everyones.lck.presentation.party.write.WriteViewingPartyActivity
 import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.textToString
 
 @AndroidEntryPoint
 class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R.layout.fragment_read_viewing_party) {
@@ -74,6 +77,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
         viewModel.setPostId(postId)
         viewModel.fetchViewingParty()
         distinguishView()
+        goToEditViewingParty()
         binding.ivReadBackBtn.setOnClickListener {
             navigator.navigateUp()
         }
@@ -116,6 +120,29 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
     private fun askToHost(){
         binding.tvReadAskToHost.setOnClickListener {
             startActivity(ViewingPartyChatActivity.newIntent(requireContext()))
+        }
+    }
+
+    private fun goToEditViewingParty(){
+        with(binding){
+            ivReadEditBtn.setOnClickListener {
+                val participate = tvReadParticipants.textToString().split("-")
+                val date = tvReadDate.textToString().split(" ")
+                startActivity(WriteViewingPartyActivity.editIntent(requireContext(), postId,
+                    WriteViewingPartyModel(
+                        name = tvReadViewingPartyTitle.textToString(),
+                        date = "${date[0]} | ${date[1].trim()}",
+                        latitude = 0.0,
+                        longitude = 0.0,
+                        price = tvReadPrice.textToString().replace("₩", ""),
+                        lowParticipate = participate[0].trim(),
+                        highParticipate = participate[1].replace(("[^\\d]").toRegex(), ""),
+                        qualify = tvReadQualify.textToString().replace("To.", ""),
+                        etc = tvReadEtc.textToString(),
+                        location = tvReadPlace.textToString()
+                    )
+                ))
+            }
         }
     }
 }

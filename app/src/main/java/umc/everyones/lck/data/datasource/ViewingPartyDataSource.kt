@@ -15,4 +15,6 @@ interface ViewingPartyDataSource {
     suspend fun joinViewingParty(viewingPartyId: Long): BaseResponse<JoinViewingPartyResponseDto>
 
     suspend fun writeViewingParty(requestDto: WriteViewingPartyRequestDto): BaseResponse<WriteViewingPartyResponseDto>
+
+    suspend fun editViewingParty(viewingPartyId: Long, requestDto: WriteViewingPartyRequestDto): BaseResponse<WriteViewingPartyResponseDto>
 }

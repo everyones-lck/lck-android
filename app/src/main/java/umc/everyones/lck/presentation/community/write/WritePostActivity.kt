@@ -1,4 +1,4 @@
-package umc.everyones.lck.presentation.community
+package umc.everyones.lck.presentation.community.write
 
 import android.Manifest
 import android.content.Context

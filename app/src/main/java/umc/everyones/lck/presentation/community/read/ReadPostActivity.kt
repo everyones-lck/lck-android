@@ -1,18 +1,16 @@
-package umc.everyones.lck.presentation.community
+package umc.everyones.lck.presentation.community.read
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import android.util.DisplayMetrics
 import android.util.Log
 import androidx.core.widget.addTextChangedListener
-import androidx.window.layout.WindowMetricsCalculator
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityReadPostBinding
 import umc.everyones.lck.domain.model.community.Comment
 import umc.everyones.lck.domain.model.community.Post
 import umc.everyones.lck.presentation.base.BaseActivity
+import umc.everyones.lck.presentation.community.write.WritePostActivity
 import umc.everyones.lck.presentation.community.adapter.CommentRVA
 import umc.everyones.lck.presentation.community.adapter.ReadMediaRVA
 import umc.everyones.lck.util.GridSpaceItemDecoration

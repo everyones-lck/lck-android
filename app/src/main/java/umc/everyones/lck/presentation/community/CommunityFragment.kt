@@ -8,13 +8,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentCommunityBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.community.adapter.PostListVPA
+import umc.everyones.lck.presentation.community.read.ReadPostViewModel
+import umc.everyones.lck.presentation.community.write.WritePostActivity
+import umc.everyones.lck.presentation.community.write.WritePostViewModel
 import umc.everyones.lck.presentation.mypage.MyPageActivity
 import umc.everyones.lck.util.extension.toCategoryPosition
 

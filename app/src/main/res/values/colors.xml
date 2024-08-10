@@ -40,4 +40,6 @@
     <color name="Transparency">#00FFFFFF</color>
     <color name="text_high_light">#9FA0A5</color>
     <color name="green">#32D892</color>
+    <color name="receiver_bg">#E2E3F1</color>
+    <color name="sender_bg">#EFEFEF</color>
 </resources>

@@ -11,7 +11,7 @@ import umc.everyones.lck.databinding.ItemViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ParticipantItem
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
 
-class ParticipantsRVA() :
+class ParticipantsRVA(val goToChat: () -> Unit) :
     ListAdapter<ParticipantItem, ParticipantsRVA.ParticipantViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParticipantViewHolder {
@@ -38,6 +38,9 @@ class ParticipantsRVA() :
 
                 tvParticipantName.text = participantItem.name
                 tvParticipantFavoriteTeam.text = participantItem.favoriteTeam*/
+                ivParticipantChatBtn.setOnClickListener {
+                    goToChat()
+                }
             }
         }
     }

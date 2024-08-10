@@ -2,8 +2,9 @@ package umc.everyones.lck.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import javax.inject.Inject
 
-class NicknameManager(context: Context) {
+class NicknameManager @Inject constructor(context: Context) {
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences("Nicknames", Context.MODE_PRIVATE)
 
     fun isNicknameDuplicate(nickname: String): Boolean {

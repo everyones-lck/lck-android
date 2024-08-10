@@ -59,7 +59,8 @@
 
         <View
             android:id="@+id/view_signup_nickname_bar"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="40dp"
             android:layout_height="45.6dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,8 +76,8 @@
             android:layout_height="wrap_content"
             android:hint="닉네임을 입력해주세요"
             android:textColorHint="@color/white"
-            style="@style/Widget.AppCompat.EditText.LCK"
-            android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+            android:singleLine="true"
+            style="@style/TextAppearance.LCK.Light.Body_14sp"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/view_signup_nickname_bar"
             android:layout_marginStart="16dp"

@@ -1,11 +1,14 @@
 package umc.everyones.lck.presentation.party
 
+import android.content.Intent
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.presentation.mypage.MyPageActivity
 import umc.everyones.lck.presentation.party.adapter.ViewingPartyRVA
 import umc.everyones.lck.presentation.party.write.WriteViewingPartyActivity
 import umc.everyones.lck.util.extension.setOnSingleClickListener
@@ -14,6 +17,7 @@ import umc.everyones.lck.util.extension.setOnSingleClickListener
 class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.fragment_viewing_party) {
     private var _viewIngPartyRVA: ViewingPartyRVA? = null
     private val viewingPartyRVA get() = _viewIngPartyRVA
+    private val viewModel: ViewingPartyViewModel by viewModels()
 
     private val navigator by lazy {
         findNavController()
@@ -26,6 +30,7 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     override fun initView() {
         initViewingPartyRVAdapter()
         goToWriteViewingParty()
+        viewModel.fetchViewingPartyList()
     }
 
     private fun goToWriteViewingParty(){

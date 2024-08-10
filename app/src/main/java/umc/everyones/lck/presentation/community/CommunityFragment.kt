@@ -1,6 +1,7 @@
 package umc.everyones.lck.presentation.community
 
 import android.app.Activity
+import android.content.Intent
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,6 +15,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentCommunityBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.community.adapter.PostListVPA
+import umc.everyones.lck.presentation.mypage.MyPageActivity
 import umc.everyones.lck.util.extension.toCategoryPosition
 
 @AndroidEntryPoint
@@ -41,6 +43,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
     override fun initView() {
         goToWritePost()
         initPostListVPAdapter()
+        setupMypageButton()
     }
 
     private fun initPostListVPAdapter(){
@@ -68,5 +71,14 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
 
     companion object {
         private val tabTitles = listOf("잡담", "응원", "FA", "거래", "질문", "후기")
+    }
+
+    private fun setupMypageButton() {
+        binding.ivMyPage.setOnClickListener {
+
+            val intent = Intent(requireContext(), MyPageActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish() // Finish the current activity
+        }
     }
 }

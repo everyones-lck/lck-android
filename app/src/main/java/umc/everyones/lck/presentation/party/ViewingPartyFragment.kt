@@ -1,10 +1,12 @@
 package umc.everyones.lck.presentation.party
 
+import android.content.Intent
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.presentation.mypage.MyPageActivity
 
 @AndroidEntryPoint
 class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.fragment_viewing_party) {
@@ -16,6 +18,7 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
 
     override fun initView() {
         initViewingPartyRVAdapter()
+        setupMypageButton()
     }
 
     private fun initViewingPartyRVAdapter(){
@@ -39,5 +42,14 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     override fun onDestroyView() {
         super.onDestroyView()
         _viewIngPartyRVA = null
+    }
+
+    private fun setupMypageButton() {
+        binding.ivMyPage.setOnClickListener {
+
+            val intent = Intent(requireContext(), MyPageActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish() // Finish the current activity
+        }
     }
 }

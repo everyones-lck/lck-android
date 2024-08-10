@@ -19,16 +19,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     override fun initView() {
-        setupMypageButton()
-    }
 
-
-    private fun setupMypageButton() {
-        binding.btnmypage.setOnClickListener {
-
-            val intent = Intent(requireContext(), MyPageActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish() // Finish the current activity
-        }
     }
 }

@@ -7,9 +7,9 @@ data class ViewingPartyParticipantsResponseDto(
     val ownerName: String,
     val ownerTeam: String,
     val ownerImage: String,
-    val participantList: List<ParticipantsDto>
+    val participantList: List<ParticipantsResponseDto>
 ){
-    data class ParticipantsDto(
+    data class ParticipantsResponseDto(
         val id: Long,
         val name: String,
         val team: String,

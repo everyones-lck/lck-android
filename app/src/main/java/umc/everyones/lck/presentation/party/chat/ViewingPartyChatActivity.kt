@@ -30,6 +30,7 @@ class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R
     override fun initView() {
         viewModel.setPostId(postId)
         viewModel.createViewingPartyChatRoom()
+        viewModel.fetchViewingPartyChatLog()
         validateMessageSend()
         initChatRVAdapter()
         sendMessage()

@@ -7,6 +7,7 @@ import umc.everyones.lck.data.dto.response.party.JoinViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ReadViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyListResponseDto
 import umc.everyones.lck.data.dto.response.party.CommonViewingPartyResponseDto
+import umc.everyones.lck.data.dto.response.party.ViewingPartyChatLogResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyChatRoomResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyParticipantsResponseDto
 import umc.everyones.lck.data.service.party.ViewingPartyService
@@ -51,6 +52,14 @@ class ViewingPartyDataSourceImpl @Inject constructor(
 
     override suspend fun createViewingPartyChatRoom(viewingPartyId: Long): BaseResponse<ViewingPartyChatRoomResponseDto> =
         viewingPartyService.createViewingPartyChatRoom(viewingPartyId)
+
+    override suspend fun fetchViewingPartyChatLog(
+        roomId: Long,
+        page: Int,
+        size: Int
+    ): BaseResponse<ViewingPartyChatLogResponseDto> =
+        viewingPartyService.fetchViewingPartyChatLog(roomId, page, size)
+
 
 
 }

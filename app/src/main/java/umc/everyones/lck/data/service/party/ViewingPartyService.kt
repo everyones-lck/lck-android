@@ -13,6 +13,7 @@ import umc.everyones.lck.data.dto.response.party.JoinViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ReadViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyListResponseDto
 import umc.everyones.lck.data.dto.response.party.CommonViewingPartyResponseDto
+import umc.everyones.lck.data.dto.response.party.ViewingPartyChatLogResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyChatRoomResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyParticipantsResponseDto
 
@@ -60,4 +61,11 @@ interface ViewingPartyService {
     suspend fun createViewingPartyChatRoom(
         @Path("viewing_party_id") viewingPartyId: Long
     ): BaseResponse<ViewingPartyChatRoomResponseDto>
+
+    @GET("viewing/chat_log/{room_id}")
+    suspend fun fetchViewingPartyChatLog(
+        @Path("room_id") roomId: Long,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): BaseResponse<ViewingPartyChatLogResponseDto>
 }

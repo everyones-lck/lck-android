@@ -6,6 +6,7 @@ import umc.everyones.lck.data.dto.response.party.JoinViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ReadViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyListResponseDto
 import umc.everyones.lck.data.dto.response.party.CommonViewingPartyResponseDto
+import umc.everyones.lck.data.dto.response.party.ViewingPartyChatLogResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyChatRoomResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyParticipantsResponseDto
 
@@ -25,4 +26,6 @@ interface ViewingPartyDataSource {
     suspend fun fetchViewingPartyParticipants(viewingPartyId: Long, page: Int, size: Int): BaseResponse<ViewingPartyParticipantsResponseDto>
 
     suspend fun createViewingPartyChatRoom(viewingPartyId: Long): BaseResponse<ViewingPartyChatRoomResponseDto>
+
+    suspend fun fetchViewingPartyChatLog(roomId: Long, page: Int, size: Int): BaseResponse<ViewingPartyChatLogResponseDto>
 }

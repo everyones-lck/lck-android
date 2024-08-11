@@ -47,7 +47,7 @@ class ParticipantsFragment : BaseFragment<FragmentParticipantsBinding>(R.layout.
             ParticipantItem("", "", ""),
         )
         _participantsRVA = ParticipantsRVA{
-            startActivity(ViewingPartyChatActivity.newIntent(requireContext()))
+            startActivity(ViewingPartyChatActivity.newIntent(requireContext(), viewModel.postId.value))
         }
         binding.rvParticipantsList.adapter = participantsRVA
         participantsRVA?.submitList(list)

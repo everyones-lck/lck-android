@@ -5,6 +5,7 @@ import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.CommonViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.JoinViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.ReadViewingPartyModel
+import umc.everyones.lck.domain.model.response.party.ViewingPartyChatRoomModel
 import umc.everyones.lck.domain.model.response.party.ViewingPartyListModel
 import umc.everyones.lck.domain.model.response.party.ViewingPartyParticipantsModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
@@ -49,6 +50,9 @@ class ViewingPartyRepositoryImpl @Inject constructor(
         size: Int
     ): Result<ViewingPartyParticipantsModel> =
         runCatching { viewingPartyDataSource.fetchViewingPartyParticipants(viewingPartyId, page, size).data.toViewingPartyParticipantsModel() }
+
+    override suspend fun createViewingPartyChatRoom(viewingPartyId: Long): Result<ViewingPartyChatRoomModel> =
+        runCatching { viewingPartyDataSource.createViewingPartyChatRoom(viewingPartyId).data.toViewingPartyChatRoomModel() }
 
 
 }

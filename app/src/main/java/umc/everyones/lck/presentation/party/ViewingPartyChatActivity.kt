@@ -2,6 +2,7 @@ package umc.everyones.lck.presentation.party
 
 import android.content.Context
 import android.content.Intent
+import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
@@ -20,7 +21,15 @@ class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R
     private val chatRVA by lazy {
         ChatRVA()
     }
+
+    private val postId by lazy {
+        intent.getLongExtra("postId", 0L)
+    }
+
+    private val viewModel: ViewingPartyChatViewModel by viewModels()
     override fun initView() {
+        viewModel.setPostId(postId)
+        viewModel.createViewingPartyChatRoom()
         validateMessageSend()
         initChatRVAdapter()
         sendMessage()
@@ -79,8 +88,10 @@ class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R
     }
 
     companion object {
-        fun newIntent(context: Context): Intent =
-            Intent(context, ViewingPartyChatActivity::class.java)
+        fun newIntent(context: Context, postId: Long): Intent =
+            Intent(context, ViewingPartyChatActivity::class.java).apply {
+                putExtra("postId", postId)
+            }
     }
 
 }

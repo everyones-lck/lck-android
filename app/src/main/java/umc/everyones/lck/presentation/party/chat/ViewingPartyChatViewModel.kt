@@ -1,4 +1,4 @@
-package umc.everyones.lck.presentation.party
+package umc.everyones.lck.presentation.party.chat
 
 import android.util.Log
 import javax.inject.Inject

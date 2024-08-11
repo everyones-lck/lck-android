@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -13,7 +12,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentReadViewingPartyBinding
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.presentation.base.BaseFragment
-import umc.everyones.lck.presentation.party.ViewingPartyChatActivity
+import umc.everyones.lck.presentation.party.chat.ViewingPartyChatActivity
 import umc.everyones.lck.presentation.party.dialog.JoinViewingPartyDialogFragment
 import umc.everyones.lck.presentation.party.write.WriteViewingPartyActivity
 import umc.everyones.lck.util.extension.repeatOnStarted

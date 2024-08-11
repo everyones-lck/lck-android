@@ -13,6 +13,7 @@ import umc.everyones.lck.data.dto.response.party.JoinViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ReadViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyListResponseDto
 import umc.everyones.lck.data.dto.response.party.CommonViewingPartyResponseDto
+import umc.everyones.lck.data.dto.response.party.ViewingPartyParticipantsResponseDto
 
 interface ViewingPartyService {
     @GET("viewing/list")
@@ -46,4 +47,11 @@ interface ViewingPartyService {
     suspend fun deleteViewingParty(
         @Path("viewing_party_id") viewingPartyId: Long
     ): BaseResponse<CommonViewingPartyResponseDto>
+
+    @DELETE("viewing/{viewing_party_id}/Participants")
+    suspend fun fetchViewingPartyParticipants(
+        @Path("viewing_party_id") viewingPartyId: Long,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): BaseResponse<ViewingPartyParticipantsResponseDto>
 }

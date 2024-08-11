@@ -6,6 +6,7 @@ import umc.everyones.lck.data.dto.response.party.JoinViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ReadViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyListResponseDto
 import umc.everyones.lck.data.dto.response.party.CommonViewingPartyResponseDto
+import umc.everyones.lck.data.dto.response.party.ViewingPartyParticipantsResponseDto
 
 interface ViewingPartyDataSource {
     suspend fun fetchViewingPartyList(page: Int, size: Int): BaseResponse<ViewingPartyListResponseDto>
@@ -19,4 +20,6 @@ interface ViewingPartyDataSource {
     suspend fun editViewingParty(viewingPartyId: Long, requestDto: WriteViewingPartyRequestDto): BaseResponse<CommonViewingPartyResponseDto>
 
     suspend fun deleteViewingParty(viewingPartyId: Long): BaseResponse<CommonViewingPartyResponseDto>
+
+    suspend fun fetchViewingPartyParticipants(viewingPartyId: Long, page: Int, size: Int): BaseResponse<ViewingPartyParticipantsResponseDto>
 }

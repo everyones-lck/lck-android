@@ -5,6 +5,7 @@ import umc.everyones.lck.domain.model.response.party.CommonViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.JoinViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.ReadViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.ViewingPartyListModel
+import umc.everyones.lck.domain.model.response.party.ViewingPartyParticipantsModel
 
 interface ViewingPartyRepository {
     suspend fun fetchViewingPartyList(page: Int, size: Int): Result<ViewingPartyListModel>
@@ -18,4 +19,6 @@ interface ViewingPartyRepository {
     suspend fun editViewingParty(viewingPartyId: Long, request: WriteViewingPartyModel): Result<CommonViewingPartyModel>
 
     suspend fun deleteViewingParty(viewingPartyId: Long): Result<CommonViewingPartyModel>
+
+    suspend fun fetchViewingPartyParticipants(viewingPartyId: Long, page: Int, size: Int): Result<ViewingPartyParticipantsModel>
 }

@@ -6,6 +6,7 @@ import umc.everyones.lck.domain.model.response.party.CommonViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.JoinViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.ReadViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.ViewingPartyListModel
+import umc.everyones.lck.domain.model.response.party.ViewingPartyParticipantsModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
 import javax.inject.Inject
 
@@ -41,6 +42,13 @@ class ViewingPartyRepositoryImpl @Inject constructor(
 
     override suspend fun deleteViewingParty(viewingPartyId: Long): Result<CommonViewingPartyModel> =
         runCatching { viewingPartyDataSource.deleteViewingParty(viewingPartyId).data.toCommonViewingPartyModel() }
+
+    override suspend fun fetchViewingPartyParticipants(
+        viewingPartyId: Long,
+        page: Int,
+        size: Int
+    ): Result<ViewingPartyParticipantsModel> =
+        runCatching { viewingPartyDataSource.fetchViewingPartyParticipants(viewingPartyId, page, size).data.toViewingPartyParticipantsModel() }
 
 
 }

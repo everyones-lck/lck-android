@@ -1,5 +1,6 @@
 package umc.everyones.lck.presentation.party.read
 
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
@@ -17,12 +18,15 @@ class ParticipantsFragment : BaseFragment<FragmentParticipantsBinding>(R.layout.
     private val navigator by lazy {
         findNavController()
     }
+
+    private val viewModel: ReadViewingPartyViewModel by activityViewModels()
     override fun initObserver() {
 
     }
 
     override fun initView() {
         initParticipantRVAdapter()
+        viewModel.fetchViewingPartyParticipants()
         binding.ivParticipantsBackBtn.setOnClickListener {
             navigator.navigateUp()
         }

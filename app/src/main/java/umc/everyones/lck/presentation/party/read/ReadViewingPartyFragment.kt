@@ -3,6 +3,7 @@ package umc.everyones.lck.presentation.party.read
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -22,7 +23,7 @@ import umc.everyones.lck.util.extension.textToString
 
 @AndroidEntryPoint
 class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R.layout.fragment_read_viewing_party) {
-    private val viewModel: ReadViewingPartyViewModel by viewModels()
+    private val viewModel: ReadViewingPartyViewModel by activityViewModels()
     private val navigator by lazy {
         findNavController()
     }
@@ -78,7 +79,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     override fun initView() {
         Log.d("postId", postId.toString())
-        viewModel.setPostId(1L)
+        viewModel.setPostId(2L)
         viewModel.fetchViewingParty()
         distinguishView()
         goToEditViewingParty()

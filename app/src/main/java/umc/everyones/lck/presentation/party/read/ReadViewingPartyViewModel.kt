@@ -81,4 +81,15 @@ class ReadViewingPartyViewModel @Inject constructor(
             }
         }
     }
+
+    fun fetchViewingPartyParticipants(){
+        viewModelScope.launch {
+            repository.fetchViewingPartyParticipants(postId.value, 0 ,10).onSuccess { response ->
+                Log.d("fetchViewingPartyParticipants", response.toString())
+            }.onFailure {
+                Log.d("deleteViewingParty error", it.stackTraceToString())
+                eventReadViewingParty(ReadViewingPartyEvent.Fail("뷰잉파티 참가자를 조회하지 못했습니다"))
+            }
+        }
+    }
 }

@@ -7,6 +7,7 @@ import umc.everyones.lck.data.dto.response.party.JoinViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ReadViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyListResponseDto
 import umc.everyones.lck.data.dto.response.party.CommonViewingPartyResponseDto
+import umc.everyones.lck.data.dto.response.party.ViewingPartyParticipantsResponseDto
 import umc.everyones.lck.data.service.party.ViewingPartyService
 import javax.inject.Inject
 
@@ -39,5 +40,12 @@ class ViewingPartyDataSourceImpl @Inject constructor(
 
     override suspend fun deleteViewingParty(viewingPartyId: Long): BaseResponse<CommonViewingPartyResponseDto> =
         viewingPartyService.deleteViewingParty(viewingPartyId)
+
+    override suspend fun fetchViewingPartyParticipants(
+        viewingPartyId: Long,
+        page: Int,
+        size: Int
+    ): BaseResponse<ViewingPartyParticipantsResponseDto> =
+        viewingPartyService.fetchViewingPartyParticipants(viewingPartyId, page, size)
 
 }

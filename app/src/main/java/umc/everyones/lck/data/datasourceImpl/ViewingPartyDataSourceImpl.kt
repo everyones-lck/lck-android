@@ -6,7 +6,7 @@ import umc.everyones.lck.data.dto.request.party.WriteViewingPartyRequestDto
 import umc.everyones.lck.data.dto.response.party.JoinViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ReadViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyListResponseDto
-import umc.everyones.lck.data.dto.response.party.WriteViewingPartyResponseDto
+import umc.everyones.lck.data.dto.response.party.CommonViewingPartyResponseDto
 import umc.everyones.lck.data.service.party.ViewingPartyService
 import javax.inject.Inject
 
@@ -27,14 +27,17 @@ class ViewingPartyDataSourceImpl @Inject constructor(
         viewingPartyService.joinViewingParty(viewingPartyId)
 
 
-    override suspend fun writeViewingParty(requestDto: WriteViewingPartyRequestDto): BaseResponse<WriteViewingPartyResponseDto> =
+    override suspend fun writeViewingParty(requestDto: WriteViewingPartyRequestDto): BaseResponse<CommonViewingPartyResponseDto> =
         viewingPartyService.writeViewingParty(requestDto)
 
 
     override suspend fun editViewingParty(
         viewingPartyId: Long,
         requestDto: WriteViewingPartyRequestDto
-    ): BaseResponse<WriteViewingPartyResponseDto> =
+    ): BaseResponse<CommonViewingPartyResponseDto> =
         viewingPartyService.editViewingParty(viewingPartyId, requestDto)
+
+    override suspend fun deleteViewingParty(viewingPartyId: Long): BaseResponse<CommonViewingPartyResponseDto> =
+        viewingPartyService.deleteViewingParty(viewingPartyId)
 
 }

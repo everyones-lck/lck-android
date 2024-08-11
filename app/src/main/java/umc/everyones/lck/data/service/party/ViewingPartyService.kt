@@ -1,6 +1,7 @@
 package umc.everyones.lck.data.service.party
 
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -11,7 +12,7 @@ import umc.everyones.lck.data.dto.request.party.WriteViewingPartyRequestDto
 import umc.everyones.lck.data.dto.response.party.JoinViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ReadViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyListResponseDto
-import umc.everyones.lck.data.dto.response.party.WriteViewingPartyResponseDto
+import umc.everyones.lck.data.dto.response.party.CommonViewingPartyResponseDto
 
 interface ViewingPartyService {
     @GET("viewing/list")
@@ -33,11 +34,16 @@ interface ViewingPartyService {
     @POST("viewing/create")
     suspend fun writeViewingParty(
         @Body request: WriteViewingPartyRequestDto
-    ): BaseResponse<WriteViewingPartyResponseDto>
+    ): BaseResponse<CommonViewingPartyResponseDto>
 
     @PATCH("viewing/{viewing_party_id}/update")
     suspend fun editViewingParty(
         @Path("viewing_party_id") viewingPartyId: Long,
         @Body request: WriteViewingPartyRequestDto
-    ): BaseResponse<WriteViewingPartyResponseDto>
+    ): BaseResponse<CommonViewingPartyResponseDto>
+
+    @DELETE("viewing/{viewing_party_id}/delete")
+    suspend fun deleteViewingParty(
+        @Path("viewing_party_id") viewingPartyId: Long
+    ): BaseResponse<CommonViewingPartyResponseDto>
 }

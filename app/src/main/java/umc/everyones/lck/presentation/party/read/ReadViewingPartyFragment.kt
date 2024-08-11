@@ -16,6 +16,7 @@ import umc.everyones.lck.presentation.party.ViewingPartyChatActivity
 import umc.everyones.lck.presentation.party.dialog.JoinViewingPartyDialogFragment
 import umc.everyones.lck.presentation.party.write.WriteViewingPartyActivity
 import umc.everyones.lck.util.extension.repeatOnStarted
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.textToString
 
@@ -66,7 +67,10 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
             }
             is ReadViewingPartyViewModel.ReadViewingPartyEvent.Success -> {
                 if(event.message.isNotEmpty()){
-                    showCustomSnackBar(binding.root, event.message)
+                    when(event.message){
+                        "delete" -> navigator.navigateUp()
+                        else -> showCustomSnackBar(binding.root, event.message)
+                    }
                 }
             }
         }
@@ -95,6 +99,13 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
             }
         } else {
             inquireParticipantsList()
+            deleteViewingParty()
+        }
+    }
+
+    private fun deleteViewingParty(){
+        binding.ivReadDeleteBtn.setOnSingleClickListener {
+            viewModel.deleteViewingParty()
         }
     }
 

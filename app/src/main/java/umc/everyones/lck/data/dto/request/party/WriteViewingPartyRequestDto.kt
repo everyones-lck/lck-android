@@ -4,7 +4,7 @@ import java.time.LocalDateTime
 
 data class WriteViewingPartyRequestDto(
     val name: String,
-    val date: LocalDateTime,
+    val date: String,
     val latitude: Double,
     val longitude: Double,
     val price: Int,

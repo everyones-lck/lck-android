@@ -52,6 +52,7 @@ class ReadViewingPartyViewModel @Inject constructor(
                 Log.d("fetchViewingParty", response.toString())
                 eventReadViewingParty(ReadViewingPartyEvent.Read(response))
             }.onFailure {
+                Log.d("error", it.stackTraceToString())
                 eventReadViewingParty(ReadViewingPartyEvent.Fail("뷰잉파티를 조회하지 못했습니다"))
             }
         }

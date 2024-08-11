@@ -1,6 +1,7 @@
 package umc.everyones.lck.domain.model.request.party
 
 import umc.everyones.lck.data.dto.request.party.WriteViewingPartyRequestDto
+import umc.everyones.lck.util.extension.toViewingPartyReadDate
 import java.io.Serializable
 import java.time.LocalDateTime
 
@@ -19,7 +20,7 @@ data class WriteViewingPartyModel(
     fun toWriteViewingPartyRequestDto() =
         WriteViewingPartyRequestDto(
             name,
-            LocalDateTime.now(),
+            date.toViewingPartyReadDate(),
             latitude,
             longitude,
             price.replace(",", "").toInt(),

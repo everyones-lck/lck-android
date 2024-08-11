@@ -74,7 +74,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     override fun initView() {
         Log.d("postId", postId.toString())
-        viewModel.setPostId(postId)
+        viewModel.setPostId(1L)
         viewModel.fetchViewingParty()
         distinguishView()
         goToEditViewingParty()

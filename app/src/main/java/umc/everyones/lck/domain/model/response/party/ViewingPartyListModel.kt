@@ -4,7 +4,7 @@ package umc.everyones.lck.domain.model.response.party
 data class ViewingPartyListModel(
     val isLast: Boolean,
     val totalPage: Int,
-    val partyList: ViewingPartyElementModel
+    val partyList: List<ViewingPartyElementModel>
 )
 
 data class ViewingPartyElementModel(

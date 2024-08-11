@@ -1,6 +1,5 @@
 package umc.everyones.lck.data.service.party
 
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH
@@ -8,7 +7,6 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
-import umc.everyones.lck.data.dto.request.party.EditViewingPartyRequestDto
 import umc.everyones.lck.data.dto.request.party.WriteViewingPartyRequestDto
 import umc.everyones.lck.data.dto.response.party.JoinViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ReadViewingPartyResponseDto

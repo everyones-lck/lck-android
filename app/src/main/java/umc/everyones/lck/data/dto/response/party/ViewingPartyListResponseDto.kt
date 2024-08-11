@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 data class ViewingPartyListResponseDto(
     val isLast: Boolean,
     val totalPage: Int,
-    val partyList: ViewingPartyListElementDto
+    val partyList: List<ViewingPartyListElementDto>
 ) {
     data class ViewingPartyListElementDto(
         val id: Long,
@@ -17,15 +17,15 @@ data class ViewingPartyListResponseDto(
         val userName: String,
         val teamName: String,
         val photoURL: String,
-        val partyDate: LocalDateTime,
+        val partyDate: String,
         val latitude: Double,
         val longitude: Double,
         val location: String
     ){
         fun toViewingPartyListElementModel() =
-            ViewingPartyElementModel(id, name, userName.combineNicknameAndTeam(teamName), photoURL, partyDate.listPartyDateToString(), latitude, longitude, location)
+            ViewingPartyElementModel(id, name, userName.combineNicknameAndTeam(teamName), photoURL, partyDate, latitude, longitude, location)
     }
 
     fun toViewingPartyListModel() =
-        ViewingPartyListModel(isLast, totalPage, partyList.toViewingPartyListElementModel())
+        ViewingPartyListModel(isLast, totalPage, partyList.map { it.toViewingPartyListElementModel() })
 }

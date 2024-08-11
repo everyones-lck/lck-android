@@ -19,7 +19,7 @@ class ViewingPartyViewModel @Inject constructor(
             repository.fetchViewingPartyList(0, 10).onSuccess {
                 Log.d("fetchViewingPartyList", it.toString())
             }.onFailure {
-
+                Log.d("fetchViewingPartyList error", it.stackTraceToString())
             }
         }
     }

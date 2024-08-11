@@ -1,5 +1,6 @@
 package umc.everyones.lck.data.repositoryImpl.party
 
+import android.util.Log
 import umc.everyones.lck.data.datasource.ViewingPartyDataSource
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.JoinViewingPartyModel

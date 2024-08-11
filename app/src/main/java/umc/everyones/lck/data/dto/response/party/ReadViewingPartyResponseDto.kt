@@ -12,7 +12,7 @@ data class ReadViewingPartyResponseDto(
     val ownerTeam: String,
     val ownerImage: String,
     val qualify: String,
-    val partyDate: LocalDateTime,
+    val partyDate: String,
     val location: String,
     val latitude: Double,
     val longitude: Double,

@@ -8,8 +8,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import umc.everyones.lck.User
+import umc.everyones.lck.domain.model.user.UserItem
 import umc.everyones.lck.util.NicknameManager
 import javax.inject.Inject
 
@@ -25,7 +27,10 @@ class SignupViewModel @Inject constructor(
     private val _nickname = MutableLiveData<String>()
     val nickname: LiveData<String> get() = _nickname
 
-    private val users = mutableListOf<User>()
+    private val users = mutableListOf<UserItem>()
+
+    private val _kakaoUserId = MutableStateFlow<String>("")
+    val kakaoUserId = _kakaoUserId.asStateFlow()
 
     fun setProfileImageUri(uri: Uri?) {
         _profileImageUri.value = uri
@@ -37,15 +42,21 @@ class SignupViewModel @Inject constructor(
         Log.d("SignupViewModel", "Nickname set to: $nickname")
     }
 
+    fun setKakaoUserId(kakaoUserId: String){
+        _kakaoUserId.value = kakaoUserId
+    }
+
     fun addUser(profileImageUri: String, team: String, tier: String = "Bronze") {
         val nick = _nickname.value
+        val userId = _kakaoUserId.value
         if (nick != null) {
             viewModelScope.launch {
                 try {
                     if (nicknameManager.isNicknameDuplicate(nick)) {
                         Log.e("SignupViewModel", "Nickname already exists")
                     } else {
-                        val user = User(
+                        val user = UserItem(
+                            kakaoUserId = userId,
                             nickname = nick,
                             profileUri = profileImageUri,
                             team = team,
@@ -64,11 +75,11 @@ class SignupViewModel @Inject constructor(
         }
     }
 
-    suspend fun getUser(nickname: String): User? {
+    suspend fun getUser(nickname: String): UserItem? {
         return users.find { it.nickname == nickname }
     }
 
-    fun getCurrentUser(): User? {
+    fun getCurrentUser(): UserItem? {
         val currentNickname = _nickname.value
         Log.d("SignupViewModel", "Getting user for nickname: $currentNickname")
         return if (currentNickname != null) {
@@ -78,4 +89,3 @@ class SignupViewModel @Inject constructor(
         }
     }
 }
-

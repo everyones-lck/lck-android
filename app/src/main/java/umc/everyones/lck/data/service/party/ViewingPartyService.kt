@@ -69,4 +69,9 @@ interface ViewingPartyService {
         @Query("page") page: Int,
         @Query("size") size: Int
     ): BaseResponse<ViewingPartyChatLogResponseDto>
+
+    @POST("viewing/{viewing_party_id}/chatroom")
+    suspend fun createViewingPartyChatRoomAsParticipant(
+        @Path("viewing_party_id") viewingPartyId: Long,
+    ): BaseResponse<ViewingPartyChatRoomResponseDto>
 }

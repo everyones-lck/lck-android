@@ -62,5 +62,8 @@ class ViewingPartyRepositoryImpl @Inject constructor(
     ): Result<ViewingPartyChatLogModel> =
         runCatching { viewingPartyDataSource.fetchViewingPartyChatLog(roomId, page, size).data.toViewingPartyChatLogModel() }
 
+    override suspend fun createViewingPartyChatRoomAsParticipant(viewingPartyId: Long): Result<ViewingPartyChatRoomModel> =
+        runCatching { viewingPartyDataSource.createViewingPartyChatRoomAsParticipant(viewingPartyId).data.toViewingPartyChatRoomModel() }
+
 
 }

@@ -26,10 +26,18 @@ class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R
         intent.getLongExtra("postId", 0L)
     }
 
+    private val isParticipant by lazy {
+        intent.getBooleanExtra("isParticipant", false)
+    }
+
     private val viewModel: ViewingPartyChatViewModel by viewModels()
     override fun initView() {
         viewModel.setPostId(postId)
-        viewModel.createViewingPartyChatRoom()
+        if(isParticipant){
+            viewModel.createViewingPartyChatRoomAsParticipant()
+        } else {
+            viewModel.createViewingPartyChatRoom()
+        }
         viewModel.fetchViewingPartyChatLog()
         validateMessageSend()
         initChatRVAdapter()
@@ -89,9 +97,10 @@ class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R
     }
 
     companion object {
-        fun newIntent(context: Context, postId: Long): Intent =
+        fun newIntent(context: Context, postId: Long, isParticipant: Boolean): Intent =
             Intent(context, ViewingPartyChatActivity::class.java).apply {
                 putExtra("postId", postId)
+                putExtra("isParticipant", isParticipant)
             }
     }
 

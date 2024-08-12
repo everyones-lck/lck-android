@@ -35,6 +35,17 @@ class ViewingPartyChatViewModel @Inject constructor(
         }
     }
 
+    fun createViewingPartyChatRoomAsParticipant(){
+        viewModelScope.launch {
+            repository.createViewingPartyChatRoomAsParticipant(postId.value).onSuccess { response ->
+                Log.d("createViewingPartyChatRoomAsParticipant", response.toString())
+                _roomId.value = response.roomId
+            }.onFailure {
+                Log.d("createViewingPartyChatRoomAsParticipant error", it.stackTraceToString())
+            }
+        }
+    }
+
     fun fetchViewingPartyChatLog(){
         viewModelScope.launch{
             repository.fetchViewingPartyChatLog(roomId.value, 0, 10).onSuccess { response ->

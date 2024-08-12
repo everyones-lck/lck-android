@@ -27,4 +27,6 @@ interface ViewingPartyRepository {
     suspend fun createViewingPartyChatRoom(viewingPartyId: Long): Result<ViewingPartyChatRoomModel>
 
     suspend fun fetchViewingPartyChatLog(roomId: Long, page: Int, size: Int): Result<ViewingPartyChatLogModel>
+
+    suspend fun createViewingPartyChatRoomAsParticipant(viewingPartyId: Long): Result<ViewingPartyChatRoomModel>
 }

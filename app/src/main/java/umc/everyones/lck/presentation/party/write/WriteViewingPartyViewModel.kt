@@ -84,7 +84,7 @@ class WriteViewingPartyViewModel @Inject constructor(
                 ).onSuccess { response ->
                     Log.d("writeViewingParty", response.toString())
                 }.onFailure {
-
+                    Log.d("editViewingParty", it.stackTraceToString())
                 }
             }
         } else {

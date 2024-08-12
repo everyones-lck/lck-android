@@ -1,8 +1,5 @@
 package umc.everyones.lck.util.extension
 
-import android.annotation.SuppressLint
-import java.sql.Date
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -22,23 +19,21 @@ fun String.toCategoryPosition(): Int{
 fun String.combineNicknameAndTeam(team: String): String{
     return "$this | $team"
 }
+fun String.toReadViewingPartyDateFormat(): String {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
 
-@SuppressLint("SimpleDateFormat")
-fun LocalDateTime.listPartyDateToString(): String {
-    val simpleDateFormat = SimpleDateFormat("yy.MM.dd")
-    return simpleDateFormat.format(this)
+    val partyDateFormatter = DateTimeFormatter.ofPattern("yy.MM.dd hh:mm")
+
+    return LocalDateTime.parse(this, formatter).format(partyDateFormatter).toString()
 }
 
-@SuppressLint("SimpleDateFormat")
-fun String.partyDateToString(): String {
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
-    LocalDateTime.parse(this, formatter)
-
-    val simpleDateFormat = SimpleDateFormat("yy.MM.dd hh:mm")
-    return simpleDateFormat.format(LocalDateTime.parse(this, formatter))
+fun String.toLocalDateTime(): String {
+    val formatter = DateTimeFormatter.ofPattern("yyyy / MM / dd | HH:mm")
+    return LocalDateTime.parse(this, formatter).toString()
 }
 
-fun String.toViewingPartyReadDate(): String {
-    val temp = this.split("|")
-    return "${temp[0].replace("/","").replace("  ", ".").trim()} ${temp[1].trim()}"
+fun String.toWriteViewingPartyDateFormat(): String {
+    return this.split(" ").run {
+        "20${this[0].replace(".", " / ")} | ${this[1].trim()}"
+    }
 }

@@ -19,6 +19,7 @@ import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.textToString
+import umc.everyones.lck.util.extension.toWriteViewingPartyDateFormat
 
 @AndroidEntryPoint
 class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R.layout.fragment_read_viewing_party) {
@@ -78,7 +79,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     override fun initView() {
         Log.d("postId", postId.toString())
-        viewModel.setPostId(2L)
+        viewModel.setPostId(4L)
         viewModel.fetchViewingParty()
         distinguishView()
         goToEditViewingParty()
@@ -138,14 +139,13 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
         with(binding){
             ivReadEditBtn.setOnClickListener {
                 val participate = tvReadParticipants.textToString().split("-")
-                val date = tvReadDate.textToString().split(" ")
-                startActivity(WriteViewingPartyActivity.editIntent(requireContext(), postId,
+                startActivity(WriteViewingPartyActivity.editIntent(requireContext(), 4L,
                     WriteViewingPartyModel(
                         name = tvReadViewingPartyTitle.textToString(),
-                        date = "${date[0]} | ${date[1].trim()}",
+                        date = tvReadDate.textToString().toWriteViewingPartyDateFormat(),
                         latitude = 0.0,
                         longitude = 0.0,
-                        price = tvReadPrice.textToString().replace("₩", ""),
+                        price = tvReadPrice.textToString().replace("₩", "").trim(),
                         lowParticipate = participate[0].trim(),
                         highParticipate = participate[1].replace(("[^\\d]").toRegex(), ""),
                         qualify = tvReadQualify.textToString().replace("To.", ""),

@@ -50,7 +50,7 @@ interface ViewingPartyService {
         @Path("viewing_party_id") viewingPartyId: Long
     ): BaseResponse<CommonViewingPartyResponseDto>
 
-    @DELETE("viewing/{viewing_party_id}/Participants")
+    @GET("viewing/{viewing_party_id}/participants")
     suspend fun fetchViewingPartyParticipants(
         @Path("viewing_party_id") viewingPartyId: Long,
         @Query("page") page: Int,

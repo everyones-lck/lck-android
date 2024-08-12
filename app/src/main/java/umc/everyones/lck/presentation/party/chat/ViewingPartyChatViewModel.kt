@@ -17,7 +17,7 @@ class ViewingPartyChatViewModel @Inject constructor(
     private val _postId = MutableStateFlow<Long>(-1)
     val postId: StateFlow<Long> get() = _postId
     
-    private val _roomId = MutableStateFlow<Long>(1)
+    private val _roomId = MutableStateFlow<Long>(4)
     val roomId: StateFlow<Long> get() = _roomId
 
 

@@ -57,9 +57,10 @@ interface ViewingPartyService {
         @Query("size") size: Int
     ): BaseResponse<ViewingPartyParticipantsResponseDto>
 
-    @POST("viewing/{viewing_party_id}/chatroom")
+    @POST("viewing/{viewing_party_id}/chatroom/{participant_kakao_id}")
     suspend fun createViewingPartyChatRoom(
-        @Path("viewing_party_id") viewingPartyId: Long
+        @Path("viewing_party_id") viewingPartyId: Long,
+        @Path("participant_kakao_id") participantKakaoId: String = "123"
     ): BaseResponse<ViewingPartyChatRoomResponseDto>
 
     @GET("viewing/chat_log/{room_id}")

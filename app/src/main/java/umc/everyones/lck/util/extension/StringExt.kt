@@ -17,7 +17,7 @@ fun String.toCategoryPosition(): Int{
 }
 
 fun String.combineNicknameAndTeam(team: String): String{
-    return "$this | $team"
+    return if(team == "empty") this else "$this | $team"
 }
 fun String.toReadViewingPartyDateFormat(): String {
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")

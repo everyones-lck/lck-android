@@ -3,11 +3,13 @@ package umc.everyones.lck.domain.repository.login
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import umc.everyones.lck.data.dto.response.login.CommonLoginResponseDto
-import umc.everyones.lck.domain.model.request.login.LoginAuthUserModel
-import umc.everyones.lck.domain.model.response.login.CommonLoginModel
+import umc.everyones.lck.domain.model.request.login.CommonLoginRequestModel
+import umc.everyones.lck.domain.model.response.login.CommonLoginResponseModel
 
 interface LoginRepository {
-    suspend fun signup(kakaoUserId: RequestBody, nickName: RequestBody, role: RequestBody, teamId: RequestBody, profileImage: MultipartBody.Part): Result<CommonLoginModel>
+    suspend fun signup(kakaoUserId: RequestBody, nickName: RequestBody, role: RequestBody, teamId: RequestBody, profileImage: MultipartBody.Part): Result<CommonLoginResponseModel>
 
-    suspend fun login(request: LoginAuthUserModel): Result<CommonLoginModel>
+    suspend fun login(request: CommonLoginRequestModel): Result<CommonLoginResponseModel>
+
+    suspend fun refresh(request: CommonLoginRequestModel): Result<CommonLoginResponseModel>
 }

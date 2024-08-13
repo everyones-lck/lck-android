@@ -7,7 +7,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import umc.everyones.lck.data.dto.BaseResponse
-import umc.everyones.lck.data.dto.request.login.LoginAuthUserRequestDto
+import umc.everyones.lck.data.dto.request.login.CommonLoginRequestDto
 import umc.everyones.lck.data.dto.response.login.CommonLoginResponseDto
 
 interface LoginService {
@@ -24,6 +24,11 @@ interface LoginService {
 
     @POST("/auth/login")
     suspend fun login(
-        @Body request:LoginAuthUserRequestDto
+        @Body request:CommonLoginRequestDto
+    ):BaseResponse<CommonLoginResponseDto>
+
+    @POST("/auth/refresh")
+    suspend fun refresh(
+        @Body request: CommonLoginRequestDto
     ):BaseResponse<CommonLoginResponseDto>
 }

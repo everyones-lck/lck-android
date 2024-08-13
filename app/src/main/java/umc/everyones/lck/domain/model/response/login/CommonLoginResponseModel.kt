@@ -1,6 +1,6 @@
 package umc.everyones.lck.domain.model.response.login
 
-data class CommonLoginModel(
+data class CommonLoginResponseModel(
     val accessToken: String,
     val refreshToken: String,
     val accessTokenExpirationTime: String,

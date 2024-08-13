@@ -1,19 +1,29 @@
 package umc.everyones.lck.presentation.party.read
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentReadViewingPartyBinding
+import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.presentation.base.BaseFragment
-import umc.everyones.lck.presentation.party.ViewingPartyChatActivity
+import umc.everyones.lck.presentation.party.chat.ViewingPartyChatActivity
 import umc.everyones.lck.presentation.party.dialog.JoinViewingPartyDialogFragment
+import umc.everyones.lck.presentation.party.write.WriteViewingPartyActivity
+import umc.everyones.lck.util.extension.repeatOnStarted
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.textToString
+import umc.everyones.lck.util.extension.toWriteViewingPartyDateFormat
 
+@AndroidEntryPoint
 class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R.layout.fragment_read_viewing_party) {
-    private val viewModel: ReadViewingPartyViewModel by viewModels()
+    private val viewModel: ReadViewingPartyViewModel by activityViewModels()
     private val navigator by lazy {
         findNavController()
     }
@@ -28,12 +38,51 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
         args.isWriter
     }
     override fun initObserver() {
+        repeatOnStarted {
+            viewModel.readViewingPartyEvent.collect{ event ->
+                handleReadViewingPartyEvent(event)
+            }
+        }
+    }
 
+    @SuppressLint("SetTextI18n")
+    private fun handleReadViewingPartyEvent(event: ReadViewingPartyViewModel.ReadViewingPartyEvent){
+        when(event){
+            is ReadViewingPartyViewModel.ReadViewingPartyEvent.Fail -> {
+                showCustomSnackBar(binding.root, event.message)
+            }
+            is ReadViewingPartyViewModel.ReadViewingPartyEvent.Read -> {
+                with(binding){
+                    tvReadViewingPartyTitle.text = event.viewingParty.name
+                    tvReadQualify.text = "To. ${event.viewingParty.qualify}"
+                    tvReadDate.text = event.viewingParty.partyDate
+                    tvReadPlace.text = event.viewingParty.place
+                    tvReadPrice.text = event.viewingParty.price
+                    tvReadParticipants.text = event.viewingParty.participants
+                    tvReadEtc.text = event.viewingParty.etc
+                    tvReadWriter.text = event.viewingParty.writerInfo
+                    Glide.with(requireContext())
+                        .load(event.viewingParty.ownerImage)
+                        .into(ivReadProfileImage)
+                }
+            }
+            is ReadViewingPartyViewModel.ReadViewingPartyEvent.Success -> {
+                if(event.message.isNotEmpty()){
+                    when(event.message){
+                        "delete" -> navigator.navigateUp()
+                        else -> showCustomSnackBar(binding.root, event.message)
+                    }
+                }
+            }
+        }
     }
 
     override fun initView() {
         Log.d("postId", postId.toString())
+        viewModel.setPostId(4L)
+        viewModel.fetchViewingParty()
         distinguishView()
+        goToEditViewingParty()
         binding.ivReadBackBtn.setOnClickListener {
             navigator.navigateUp()
         }
@@ -51,6 +100,13 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
             }
         } else {
             inquireParticipantsList()
+            deleteViewingParty()
+        }
+    }
+
+    private fun deleteViewingParty(){
+        binding.ivReadDeleteBtn.setOnSingleClickListener {
+            viewModel.deleteViewingParty()
         }
     }
 
@@ -60,7 +116,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
             val dialog = JoinViewingPartyDialogFragment()
             dialog.setOnJoinViewingPartyClickListener(object : JoinViewingPartyDialogFragment.OnJoinViewingPartyClickListener{
                 override fun onConfirm() {
-                    showCustomSnackBar(requireView(), "뷰잉파티에 참여되었습니다!")
+                    viewModel.joinViewingParty()
                 }
             })
             dialog.show(childFragmentManager, dialog.tag)
@@ -75,7 +131,29 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     private fun askToHost(){
         binding.tvReadAskToHost.setOnClickListener {
-            startActivity(ViewingPartyChatActivity.newIntent(requireContext()))
+            startActivity(ViewingPartyChatActivity.newIntent(requireContext(), 4, true))
+        }
+    }
+
+    private fun goToEditViewingParty(){
+        with(binding){
+            ivReadEditBtn.setOnClickListener {
+                val participate = tvReadParticipants.textToString().split("-")
+                startActivity(WriteViewingPartyActivity.editIntent(requireContext(), 4L,
+                    WriteViewingPartyModel(
+                        name = tvReadViewingPartyTitle.textToString(),
+                        date = tvReadDate.textToString().toWriteViewingPartyDateFormat(),
+                        latitude = 0.0,
+                        longitude = 0.0,
+                        price = tvReadPrice.textToString().replace("₩", "").trim(),
+                        lowParticipate = participate[0].trim(),
+                        highParticipate = participate[1].replace(("[^\\d]").toRegex(), ""),
+                        qualify = tvReadQualify.textToString().replace("To.", ""),
+                        etc = tvReadEtc.textToString(),
+                        location = tvReadPlace.textToString()
+                    )
+                ))
+            }
         }
     }
 }

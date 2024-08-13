@@ -59,7 +59,7 @@
         <activity android:name="umc.everyones.lck.presentation.party.write.WriteViewingPartyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"/>
-        <activity android:name="umc.everyones.lck.presentation.party.ViewingPartyChatActivity"
+        <activity android:name="umc.everyones.lck.presentation.party.chat.ViewingPartyChatActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"/>

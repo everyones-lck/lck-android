@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
-import umc.everyones.lck.presentation.MainActivity
-import umc.everyones.lck.presentation.party.ViewingPartyChatActivity
 
 @AndroidEntryPoint
 class MyPageActivity : AppCompatActivity() {

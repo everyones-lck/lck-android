@@ -37,3 +37,11 @@ fun String.toWriteViewingPartyDateFormat(): String {
         "20${this[0].replace(".", " / ")} | ${this[1].trim()}"
     }
 }
+
+fun String.toListViewingPartyDateFormat(): String{
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
+
+    val partyDateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
+    return LocalDateTime.parse(this, formatter).format(partyDateFormatter).toString()
+}

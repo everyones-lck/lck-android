@@ -2,6 +2,8 @@ package umc.everyones.lck.data.dto.response.party
 
 import umc.everyones.lck.domain.model.response.party.ViewingPartyListModel
 import umc.everyones.lck.util.extension.combineNicknameAndTeam
+import umc.everyones.lck.util.extension.toListViewingPartyDateFormat
+import umc.everyones.lck.util.extension.toReadViewingPartyDateFormat
 import java.time.LocalDateTime
 
 data class ViewingPartyListResponseDto(
@@ -26,7 +28,7 @@ data class ViewingPartyListResponseDto(
                 name,
                 userName.combineNicknameAndTeam(teamName),
                 photoURL,
-                partyDate,
+                partyDate.toListViewingPartyDateFormat(),
                 latitude,
                 longitude,
                 location

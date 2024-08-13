@@ -40,7 +40,7 @@ abstract class BaseFragment<V : ViewDataBinding>(@LayoutRes val layoutResource: 
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("fragment onDestroyView", "onDestroyView")
+        Log.d("fragment onDestroyView", "$this onDestroyView")
         _binding = null
     }
 }

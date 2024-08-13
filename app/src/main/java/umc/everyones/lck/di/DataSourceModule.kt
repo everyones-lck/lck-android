@@ -8,6 +8,8 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import umc.everyones.lck.data.datasource.ViewingPartyDataSource
 import umc.everyones.lck.data.datasourceImpl.ViewingPartyDataSourceImpl
+import umc.everyones.lck.data.datasourceImpl.ViewingPartyListPagingSource
+import umc.everyones.lck.data.service.party.ViewingPartyService
 import javax.inject.Singleton
 
 @Module

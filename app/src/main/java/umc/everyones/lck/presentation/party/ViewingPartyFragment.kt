@@ -1,9 +1,13 @@
 package umc.everyones.lck.presentation.party
 
 import android.content.Intent
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
@@ -11,6 +15,7 @@ import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.mypage.MyPageActivity
 import umc.everyones.lck.presentation.party.adapter.ViewingPartyRVA
 import umc.everyones.lck.presentation.party.write.WriteViewingPartyActivity
+import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
@@ -24,14 +29,17 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     }
 
     override fun initObserver() {
-
+        repeatOnStarted {
+            viewModel.fetchViewingPartyListPage().collectLatest{ data ->
+                viewingPartyRVA?.submitData(data)
+            }
+        }
     }
 
     override fun initView() {
         initViewingPartyRVAdapter()
         goToWriteViewingParty()
         goMyPage()
-        viewModel.fetchViewingPartyList()
     }
 
     private fun goToWriteViewingParty(){
@@ -41,26 +49,21 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     }
 
     private fun initViewingPartyRVAdapter(){
-        _viewIngPartyRVA = ViewingPartyRVA { postId, isWriter ->
-            val action = ViewingPartyFragmentDirections.actionViewingPartyFragmentToReadViewingPartyFragment(isWriter, postId)
+        _viewIngPartyRVA = ViewingPartyRVA { postId ->
+            val action = ViewingPartyFragmentDirections.actionViewingPartyFragmentToReadViewingPartyFragment(false, postId)
             navigator.navigate(action)
         }
         binding.rvViewingParty.adapter = viewingPartyRVA
-        val list = listOf(
-            ViewingPartyItem(0, "", "", "", "", "", true),
-            ViewingPartyItem(0, "", "", "", "", ""),
-            ViewingPartyItem(0, "", "", "", "", ""),
-            ViewingPartyItem(0, "", "", "", "", ""),
-            ViewingPartyItem(0, "", "", "", "", ""),
-            ViewingPartyItem(0, "", "", "", "", ""),
-            ViewingPartyItem(0, "", "", "", "", ""),
-            ViewingPartyItem(0, "", "", "", "", ""),
-        )
-        viewingPartyRVA?.submitList(list)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewingPartyRVA?.refresh()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("de", "de")
         _viewIngPartyRVA = null
     }
 

@@ -10,8 +10,8 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import umc.everyones.lck.R
-import umc.everyones.lck.User
 import umc.everyones.lck.databinding.FragmentSignupSuccessBinding
+import umc.everyones.lck.domain.model.user.UserItem
 import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.util.TeamData
@@ -27,20 +27,21 @@ class SignupSuccessFragment : BaseFragment<FragmentSignupSuccessBinding>(R.layou
 
     override fun initView() {
         // 번들로 전달된 데이터 추출
-        val profileImageUri = arguments?.getString("profileImageUri") ?: ""
-        val teamName = arguments?.getString("teamName") ?: "default_team" // 기본값 처리
 
         // ViewModel에서 nickname 값 가져오기
         val nickname = viewModel.nickname.value ?: ""
+        val kakaoUserId = viewModel.kakaoUserId.value
+        val profileImageUri = viewModel.profileImageUri.value ?: ""
+        val teamId = viewModel.teamId.value
 
-        Log.d("SignupSuccessFragment", "Received profileImageUri: $profileImageUri, teamName: $teamName, nickname: $nickname")
+        Log.d("SignupSuccessFragment", "Received profileImageUri: $profileImageUri, teamName: $teamId, nickname: $nickname, kakaoUserId: $kakaoUserId")
 
         // 사용자 정보 로드 및 화면 표시
         lifecycleScope.launch {
             if (nickname.isNotEmpty()) {
                 val user = viewModel.getUser(nickname)
                 if (user != null) {
-                    displayUserInfo(user, teamName)
+                    displayUserInfo(user, teamId)
                 } else {
                     Log.e("SignupSuccessFragment", "User not found for nickname: $nickname")
                 }
@@ -58,7 +59,7 @@ class SignupSuccessFragment : BaseFragment<FragmentSignupSuccessBinding>(R.layou
         }
     }
 
-    private fun displayUserInfo(user: User, teamName: String) {
+    private fun displayUserInfo(user: UserItem, teamName: String) {
         Log.d("SignupSuccessFragment", "User: $user")
 
         // 닉네임을 텍스트에 반영

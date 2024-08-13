@@ -1,8 +1,6 @@
 package umc.everyones.lck.domain.model.response.login
 
-import okhttp3.MultipartBody
-
-data class SignupAuthUserModel(
+data class CommonLoginModel(
     val accessToken: String,
     val refreshToken: String,
     val accessTokenExpirationTime: String,

@@ -1,6 +1,7 @@
 package umc.everyones.lck.presentation.login
 
 import android.app.Application
+import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -17,6 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignupViewModel @Inject constructor(
+    spf: SharedPreferences,
     application: Application,
     private val nicknameManager: NicknameManager
 ) : AndroidViewModel(application) {
@@ -31,6 +33,9 @@ class SignupViewModel @Inject constructor(
 
     private val _kakaoUserId = MutableStateFlow<String>("")
     val kakaoUserId = _kakaoUserId.asStateFlow()
+
+    private val _teamId = MutableStateFlow<String>("")
+    val teamId = _teamId.asStateFlow()
 
     fun setProfileImageUri(uri: Uri?) {
         _profileImageUri.value = uri
@@ -59,7 +64,7 @@ class SignupViewModel @Inject constructor(
                             kakaoUserId = userId,
                             nickname = nick,
                             profileUri = profileImageUri,
-                            team = team,
+                            teamId = team,
                             tier = tier
                         )
                         users.add(user)

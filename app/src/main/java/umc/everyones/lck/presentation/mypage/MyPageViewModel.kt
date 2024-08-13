@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import umc.everyones.lck.User
+import umc.everyones.lck.domain.model.user.UserItem
 import umc.everyones.lck.presentation.login.SignupViewModel
 import javax.inject.Inject
 
@@ -17,8 +17,8 @@ class MyPageViewModel @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
 
-    private val _user = MutableLiveData<User?>()
-    val user: LiveData<User?> get() = _user
+    private val _user = MutableLiveData<UserItem?>()
+    val user: LiveData<UserItem?> get() = _user
 
     // 사용자 정보를 로드하는 함수
     fun loadUser(nickname: String?, signupViewModel: SignupViewModel) {

@@ -1,5 +1,7 @@
 package umc.everyones.lck.presentation
 
+import android.content.Context
+import android.content.Intent
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -34,5 +36,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         binding.mainBnv.setupWithNavController(navController)
+    }
+
+    companion object {
+        fun writeDoneIntent(context: Context, isWriteDone: Boolean) =
+            Intent(context, MainActivity::class.java).apply {
+                putExtra("isWriteDone", isWriteDone)
+            }
     }
 }

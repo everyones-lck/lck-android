@@ -26,6 +26,19 @@ class WriteViewingPartyViewModel @Inject constructor(
     private val _date = MutableSharedFlow<String>()
     val date: SharedFlow<String> get() = _date
 
+    private val _writeViewingPartyEvent = MutableSharedFlow<WriteViewingPartyEvent>()
+    val writeViewingPartyEvent: SharedFlow<WriteViewingPartyEvent> get() = _writeViewingPartyEvent
+
+    sealed class WriteViewingPartyEvent{
+        data object WriteDoneViewingParty: WriteViewingPartyEvent()
+    }
+
+    private fun eventWriteViewingParty(event: WriteViewingPartyEvent){
+        viewModelScope.launch {
+            _writeViewingPartyEvent.emit(event)
+        }
+    }
+
     fun setDate(date: String) {
         viewModelScope.launch {
             _date.emit(date)
@@ -82,7 +95,7 @@ class WriteViewingPartyViewModel @Inject constructor(
                     postId,
                     writeViewingPartyModel
                 ).onSuccess { response ->
-                    Log.d("writeViewingParty", response.toString())
+                    Log.d("editViewingParty", response.toString())
                 }.onFailure {
                     Log.d("editViewingParty", it.stackTraceToString())
                 }
@@ -93,8 +106,9 @@ class WriteViewingPartyViewModel @Inject constructor(
                     writeViewingPartyModel
                 ).onSuccess { response ->
                     Log.d("writeViewingParty", response.toString())
+                    eventWriteViewingParty(WriteViewingPartyEvent.WriteDoneViewingParty)
                 }.onFailure {
-
+                    Log.d("writeViewingParty", it.stackTraceToString())
                 }
             }
         }

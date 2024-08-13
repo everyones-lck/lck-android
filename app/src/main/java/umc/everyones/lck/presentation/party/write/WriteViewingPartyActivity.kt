@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWriteViewingPartyBinding
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
+import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.party.dialog.CalendarDialogFragment
 import umc.everyones.lck.util.extension.addDecimalFormattedTextWatcher
@@ -60,6 +61,21 @@ class WriteViewingPartyActivity :
             // 달력에서 선택한 날짜 및 시간 반영
             viewModel.date.collect {
                 binding.tvWriteViewingPartyDate.text = it
+            }
+        }
+
+        repeatOnStarted {
+            viewModel.writeViewingPartyEvent.collect{ event ->
+                handleWriteViewingPartyEvent(event)
+            }
+        }
+    }
+
+    private fun handleWriteViewingPartyEvent(event: WriteViewingPartyViewModel.WriteViewingPartyEvent){
+        when(event){
+            WriteViewingPartyViewModel.WriteViewingPartyEvent.WriteDoneViewingParty -> {
+                setResult(RESULT_OK, MainActivity.writeDoneIntent(this@WriteViewingPartyActivity, true))
+                finish()
             }
         }
     }
@@ -237,7 +253,6 @@ class WriteViewingPartyActivity :
                     qualify = etWriteViewingPartyQualify.textToString(),
                     etc = etWriteViewingPartyEtc.textToString()
                 )
-                //finish()
             }
         }
     }

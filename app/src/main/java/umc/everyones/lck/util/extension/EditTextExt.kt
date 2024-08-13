@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.TextView
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import java.text.DecimalFormat
@@ -83,3 +84,9 @@ fun EditText.setOnEditorActionListener(action: Int, invoke: () -> Unit){
         }
     }
 }
+
+fun EditText.textToString() =
+    this.text.toString()
+
+fun TextView.textToString() =
+    this.text.toString()

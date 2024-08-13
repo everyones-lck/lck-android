@@ -11,9 +11,12 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import umc.everyones.lck.data.repositoryImpl.TestRepositoryImpl
+import umc.everyones.lck.data.repositoryImpl.party.ViewingPartyRepositoryImpl
 import umc.everyones.lck.data.service.NaverService
 import umc.everyones.lck.data.service.TestService
+import umc.everyones.lck.data.service.party.ViewingPartyService
 import umc.everyones.lck.domain.repository.TestRepository
+import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
 import javax.inject.Singleton
 
 @Module
@@ -38,4 +41,10 @@ object RepositoryModule {
     @Provides
     fun providesNaverRepository(naverService: NaverService): NaverRepository =
         NaverRepositoryImpl(naverService)
+
+    @ViewModelScoped
+    @Provides
+    fun providesViewingPartyRepository(
+        viewingPartyRepositoryImpl: ViewingPartyRepositoryImpl
+    ): ViewingPartyRepository = viewingPartyRepositoryImpl
 }

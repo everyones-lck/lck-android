@@ -5,6 +5,7 @@ import okhttp3.RequestBody
 import umc.everyones.lck.data.datasource.login.LoginDataSource
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.login.CommonLoginRequestDto
+import umc.everyones.lck.data.dto.request.login.NicknameAuthUserRequestDto
 import umc.everyones.lck.data.dto.response.login.CommonLoginResponseDto
 import umc.everyones.lck.data.service.LoginService
 import javax.inject.Inject
@@ -24,4 +25,17 @@ class LoginDataSourceImpl @Inject constructor(
     override suspend fun login(requestDto: CommonLoginRequestDto):BaseResponse<CommonLoginResponseDto> = loginService.login(requestDto)
 
     override suspend fun refresh(requestDto: CommonLoginRequestDto):BaseResponse<CommonLoginResponseDto> = loginService.refresh(requestDto)
+
+    override suspend fun nickname(requestDto: NicknameAuthUserRequestDto): Result<Unit> {
+        return try {
+            val response = loginService.nickname(requestDto)
+            if (response.success) {
+                Result.success(Unit)
+            } else {
+                Result.failure(Exception("Nickname API 호출 실패: ${response.message}"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }

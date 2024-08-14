@@ -4,6 +4,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import umc.everyones.lck.data.datasource.login.LoginDataSource
 import umc.everyones.lck.domain.model.request.login.CommonLoginRequestModel
+import umc.everyones.lck.domain.model.request.login.NicknameAuthUserRequestModel
 import umc.everyones.lck.domain.model.response.login.CommonLoginResponseModel
 import umc.everyones.lck.domain.repository.login.LoginRepository
 import javax.inject.Inject
@@ -25,4 +26,7 @@ class LoginRepositoryImpl @Inject constructor(
 
     override suspend fun refresh(request: CommonLoginRequestModel): Result<CommonLoginResponseModel> =
         runCatching { loginDataSource.refresh(request.toCommonLoginRequestDto()).data.toCommonLoginResponseDto() }
+
+    override suspend fun nickname(request: NicknameAuthUserRequestModel): Result<Unit> =
+        runCatching { loginDataSource.nickname(request.toNicknameAuthUserRequestDto()).getOrThrow() }
 }

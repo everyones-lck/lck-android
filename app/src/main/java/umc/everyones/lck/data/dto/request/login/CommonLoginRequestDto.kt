@@ -5,7 +5,4 @@ import umc.everyones.lck.domain.model.response.login.CommonLoginResponseModel
 
 data class CommonLoginRequestDto(
     val kakaoUserId: String
-){
-    fun toCommonLoginRequestDto() =
-        CommonLoginRequestModel(kakaoUserId)
-}
+)

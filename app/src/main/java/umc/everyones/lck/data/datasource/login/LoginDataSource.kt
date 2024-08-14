@@ -15,4 +15,6 @@ interface LoginDataSource {
     suspend fun refresh(requestDto: CommonLoginRequestDto): BaseResponse<CommonLoginResponseDto>
 
     suspend fun nickname(request: NicknameAuthUserRequestDto): Result<Unit>
+
+    suspend fun usertest(token: String): BaseResponse<Unit>
 }

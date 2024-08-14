@@ -15,4 +15,6 @@ interface LoginRepository {
     suspend fun refresh(request: CommonLoginRequestModel): Result<CommonLoginResponseModel>
 
     suspend fun nickname(request: NicknameAuthUserRequestModel): Result<Unit>
+
+    suspend fun usertest(token: String): Result<Unit>
 }

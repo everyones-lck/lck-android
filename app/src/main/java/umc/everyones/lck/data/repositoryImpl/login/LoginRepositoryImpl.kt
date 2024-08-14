@@ -28,5 +28,9 @@ class LoginRepositoryImpl @Inject constructor(
         runCatching { loginDataSource.refresh(request.toCommonLoginRequestDto()).data.toCommonLoginResponseDto() }
 
     override suspend fun nickname(request: NicknameAuthUserRequestModel): Result<Unit> =
-        runCatching { loginDataSource.nickname(request.toNicknameAuthUserRequestDto()).getOrThrow() }
+        runCatching { loginDataSource.nickname(request.toNicknameAuthUserRequestDto())
+            Unit }
+    override suspend fun usertest(token: String): Result<Unit> =
+        runCatching { loginDataSource.usertest(token)
+            Unit }
 }

@@ -38,4 +38,6 @@ class LoginDataSourceImpl @Inject constructor(
             Result.failure(e)
         }
     }
+
+    override suspend fun usertest(token: String): BaseResponse<Unit> = loginService.usertest(token)
 }

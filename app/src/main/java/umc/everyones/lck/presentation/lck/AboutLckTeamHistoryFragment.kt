@@ -1,5 +1,6 @@
 package umc.everyones.lck.presentation.lck
 
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import umc.everyones.lck.presentation.lck.data.HistoryData
 @AndroidEntryPoint
 class AboutLckTeamHistoryFragment : BaseFragment<FragmentAboutLckTeamHistoryBinding>(R.layout.fragment_about_lck_team_history) {
 
+    private val viewModel: AboutLckTeamHistoryViewModel by viewModels()
     override fun initObserver() {
 
     }
@@ -20,6 +22,14 @@ class AboutLckTeamHistoryFragment : BaseFragment<FragmentAboutLckTeamHistoryBind
     override fun initView() {
         initRecyclerView()
         initBackButton()
+
+        val teamId = 1
+        val page = 1
+        val size = 10
+
+        viewModel.fetchLckWinningHistory(teamId, page, size)
+        viewModel.fetchLckRecentPerformances(teamId, page, size)
+        viewModel.fetchLckHistoryOfRoaster(teamId, page, size)
     }
 
     private fun initRecyclerView() {

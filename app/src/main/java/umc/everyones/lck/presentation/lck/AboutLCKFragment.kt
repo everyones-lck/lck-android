@@ -1,6 +1,7 @@
 package umc.everyones.lck.presentation.lck
 
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +30,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
     private var datePickerDialog: CustomDatePickerDialog? = null
 
     private val navigator by lazy { findNavController() }
+    private val viewModel: AboutLckViewModel by viewModels()
 
     override fun initObserver() {
     }
@@ -100,6 +102,8 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
         val verticalSpaceHeightPx = (10 * resources.displayMetrics.density).toInt()
         recyclerView.addItemDecoration(VerticalSpaceItemDecoration(verticalSpaceHeightPx))
+
+        viewModel.fetchLckRanking("2024 Spring" , 1, 10)
     }
 
     private fun initBackButton() {
@@ -118,7 +122,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         binding.ivAboutLckCalendar.setOnClickListener {
             toggleDatePickerDialog()
         }
-        // 오늘 날짜를 초기값으로 설정
+
         val calendar = Calendar.getInstance()
         updateSelectedDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
     }
@@ -153,8 +157,11 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
     private fun updateSelectedDate(year: Int, month: Int, day: Int) {
         val dateTextView: TextView = binding.tvAboutLckDate
-        val formattedDate = String.format("%d.%02d.%02d", year, month + 1, day)
-        dateTextView.text = formattedDate
+        val formattedDate = String.format("%d-%02d-%02d", year, month + 1, day)
+        dateTextView.text = String.format("%d.%02d.%02d", year, month + 1, day)
+
+        // 선택된 날짜로 API 호출
+        viewModel.fetchLckMatchDetails(formattedDate)
     }
 
     override fun onTeamClick(team: RankingData) {

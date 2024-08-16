@@ -1,11 +1,14 @@
 package umc.everyones.lck.presentation.party
 
+import android.content.Intent
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.presentation.mypage.MyPageActivity
 import umc.everyones.lck.presentation.party.adapter.ViewingPartyRVA
 import umc.everyones.lck.presentation.party.write.WriteViewingPartyActivity
 import umc.everyones.lck.util.extension.setOnSingleClickListener
@@ -14,6 +17,7 @@ import umc.everyones.lck.util.extension.setOnSingleClickListener
 class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.fragment_viewing_party) {
     private var _viewIngPartyRVA: ViewingPartyRVA? = null
     private val viewingPartyRVA get() = _viewIngPartyRVA
+    private val viewModel: ViewingPartyViewModel by viewModels()
 
     private val navigator by lazy {
         findNavController()
@@ -26,6 +30,8 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     override fun initView() {
         initViewingPartyRVAdapter()
         goToWriteViewingParty()
+        goMyPage()
+        viewModel.fetchViewingPartyList()
     }
 
     private fun goToWriteViewingParty(){
@@ -35,13 +41,13 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     }
 
     private fun initViewingPartyRVAdapter(){
-        _viewIngPartyRVA = ViewingPartyRVA { postId ->
-            val action = ViewingPartyFragmentDirections.actionViewingPartyFragmentToReadViewingPartyFragment(postId)
+        _viewIngPartyRVA = ViewingPartyRVA { postId, isWriter ->
+            val action = ViewingPartyFragmentDirections.actionViewingPartyFragmentToReadViewingPartyFragment(isWriter, postId)
             navigator.navigate(action)
         }
         binding.rvViewingParty.adapter = viewingPartyRVA
         val list = listOf(
-            ViewingPartyItem(0, "", "", "", "", ""),
+            ViewingPartyItem(0, "", "", "", "", "", true),
             ViewingPartyItem(0, "", "", "", "", ""),
             ViewingPartyItem(0, "", "", "", "", ""),
             ViewingPartyItem(0, "", "", "", "", ""),
@@ -58,12 +64,9 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
         _viewIngPartyRVA = null
     }
 
-    private fun setupMypageButton() {
-        binding.ivMyPage.setOnClickListener {
-
-            val intent = Intent(requireContext(), MyPageActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish() // Finish the current activity
+    private fun goMyPage(){
+        binding.ivMyPage.setOnSingleClickListener {
+            startActivity(MyPageActivity.newIntent(requireContext()))
         }
     }
 }

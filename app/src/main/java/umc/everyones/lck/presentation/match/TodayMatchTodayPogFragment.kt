@@ -42,9 +42,9 @@ class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBindin
 
     private val pogPlayer = listOf(
         TodayPog(R.drawable.ic_profile_player),
-        TodayPog(R.drawable.ic_t1),
-        TodayPog(R.drawable.ic_gen_g),
-        TodayPog(R.drawable.ic_kt_rolster),
+        TodayPog(R.drawable.ic_profile_player),
+        TodayPog(R.drawable.ic_profile_player),
+        TodayPog(R.drawable.ic_profile_player),
         TodayPog(R.drawable.ic_profile_player)
     )
 

@@ -1,5 +1,6 @@
 package umc.everyones.lck.presentation.lck
 
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,7 @@ import umc.everyones.lck.presentation.lck.data.PlayerCareerData
 
 @AndroidEntryPoint
 class AboutLckTeamPlayerFragment : BaseFragment<FragmentAboutLckTeamPlayerBinding>(R.layout.fragment_about_lck_team_player) {
+    private val viewModel: AboutLckPlayerCareerViewModel by viewModels()
     override fun initObserver() {
 
     }
@@ -19,6 +21,14 @@ class AboutLckTeamPlayerFragment : BaseFragment<FragmentAboutLckTeamPlayerBindin
     override fun initView() {
         initRecyclerView()
         initBackButton()
+        // 예시 값으로 API 호출
+        val playerId= 1
+        val page = 1
+        val size = 10
+
+        viewModel.fetchLckWinningCareer(playerId, page, size)
+        viewModel.fetchLckHistory(playerId, page, size)
+        viewModel.fetchLckPlayer(playerId)
     }
 
     private fun initRecyclerView() {

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.databinding.ItemViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
 
-class ViewingPartyRVA(val readViewingParty: (Int) -> Unit) :
+class ViewingPartyRVA(val readViewingParty: (Long, Boolean) -> Unit) :
     ListAdapter<ViewingPartyItem, ViewingPartyRVA.ViewingPartyViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewingPartyViewHolder {
@@ -34,7 +34,7 @@ class ViewingPartyRVA(val readViewingParty: (Int) -> Unit) :
                 tvViewingPartyAddress.text = viewingPartyItem.address
                 tvViewingPartyDate.text = viewingPartyItem.date*/
                 root.setOnClickListener {
-                    readViewingParty(viewingPartyItem.id)
+                    readViewingParty(viewingPartyItem.id, viewingPartyItem.isWriter)
                 }
             }
         }

@@ -12,29 +12,6 @@
         android:name="umc.everyones.lck.presentation.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" />
-<!--    <fragment-->
-<!--        android:id="@+id/todayMatchFragment"-->
-<!--        android:name="umc.everyones.lck.presentation.match.TodayMatchFragment"-->
-<!--        android:label="TodayMatchFragment"-->
-<!--        tools:layout="@layout/fragment_today_match">-->
-<!--        <action-->
-<!--            android:id="@+id/goToPrediction"-->
-<!--            app:destination="@id/todayMatchPredictionFragment" />-->
-<!--        <action-->
-<!--            android:id="@+id/goToTodayPog"-->
-<!--            app:destination="@id/todayMatchTodayPogFragment" />-->
-<!--    </fragment>-->
-<!--    <fragment-->
-<!--        android:id="@+id/todayMatchPredictionFragment"-->
-<!--        android:name="umc.everyones.lck.presentation.match.TodayMatchPredictionFragment"-->
-<!--        android:label="TodayMatchPredictionFragment"-->
-<!--        tools:layout="@layout/fragment_today_match_prediction"/>-->
-<!--    <fragment-->
-<!--        android:id="@+id/todayMatchTodayPogFragment"-->
-<!--        android:name="umc.everyones.lck.presentation.match.TodayMatchTodayPogFragment"-->
-<!--        android:label="TodayMatchTodayPogFragment"-->
-<!--        tools:layout="@layout/fragment_today_match_today_pog"/>-->
-
 
     <navigation android:id="@+id/todayMatchTab"
         app:startDestination="@+id/todayMatchFragment">
@@ -89,12 +66,15 @@
             android:name="umc.everyones.lck.presentation.party.read.ReadViewingPartyFragment"
             android:label="ReadViewingPartyFragment"
             tools:layout="@layout/fragment_read_viewing_party">
-            <argument
-                android:name="postId"
-                app:argType="integer" />
             <action
                 android:id="@+id/action_readViewingPartyFragment_to_participantsFragment"
                 app:destination="@id/participantsFragment" />
+            <argument
+                android:name="isWriter"
+                app:argType="boolean" />
+            <argument
+                android:name="postId"
+                app:argType="long" />
         </fragment>
         <fragment
             android:id="@+id/participantsFragment"

@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import umc.everyones.lck.databinding.ItemViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
 import umc.everyones.lck.domain.model.response.party.ViewingPartyListModel
@@ -38,6 +39,9 @@ class ViewingPartyRVA(val readViewingParty: (Long) -> Unit) :
                 tvViewingPartyWriter.text = viewingPartyItem.writerInfo
                 tvViewingPartyAddress.text = viewingPartyItem.location
                 tvViewingPartyDate.text = viewingPartyItem.partyDate
+                Glide.with(ivViewingPartyProfile.context)
+                    .load(viewingPartyItem.photoURL)
+                    .into(ivViewingPartyProfile)
                 root.setOnClickListener {
                     readViewingParty(viewingPartyItem.id)
                 }

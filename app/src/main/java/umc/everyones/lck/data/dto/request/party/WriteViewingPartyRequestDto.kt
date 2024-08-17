@@ -8,6 +8,7 @@ data class WriteViewingPartyRequestDto(
     val latitude: Double,
     val longitude: Double,
     val location: String,
+    val shortLocation: String,
     val price: Int,
     val lowParticipate: Int,
     val highParticipate: Int,

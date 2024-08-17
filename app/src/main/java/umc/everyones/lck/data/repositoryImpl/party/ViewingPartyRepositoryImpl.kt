@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import umc.everyones.lck.data.datasource.ViewingPartyDataSource
-import umc.everyones.lck.data.datasourceImpl.ViewingPartyListPagingSource
+import umc.everyones.lck.data.datasourceImpl.party.ViewingPartyListPagingSource
 import umc.everyones.lck.data.service.party.ViewingPartyService
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.CommonViewingPartyModel
@@ -78,7 +78,7 @@ class ViewingPartyRepositoryImpl @Inject constructor(
                 pageSize = 10,
                 enablePlaceholders = false,
             ),
-            pagingSourceFactory = {ViewingPartyListPagingSource(viewingPartyService)}
+            pagingSourceFactory = { ViewingPartyListPagingSource(viewingPartyService) }
         ).flow
 
 

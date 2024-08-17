@@ -10,18 +10,18 @@ import umc.everyones.lck.domain.repository.NaverRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
+import umc.everyones.lck.domain.model.naver.GeocodingModel
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
-import umc.everyones.lck.util.network.onFail
-import umc.everyones.lck.util.network.onSuccess
+import java.lang.IndexOutOfBoundsException
 
 @HiltViewModel
 class WriteViewingPartyViewModel @Inject constructor(
     private val naverRepository: NaverRepository,
     private val repository: ViewingPartyRepository
 ) : ViewModel() {
-    private val _latLng = MutableSharedFlow<LatLng>()
-    val latLng: SharedFlow<LatLng> get() = _latLng
+    private val _geocodingResult = MutableSharedFlow<GeocodingModel>()
+    val geocodingResult: SharedFlow<GeocodingModel> get() = _geocodingResult
 
     private val _date = MutableSharedFlow<String>()
     val date: SharedFlow<String> get() = _date
@@ -45,22 +45,36 @@ class WriteViewingPartyViewModel @Inject constructor(
         }
     }
 
-    fun fetchGeoCoding(query: String) {
+    fun fetchGeocoding(query: String) {
         viewModelScope.launch {
             naverRepository.fetchGeocoding(query).onSuccess { response ->
-                val result = response.addresses.firstOrNull()
-                if (result != null) {
-                    Log.d("result", result.toString())
-                    val latLng = LatLng(result.y.toDouble(), result.x.toDouble())
-                    _latLng.emit(latLng)
-                } else {
-                    _latLng.emit(LatLng.INVALID)
+                Log.d("fetchGeocoding", response.toString())
+                _geocodingResult.emit(response)
+            }.onFailure {
+                if (it is IndexOutOfBoundsException) {
+                    _geocodingResult.emit(GeocodingModel(LatLng.INVALID, "", "", ""))
                 }
-            }.onFail {
-                _latLng.emit(LatLng.INVALID)
+                Log.d("fetchGeocoding", it.stackTraceToString())
             }
         }
     }
+
+    /*fun fetchReverseGeocoding(coord: LatLng){
+        viewModelScope.launch {
+            naverRepository.fetchReverseGeocodingInfo(
+                "${coord.longitude},${coord.latitude}"
+            ).onSuccess {response ->
+                Log.d("fetchReverseGeocoding", response.toString())
+                val result = response.results.firstOrNull()
+                if(result != null){
+                    with(result.region){
+                        _adminAddress.value = "${area2.name.split(" ")[0]} ${area3.name}"
+
+                    }
+                }
+            }
+        }
+    }*/
 
     fun writeViewingParty(
         isEdit: Boolean,

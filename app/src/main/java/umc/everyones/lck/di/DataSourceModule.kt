@@ -5,12 +5,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import dagger.hilt.components.SingletonComponent
+import umc.everyones.lck.data.datasource.NaverDataSource
 import umc.everyones.lck.data.datasource.ViewingPartyDataSource
-import umc.everyones.lck.data.datasourceImpl.ViewingPartyDataSourceImpl
-import umc.everyones.lck.data.datasourceImpl.ViewingPartyListPagingSource
-import umc.everyones.lck.data.service.party.ViewingPartyService
-import javax.inject.Singleton
+import umc.everyones.lck.data.datasourceImpl.naver.NaverDataSourceImpl
+import umc.everyones.lck.data.datasourceImpl.party.ViewingPartyDataSourceImpl
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -19,4 +17,9 @@ object DataSourceModule {
     @ViewModelScoped
     fun provideViewingPartyDataSource(viewingPartyDataSourceImpl: ViewingPartyDataSourceImpl): ViewingPartyDataSource =
         viewingPartyDataSourceImpl
+
+    @Provides
+    @ViewModelScoped
+    fun provideNaverDataSource(naverDataSourceImpl: NaverDataSourceImpl): NaverDataSource =
+        naverDataSourceImpl
 }

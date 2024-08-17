@@ -26,7 +26,7 @@ data class ReadViewingPartyResponseDto(
             ownerName.combineNicknameAndTeam(ownerTeam),
             ownerImage,
             qualify,
-            partyDate.toReadViewingPartyDateFormat(),
+            partyDate.slice(0..15).toReadViewingPartyDateFormat(),
             location,
             latitude,
             longitude,

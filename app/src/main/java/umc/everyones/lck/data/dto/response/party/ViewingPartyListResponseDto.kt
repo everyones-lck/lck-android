@@ -28,7 +28,7 @@ data class ViewingPartyListResponseDto(
                 name,
                 userName.combineNicknameAndTeam(teamName),
                 photoURL,
-                partyDate.toListViewingPartyDateFormat(),
+                partyDate.slice(0..15).toListViewingPartyDateFormat(),
                 latitude,
                 longitude,
                 location

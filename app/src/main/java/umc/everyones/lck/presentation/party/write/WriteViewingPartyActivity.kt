@@ -39,21 +39,26 @@ class WriteViewingPartyActivity :
     private var postId = 0L
     override fun initObserver() {
         repeatOnStarted {
-            viewModel.latLng.collect { latLng ->
+            viewModel.geocodingResult.collect { result ->
                 // 잘못된 위경도 좌표가 왔을 떄 예외처리
-                if (!latLng.isValid) {
+                if (!result.latLng.isValid) {
                     showCustomSnackBar(binding.root, "주소를 정확히 입력해주세요")
                     return@collect
                 }
 
+                //viewModel.fetchReverseGeocoding(latLng)
+
                 // 지도에 마커 띄우고 카메라 이동
                 viewingPartyMarker.apply {
-                    position = latLng
+                    position = result.latLng
                     icon = OverlayImage.fromResource(R.drawable.img_marker)
                     map = naverMap
                 }
 
-                naverMap?.moveCamera(CameraUpdate.scrollTo(latLng))
+                naverMap?.moveCamera(CameraUpdate.scrollTo(result.latLng))
+                binding.etWriteViewingPartyAddress.setText(
+                    result.roadAddress.ifEmpty { result.jibunAddress }
+                )
             }
         }
 
@@ -114,7 +119,7 @@ class WriteViewingPartyActivity :
                 tvWriteViewingPartyDate.text = editViewingParty.date
                 tvWriteDone.text = "수정"
 
-                viewModel.fetchGeoCoding(editViewingParty.location)
+                viewModel.fetchGeocoding(editViewingParty.location)
             }
         }
     }
@@ -261,7 +266,7 @@ class WriteViewingPartyActivity :
     private fun setViewingPartyPlace() {
         binding.etWriteViewingPartyAddress.setOnEditorActionListener(EditorInfo.IME_ACTION_DONE) {
             Log.d("geoCoding", binding.etWriteViewingPartyAddress.text.toString())
-            viewModel.fetchGeoCoding(binding.etWriteViewingPartyAddress.text.toString())
+            viewModel.fetchGeocoding(binding.etWriteViewingPartyAddress.text.toString())
         }
     }
 

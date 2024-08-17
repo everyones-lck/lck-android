@@ -13,7 +13,7 @@ data class LckMatchDetailsResponseDto(
         val matchFinished: Boolean,
         val season: String,
         val matchNumber: Int,
-        val matchDate: String
+        val matchTime: String
     ){
         data class TeamElementDto(
             val teamName: String,
@@ -24,7 +24,7 @@ data class LckMatchDetailsResponseDto(
                 AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel.TeamElementModel(teamName, teamLogoUrl, winner)
         }
         fun toAboutLckMatchDetailsElementModel() =
-            AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel(team1.toTeamElementModel(),team2.toTeamElementModel(),matchFinished,season,matchNumber,matchDate)
+            AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel(team1.toTeamElementModel(),team2.toTeamElementModel(),matchFinished,season,matchNumber,matchTime)
     }
     fun toAboutLckMatchDetailsModel() =
         AboutLckMatchDetailsModel(matchDetailList.map{it.toAboutLckMatchDetailsElementModel()}, listSize)

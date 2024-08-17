@@ -25,16 +25,23 @@ class AboutLckViewModel @Inject constructor(
     private val repository: AboutLckRepository
 ) : ViewModel() {
 
+    private val _matchDetails = MutableStateFlow<Result<AboutLckMatchDetailsModel>?>(null)
+    val matchDetails: StateFlow<Result<AboutLckMatchDetailsModel>?> get() = _matchDetails
+    private val _title = MutableStateFlow<String>("")
+    val title: StateFlow<String> get() = _title
+
+
     fun fetchLckMatchDetails(searchDate: String) {
         viewModelScope.launch {
             val result = repository.fetchLckMatchDetails(searchDate)
+            _matchDetails.value = result
 
-            result.onSuccess { response ->
-                // API 호출 성공 시 로그로 응답 데이터 출력
-                Log.d("AboutLckViewModel", "fetchLckMatchDetails API 호출 성공: $response")
-            }.onFailure { exception ->
-                // API 호출 실패 시 로그로 에러 메시지 출력
-                Log.e("AboutLckViewModel", "fetchLckMatchDetails API 호출 실패: ${exception.message}")
+            result.onSuccess { data ->
+                _title.value = data.matchDetailList.firstOrNull()?.let {
+                    formatMatchTitle(it.season, it.matchNumber)
+                } ?: "No Matches"
+            }.onFailure {
+                _title.value = "Failed to load matches"
             }
         }
     }
@@ -52,17 +59,25 @@ class AboutLckViewModel @Inject constructor(
             }
         }
     }
-}
-    /*// StateFlow로 상태 관리
-    private val _matchDetails = MutableStateFlow<NetworkResult<AboutLckMatchDetailsModel>?>(null)
-    val matchDetails: StateFlow<NetworkResult<AboutLckMatchDetailsModel>?> = _matchDetails.asStateFlow()
 
-    @RequiresApi(Build.VERSION_CODES.O) //parse 때문에 필요
-    fun fetchLckMatchDetails(searchDate: String) {
-        viewModelScope.launch {
-            val parsedDate = parse(searchDate)
-            val result = repository.fetchLckMatchDetails(parsedDate)
-            _matchDetails.value = result
+    // 경기 제목을 포맷팅하는 메소드
+    fun formatMatchTitle(season: String, matchNumber: Int): String {
+        val suffix = when (matchNumber % 10) {
+            1 -> "st"
+            2 -> "nd"
+            3 -> "rd"
+            else -> "th"
         }
-    }*/
+        return "LCK $season ${matchNumber}${suffix} Match"
+    }
+
+    // 승리한 팀의 이름을 반환하는 메소드
+    fun getWinningTeamName(match: AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel): String {
+        return if (match.team1.winner) {
+            match.team1.teamName
+        } else {
+            match.team2.teamName
+        }
+    }
+}
 

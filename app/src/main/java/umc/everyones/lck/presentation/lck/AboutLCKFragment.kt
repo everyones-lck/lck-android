@@ -31,6 +31,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
     private lateinit var matchVPAdapter: MatchVPAdapter
     private lateinit var rankingAdapter: RankingAdapter
+    private val topTeams = mutableListOf<RankingData>()
 
     private var isDatePickerDialogVisible = false
     private var datePickerDialog: CustomDatePickerDialog? = null
@@ -132,12 +133,23 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
             val teamDetails = rankingDetails.teamDetailList
 
             if (teamDetails.isNotEmpty()) {
-                // 상위 3팀
-                displayTopTeams(teamDetails.take(3))
+                // 상위 3팀 데이터 저장
+                topTeams.clear()
+                topTeams.addAll(teamDetails.take(3).map { teamDetail ->
+                    RankingData(
+                        teamId = teamDetail.teamId,
+                        ranking = teamDetail.rating,
+                        teamLogoUrl = teamDetail.teamLogoUrl,
+                        teamName = teamDetail.teamName
+                    )
+                })
+                // 상위 3팀 표시
+                displayTopTeams(topTeams)
 
                 // 나머지 4~10등 팀
                 val remainingTeams = teamDetails.drop(3).map { teamDetail ->
                     RankingData(
+                        teamId = teamDetail.teamId,
                         ranking = teamDetail.rating,
                         teamLogoUrl = teamDetail.teamLogoUrl,
                         teamName = teamDetail.teamName
@@ -164,7 +176,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
     }
 
-    private fun displayTopTeams(topTeams: List<AboutLckRankingDetailsModel.LckTeamRankingDetailsElementDto>) {
+    private fun displayTopTeams(topTeams: List<RankingData>) {
         binding.ivAboutLckRanking1st.loadImage(topTeams[0].teamLogoUrl)
         binding.tvAboutLckRanking1st.text = topTeams[0].teamName
 
@@ -181,15 +193,39 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
             .into(this)
     }
 
+
     private fun initBackButton() {
         binding.viewAboutLckRect1.setOnClickListener {
-            navigator.navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
+            topTeams.getOrNull(0)?.let { team ->
+                val action = AboutLCKFragmentDirections.actionAboutLCKFragmentToAboutLckTeamFragment(
+                    team.teamId,
+                    team.teamName,
+                    team.teamLogoUrl
+                )
+                navigator.navigate(action)
+            }
         }
+
         binding.viewAboutLckRect2.setOnClickListener {
-            navigator.navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
+            topTeams.getOrNull(1)?.let { team ->
+                val action = AboutLCKFragmentDirections.actionAboutLCKFragmentToAboutLckTeamFragment(
+                    team.teamId,
+                    team.teamName,
+                    team.teamLogoUrl
+                )
+                navigator.navigate(action)
+            }
         }
+
         binding.viewAboutLckRect3.setOnClickListener {
-            navigator.navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
+            topTeams.getOrNull(2)?.let { team ->
+                val action = AboutLCKFragmentDirections.actionAboutLCKFragmentToAboutLckTeamFragment(
+                    team.teamId,
+                    team.teamName,
+                    team.teamLogoUrl
+                )
+                navigator.navigate(action)
+            }
         }
     }
 
@@ -240,6 +276,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
     }
 
     override fun onTeamClick(team: RankingData) {
-        navigator.navigate(R.id.action_aboutLCKFragment_to_aboutLckTeamFragment)
+        val action = AboutLCKFragmentDirections.actionAboutLCKFragmentToAboutLckTeamFragment(team.teamId,team.teamName,team.teamLogoUrl)
+        navigator.navigate(action)
     }
 }

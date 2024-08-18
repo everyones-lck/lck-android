@@ -2,6 +2,7 @@ package umc.everyones.lck.presentation.lck
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -10,6 +11,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
@@ -39,6 +41,8 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
         val viewPager: ViewPager2 = binding.vpAboutLckTeam
         val backButton: ImageView = binding.ivAboutLckTeamPre
         val nextButton: ImageView = binding.ivAboutLckTeamNext
+        val teamTitleTextView: TextView = binding.tvAboutLckTeamTitle
+        val teamLogoImageView: ImageView = binding.ivAboutLckTeamLogo
 
         pagerAdapter = TeamVPAdapter(this)
         viewPager.adapter = pagerAdapter
@@ -60,13 +64,43 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
         nextButton.setOnClickListener {
             navigator.navigate(R.id.action_aboutLCKTeamFragment_to_aboutLckTeamHistoryFragment)
         }
-        // 예시 값으로 API 호출
-        val teamId = 1
-        val seasonName = "2024 Spring"
-        val player_role = AboutLckPlayerDetailsModel.PlayerRole.LCK_ROSTER
 
-        // ViewModel을 통해 API 호출
-        viewModel.fetchLckPlayerDetails(teamId, seasonName, player_role)
+        // Safe Args로 전달된 teamId 수신
+        val teamId = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamId }
+        val teamName = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamName }
+        val teamLogoUrl = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamLogoUrl }
+        Log.d("AboutLckTeamFragment", "teamId: $teamId, teamName: $teamName, teamLogoUrl: $teamLogoUrl")
+
+        // TextView와 ImageView 업데이트
+        teamName?.let {
+            teamTitleTextView.text = it
+        }
+
+        teamLogoUrl?.let {
+            // 이미지 로딩 라이브러리 (예: Glide)로 팀 로고를 설정
+            Glide.with(this)
+                .load(it)
+                .into(teamLogoImageView)
+        }
+
+        // ViewPager의 페이지가 변경될 때마다 호출되는 리스너 설정
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                teamId?.let {
+                    val playerRole = when (position) {
+                        0 -> AboutLckPlayerDetailsModel.PlayerRole.LCK_ROSTER
+                        1 -> AboutLckPlayerDetailsModel.PlayerRole.COACH
+                        2 -> AboutLckPlayerDetailsModel.PlayerRole.LCK_CL_ROSTER
+                        else -> throw IllegalArgumentException("Invalid tab position")
+                    }
+                    Log.d("ViewPager", "teamId: $it, playerRole: $playerRole")
+
+                    // 선택된 탭에 맞는 PlayerRole로 API 호출
+                    viewModel.fetchLckPlayerDetails(it, "2024 Spring", playerRole)
+                }
+            }
+        })
     }
 
     override fun onPlayerItemClick(player: PlayerData) {

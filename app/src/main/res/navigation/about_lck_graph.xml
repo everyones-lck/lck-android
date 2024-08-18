@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_about_lck">
         <action
             android:id="@+id/action_aboutLCKFragment_to_aboutLckTeamFragment"
-            app:destination="@id/aboutLckTeamFragment" />
+            app:destination="@id/aboutLckTeamFragment">
+        </action>
     </fragment>
 
     <fragment
@@ -26,6 +27,18 @@
         <action
             android:id="@+id/action_aboutLCKTeamFragment_to_aboutLckTeamPlayerFragment"
             app:destination="@id/aboutLckTeamPlayerFragment" />
+        <argument
+            android:name="teamId"
+            app:argType="integer"
+            android:defaultValue="2"/>
+        <argument
+            android:name="teamName"
+            app:argType="string"
+            android:defaultValue="DK"/>
+        <argument
+            android:name="teamLogoUrl"
+            app:argType="string"
+            android:defaultValue="2"/>
     </fragment>
 
     <fragment

@@ -16,14 +16,14 @@ data class AboutLckPlayerDetailsModel(
     enum class PlayerRole {
         LCK_ROSTER,
         COACH,
-        CL_ROSTER,
+        LCK_CL_ROSTER,
         DEFAULT;
 
         fun toLckPlayerRole(): LckPlayerDetailsResponseDto.PlayerRole {
             return when (this) {
                 LCK_ROSTER -> LckPlayerDetailsResponseDto.PlayerRole.LCK_ROSTER
                 COACH -> LckPlayerDetailsResponseDto.PlayerRole.COACH
-                CL_ROSTER -> LckPlayerDetailsResponseDto.PlayerRole.CL_ROSTER
+                LCK_CL_ROSTER -> LckPlayerDetailsResponseDto.PlayerRole.LCK_CL_ROSTER
                 DEFAULT -> LckPlayerDetailsResponseDto.PlayerRole.DEFAULT
             }
         }

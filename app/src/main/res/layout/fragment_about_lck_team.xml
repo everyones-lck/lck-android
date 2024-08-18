@@ -37,10 +37,10 @@
         <ImageView
             android:id="@+id/iv_about_lck_team_logo"
             android:layout_width="123.75dp"
-            android:layout_height="50dp"
+            android:layout_height="80dp"
             android:src="@drawable/ic_t1"
             android:layout_marginStart="137dp"
-            android:layout_marginTop="150.5dp"
+            android:layout_marginTop="135.5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -49,10 +49,10 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_arrow_right"
-            android:layout_marginTop="9dp"
             android:layout_marginStart="7dp"
             app:layout_constraintStart_toEndOf="@id/iv_about_lck_team_logo"
-            app:layout_constraintTop_toTopOf="@id/iv_about_lck_team_logo"/>
+            app:layout_constraintTop_toTopOf="@id/iv_about_lck_team_logo"
+            app:layout_constraintBottom_toBottomOf="@id/iv_about_lck_team_logo"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tb_about_lck_team"

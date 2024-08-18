@@ -27,6 +27,7 @@ import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.showKeyboard
 import umc.everyones.lck.util.extension.textToString
 import umc.everyones.lck.util.extension.validateMaxLength
+import umc.everyones.lck.util.network.UiState
 
 @AndroidEntryPoint
 class WriteViewingPartyActivity :
@@ -37,31 +38,8 @@ class WriteViewingPartyActivity :
     private val viewModel: WriteViewingPartyViewModel by viewModels()
     private var isEdit = false
     private var postId = 0L
+    private var shortLocation = ""
     override fun initObserver() {
-        repeatOnStarted {
-            viewModel.geocodingResult.collect { result ->
-                // 잘못된 위경도 좌표가 왔을 떄 예외처리
-                if (!result.latLng.isValid) {
-                    showCustomSnackBar(binding.root, "주소를 정확히 입력해주세요")
-                    return@collect
-                }
-
-                //viewModel.fetchReverseGeocoding(latLng)
-
-                // 지도에 마커 띄우고 카메라 이동
-                viewingPartyMarker.apply {
-                    position = result.latLng
-                    icon = OverlayImage.fromResource(R.drawable.img_marker)
-                    map = naverMap
-                }
-
-                naverMap?.moveCamera(CameraUpdate.scrollTo(result.latLng))
-                binding.etWriteViewingPartyAddress.setText(
-                    result.roadAddress.ifEmpty { result.jibunAddress }
-                )
-            }
-        }
-
         repeatOnStarted {
             // 달력에서 선택한 날짜 및 시간 반영
             viewModel.date.collect {
@@ -70,16 +48,56 @@ class WriteViewingPartyActivity :
         }
 
         repeatOnStarted {
-            viewModel.writeViewingPartyEvent.collect{ event ->
-                handleWriteViewingPartyEvent(event)
+            viewModel.writeViewingPartyEvent.collect { event ->
+                handleUiState(event)
             }
         }
     }
 
-    private fun handleWriteViewingPartyEvent(event: WriteViewingPartyViewModel.WriteViewingPartyEvent){
-        when(event){
+    private fun handleUiState(state: UiState<WriteViewingPartyViewModel.WriteViewingPartyEvent>) {
+        when (state) {
+            is UiState.Success -> {
+                handleWriteViewingPartyEvent(state.data)
+            }
+
+            is UiState.Failure -> {
+                showCustomSnackBar(binding.root, state.msg)
+            }
+
+            else -> Unit
+        }
+    }
+
+    private fun handleWriteViewingPartyEvent(event: WriteViewingPartyViewModel.WriteViewingPartyEvent) {
+        when (event) {
+            is WriteViewingPartyViewModel.WriteViewingPartyEvent.Geocoding -> {
+                with(event.geoCodingResult) {
+                    if (!latLng.isValid) {
+                        showCustomSnackBar(binding.root, "주소를 정확히 입력해주세요")
+                        return
+                    }
+
+                    shortLocation = adminAddress
+
+                    // 지도에 마커 띄우고 카메라 이동
+                    viewingPartyMarker.apply {
+                        position = latLng
+                        icon = OverlayImage.fromResource(R.drawable.img_marker)
+                        map = naverMap
+                    }
+
+                    naverMap?.moveCamera(CameraUpdate.scrollTo(latLng))
+                    binding.etWriteViewingPartyAddress.setText(
+                        roadAddress.ifEmpty { jibunAddress }
+                    )
+                }
+            }
+
             WriteViewingPartyViewModel.WriteViewingPartyEvent.WriteDoneViewingParty -> {
-                setResult(RESULT_OK, MainActivity.writeDoneIntent(this@WriteViewingPartyActivity, true))
+                setResult(
+                    RESULT_OK,
+                    MainActivity.writeDoneIntent(this@WriteViewingPartyActivity, true)
+                )
                 finish()
             }
         }
@@ -99,16 +117,16 @@ class WriteViewingPartyActivity :
         closeWriteViewingParty()
     }
 
-    private fun initEditView(){
+    private fun initEditView() {
         val editViewingParty = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra("viewingParty", WriteViewingPartyModel::class.java)
         } else {
             intent.getSerializableExtra("viewingParty") as WriteViewingPartyModel
         }
-        if (editViewingParty != null){
+        if (editViewingParty != null) {
             isEdit = true
             postId = intent.getLongExtra("postId", 0L)
-            with(binding){
+            with(binding) {
                 etWriteViewingPartyName.setText(editViewingParty.name)
                 etWriteViewingPartyPrice.setText(editViewingParty.price)
                 etWriteViewingPartyQualify.setText(editViewingParty.qualify)
@@ -125,7 +143,7 @@ class WriteViewingPartyActivity :
     }
 
     // 달력 표시
-    private fun showDatePicker(){
+    private fun showDatePicker() {
         binding.tvWriteViewingPartyDate.setOnClickListener {
             val dialog = CalendarDialogFragment()
             dialog.show(supportFragmentManager, dialog.tag)
@@ -249,9 +267,10 @@ class WriteViewingPartyActivity :
                     postId,
                     name = etWriteViewingPartyName.textToString(),
                     date = tvWriteViewingPartyDate.textToString(),
-                    latitude = 0.0,//viewingPartyMarker.position.latitude,
-                    longitude = 0.0,//viewingPartyMarker.position.longitude,
+                    latitude = viewingPartyMarker.position.latitude,
+                    longitude = viewingPartyMarker.position.longitude,
                     location = etWriteViewingPartyAddress.textToString(),
+                    shortLocation = shortLocation,
                     price = etWriteViewingPartyPrice.textToString(),
                     lowParticipate = etWriteViewingPartyParticipantMinimum.textToString(),
                     highParticipate = etWriteViewingPartyParticipantMaximum.textToString(),
@@ -270,7 +289,7 @@ class WriteViewingPartyActivity :
         }
     }
 
-    private fun closeWriteViewingParty(){
+    private fun closeWriteViewingParty() {
         binding.ivWriteClose.setOnClickListener {
             finish()
         }
@@ -283,6 +302,7 @@ class WriteViewingPartyActivity :
     companion object {
         fun newIntent(context: Context) =
             Intent(context, WriteViewingPartyActivity::class.java)
+
         fun editIntent(context: Context, postId: Long, editViewingParty: WriteViewingPartyModel) =
             Intent(context, WriteViewingPartyActivity::class.java).apply {
                 putExtra("postId", postId)

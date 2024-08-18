@@ -20,7 +20,8 @@ data class ViewingPartyListResponseDto(
         val partyDate: String,
         val latitude: Double,
         val longitude: Double,
-        val location: String
+        val location: String,
+        val shortLocation: String?
     ){
         fun toViewingPartyListElementModel() =
             ViewingPartyListModel.ViewingPartyElementModel(
@@ -31,7 +32,8 @@ data class ViewingPartyListResponseDto(
                 partyDate.slice(0..15).toListViewingPartyDateFormat(),
                 latitude,
                 longitude,
-                location
+                location,
+                shortLocation
             )
     }
 

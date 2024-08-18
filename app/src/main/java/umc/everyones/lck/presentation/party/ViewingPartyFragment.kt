@@ -59,8 +59,8 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     }
 
     private fun initViewingPartyRVAdapter(){
-        _viewIngPartyRVA = ViewingPartyRVA { postId ->
-            val action = ViewingPartyFragmentDirections.actionViewingPartyFragmentToReadViewingPartyFragment(false, postId)
+        _viewIngPartyRVA = ViewingPartyRVA { postId, shortLocation ->
+            val action = ViewingPartyFragmentDirections.actionViewingPartyFragmentToReadViewingPartyFragment(postId, shortLocation ?: "")
             navigator.navigate(action)
         }
         binding.rvViewingParty.adapter = viewingPartyRVA

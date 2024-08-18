@@ -14,6 +14,7 @@ data class ViewingPartyListModel(
         val partyDate: String,
         val latitude: Double,
         val longitude: Double,
-        val location: String
+        val location: String,
+        val shortLocation: String?
     )
 }

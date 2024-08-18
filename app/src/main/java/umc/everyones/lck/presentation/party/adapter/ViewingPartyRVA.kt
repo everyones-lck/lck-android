@@ -11,7 +11,7 @@ import umc.everyones.lck.databinding.ItemViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
 import umc.everyones.lck.domain.model.response.party.ViewingPartyListModel
 
-class ViewingPartyRVA(val readViewingParty: (Long) -> Unit) :
+class ViewingPartyRVA(val readViewingParty: (Long, String?) -> Unit) :
     PagingDataAdapter<ViewingPartyListModel.ViewingPartyElementModel, ViewingPartyRVA.ViewingPartyViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewingPartyViewHolder {
@@ -37,13 +37,13 @@ class ViewingPartyRVA(val readViewingParty: (Long) -> Unit) :
             with(binding){
                 tvViewingPartyTitle.text = viewingPartyItem.name
                 tvViewingPartyWriter.text = viewingPartyItem.writerInfo
-                tvViewingPartyAddress.text = viewingPartyItem.location
+                tvViewingPartyAddress.text = viewingPartyItem.shortLocation
                 tvViewingPartyDate.text = viewingPartyItem.partyDate
                 Glide.with(ivViewingPartyProfile.context)
                     .load(viewingPartyItem.photoURL)
                     .into(ivViewingPartyProfile)
                 root.setOnClickListener {
-                    readViewingParty(viewingPartyItem.id)
+                    readViewingParty(viewingPartyItem.id, viewingPartyItem.shortLocation)
                 }
             }
         }

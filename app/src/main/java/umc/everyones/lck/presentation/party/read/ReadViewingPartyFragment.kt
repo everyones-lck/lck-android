@@ -34,8 +34,8 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
         args.postId
     }
 
-    private val isWriter by lazy {
-        args.isWriter
+    private val shortLocation by lazy {
+        args.shortLocation
     }
     override fun initObserver() {
         repeatOnStarted {
@@ -89,7 +89,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
     }
 
     private fun distinguishView(){
-        if(!isWriter) {
+        if(false) {
             with(binding){
                 groupReadWriterMenu.visibility = View.GONE
                 tvReadParticipantCancelGuide.visibility = View.VISIBLE
@@ -150,7 +150,8 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                         highParticipate = participate[1].replace(("[^\\d]").toRegex(), ""),
                         qualify = tvReadQualify.textToString().replace("To.", ""),
                         etc = tvReadEtc.textToString(),
-                        location = tvReadPlace.textToString()
+                        location = tvReadPlace.textToString(),
+                        shortLocation = shortLocation
                     )
                 ))
             }

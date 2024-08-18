@@ -6,10 +6,13 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.match.CommonPogRequestDto
+import umc.everyones.lck.data.dto.request.match.VoteMatchPogRequestDto
+import umc.everyones.lck.data.dto.request.match.VoteMatchRequestDto
+import umc.everyones.lck.data.dto.request.match.VoteSetPogRequestDto
 import umc.everyones.lck.data.dto.response.match.CommonTodayMatchPogResponseDto
-import umc.everyones.lck.data.dto.response.match.MatchPogTodayMatchResponseDto
+import umc.everyones.lck.data.dto.response.match.CommonVotePogResponseDto
 import umc.everyones.lck.data.dto.response.match.MatchTodayMatchResponseDto
-import umc.everyones.lck.data.dto.response.match.SetPogTodayMatchResponseDto
+import umc.everyones.lck.data.dto.response.match.PogPlayerTodayMatchResponseDto
 import umc.everyones.lck.data.dto.response.match.TodayMatchInformationResponseDto
 
 interface TodayMatchService {
@@ -20,7 +23,7 @@ interface TodayMatchService {
     suspend fun fetchTodayMatchVoteSetPog(
         @Query("match-id") matchId: Long,
         @Query("set-index") setIndex: Int
-    ): BaseResponse<SetPogTodayMatchResponseDto>
+    ): BaseResponse<PogPlayerTodayMatchResponseDto>
 
     @GET("votes/match/candidates")
     suspend fun fetchTodayMatchVoteMatch(
@@ -30,7 +33,7 @@ interface TodayMatchService {
     @GET("votes/match-pog/candidates")
     suspend fun fetchTodayMatchVoteMatchPog(
         @Query("match-id") matchId: Long
-    ): BaseResponse<MatchPogTodayMatchResponseDto>
+    ): BaseResponse<PogPlayerTodayMatchResponseDto>
 
     @POST("pog/set")
     suspend fun voteTodayMatchSetPog(
@@ -42,4 +45,19 @@ interface TodayMatchService {
     suspend fun voteTodayMatchMatchPog(
         @Body request: CommonPogRequestDto
     ): BaseResponse<CommonTodayMatchPogResponseDto>
+
+    @POST("votes/set-pog/making")
+    suspend fun voteSetPog(
+        @Body request: VoteSetPogRequestDto
+    ): BaseResponse<CommonVotePogResponseDto>
+
+    @POST("votes/match/making")
+    suspend fun voteMatch(
+        @Body request: VoteMatchRequestDto
+    ): BaseResponse<CommonVotePogResponseDto>
+
+    @POST("votes/match-pog/making")
+    suspend fun voteMatchPog(
+        @Body request: VoteMatchPogRequestDto
+    ): BaseResponse<CommonVotePogResponseDto>
 }

@@ -1,15 +1,12 @@
 package umc.everyones.lck.presentation.match
 
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.util.Log
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
-import umc.everyones.lck.databinding.FragmentTodayMatchBinding
 import umc.everyones.lck.databinding.FragmentTodayMatchLckMatchBinding
 import umc.everyones.lck.domain.model.todayMatch.LckMatch
 import umc.everyones.lck.presentation.base.BaseFragment
@@ -17,7 +14,7 @@ import umc.everyones.lck.presentation.match.adapter.LckMatchContentRVA
 
 @AndroidEntryPoint
 class TodayMatchLckMatchFragment : BaseFragment<FragmentTodayMatchLckMatchBinding>(R.layout.fragment_today_match_lck_match) {
-    private val todayMatchViewModel: TodayMatchViewModel by activityViewModels()
+    private val viewModel: TodayMatchLckMatchViewModel by viewModels()
     private lateinit var lckMatchContentRVA: LckMatchContentRVA
     override fun initObserver() {
 
@@ -26,7 +23,7 @@ class TodayMatchLckMatchFragment : BaseFragment<FragmentTodayMatchLckMatchBindin
     override fun initView() {
         Log.d("TodayMatchLckMatchFragment", "initView called")
         lckMatchRecycler()
-
+        viewModel.fetchTodayMatchInformation()
     }
 
     private val matches = listOf(

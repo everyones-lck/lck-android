@@ -19,7 +19,7 @@ data class TodayMatchInformationResponseDto(
         val matchNumber: Int
     ) {
         fun toMatchResponseModel() =
-            TodayMatchInformationModel.MatchModel(matchId, matchDate, team1Name, team1LogoUrl, team2Name, team2LogoUrl, team1VoteRate, team2VoteRate, seasonInfo, matchNumber)
+            TodayMatchInformationModel.MatchResponsesModel(matchId, matchDate, team1Name, team1LogoUrl, team2Name, team2LogoUrl, team1VoteRate, team2VoteRate, seasonInfo, matchNumber)
     }
     fun toTodayMatchInformationModel() =
         TodayMatchInformationModel(matchResponses.map { it.toMatchResponseModel() }, matchResponseSize)

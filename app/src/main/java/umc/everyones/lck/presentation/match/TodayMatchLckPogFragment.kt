@@ -1,5 +1,6 @@
 package umc.everyones.lck.presentation.match
 
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
@@ -12,11 +13,14 @@ import umc.everyones.lck.presentation.match.adapter.LckPogMatchRVA
 
 @AndroidEntryPoint
 class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R.layout.fragment_today_match_lck_pog) {
+    private val viewModel: TodayMatchLckPogViewModel by viewModels()
     override fun initObserver() {
 
     }
 
     override fun initView() {
+        viewModel.voteTodayMatchSetPog()
+        viewModel.voteTodayMatchMatchPog()
         val matches = listOf(
             LckPog(
                 matchTitle = "LCK Summer 1st Match",

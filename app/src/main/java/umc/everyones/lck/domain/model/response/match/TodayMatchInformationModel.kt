@@ -1,10 +1,10 @@
 package umc.everyones.lck.domain.model.response.match
 
 data class TodayMatchInformationModel (
-    val matchResponses: List<MatchModel>,
+    val matchResponses: List<MatchResponsesModel>,
     val matchResponseSize: Int
 ) {
-    data class MatchModel(
+    data class MatchResponsesModel(
         val matchId : Long,
         val matchDate : String,
         val team1Name: String,

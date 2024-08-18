@@ -1,5 +1,6 @@
 package umc.everyones.lck.di
 
+import android.content.SharedPreferences
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -15,6 +16,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import umc.everyones.lck.EveryonesLCKApplication
 import umc.everyones.lck.R
 import umc.everyones.lck.util.NaverInterceptor
+import umc.everyones.lck.util.network.AuthInterceptor
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -99,4 +101,8 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+    @Provides
+    @Singleton
+    fun provideAuthInterceptor(sharedPreferences: SharedPreferences): AuthInterceptor =
+        AuthInterceptor(sharedPreferences)
 }

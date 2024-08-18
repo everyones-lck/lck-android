@@ -17,7 +17,8 @@ object DataSourceModule {
     @ViewModelScoped
     fun provideTodayMatchDataSource(todayMatchDataSourceImpl: TodayMatchDataSourceImpl): TodayMatchDataSource =
         todayMatchDataSourceImpl
-
+    @Provides
+    @ViewModelScoped
     fun provideHomeDataSource(homeDataSourceImpl: HomeDataSourceImpl): HomeDataSource =
         homeDataSourceImpl
 }

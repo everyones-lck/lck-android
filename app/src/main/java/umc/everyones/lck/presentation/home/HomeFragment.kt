@@ -15,16 +15,16 @@ import umc.everyones.lck.presentation.mypage.MyPageActivity
 import umc.everyones.lck.util.LoginManager
 import umc.everyones.lck.presentation.home.adapter.HomeMatchContentVPA
 import umc.everyones.lck.presentation.home.adapter.HomeMatchResultRVA
-import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
-    private val homeViewModel: HomeViewModel by activityViewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
     override fun initObserver() {
 
     }
 
     override fun initView() {
+        viewModel.fetchHomeTodayMatchInformation()
         val matches = listOf(
             LckMatch(
                 matchTitle = "2024 LCK Summer 1st Match",
@@ -53,7 +53,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         )
 
         val homeMatchContentVPA = HomeMatchContentVPA(matches) {
-            homeViewModel.setNavigateEvent(R.id.todayMatchTab)
+            viewModel.setNavigateEvent(R.id.todayMatchTab)
         }
         binding.vpHomeMatchContent.adapter = homeMatchContentVPA
         binding.indicatorHomeDot.attachTo(binding.vpHomeMatchContent)
@@ -67,36 +67,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         goAboutLck()
         goCommunity()
         goViewingParty()
-        goMyPage()
     }
 
     private fun goMatchResult() {
         binding.layoutHomeMatchResult.setOnClickListener {
-            homeViewModel.setNavigateEvent(R.id.todayMatchTab)
+            viewModel.setNavigateEvent(R.id.todayMatchTab)
         }
     }
 
     private fun goAboutLck() {
         binding.ivHomeAboutLckBox.setOnClickListener {
-            homeViewModel.setNavigateEvent(R.id.about_lck_graph)
+            viewModel.setNavigateEvent(R.id.aboutLCKFragment)
         }
     }
 
     private fun goCommunity() {
         binding.ivHomeCommunityBox.setOnClickListener {
-            homeViewModel.setNavigateEvent(R.id.communityFragment)
+            viewModel.setNavigateEvent(R.id.communityFragment)
         }
     }
 
     private fun goViewingParty() {
         binding.ivHomeViewingPartyBox.setOnClickListener {
-            homeViewModel.setNavigateEvent(R.id.viewingPartyTab)
-        }
-    }
-
-    private fun goMyPage(){
-        binding.ivMyPage.setOnSingleClickListener {
-            startActivity(MyPageActivity.newIntent(requireContext()))
+            viewModel.setNavigateEvent(R.id.viewingPartyTab)
         }
     }
 }

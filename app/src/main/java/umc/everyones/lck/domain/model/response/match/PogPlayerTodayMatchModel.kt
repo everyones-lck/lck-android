@@ -1,6 +1,6 @@
 package umc.everyones.lck.domain.model.response.match
 
-data class MatchPogTodayMatchModel(
+data class PogPlayerTodayMatchModel(
     val information: List<InformationModel>
 ) {
     data class InformationModel(

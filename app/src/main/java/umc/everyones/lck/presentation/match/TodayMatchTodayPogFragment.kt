@@ -2,10 +2,12 @@ package umc.everyones.lck.presentation.match
 
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentTodayMatchTodayPogBinding
 import umc.everyones.lck.domain.model.todayMatch.TodayPog
@@ -13,7 +15,9 @@ import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.match.adapter.TodayPogPlayerRVA
 import umc.everyones.lck.util.extension.showCustomSnackBar
 
+@AndroidEntryPoint
 class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBinding>(R.layout.fragment_today_match_today_pog) {
+    private val viewModel: TodayMatchTodayPogViewModel by viewModels()
     private lateinit var todayPogPlayerRVA1: TodayPogPlayerRVA
     private lateinit var todayPogPlayerRVA2: TodayPogPlayerRVA
     private lateinit var todayPogPlayerRVA3: TodayPogPlayerRVA
@@ -27,6 +31,10 @@ class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBindin
         pogVoteButton()
         setupRecyclerView()
         setupVoteImageViewClick()
+        viewModel.fetchTodayMatchVoteSetPog()
+        viewModel.fetchTodayMatchVoteMatchPog()
+        viewModel.voteSetPog()
+        viewModel.voteMatchPog()
     }
 
     private fun goBackButton() {
@@ -42,9 +50,9 @@ class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBindin
 
     private val pogPlayer = listOf(
         TodayPog(R.drawable.ic_profile_player),
-        TodayPog(R.drawable.ic_profile_player),
-        TodayPog(R.drawable.ic_profile_player),
-        TodayPog(R.drawable.ic_profile_player),
+        TodayPog(R.drawable.ic_t1),
+        TodayPog(R.drawable.ic_gen_g),
+        TodayPog(R.drawable.ic_kt_rolster),
         TodayPog(R.drawable.ic_profile_player)
     )
 

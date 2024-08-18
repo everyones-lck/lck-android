@@ -1,7 +1,9 @@
 package umc.everyones.lck.presentation.lck
 
+import android.util.Log
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentAboutLckBinding
+import umc.everyones.lck.domain.model.about_lck.AboutLckMatchDetailsModel
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.lck.adapter.MatchVPAdapter
 import umc.everyones.lck.presentation.lck.adapter.RankingAdapter
@@ -33,6 +36,11 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
     private val viewModel: AboutLckViewModel by viewModels()
 
     override fun initObserver() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.matchDetails.collect { result ->
+                handleMatchDetailsResult(result)
+            }
+        }
     }
 
     override fun initView() {
@@ -42,32 +50,60 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         initCalendarButton()
     }
 
+    private fun handleMatchDetailsResult(result: Result<AboutLckMatchDetailsModel>?) {
+        result?.onSuccess { data ->
+            val matchDataList = data.matchDetailList.map { match ->
+                createMatchData(match)
+            }
+            updateMatchViewPager(matchDataList, data.listSize)
+        }?.onFailure {
+            Log.e("AboutLCKFragment", "Failed to fetch match details")
+        }
+    }
+
+    private fun createMatchData(match: AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel): MatchData {
+        val matchTime = if (match.matchFinished) {
+            "Win | ${viewModel.getWinningTeamName(match)}"
+        } else {
+            match.matchTime.substring(0, 5) // "10:00:00" 형식 에서 "10:00"만 추출
+        }
+
+        Log.d("AboutLCKFragment", "Team1 Logo URL: ${match.team1.teamLogoUrl}")
+        Log.d("AboutLCKFragment", "Team2 Logo URL: ${match.team2.teamLogoUrl}")
+
+        return MatchData(
+            matchTitle = viewModel.formatMatchTitle(match.season, match.matchNumber),
+            matchTime = matchTime,
+            teamLogoUrl1 = match.team1.teamLogoUrl,
+            teamLogoUrl2 = match.team2.teamLogoUrl,
+            isTeam1Winner = match.team1.winner,
+            isTeam2Winner = match.team2.winner
+        )
+    }
+
+    private fun updateMatchViewPager(matchDataList: List<MatchData>, listSize: Int) {
+        matchVPAdapter = MatchVPAdapter()
+
+        when (listSize) {
+            2 -> {
+                val matchDetailsList = matchDataList.chunked(2)
+                matchDetailsList.forEach { matchVPAdapter.addMatchDetails(it) }
+            }
+            1 -> {
+                matchVPAdapter.addMatchDetails(matchDataList)
+            }
+            0 -> {
+                matchVPAdapter.addMatchDetails(
+                    listOf(MatchData("-", "No Matches", null, null,false,false))
+                )
+            }
+        }
+        binding.vpAboutLckMatch.adapter = matchVPAdapter
+    }
+
     private fun initMatchViewPager() {
         val viewPager: ViewPager2 = binding.vpAboutLckMatch
         matchVPAdapter = MatchVPAdapter()
-
-        // 각 페이지에 들어갈 MatchData 객체를 생성
-        val matchDetailsList = listOf(
-            listOf(
-                MatchData("2024 LCK Summer 1st Match", "17:00", R.drawable.ic_gen_g, R.drawable.ic_t1),
-                MatchData("2024 LCK Summer 2nd Match", "18:00", R.drawable.ic_gen_g, R.drawable.ic_t1)
-            ),
-            listOf(
-                MatchData("2024 LCK Summer 3rd Match", "Win | Gene.G", R.drawable.ic_gen_g, R.drawable.img_about_lck_t1_gray),
-                MatchData("2024 LCK Summer 4th Match", "Win | T1", R.drawable.img_about_lck_gen_g_gray, R.drawable.ic_t1)
-            ),
-            listOf(
-                MatchData("2024 LCK Summer 5nd Match", "18:00", R.drawable.ic_gen_g, R.drawable.ic_t1)
-            ),
-            listOf(
-                MatchData("-", "No Match", null, null)
-            )
-        )
-
-        for (details in matchDetailsList) {
-            matchVPAdapter.addMatchDetails(details)
-        }
-
         viewPager.adapter = matchVPAdapter
 
         val pageMarginPx = 16 * resources.displayMetrics.densityDpi / 160
@@ -103,7 +139,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         val verticalSpaceHeightPx = (10 * resources.displayMetrics.density).toInt()
         recyclerView.addItemDecoration(VerticalSpaceItemDecoration(verticalSpaceHeightPx))
 
-        viewModel.fetchLckRanking("2024 Spring" , 1, 10)
+        viewModel.fetchLckRanking("2024 Spring" , 5, 10)
     }
 
     private fun initBackButton() {

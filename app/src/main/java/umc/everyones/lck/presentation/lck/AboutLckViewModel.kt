@@ -60,7 +60,6 @@ class AboutLckViewModel @Inject constructor(
         }
     }
 
-    // 경기 제목을 포맷팅하는 메소드
     fun formatMatchTitle(season: String, matchNumber: Int): String {
         val suffix = when (matchNumber % 10) {
             1 -> "st"
@@ -71,7 +70,6 @@ class AboutLckViewModel @Inject constructor(
         return "LCK $season ${matchNumber}${suffix} Match"
     }
 
-    // 승리한 팀의 이름을 반환하는 메소드
     fun getWinningTeamName(match: AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel): String {
         return if (match.team1.winner) {
             match.team1.teamName

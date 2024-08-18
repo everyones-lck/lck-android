@@ -37,7 +37,7 @@ class AboutLckDataSourceImpl @Inject constructor(
         seasonName: String,
         player_role: LckPlayerDetailsResponseDto.PlayerRole //dto.model
     ): BaseResponse<LckPlayerDetailsResponseDto> =
-        aboutLckService.fetchLckPlayerDetails(teamId,seasonName,player_role.toAboutLckPlayerRole())
+        aboutLckService.fetchLckPlayerDetails(teamId,seasonName,player_role)
 
     override suspend fun fetchLckWinningHistory(
         teamId: Int,

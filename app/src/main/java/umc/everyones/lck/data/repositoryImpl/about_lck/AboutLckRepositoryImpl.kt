@@ -1,6 +1,7 @@
 package umc.everyones.lck.data.repositoryImpl.about_lck
 
 import umc.everyones.lck.data.datasource.AboutLckDataSource
+import umc.everyones.lck.data.dto.response.about_lck.LckPlayerDetailsResponseDto
 import umc.everyones.lck.domain.model.about_lck.AboutLckHistoryModel
 import umc.everyones.lck.domain.model.about_lck.AboutLckHistoryOfRoasterModel
 import umc.everyones.lck.domain.model.about_lck.AboutLckMatchDetailsModel
@@ -44,13 +45,13 @@ class AboutLckRepositoryImpl @Inject constructor(
     override suspend fun fetchLckPlayerDetails(
         teamId: Int,
         seasonName: String,
-        player_role: AboutLckPlayerDetailsModel.PlayerRole
+        player_role: LckPlayerDetailsResponseDto.PlayerRole
     ): Result<AboutLckPlayerDetailsModel> =
         runCatching {
             aboutLckDataSource.fetchLckPlayerDetails(
                 teamId,
                 seasonName,
-                player_role.toLckPlayerRole()
+                player_role
             ).data.toAboutLckPlayerDetailsModel()
         }
 

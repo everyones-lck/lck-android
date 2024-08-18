@@ -10,7 +10,7 @@ data class AboutLckPlayerDetailsModel(
     data class AboutLckPlayerDetailsElementModel(
         val playerId: Int,
         val playerName: String,
-        val player_role: PlayerRole,
+        val playerRole: PlayerRole?,
         val profileImageUrl:String
     )
     enum class PlayerRole {

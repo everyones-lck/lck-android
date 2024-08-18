@@ -34,7 +34,7 @@ interface AboutLckService {
     suspend fun fetchLckPlayerDetails(
         @Path("teamId") teamId: Int,
         @Query("seasonName") seasonName: String,
-        @Query("player_role") player_role: AboutLckPlayerDetailsModel.PlayerRole
+        @Query("player_role") player_role: LckPlayerDetailsResponseDto.PlayerRole
     ): BaseResponse<LckPlayerDetailsResponseDto>
 
     @GET("aboutlck/team/{teamId}/winning-history")

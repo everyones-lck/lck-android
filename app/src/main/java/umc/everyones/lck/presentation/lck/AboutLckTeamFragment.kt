@@ -71,34 +71,34 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
         val teamLogoUrl = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamLogoUrl }
         Log.d("AboutLckTeamFragment", "teamId: $teamId, teamName: $teamName, teamLogoUrl: $teamLogoUrl")
 
-        // TextView와 ImageView 업데이트
+        teamId?.let {
+            viewModel.setTeamId(it)
+            Log.d("AboutLckTeamFragment", "Team ID set in ViewModel: $it")
+        }
+
         teamName?.let {
             teamTitleTextView.text = it
         }
 
         teamLogoUrl?.let {
-            // 이미지 로딩 라이브러리 (예: Glide)로 팀 로고를 설정
             Glide.with(this)
                 .load(it)
                 .into(teamLogoImageView)
         }
 
-        // ViewPager의 페이지가 변경될 때마다 호출되는 리스너 설정
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 teamId?.let {
                     val playerRole = when (position) {
-                        0 -> AboutLckPlayerDetailsModel.PlayerRole.LCK_ROSTER
-                        1 -> AboutLckPlayerDetailsModel.PlayerRole.COACH
-                        2 -> AboutLckPlayerDetailsModel.PlayerRole.LCK_CL_ROSTER
+                        0 -> LckPlayerDetailsResponseDto.PlayerRole.LCK_ROSTER
+                        1 -> LckPlayerDetailsResponseDto.PlayerRole.COACH
+                        2 -> LckPlayerDetailsResponseDto.PlayerRole.LCK_CL_ROSTER
                         else -> throw IllegalArgumentException("Invalid tab position")
                     }
-                    Log.d("ViewPager", "teamId: $it, playerRole: $playerRole")
-
-                    // 선택된 탭에 맞는 PlayerRole로 API 호출
-                    viewModel.fetchLckPlayerDetails(it, "2024 Spring", playerRole)
-                }
+                    Log.d("AboutLckTeamFragment", "Tab selected: $position, PlayerRole: $playerRole, Team ID: $it")
+                    viewModel.fetchLckPlayerDetails(it, "2024 Summer", playerRole)
+                } ?: Log.e("AboutLckTeamFragment", "teamId is null during onPageSelected")
             }
         })
     }

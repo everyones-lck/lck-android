@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import umc.everyones.lck.R
 import umc.everyones.lck.presentation.lck.util.OnPlayerItemClickListener
 import umc.everyones.lck.presentation.lck.data.PlayerData
@@ -41,7 +42,11 @@ class PlayerAdapter(
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         val player = playerList[position]
         holder.playerName.text = player.name
-        holder.playerImage.setImageResource(player.playerImg)
+
+        Glide.with(holder.itemView.context)
+            .load(player.playerImg)
+            .into(holder.playerImage)
+
         holder.teamColorImage.setImageResource(player.teamColor)
         holder.playerTeamLogo.setImageResource(player.teamLogo)
         holder.playerPosition.setImageResource(player.position)
@@ -55,4 +60,3 @@ class PlayerAdapter(
 
     override fun getItemCount() = playerList.size
 }
-

@@ -133,7 +133,6 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
             val teamDetails = rankingDetails.teamDetailList
 
             if (teamDetails.isNotEmpty()) {
-                // 상위 3팀 데이터 저장
                 topTeams.clear()
                 topTeams.addAll(teamDetails.take(3).map { teamDetail ->
                     RankingData(
@@ -145,7 +144,6 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
                 })
                 // 상위 3팀 표시
                 displayTopTeams(topTeams)
-
                 // 나머지 4~10등 팀
                 val remainingTeams = teamDetails.drop(3).map { teamDetail ->
                     RankingData(

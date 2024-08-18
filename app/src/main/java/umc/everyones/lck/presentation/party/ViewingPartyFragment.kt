@@ -4,13 +4,17 @@ import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.time.delay
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
@@ -73,6 +77,14 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
                 }
             }
         })
+
+        viewingPartyRVA?.addLoadStateListener { combinedLoadStates ->
+            Log.d("loadStates", combinedLoadStates.toString())
+            with(binding){
+                ivViewingPartyLoadingImg.isVisible = combinedLoadStates.source.refresh is LoadState.Loading
+                rvViewingParty.isVisible = combinedLoadStates.source.refresh is LoadState.NotLoading
+            }
+        }
     }
 
     override fun onResume() {

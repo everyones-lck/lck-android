@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import umc.everyones.lck.domain.model.about_lck.AboutLckMatchDetailsModel
+import umc.everyones.lck.domain.model.about_lck.AboutLckRankingDetailsModel
 import umc.everyones.lck.domain.repository.about_lck.AboutLckRepository
 import umc.everyones.lck.util.network.NetworkResult
 import umc.everyones.lck.util.network.onSuccess
@@ -30,6 +31,9 @@ class AboutLckViewModel @Inject constructor(
     private val _title = MutableStateFlow<String>("")
     val title: StateFlow<String> get() = _title
 
+    private val _rankingDetails = MutableStateFlow<Result<AboutLckRankingDetailsModel>?>(null)
+    val rankingDetails: StateFlow<Result<AboutLckRankingDetailsModel>?> get() = _rankingDetails
+
 
     fun fetchLckMatchDetails(searchDate: String) {
         viewModelScope.launch {
@@ -46,19 +50,20 @@ class AboutLckViewModel @Inject constructor(
         }
     }
 
+
     fun fetchLckRanking(seasonName: String, page: Int, size: Int) {
         viewModelScope.launch {
             val result = repository.fetchLckRanking(seasonName, page, size)
 
             result.onSuccess { response ->
-                // API 호출 성공 시 로그로 응답 데이터 출력
-                Log.d("AboutLckViewModel", "fetchLckRanking API 호출 성공: $response")
+                _rankingDetails.value = Result.success(response)
             }.onFailure { exception ->
-                // API 호출 실패 시 로그로 에러 메시지 출력
+                _rankingDetails.value = Result.failure(exception)
                 Log.e("AboutLckViewModel", "fetchLckRanking API 호출 실패: ${exception.message}")
             }
         }
     }
+
 
     fun formatMatchTitle(season: String, matchNumber: Int): String {
         val suffix = when (matchNumber % 10) {

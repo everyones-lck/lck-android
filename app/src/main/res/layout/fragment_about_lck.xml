@@ -124,10 +124,12 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 app:layout_constraintStart_toStartOf="@id/view_about_lck_rect1"
                 app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect1">
                 <ImageView
+                    android:id="@+id/iv_about_lck_ranking_1st"
                     android:layout_width="43dp"
                     android:layout_height="37dp"
                     android:src="@drawable/ic_gen_g"/>
                 <TextView
+                    android:id="@+id/tv_about_lck_ranking_1st"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Gen"
@@ -145,10 +147,12 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 app:layout_constraintStart_toStartOf="@id/view_about_lck_rect3"
                 app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect3">
                 <ImageView
+                    android:id="@+id/iv_about_lck_ranking_3rd"
                     android:layout_width="48dp"
                     android:layout_height="50dp"
                     android:src="@drawable/ic_kwangdong_freecs"/>
                 <TextView
+                    android:id="@+id/tv_about_lck_ranking_3rd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="KDF"
@@ -166,11 +170,14 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect2"
                 app:layout_constraintStart_toStartOf="@id/view_about_lck_rect2"
                 app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect2">
+
                 <ImageView
+                    android:id="@+id/iv_about_lck_ranking_2nd"
                     android:layout_width="75dp"
                     android:layout_height="30dp"
                     android:src="@drawable/ic_t1"/>
                 <TextView
+                    android:id="@+id/tv_about_lck_ranking_2nd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="T1"

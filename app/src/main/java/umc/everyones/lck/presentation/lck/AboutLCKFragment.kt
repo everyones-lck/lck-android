@@ -1,6 +1,7 @@
 package umc.everyones.lck.presentation.lck
 
 import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -8,10 +9,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentAboutLckBinding
 import umc.everyones.lck.domain.model.about_lck.AboutLckMatchDetailsModel
+import umc.everyones.lck.domain.model.about_lck.AboutLckRankingDetailsModel
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.lck.adapter.MatchVPAdapter
 import umc.everyones.lck.presentation.lck.adapter.RankingAdapter
@@ -39,6 +42,11 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         lifecycleScope.launchWhenStarted {
             viewModel.matchDetails.collect { result ->
                 handleMatchDetailsResult(result)
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.rankingDetails.collect { result ->
+                handleRankingDetailsResult(result)
             }
         }
     }
@@ -119,27 +127,58 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         recyclerViewMatches.clipToPadding = false
     }
 
+    private fun handleRankingDetailsResult(result: Result<AboutLckRankingDetailsModel>?) {
+        result?.onSuccess { rankingDetails ->
+            val teamDetails = rankingDetails.teamDetailList
+
+            if (teamDetails.isNotEmpty()) {
+                // 상위 3팀
+                displayTopTeams(teamDetails.take(3))
+
+                // 나머지 4~10등 팀
+                val remainingTeams = teamDetails.drop(3).map { teamDetail ->
+                    RankingData(
+                        ranking = teamDetail.rating,
+                        teamLogoUrl = teamDetail.teamLogoUrl,
+                        teamName = teamDetail.teamName
+                    )
+                }
+                rankingAdapter.updateTeams(remainingTeams)
+            }
+        }?.onFailure {
+            Log.e("AboutLCKFragment", "Failed to fetch ranking details")
+        }
+    }
+
     private fun initRankingRecyclerView() {
         val recyclerView: RecyclerView = binding.rvAboutLckRanking
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        val teams = listOf(
-            RankingData(4, R.drawable.ic_dplus_kia, "DK"),
-            RankingData(5, R.drawable.ic_hanhwa, "HLE"),
-            RankingData(6, R.drawable.ic_drx, "DRX"),
-            RankingData(7, R.drawable.ic_nongshim_red_force, "NS"),
-            RankingData(8, R.drawable.ic_bnk, "BNK"),
-            RankingData(9, R.drawable.ic_ok_saving_bank_brion, "BRO"),
-            RankingData(10, R.drawable.ic_kt_rolster, "KT")
-        )
-
-        rankingAdapter = RankingAdapter(teams, this)
+        rankingAdapter = RankingAdapter(mutableListOf(), this)
         recyclerView.adapter = rankingAdapter
 
         val verticalSpaceHeightPx = (10 * resources.displayMetrics.density).toInt()
         recyclerView.addItemDecoration(VerticalSpaceItemDecoration(verticalSpaceHeightPx))
 
-        viewModel.fetchLckRanking("2024 Spring" , 5, 10)
+        viewModel.fetchLckRanking("2024 Summer", 1, 5)
+
+    }
+
+    private fun displayTopTeams(topTeams: List<AboutLckRankingDetailsModel.LckTeamRankingDetailsElementDto>) {
+        binding.ivAboutLckRanking1st.loadImage(topTeams[0].teamLogoUrl)
+        binding.tvAboutLckRanking1st.text = topTeams[0].teamName
+
+        binding.ivAboutLckRanking2nd.loadImage(topTeams[1].teamLogoUrl)
+        binding.tvAboutLckRanking2nd.text = topTeams[1].teamName
+
+        binding.ivAboutLckRanking3rd.loadImage(topTeams[2].teamLogoUrl)
+        binding.tvAboutLckRanking3rd.text = topTeams[2].teamName
+    }
+
+    private fun ImageView.loadImage(url: String) {
+        Glide.with(this.context)
+            .load(url)
+            .into(this)
     }
 
     private fun initBackButton() {

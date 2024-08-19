@@ -8,7 +8,6 @@ data class InquiryProfilesResponseDto(
     val teamLogoUrl: String,
     val tier: String
 ){
-    fun toinquiryprofilesModel() =
+    fun toInquiryProfilesModel() =
         InquiryProfilesModel(nickname, profileImageUrl, teamLogoUrl, tier)
 }
-

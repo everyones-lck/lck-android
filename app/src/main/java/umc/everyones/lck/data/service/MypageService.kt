@@ -8,6 +8,7 @@ import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.response.mypage.CommentsMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.InquiryProfilesResponseDto
+import umc.everyones.lck.data.dto.response.mypage.ParticipateViewingPartyMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.PostsMypageResponseDto
 
 interface MypageService {
@@ -30,4 +31,11 @@ interface MypageService {
         @Query("size") size: Int = 6, // 기본값 6
         @Query("page") page: Int = 0 // 기본값 0
     ):BaseResponse<CommentsMypageResponseDto>
+
+    @GET("my-pages/viewing-parties/participate")
+    suspend fun participateViewingPartyMypage(
+        @Header("Authorization") token: String,
+        @Query("size") size: Int = 6, // 기본값 6
+        @Query("page") page: Int = 0 // 기본값 0
+    ):BaseResponse<ParticipateViewingPartyMypageResponseDto>
 }

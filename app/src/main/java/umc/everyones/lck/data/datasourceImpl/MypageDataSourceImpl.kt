@@ -6,6 +6,7 @@ import umc.everyones.lck.data.datasource.MypageDataSource
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.response.mypage.CommentsMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.InquiryProfilesResponseDto
+import umc.everyones.lck.data.dto.response.mypage.ParticipateViewingPartyMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.PostsMypageResponseDto
 import umc.everyones.lck.data.service.MypageService
 import javax.inject.Inject
@@ -21,4 +22,7 @@ class MypageDataSourceImpl @Inject constructor(
 
     override suspend fun commentsProfiles(token: String, size: Int, page: Int): BaseResponse<CommentsMypageResponseDto> =
         mypageService.commentsMypage(token, size, page)
+
+    override suspend fun participateViewingPartyMypage(token: String, size: Int, page: Int): BaseResponse<ParticipateViewingPartyMypageResponseDto> =
+        mypageService.participateViewingPartyMypage(token, size, page)
 }

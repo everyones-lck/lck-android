@@ -6,7 +6,7 @@ data class CommentsMypageModel(
 ) {
     data class CommentsMypageElementModel(
         val id: Int,
-        val title: String,
+        val content: String,
         val postType: String
     )
 }

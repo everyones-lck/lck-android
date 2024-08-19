@@ -3,6 +3,7 @@ package umc.everyones.lck.data.repositoryImpl.mypage
 import umc.everyones.lck.data.datasource.MypageDataSource
 import umc.everyones.lck.domain.model.response.mypage.CommentsMypageModel
 import umc.everyones.lck.domain.model.response.mypage.InquiryProfilesModel
+import umc.everyones.lck.domain.model.response.mypage.ParticipateViewingPartyMypageModel
 import umc.everyones.lck.domain.model.response.mypage.PostsMypageModel
 import umc.everyones.lck.domain.repository.MypageRepository
 import javax.inject.Inject
@@ -18,4 +19,7 @@ class MypageRepositoryImpl  @Inject constructor(
 
     override suspend fun commentsMypage(token: String, size: Int, page: Int): Result<CommentsMypageModel> =
         runCatching { mypageDataSource.commentsProfiles(token, size, page).data.toCommentsMypageModel() }
-}
+
+    override suspend fun participateViewingPartyMypage(token: String, size: Int, page: Int): Result<ParticipateViewingPartyMypageModel> =
+    runCatching { mypageDataSource.participateViewingPartyMypage(token, size, page).data.toParticipateViewingPartyMypageModel() }
+    }

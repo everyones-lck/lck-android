@@ -9,11 +9,11 @@ data class CommentsMypageResponseDto(
 ) {
     data class CommentsMypageResponseElementDto(
         val id: Int,
-        val title: String,
+        val content: String,
         val postType: String
     ) {
         fun toCommentsMypageElementModel() =
-            CommentsMypageModel.CommentsMypageElementModel(id, title, postType)
+            CommentsMypageModel.CommentsMypageElementModel(id, content, postType)
     }
 
     fun toCommentsMypageModel() =

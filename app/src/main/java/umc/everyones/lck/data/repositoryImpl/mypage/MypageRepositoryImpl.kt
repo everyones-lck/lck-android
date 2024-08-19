@@ -1,5 +1,7 @@
 package umc.everyones.lck.data.repositoryImpl.mypage
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import umc.everyones.lck.data.datasource.MypageDataSource
 import umc.everyones.lck.data.dto.request.mypage.CancelParticipateViewingPartyMypageRequestDto
 import umc.everyones.lck.domain.model.request.mypage.CancelHostViewingPartyMypageModel
@@ -9,6 +11,7 @@ import umc.everyones.lck.domain.model.response.mypage.HostViewingPartyMypageMode
 import umc.everyones.lck.domain.model.response.mypage.InquiryProfilesModel
 import umc.everyones.lck.domain.model.response.mypage.ParticipateViewingPartyMypageModel
 import umc.everyones.lck.domain.model.response.mypage.PostsMypageModel
+import umc.everyones.lck.domain.model.response.mypage.UpdateProfilesModel
 import umc.everyones.lck.domain.repository.MypageRepository
 import javax.inject.Inject
 
@@ -41,4 +44,7 @@ class MypageRepositoryImpl  @Inject constructor(
 
     override suspend fun withdraw(token: String): Result<Boolean> =
         runCatching { mypageDataSource.withdraw(token).data }
+
+    override suspend fun updateProfiles(profileImage: MultipartBody.Part?, updateProfileRequest: RequestBody): Result<UpdateProfilesModel> =
+        runCatching { mypageDataSource.updateProfiles(profileImage, updateProfileRequest).data.toUpdateProfilesModel() }
 }

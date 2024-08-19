@@ -11,6 +11,7 @@ import umc.everyones.lck.data.dto.response.mypage.HostViewingPartyMypageResponse
 import umc.everyones.lck.data.dto.response.mypage.InquiryProfilesResponseDto
 import umc.everyones.lck.data.dto.response.mypage.ParticipateViewingPartyMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.PostsMypageResponseDto
+import umc.everyones.lck.data.dto.response.mypage.UpdateProfilesResponseDto
 import umc.everyones.lck.data.service.MypageService
 import javax.inject.Inject
 
@@ -43,4 +44,7 @@ class MypageDataSourceImpl @Inject constructor(
 
     override suspend fun withdraw(token: String): BaseResponse<Boolean> =
         mypageService.withdraw(token)
+
+    override suspend fun updateProfiles(profileImage: MultipartBody.Part?, updateProfileRequest: RequestBody): BaseResponse<UpdateProfilesResponseDto> =
+        mypageService.updateProfiles(profileImage, updateProfileRequest)
 }

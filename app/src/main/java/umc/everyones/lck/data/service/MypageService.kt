@@ -1,9 +1,14 @@
 package umc.everyones.lck.data.service
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
+import retrofit2.http.PATCH
+import retrofit2.http.Part
 import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.mypage.CancelHostViewingPartyMypageRequestDto
@@ -13,6 +18,7 @@ import umc.everyones.lck.data.dto.response.mypage.HostViewingPartyMypageResponse
 import umc.everyones.lck.data.dto.response.mypage.InquiryProfilesResponseDto
 import umc.everyones.lck.data.dto.response.mypage.ParticipateViewingPartyMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.PostsMypageResponseDto
+import umc.everyones.lck.data.dto.response.mypage.UpdateProfilesResponseDto
 
 interface MypageService {
 
@@ -71,4 +77,11 @@ interface MypageService {
     suspend fun withdraw(
         @Header("Authorization") token: String
     ): BaseResponse<Boolean>
+
+    @Multipart
+    @PATCH("my-pages/profiles")
+    suspend fun updateProfiles(
+        @Part profileImage: MultipartBody.Part?,
+        @Part("updateProfileRequest") updateProfileRequest: RequestBody
+    ): BaseResponse<UpdateProfilesResponseDto>
 }

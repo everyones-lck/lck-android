@@ -1,5 +1,7 @@
 package umc.everyones.lck.data.datasource
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.mypage.CancelHostViewingPartyMypageRequestDto
 import umc.everyones.lck.data.dto.request.mypage.CancelParticipateViewingPartyMypageRequestDto
@@ -8,6 +10,7 @@ import umc.everyones.lck.data.dto.response.mypage.HostViewingPartyMypageResponse
 import umc.everyones.lck.data.dto.response.mypage.InquiryProfilesResponseDto
 import umc.everyones.lck.data.dto.response.mypage.ParticipateViewingPartyMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.PostsMypageResponseDto
+import umc.everyones.lck.data.dto.response.mypage.UpdateProfilesResponseDto
 
 interface MypageDataSource {
     suspend fun inquiryProfiles(token: String): BaseResponse<InquiryProfilesResponseDto>
@@ -27,4 +30,6 @@ interface MypageDataSource {
     suspend fun logout(token: String, refreshToken: String): BaseResponse<Boolean>
 
     suspend fun withdraw(token: String): BaseResponse<Boolean>
+
+    suspend fun updateProfiles(profileImage: MultipartBody.Part?, updateProfileRequest: RequestBody): BaseResponse<UpdateProfilesResponseDto>
 }

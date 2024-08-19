@@ -4,8 +4,8 @@ import umc.everyones.lck.data.dto.request.login.NicknameAuthUserRequestDto
 import java.io.Serializable
 
 data class NicknameAuthUserRequestModel(
-    val nickname: String
+    val nickName: String
 ): Serializable {
     fun toNicknameAuthUserRequestDto() =
-        NicknameAuthUserRequestDto(nickname)
+        NicknameAuthUserRequestDto(nickName)
 }

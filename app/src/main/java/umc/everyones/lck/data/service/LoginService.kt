@@ -36,7 +36,7 @@ interface LoginService {
 
     @GET("auth/nickname")
     suspend fun nickname(
-        @Body request: NicknameAuthUserRequestDto
+        @Query("nickName") nickName: String
     ): BaseResponse<Boolean>
 
     @GET("/auth/users/test")

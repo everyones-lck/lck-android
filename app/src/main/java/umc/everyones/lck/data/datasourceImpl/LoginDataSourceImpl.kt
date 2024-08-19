@@ -24,7 +24,7 @@ class LoginDataSourceImpl @Inject constructor(
 
     override suspend fun refresh(requestDto: CommonLoginRequestDto):BaseResponse<CommonLoginResponseDto> = loginService.refresh(requestDto)
 
-    override suspend fun nickname(requestDto: NicknameAuthUserRequestDto): BaseResponse<Boolean> = loginService.nickname(requestDto)
+    override suspend fun nickname(requestDto: NicknameAuthUserRequestDto): BaseResponse<Boolean> = loginService.nickname(requestDto.nickName)
 
     override suspend fun usertest(token: String): BaseResponse<Unit> = loginService.usertest(token)
 }

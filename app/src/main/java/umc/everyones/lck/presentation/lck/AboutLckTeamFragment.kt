@@ -42,9 +42,26 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
 
     override fun initView() {
         receiveSafeArgs()
-        setupViewPagerAndTabs()
-        setupButtons()
-        setupTeamInfo()
+
+        if (teamId != null) {
+            setupViewPagerAndTabs()
+            setupButtons()
+            setupTeamInfo()
+        } else {
+            Log.e("AboutLckTeamFragment", "teamId is null during initView, cannot setup views properly")
+        }
+    }
+
+    private fun receiveSafeArgs() {
+        val receivedTeamId = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamId }
+        val teamName = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamName }
+        teamLogoUrl = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamLogoUrl }
+
+
+        receivedTeamId?.let {
+            teamId = it
+            viewModel.setTeamId(it)
+        } ?: Log.e("AboutLckTeamFragment", "Failed to receive teamId from arguments")
     }
 
     private fun setupViewPagerAndTabs() {
@@ -73,7 +90,6 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
                         2 -> LckPlayerDetailsResponseDto.PlayerRole.LCK_CL_ROSTER
                         else -> throw IllegalArgumentException("Invalid tab position")
                     }
-                    Log.d("AboutLckTeamFragment", "Tab selected: $position, PlayerRole: $playerRole, Team ID: $it")
                     viewModel.fetchLckPlayerDetails(it, "2024 Summer", playerRole)
                 } ?: Log.e("AboutLckTeamFragment", "teamId is null during onPageSelected")
             }
@@ -99,18 +115,6 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
         }
     }
 
-    private fun receiveSafeArgs() {
-        val teamId = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamId }
-        val teamName = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamName }
-        teamLogoUrl = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamLogoUrl }
-
-        Log.d("AboutLckTeamFragment", "teamId: $teamId, teamName: $teamName, teamLogoUrl: $teamLogoUrl")
-
-        teamId?.let {
-            viewModel.setTeamId(it)
-            Log.d("AboutLckTeamFragment", "Team ID set in ViewModel: $it")
-        }
-    }
 
     private fun setupTeamInfo() {
         val teamTitleTextView: TextView = binding.tvAboutLckTeamTitle

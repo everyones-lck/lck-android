@@ -45,7 +45,20 @@
         android:id="@+id/aboutLckTeamHistoryFragment"
         android:name="umc.everyones.lck.presentation.lck.AboutLckTeamHistoryFragment"
         android:label="aboutLckTeamHistoryFragment"
-        tools:layout="@layout/fragment_about_lck_team_history"/>
+        tools:layout="@layout/fragment_about_lck_team_history">
+    <argument
+        android:name="teamId"
+        app:argType="integer"
+        android:defaultValue="2"/>
+    <argument
+        android:name="teamName"
+        app:argType="string"
+        android:defaultValue="DK"/>
+    <argument
+        android:name="teamLogoUrl"
+        app:argType="string"
+        android:defaultValue="2"/>
+    </fragment>
     <fragment
         android:id="@+id/aboutLckTeamPlayerFragment"
         android:name="umc.everyones.lck.presentation.lck.AboutLckTeamPlayerFragment"

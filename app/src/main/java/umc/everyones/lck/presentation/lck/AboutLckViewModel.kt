@@ -72,7 +72,7 @@ class AboutLckViewModel @Inject constructor(
             3 -> "rd"
             else -> "th"
         }
-        return "LCK $season ${matchNumber}${suffix} Match"
+        return "$season LCK ${matchNumber}${suffix} Match"
     }
 
     fun getWinningTeamName(match: AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel): String {

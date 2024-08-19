@@ -61,9 +61,6 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
             navigator.popBackStack()
         }
 
-        nextButton.setOnClickListener {
-            navigator.navigate(R.id.action_aboutLCKTeamFragment_to_aboutLckTeamHistoryFragment)
-        }
 
         // Safe Args로 전달된 teamId 수신
         val teamId = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamId }
@@ -84,6 +81,18 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
             Glide.with(this)
                 .load(it)
                 .into(teamLogoImageView)
+        }
+
+        nextButton.setOnClickListener {
+            teamId?.let { id ->
+                val action = AboutLckTeamFragmentDirections
+                    .actionAboutLCKTeamFragmentToAboutLckTeamHistoryFragment(
+                        teamId = id,
+                        teamName = teamName ?: "",
+                        teamLogoUrl = teamLogoUrl ?: ""
+                    )
+                navigator.navigate(action)
+            } ?: Log.e("AboutLckTeamFragment", "teamId is null, cannot navigate")
         }
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

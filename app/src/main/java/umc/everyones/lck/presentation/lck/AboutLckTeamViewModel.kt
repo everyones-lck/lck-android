@@ -30,10 +30,9 @@ class AboutLckTeamViewModel @Inject constructor(
 
             result.onSuccess { response ->
                 Log.d("AboutLckTeamViewModel", "fetchLckPlayerDetails API 호출 성공")
-                // 필요한 데이터만 추출
                 val filteredPlayerDetails = response.copy(
                     playerDetails = response.playerDetails.map { playerDetail ->
-                        playerDetail.copy(playerRole = null) // playerRole을 null로 설정
+                        playerDetail.copy(playerRole = null)
                     }
                 )
                 _playerDetails.value = Result.success(filteredPlayerDetails)

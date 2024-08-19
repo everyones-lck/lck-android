@@ -21,18 +21,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_about_lck_team_history_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="About T1"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/cafe_ohsquare"
-            app:layout_constraintTop_toTopOf="@id/iv_about_lck_team_history_pre"
-            app:layout_constraintBottom_toBottomOf="@id/iv_about_lck_team_history_pre"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
 
         <ImageView
             android:id="@+id/iv_about_lck_team_history_logo"
@@ -42,7 +30,7 @@
             android:layout_marginTop="90dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_about_lck_team_history_title"/>
+            app:layout_constraintTop_toBottomOf="@id/iv_about_lck_team_history_pre"/>
 
         <TextView
             android:id="@+id/iv_about_lck_team_history_team_name"

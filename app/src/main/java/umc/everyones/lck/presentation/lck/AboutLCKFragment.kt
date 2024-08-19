@@ -170,7 +170,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         val verticalSpaceHeightPx = (10 * resources.displayMetrics.density).toInt()
         recyclerView.addItemDecoration(VerticalSpaceItemDecoration(verticalSpaceHeightPx))
 
-        viewModel.fetchLckRanking("2024 Summer", 1, 5)
+        viewModel.fetchLckRanking("2024 Summer", 0, 10)
 
     }
 
@@ -269,7 +269,6 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         val formattedDate = String.format("%d-%02d-%02d", year, month + 1, day)
         dateTextView.text = String.format("%d.%02d.%02d", year, month + 1, day)
 
-        // 선택된 날짜로 API 호출
         viewModel.fetchLckMatchDetails(formattedDate)
     }
 

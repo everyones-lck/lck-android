@@ -19,36 +19,36 @@ import javax.inject.Inject
 class MypageRepositoryImpl  @Inject constructor(
     private val mypageDataSource: MypageDataSource
 ): MypageRepository {
-    override suspend fun inquiryProfiles(token: String): Result<InquiryProfilesModel> =
-        runCatching { mypageDataSource.inquiryProfiles(token).data.toInquiryProfilesModel() }
+    override suspend fun inquiryProfiles(): Result<InquiryProfilesModel> =
+        runCatching { mypageDataSource.inquiryProfiles().data.toInquiryProfilesModel() }
 
-    override suspend fun postsMypage(token: String, size: Int, page: Int): Result<PostsMypageModel> =
-        runCatching { mypageDataSource.postsProfiles(token, size, page).data.toPostsMypageModel() }
+    override suspend fun postsMypage(size: Int, page: Int): Result<PostsMypageModel> =
+        runCatching { mypageDataSource.postsProfiles(size, page).data.toPostsMypageModel() }
 
-    override suspend fun commentsMypage(token: String, size: Int, page: Int): Result<CommentsMypageModel> =
-        runCatching { mypageDataSource.commentsProfiles(token, size, page).data.toCommentsMypageModel() }
+    override suspend fun commentsMypage(size: Int, page: Int): Result<CommentsMypageModel> =
+        runCatching { mypageDataSource.commentsProfiles(size, page).data.toCommentsMypageModel() }
 
-    override suspend fun participateViewingPartyMypage(token: String, size: Int, page: Int): Result<ParticipateViewingPartyMypageModel> =
-        runCatching { mypageDataSource.participateViewingPartyMypage(token, size, page).data.toParticipateViewingPartyMypageModel() }
+    override suspend fun participateViewingPartyMypage(size: Int, page: Int): Result<ParticipateViewingPartyMypageModel> =
+        runCatching { mypageDataSource.participateViewingPartyMypage(size, page).data.toParticipateViewingPartyMypageModel() }
 
-    override suspend fun hostViewingPartyMypage(token: String, size: Int, page: Int): Result<HostViewingPartyMypageModel> =
-        runCatching { mypageDataSource.hostViewingPartyMypage(token, size, page).data.toHostViewingPartyMypageModel() }
+    override suspend fun hostViewingPartyMypage(size: Int, page: Int): Result<HostViewingPartyMypageModel> =
+        runCatching { mypageDataSource.hostViewingPartyMypage(size, page).data.toHostViewingPartyMypageModel() }
 
-    override suspend fun cancelParticipateViewingPartyMypage(token: String, request: CancelParticipateViewingPartyMypageModel): Result<Boolean> =
-        runCatching { mypageDataSource.cancelParticipateViewingPartyMypage(token, request.toCancelParticipateViewingPartyMypageRequestDto()).data }
+    override suspend fun cancelParticipateViewingPartyMypage(request: CancelParticipateViewingPartyMypageModel): Result<Boolean> =
+        runCatching { mypageDataSource.cancelParticipateViewingPartyMypage(request.toCancelParticipateViewingPartyMypageRequestDto()).data }
 
-    override suspend fun cancelHostViewingPartyMypage(token: String, request: CancelHostViewingPartyMypageModel): Result<Boolean> =
-        runCatching { mypageDataSource.cancelHostViewingPartyMypage(token, request.toCancelHostViewingPartyMypageRequestDto()).data }
+    override suspend fun cancelHostViewingPartyMypage(request: CancelHostViewingPartyMypageModel): Result<Boolean> =
+        runCatching { mypageDataSource.cancelHostViewingPartyMypage(request.toCancelHostViewingPartyMypageRequestDto()).data }
 
-    override suspend fun logout(token: String, refreshToken: String): Result<Boolean> =
-        runCatching { mypageDataSource.logout(token, refreshToken).data }
+    override suspend fun logout(refreshToken: String): Result<Boolean> =
+        runCatching { mypageDataSource.logout(refreshToken).data }
 
-    override suspend fun withdraw(token: String): Result<Boolean> =
-        runCatching { mypageDataSource.withdraw(token).data }
+    override suspend fun withdraw(): Result<Boolean> =
+        runCatching { mypageDataSource.withdraw().data }
 
     override suspend fun updateProfiles(profileImage: MultipartBody.Part?, updateProfileRequest: RequestBody): Result<UpdateProfilesModel> =
         runCatching { mypageDataSource.updateProfiles(profileImage, updateProfileRequest).data.toUpdateProfilesModel() }
 
-    override suspend fun updateTeam(token: String, request: UpdateTeamModel): Result<Boolean> =
-        runCatching { mypageDataSource.updateTeam(token, request.toUpdateTeamRequestDto()).data }
+    override suspend fun updateTeam(request: UpdateTeamModel): Result<Boolean> =
+        runCatching { mypageDataSource.updateTeam(request.toUpdateTeamRequestDto()).data }
 }

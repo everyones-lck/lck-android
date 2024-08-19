@@ -19,36 +19,36 @@ import javax.inject.Inject
 class MypageDataSourceImpl @Inject constructor(
     private val mypageService: MypageService
 ): MypageDataSource {
-    override suspend fun inquiryProfiles(token: String): BaseResponse<InquiryProfilesResponseDto> =
-        mypageService.inquiryProfiles(token)
+    override suspend fun inquiryProfiles(): BaseResponse<InquiryProfilesResponseDto> =
+        mypageService.inquiryProfiles()
 
-    override suspend fun postsProfiles(token: String, size: Int, page: Int): BaseResponse<PostsMypageResponseDto> =
-        mypageService.postsMypage(token, size, page)
+    override suspend fun postsProfiles(size: Int, page: Int): BaseResponse<PostsMypageResponseDto> =
+        mypageService.postsMypage(size, page)
 
-    override suspend fun commentsProfiles(token: String, size: Int, page: Int): BaseResponse<CommentsMypageResponseDto> =
-        mypageService.commentsMypage(token, size, page)
+    override suspend fun commentsProfiles(size: Int, page: Int): BaseResponse<CommentsMypageResponseDto> =
+        mypageService.commentsMypage(size, page)
 
-    override suspend fun participateViewingPartyMypage(token: String, size: Int, page: Int): BaseResponse<ParticipateViewingPartyMypageResponseDto> =
-        mypageService.participateViewingPartyMypage(token, size, page)
+    override suspend fun participateViewingPartyMypage(size: Int, page: Int): BaseResponse<ParticipateViewingPartyMypageResponseDto> =
+        mypageService.participateViewingPartyMypage(size, page)
 
-    override suspend fun hostViewingPartyMypage(token: String, size: Int, page: Int): BaseResponse<HostViewingPartyMypageResponseDto> =
-        mypageService.hostViewingPartyMypage(token, size, page)
+    override suspend fun hostViewingPartyMypage(size: Int, page: Int): BaseResponse<HostViewingPartyMypageResponseDto> =
+        mypageService.hostViewingPartyMypage(size, page)
 
-    override suspend fun cancelParticipateViewingPartyMypage(token: String, requestDto: CancelParticipateViewingPartyMypageRequestDto): BaseResponse<Boolean> =
-        mypageService.cancelParticipateViewingPartyMypage(token, requestDto)
+    override suspend fun cancelParticipateViewingPartyMypage(requestDto: CancelParticipateViewingPartyMypageRequestDto): BaseResponse<Boolean> =
+        mypageService.cancelParticipateViewingPartyMypage(requestDto)
 
-    override suspend fun cancelHostViewingPartyMypage(token: String, requestDto: CancelHostViewingPartyMypageRequestDto): BaseResponse<Boolean> =
-        mypageService.cancelHostViewingPartyMypage(token, requestDto)
+    override suspend fun cancelHostViewingPartyMypage(requestDto: CancelHostViewingPartyMypageRequestDto): BaseResponse<Boolean> =
+        mypageService.cancelHostViewingPartyMypage(requestDto)
 
-    override suspend fun logout(token: String, refreshToken: String): BaseResponse<Boolean> =
-        mypageService.logout(token, refreshToken)
+    override suspend fun logout(refreshToken: String): BaseResponse<Boolean> =
+        mypageService.logout(refreshToken)
 
-    override suspend fun withdraw(token: String): BaseResponse<Boolean> =
-        mypageService.withdraw(token)
+    override suspend fun withdraw(): BaseResponse<Boolean> =
+        mypageService.withdraw()
 
     override suspend fun updateProfiles(profileImage: MultipartBody.Part?, updateProfileRequest: RequestBody): BaseResponse<UpdateProfilesResponseDto> =
         mypageService.updateProfiles(profileImage, updateProfileRequest)
 
-    override suspend fun updateTeam(token: String, requestDto: UpdateTeamRequestDto): BaseResponse<Boolean> =
-        mypageService.updateTeam(token, requestDto)
+    override suspend fun updateTeam(requestDto: UpdateTeamRequestDto): BaseResponse<Boolean> =
+        mypageService.updateTeam(requestDto)
 }

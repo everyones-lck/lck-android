@@ -15,26 +15,26 @@ import umc.everyones.lck.domain.model.response.mypage.PostsMypageModel
 import umc.everyones.lck.domain.model.response.mypage.UpdateProfilesModel
 
 interface MypageRepository {
-    suspend fun inquiryProfiles(token: String): Result<InquiryProfilesModel>
+    suspend fun inquiryProfiles(): Result<InquiryProfilesModel>
 
-    suspend fun postsMypage(token: String, size: Int, page: Int): Result<PostsMypageModel>
+    suspend fun postsMypage(size: Int, page: Int): Result<PostsMypageModel>
 
-    suspend fun commentsMypage(token: String, size: Int, page: Int): Result<CommentsMypageModel>
+    suspend fun commentsMypage(size: Int, page: Int): Result<CommentsMypageModel>
 
-    suspend fun participateViewingPartyMypage(token: String, size: Int, page: Int): Result<ParticipateViewingPartyMypageModel>
+    suspend fun participateViewingPartyMypage(size: Int, page: Int): Result<ParticipateViewingPartyMypageModel>
 
-    suspend fun hostViewingPartyMypage(token: String, size: Int, page: Int): Result<HostViewingPartyMypageModel>
+    suspend fun hostViewingPartyMypage(size: Int, page: Int): Result<HostViewingPartyMypageModel>
 
-    suspend fun cancelParticipateViewingPartyMypage(token: String, request: CancelParticipateViewingPartyMypageModel): Result<Boolean>
+    suspend fun cancelParticipateViewingPartyMypage(request: CancelParticipateViewingPartyMypageModel): Result<Boolean>
 
-    suspend fun cancelHostViewingPartyMypage(token: String, request: CancelHostViewingPartyMypageModel): Result<Boolean>
+    suspend fun cancelHostViewingPartyMypage(request: CancelHostViewingPartyMypageModel): Result<Boolean>
 
-    suspend fun logout(token: String, refreshToken: String): Result<Boolean>
+    suspend fun logout(refreshToken: String): Result<Boolean>
 
-    suspend fun withdraw(token: String): Result<Boolean>
+    suspend fun withdraw(): Result<Boolean>
 
     suspend fun updateProfiles(profileImage: MultipartBody.Part?, updateProfileRequest: RequestBody): Result<UpdateProfilesModel>
 
-    suspend fun updateTeam(token: String, request: UpdateTeamModel): Result<Boolean>
+    suspend fun updateTeam(request: UpdateTeamModel): Result<Boolean>
 
 }

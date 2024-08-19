@@ -5,6 +5,7 @@ import okhttp3.RequestBody
 import umc.everyones.lck.data.datasource.MypageDataSource
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.response.mypage.CommentsMypageResponseDto
+import umc.everyones.lck.data.dto.response.mypage.HostViewingPartyMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.InquiryProfilesResponseDto
 import umc.everyones.lck.data.dto.response.mypage.ParticipateViewingPartyMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.PostsMypageResponseDto
@@ -25,4 +26,7 @@ class MypageDataSourceImpl @Inject constructor(
 
     override suspend fun participateViewingPartyMypage(token: String, size: Int, page: Int): BaseResponse<ParticipateViewingPartyMypageResponseDto> =
         mypageService.participateViewingPartyMypage(token, size, page)
+
+    override suspend fun hostViewingPartyMypage(token: String, size: Int, page: Int): BaseResponse<HostViewingPartyMypageResponseDto> =
+        mypageService.hostViewingPartyMypage(token, size, page)
 }

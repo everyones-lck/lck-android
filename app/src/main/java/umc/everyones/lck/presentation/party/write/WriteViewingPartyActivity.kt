@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
+import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
@@ -14,6 +15,7 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWriteViewingPartyBinding
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
@@ -40,6 +42,7 @@ class WriteViewingPartyActivity :
     private var isEdit = false
     private var postId = 0L
     private var shortLocation = ""
+    private var location = ""
     override fun initObserver() {
         repeatOnStarted {
             // 달력에서 선택한 날짜 및 시간 반영
@@ -97,12 +100,14 @@ class WriteViewingPartyActivity :
                 }
             }
 
-            WriteViewingPartyViewModel.WriteViewingPartyEvent.WriteDoneViewingParty -> {
-                setResult(
-                    RESULT_OK,
-                    MainActivity.writeDoneIntent(this@WriteViewingPartyActivity, true)
-                )
-                finish()
+            is WriteViewingPartyViewModel.WriteViewingPartyEvent.WriteDoneViewingParty -> {
+                if(event.isWriteDone) {
+                    setResult(
+                        RESULT_OK,
+                        MainActivity.writeDoneIntent(this@WriteViewingPartyActivity, true)
+                    )
+                    finish()
+                }
             }
         }
     }
@@ -141,7 +146,7 @@ class WriteViewingPartyActivity :
                 tvWriteViewingPartyDate.text = editViewingParty.date
                 tvWriteDone.text = "수정"
 
-                viewModel.fetchGeocoding(editViewingParty.location)
+                location = editViewingParty.location
             }
         }
     }
@@ -233,6 +238,9 @@ class WriteViewingPartyActivity :
         mapFragment.getMapAsync { map ->
             naverMap = map
             naverMap?.moveCamera(CameraUpdate.zoomTo(16.0))
+            if(location.isNotEmpty()) {
+                viewModel.fetchGeocoding(location)
+            }
         }
     }
 
@@ -300,7 +308,6 @@ class WriteViewingPartyActivity :
     }
 
     override fun onMapReady(p0: NaverMap) {
-
     }
 
     companion object {

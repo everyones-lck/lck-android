@@ -15,6 +15,8 @@ import kotlinx.coroutines.launch
 import umc.everyones.lck.domain.model.naver.GeocodingModel
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
+import umc.everyones.lck.util.network.EventFlow
+import umc.everyones.lck.util.network.MutableEventFlow
 import umc.everyones.lck.util.network.UiState
 import java.lang.IndexOutOfBoundsException
 
@@ -24,15 +26,15 @@ class WriteViewingPartyViewModel @Inject constructor(
     private val repository: ViewingPartyRepository
 ) : ViewModel() {
 
-    private val _date = MutableSharedFlow<String>()
-    val date: SharedFlow<String> get() = _date
+    private val _date = MutableEventFlow<String>()
+    val date: EventFlow<String> get() = _date
 
     private val _writeViewingPartyEvent =
         MutableStateFlow<UiState<WriteViewingPartyEvent>>(UiState.Empty)
-    val writeViewingPartyEvent: SharedFlow<UiState<WriteViewingPartyEvent>> get() = _writeViewingPartyEvent
+    val writeViewingPartyEvent: StateFlow<UiState<WriteViewingPartyEvent>> get() = _writeViewingPartyEvent
 
     sealed class WriteViewingPartyEvent {
-        data object WriteDoneViewingParty : WriteViewingPartyEvent()
+        data class WriteDoneViewingParty(val isWriteDone: Boolean) : WriteViewingPartyEvent()
 
         data class Geocoding(val geoCodingResult: GeocodingModel) : WriteViewingPartyEvent()
     }
@@ -102,7 +104,7 @@ class WriteViewingPartyViewModel @Inject constructor(
                 ).onSuccess { response ->
                     Log.d("editViewingParty", response.toString())
                     _writeViewingPartyEvent.value =
-                        UiState.Success(WriteViewingPartyEvent.WriteDoneViewingParty)
+                        UiState.Success(WriteViewingPartyEvent.WriteDoneViewingParty(true))
                 }.onFailure {
                     Log.d("editViewingParty", it.stackTraceToString())
                     _writeViewingPartyEvent.value = UiState.Failure(EDIT_FAIL)
@@ -113,7 +115,7 @@ class WriteViewingPartyViewModel @Inject constructor(
                 ).onSuccess { response ->
                     Log.d("writeViewingParty", response.toString())
                     _writeViewingPartyEvent.value =
-                        UiState.Success(WriteViewingPartyEvent.WriteDoneViewingParty)
+                        UiState.Success(WriteViewingPartyEvent.WriteDoneViewingParty(true))
                 }.onFailure {
                     Log.d("writeViewingParty", it.stackTraceToString())
                     _writeViewingPartyEvent.value = UiState.Failure(HOST_FAIL)

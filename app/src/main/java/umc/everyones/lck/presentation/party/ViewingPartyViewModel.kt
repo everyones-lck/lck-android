@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import umc.everyones.lck.domain.model.response.party.ViewingPartyListModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
+import umc.everyones.lck.util.network.EventFlow
+import umc.everyones.lck.util.network.MutableEventFlow
 
 @HiltViewModel
 class ViewingPartyViewModel @Inject constructor(
@@ -20,8 +22,8 @@ class ViewingPartyViewModel @Inject constructor(
 ) : ViewModel() {
     val viewingPartyListPage = repository.fetchPagingSource().cachedIn(viewModelScope)
     
-    private val _isRefreshNeeded = MutableSharedFlow<Boolean>(replay = 1)
-    val isRefreshNeeded: SharedFlow<Boolean> get() = _isRefreshNeeded
+    private val _isRefreshNeeded = MutableEventFlow<Boolean>()
+    val isRefreshNeeded: EventFlow<Boolean> get() = _isRefreshNeeded
     
     fun fetchViewingPartyList() {
         viewModelScope.launch {

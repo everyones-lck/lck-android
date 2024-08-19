@@ -26,9 +26,9 @@ data class WriteViewingPartyModel(
             longitude,
             location,
             shortLocation,
-            price.replace(",", "").toInt(),
-            lowParticipate.replace(",", "").toInt(),
-            highParticipate.replace(",", "").toInt(),
+            price,
+            lowParticipate,
+            highParticipate,
             qualify,
             etc
         )

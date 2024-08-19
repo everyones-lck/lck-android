@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
+import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
@@ -14,15 +15,18 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWriteViewingPartyBinding
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.party.dialog.CalendarDialogFragment
+import umc.everyones.lck.presentation.party.write.WriteViewingPartyViewModel.Companion.GEOCODING_FAIL
 import umc.everyones.lck.util.extension.addDecimalFormattedTextWatcher
 import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnEditorActionListener
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.showKeyboard
 import umc.everyones.lck.util.extension.textToString
@@ -39,6 +43,7 @@ class WriteViewingPartyActivity :
     private var isEdit = false
     private var postId = 0L
     private var shortLocation = ""
+    private var location = ""
     override fun initObserver() {
         repeatOnStarted {
             // 달력에서 선택한 날짜 및 시간 반영
@@ -62,6 +67,9 @@ class WriteViewingPartyActivity :
 
             is UiState.Failure -> {
                 showCustomSnackBar(binding.root, state.msg)
+                if(state.msg == GEOCODING_FAIL){
+                    viewingPartyMarker.map = null
+                }
             }
 
             else -> Unit
@@ -93,12 +101,14 @@ class WriteViewingPartyActivity :
                 }
             }
 
-            WriteViewingPartyViewModel.WriteViewingPartyEvent.WriteDoneViewingParty -> {
-                setResult(
-                    RESULT_OK,
-                    MainActivity.writeDoneIntent(this@WriteViewingPartyActivity, true)
-                )
-                finish()
+            is WriteViewingPartyViewModel.WriteViewingPartyEvent.WriteDoneViewingParty -> {
+                if(event.isWriteDone) {
+                    setResult(
+                        RESULT_OK,
+                        MainActivity.writeDoneIntent(this@WriteViewingPartyActivity, true)
+                    )
+                    finish()
+                }
             }
         }
     }
@@ -137,14 +147,14 @@ class WriteViewingPartyActivity :
                 tvWriteViewingPartyDate.text = editViewingParty.date
                 tvWriteDone.text = "수정"
 
-                viewModel.fetchGeocoding(editViewingParty.location)
+                location = editViewingParty.location
             }
         }
     }
 
     // 달력 표시
     private fun showDatePicker() {
-        binding.tvWriteViewingPartyDate.setOnClickListener {
+        binding.tvWriteViewingPartyDate.setOnSingleClickListener {
             val dialog = CalendarDialogFragment()
             dialog.show(supportFragmentManager, dialog.tag)
         }
@@ -153,17 +163,17 @@ class WriteViewingPartyActivity :
     private fun showKeyBoard() {
         with(binding) {
             // 비용 입력
-            layoutWriteViewingPartyPrice.setOnClickListener {
+            layoutWriteViewingPartyPrice.setOnSingleClickListener {
                 etWriteViewingPartyPrice.showKeyboard()
             }
 
             // 최소 인원 입력
-            layoutWriteViewingPartyParticipantMinimum.setOnClickListener {
+            layoutWriteViewingPartyParticipantMinimum.setOnSingleClickListener {
                 etWriteViewingPartyParticipantMinimum.showKeyboard()
             }
 
             // 최대 인원 입력
-            layoutWriteViewingPartyParticipantMaximum.setOnClickListener {
+            layoutWriteViewingPartyParticipantMaximum.setOnSingleClickListener {
                 etWriteViewingPartyParticipantMaximum.showKeyboard()
             }
         }
@@ -229,13 +239,16 @@ class WriteViewingPartyActivity :
         mapFragment.getMapAsync { map ->
             naverMap = map
             naverMap?.moveCamera(CameraUpdate.zoomTo(16.0))
+            if(location.isNotEmpty()) {
+                viewModel.fetchGeocoding(location)
+            }
         }
     }
 
     // 뷰잉파티 등록 버튼 눌렀을 때
     private fun writeDone() {
         with(binding) {
-            tvWriteDone.setOnClickListener {
+            tvWriteDone.setOnSingleClickListener {
 
                 // 최대 최소 인원 예외처리
                 if (etWriteViewingPartyParticipantMaximum.text.toString()
@@ -243,22 +256,22 @@ class WriteViewingPartyActivity :
                         .isNotEmpty()
                 ) {
                     if (etWriteViewingPartyParticipantMaximum.text.toString().replace(",", "")
-                            .toInt() <
+                            .toInt() <=
                         etWriteViewingPartyParticipantMinimum.text.toString().replace(",", "")
                             .toInt()
                     ) {
                         showCustomSnackBar(binding.tvWriteGuide, "최소 인원이 최대 인원보다 많습니다")
-                        return@setOnClickListener
+                        return@setOnSingleClickListener
                     }
                 }
 
                 // 제목이나 본문 입력하지 않을 시 예외처리
                 if (etWriteViewingPartyName.text.isEmpty() || etWriteViewingPartyPrice.text.isEmpty() ||
                     etWriteViewingPartyParticipantMinimum.text.isEmpty() || etWriteViewingPartyParticipantMaximum.text.isEmpty() ||
-                    etWriteViewingPartyQualify.text.isEmpty() || tvWriteViewingPartyDate.text == "시간을 입력하세요" //|| viewingPartyMarker.map == null
+                    etWriteViewingPartyQualify.text.isEmpty() || tvWriteViewingPartyDate.text == "시간을 입력하세요" || viewingPartyMarker.map == null
                 ) {
                     showCustomSnackBar(binding.tvWriteGuide, "필수 항목을 입력하지 않았습니다")
-                    return@setOnClickListener
+                    return@setOnSingleClickListener
                 }
 
                 // API 호출
@@ -271,9 +284,9 @@ class WriteViewingPartyActivity :
                     longitude = viewingPartyMarker.position.longitude,
                     location = etWriteViewingPartyAddress.textToString(),
                     shortLocation = shortLocation,
-                    price = etWriteViewingPartyPrice.textToString(),
-                    lowParticipate = etWriteViewingPartyParticipantMinimum.textToString(),
-                    highParticipate = etWriteViewingPartyParticipantMaximum.textToString(),
+                    price = etWriteViewingPartyPrice.textToString().trim(),
+                    lowParticipate = etWriteViewingPartyParticipantMinimum.textToString().trim(),
+                    highParticipate = etWriteViewingPartyParticipantMaximum.textToString().trim(),
                     qualify = etWriteViewingPartyQualify.textToString(),
                     etc = etWriteViewingPartyEtc.textToString()
                 )
@@ -290,13 +303,12 @@ class WriteViewingPartyActivity :
     }
 
     private fun closeWriteViewingParty() {
-        binding.ivWriteClose.setOnClickListener {
+        binding.ivWriteClose.setOnSingleClickListener {
             finish()
         }
     }
 
     override fun onMapReady(p0: NaverMap) {
-
     }
 
     companion object {

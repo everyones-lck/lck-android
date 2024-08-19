@@ -15,9 +15,9 @@ data class ReadViewingPartyResponseDto(
     val location: String,
     val latitude: Double,
     val longitude: Double,
-    val price: Int,
-    val lowParticipate: Int,
-    val highParticipate: Int,
+    val price: String,
+    val lowParticipate: String,
+    val highParticipate: String,
     val etc: String
 ) {
     fun toReadViewingPartyModel() =
@@ -30,7 +30,7 @@ data class ReadViewingPartyResponseDto(
             location,
             latitude,
             longitude,
-            "₩ ${DecimalFormat("#,###").format(price)}",
+            price,
             "$lowParticipate - $highParticipate 명",
             etc
         )

@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import umc.everyones.lck.databinding.ItemViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
 import umc.everyones.lck.domain.model.response.party.ViewingPartyListModel
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 class ViewingPartyRVA(val readViewingParty: (Long, String?) -> Unit) :
     PagingDataAdapter<ViewingPartyListModel.ViewingPartyElementModel, ViewingPartyRVA.ViewingPartyViewHolder>(DiffCallback()) {
@@ -42,7 +43,7 @@ class ViewingPartyRVA(val readViewingParty: (Long, String?) -> Unit) :
                 Glide.with(ivViewingPartyProfile.context)
                     .load(viewingPartyItem.photoURL)
                     .into(ivViewingPartyProfile)
-                root.setOnClickListener {
+                root.setOnSingleClickListener {
                     readViewingParty(viewingPartyItem.id, viewingPartyItem.shortLocation)
                 }
             }

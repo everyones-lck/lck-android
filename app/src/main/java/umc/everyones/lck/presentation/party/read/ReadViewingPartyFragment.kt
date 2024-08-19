@@ -106,7 +106,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
         viewModel.fetchViewingParty()
         distinguishView()
         goToEditViewingParty()
-        binding.ivReadBackBtn.setOnClickListener {
+        binding.ivReadBackBtn.setOnSingleClickListener {
             navigator.navigateUp()
         }
     }
@@ -134,7 +134,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
     }
 
     private fun joinViewingParty(){
-        binding.tvReadJoinViewingParty.setOnClickListener {
+        binding.tvReadJoinViewingParty.setOnSingleClickListener {
             viewModel.setTitle(binding.tvReadViewingPartyTitle.text.toString())
             val dialog = JoinViewingPartyDialogFragment()
             dialog.setOnJoinViewingPartyClickListener(object : JoinViewingPartyDialogFragment.OnJoinViewingPartyClickListener{
@@ -147,20 +147,20 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
     }
 
     private fun inquireParticipantsList(){
-        binding.tvReadAskToHost.setOnClickListener {
+        binding.tvReadAskToHost.setOnSingleClickListener {
             navigator.navigate(R.id.action_readViewingPartyFragment_to_participantsFragment)
         }
     }
 
     private fun askToHost(){
-        binding.tvReadAskToHost.setOnClickListener {
+        binding.tvReadAskToHost.setOnSingleClickListener {
             startActivity(ViewingPartyChatActivity.newIntent(requireContext(), 4, true))
         }
     }
 
     private fun goToEditViewingParty(){
         with(binding){
-            ivReadEditBtn.setOnClickListener {
+            ivReadEditBtn.setOnSingleClickListener {
                 val participate = tvReadParticipants.textToString().split("-")
                 writeResultLauncher.launch(WriteViewingPartyActivity.editIntent(requireContext(), postId,
                     WriteViewingPartyModel(

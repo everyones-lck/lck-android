@@ -9,6 +9,7 @@ import umc.everyones.lck.domain.model.party.ParticipantItem
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.party.chat.ViewingPartyChatActivity
 import umc.everyones.lck.presentation.party.adapter.ParticipantsRVA
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class ParticipantsFragment : BaseFragment<FragmentParticipantsBinding>(R.layout.fragment_participants) {
@@ -27,7 +28,7 @@ class ParticipantsFragment : BaseFragment<FragmentParticipantsBinding>(R.layout.
     override fun initView() {
         initParticipantRVAdapter()
         viewModel.fetchViewingPartyParticipants()
-        binding.ivParticipantsBackBtn.setOnClickListener {
+        binding.ivParticipantsBackBtn.setOnSingleClickListener {
             navigator.navigateUp()
         }
     }

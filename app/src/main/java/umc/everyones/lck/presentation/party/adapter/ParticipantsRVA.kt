@@ -10,6 +10,7 @@ import umc.everyones.lck.databinding.ItemParticipantBinding
 import umc.everyones.lck.databinding.ItemViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ParticipantItem
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 class ParticipantsRVA(val goToChat: () -> Unit) :
     ListAdapter<ParticipantItem, ParticipantsRVA.ParticipantViewHolder>(DiffCallback()) {
@@ -38,7 +39,7 @@ class ParticipantsRVA(val goToChat: () -> Unit) :
 
                 tvParticipantName.text = participantItem.name
                 tvParticipantFavoriteTeam.text = participantItem.favoriteTeam*/
-                ivParticipantChatBtn.setOnClickListener {
+                ivParticipantChatBtn.setOnSingleClickListener {
                     goToChat()
                 }
             }

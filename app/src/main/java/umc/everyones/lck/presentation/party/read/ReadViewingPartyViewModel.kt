@@ -35,17 +35,6 @@ class ReadViewingPartyViewModel @Inject constructor(
 
         data class WriteDoneViewingParty(val isWriteDone: Boolean): ReadViewingPartyEvent()
     }
-
-    /*private fun eventReadViewingParty(event: ReadViewingPartyEvent){
-        viewModelScope.launch {
-            _readViewingPartyEvent.emit(event)
-        }
-    }*/
-
-    fun eventWriteDoneViewingParty(isWriteDone: Boolean) {
-        _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.WriteDoneViewingParty(isWriteDone))
-    }
-
     fun setTitle(title: String) {
         _title.value = title
     }
@@ -59,11 +48,9 @@ class ReadViewingPartyViewModel @Inject constructor(
             repository.fetchViewingParty(postId.value).onSuccess { response ->
                 Log.d("fetchViewingParty", response.toString())
                 _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.ReadViewingParty(response))
-                //eventReadViewingParty(ReadViewingPartyEvent.Read(response))
             }.onFailure {
                 Log.d("fetchViewingParty error", it.stackTraceToString())
                 _readViewingPartyEvent.value = UiState.Failure("뷰잉파티를 조회하지 못했습니다")
-                //eventReadViewingParty(ReadViewingPartyEvent.Fail("뷰잉파티를 조회하지 못했습니다"))
             }
         }
     }
@@ -73,11 +60,9 @@ class ReadViewingPartyViewModel @Inject constructor(
             repository.joinViewingParty(postId.value).onSuccess { response ->
                 Log.d("joinViewingParty", response.toString())
                 _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.JoinViewingParty)
-                //eventReadViewingParty(ReadViewingPartyEvent.Success("뷰잉파티에 참여되었습니다!"))
             }.onFailure {
                 Log.d("joinViewingParty error", it.stackTraceToString())
                 _readViewingPartyEvent.value = UiState.Failure("뷰잉파티에 참여하지 못했습니다")
-                //eventReadViewingParty(ReadViewingPartyEvent.Fail("뷰잉파티에 참여하지 못했습니다"))
             }
         }
     }
@@ -86,12 +71,10 @@ class ReadViewingPartyViewModel @Inject constructor(
         viewModelScope.launch {
             repository.deleteViewingParty(postId.value).onSuccess { response ->
                 Log.d("deleteViewingParty", response.toString())
-                //eventReadViewingParty(ReadViewingPartyEvent.Success("delete"))
                 _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.DeleteViewingParty)
             }.onFailure {
                 Log.d("deleteViewingParty error", it.stackTraceToString())
                 _readViewingPartyEvent.value = UiState.Failure("뷰잉파티를 삭제하지 못했습니다")
-                //eventReadViewingParty(ReadViewingPartyEvent.Fail("뷰잉파티를 삭제하지 못했습니다"))
             }
         }
     }
@@ -104,7 +87,6 @@ class ReadViewingPartyViewModel @Inject constructor(
             }.onFailure {
                 Log.d("deleteViewingParty error", it.stackTraceToString())
                 _readViewingPartyEvent.value = UiState.Failure("뷰잉파티 참가자를 조회하지 못했습니다")
-                //eventReadViewingParty(ReadViewingPartyEvent.Fail("뷰잉파티 참가자를 조회하지 못했습니다"))
             }
         }
     }

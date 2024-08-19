@@ -26,6 +26,7 @@ import umc.everyones.lck.presentation.party.write.WriteViewingPartyViewModel.Com
 import umc.everyones.lck.util.extension.addDecimalFormattedTextWatcher
 import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnEditorActionListener
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.showKeyboard
 import umc.everyones.lck.util.extension.textToString
@@ -153,7 +154,7 @@ class WriteViewingPartyActivity :
 
     // 달력 표시
     private fun showDatePicker() {
-        binding.tvWriteViewingPartyDate.setOnClickListener {
+        binding.tvWriteViewingPartyDate.setOnSingleClickListener {
             val dialog = CalendarDialogFragment()
             dialog.show(supportFragmentManager, dialog.tag)
         }
@@ -162,17 +163,17 @@ class WriteViewingPartyActivity :
     private fun showKeyBoard() {
         with(binding) {
             // 비용 입력
-            layoutWriteViewingPartyPrice.setOnClickListener {
+            layoutWriteViewingPartyPrice.setOnSingleClickListener {
                 etWriteViewingPartyPrice.showKeyboard()
             }
 
             // 최소 인원 입력
-            layoutWriteViewingPartyParticipantMinimum.setOnClickListener {
+            layoutWriteViewingPartyParticipantMinimum.setOnSingleClickListener {
                 etWriteViewingPartyParticipantMinimum.showKeyboard()
             }
 
             // 최대 인원 입력
-            layoutWriteViewingPartyParticipantMaximum.setOnClickListener {
+            layoutWriteViewingPartyParticipantMaximum.setOnSingleClickListener {
                 etWriteViewingPartyParticipantMaximum.showKeyboard()
             }
         }
@@ -247,7 +248,7 @@ class WriteViewingPartyActivity :
     // 뷰잉파티 등록 버튼 눌렀을 때
     private fun writeDone() {
         with(binding) {
-            tvWriteDone.setOnClickListener {
+            tvWriteDone.setOnSingleClickListener {
 
                 // 최대 최소 인원 예외처리
                 if (etWriteViewingPartyParticipantMaximum.text.toString()
@@ -260,7 +261,7 @@ class WriteViewingPartyActivity :
                             .toInt()
                     ) {
                         showCustomSnackBar(binding.tvWriteGuide, "최소 인원이 최대 인원보다 많습니다")
-                        return@setOnClickListener
+                        return@setOnSingleClickListener
                     }
                 }
 
@@ -270,7 +271,7 @@ class WriteViewingPartyActivity :
                     etWriteViewingPartyQualify.text.isEmpty() || tvWriteViewingPartyDate.text == "시간을 입력하세요" || viewingPartyMarker.map == null
                 ) {
                     showCustomSnackBar(binding.tvWriteGuide, "필수 항목을 입력하지 않았습니다")
-                    return@setOnClickListener
+                    return@setOnSingleClickListener
                 }
 
                 // API 호출
@@ -302,7 +303,7 @@ class WriteViewingPartyActivity :
     }
 
     private fun closeWriteViewingParty() {
-        binding.ivWriteClose.setOnClickListener {
+        binding.ivWriteClose.setOnSingleClickListener {
             finish()
         }
     }

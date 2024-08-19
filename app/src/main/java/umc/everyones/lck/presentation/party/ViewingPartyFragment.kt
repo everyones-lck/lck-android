@@ -34,7 +34,6 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
         if (result.resultCode == Activity.RESULT_OK){
             isWriteDone = result.data?.getBooleanExtra("isWriteDone", false) ?: false
             if(isWriteDone){
-                navigator.navigateUp()
                 viewingPartyRVA?.refresh()
             }
         }

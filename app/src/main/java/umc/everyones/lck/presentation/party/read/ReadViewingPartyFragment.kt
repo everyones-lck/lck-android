@@ -2,6 +2,7 @@ package umc.everyones.lck.presentation.party.read
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +24,7 @@ import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.textToString
 import umc.everyones.lck.util.extension.toWriteViewingPartyDateFormat
 import umc.everyones.lck.util.network.UiState
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R.layout.fragment_read_viewing_party) {
@@ -49,7 +51,6 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
             }
         }
     }
-
     override fun initObserver() {
         viewLifecycleOwner.repeatOnStarted {
             viewModel.readViewingPartyEvent.collect{ state ->
@@ -59,6 +60,25 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                         showCustomSnackBar(binding.root, state.msg)
                     }
                     else -> Unit
+                }
+            }
+        }
+
+        viewLifecycleOwner.repeatOnStarted {
+            viewModel.isWriter.collect{ isWriter ->
+                Log.d("isWriter", isWriter.toString())
+                if(!isWriter) {
+                    with(binding){
+                        groupReadWriterMenu.visibility = View.GONE
+                        tvReadParticipantCancelGuide.visibility = View.VISIBLE
+                        tvReadAskToHost.text = "주최자에게 질문하기"
+                        tvReadJoinViewingParty.text = "Viewing Party 참여하기"
+                        askToHost()
+                        joinViewingParty()
+                    }
+                } else {
+                    inquireParticipantsList()
+                    deleteViewingParty()
                 }
             }
         }
@@ -80,6 +100,8 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                     Glide.with(requireContext())
                         .load(event.viewingParty.ownerImage)
                         .into(ivReadProfileImage)
+
+                    viewModel.setTitle(event.viewingParty.name)
                 }
             }
 
@@ -104,29 +126,11 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
         Log.d("postId", postId.toString())
         viewModel.setPostId(postId)
         viewModel.fetchViewingParty()
-        distinguishView()
         goToEditViewingParty()
         binding.ivReadBackBtn.setOnSingleClickListener {
             navigator.navigateUp()
         }
     }
-
-    private fun distinguishView(){
-        if(false) {
-            with(binding){
-                groupReadWriterMenu.visibility = View.GONE
-                tvReadParticipantCancelGuide.visibility = View.VISIBLE
-                tvReadAskToHost.text = "주최자에게 질문하기"
-                tvReadJoinViewingParty.text = "Viewing Party 참여하기"
-                askToHost()
-                joinViewingParty()
-            }
-        } else {
-            inquireParticipantsList()
-            deleteViewingParty()
-        }
-    }
-
     private fun deleteViewingParty(){
         binding.ivReadDeleteBtn.setOnSingleClickListener {
             viewModel.deleteViewingParty()
@@ -135,7 +139,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     private fun joinViewingParty(){
         binding.tvReadJoinViewingParty.setOnSingleClickListener {
-            viewModel.setTitle(binding.tvReadViewingPartyTitle.text.toString())
+            //viewModel.setTitle(binding.tvReadViewingPartyTitle.text.toString())
             val dialog = JoinViewingPartyDialogFragment()
             dialog.setOnJoinViewingPartyClickListener(object : JoinViewingPartyDialogFragment.OnJoinViewingPartyClickListener{
                 override fun onConfirm() {

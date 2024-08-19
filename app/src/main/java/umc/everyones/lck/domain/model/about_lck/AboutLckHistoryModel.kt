@@ -2,7 +2,7 @@ package umc.everyones.lck.domain.model.about_lck
 
 
 data class AboutLckHistoryModel(
-    val seasonNames: List<LckHistoryElementModel>,
+    val seasonTeamDetails: List<LckHistoryElementModel>,
     val totalPage: Int,
     val totalElements: Int,
     val isFirst: Boolean,

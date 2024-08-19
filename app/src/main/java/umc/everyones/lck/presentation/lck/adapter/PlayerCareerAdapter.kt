@@ -8,9 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.R
+import umc.everyones.lck.presentation.lck.data.HistoryData
 import umc.everyones.lck.presentation.lck.data.PlayerCareerData
 
-class PlayerCareerAdapter(private val items: List<PlayerCareerData>) :
+class PlayerCareerAdapter(private val items: MutableList<PlayerCareerData>) :
     RecyclerView.Adapter<PlayerCareerAdapter.PlayerCareerViewHolder>() {
 
     inner class PlayerCareerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -46,5 +47,13 @@ class PlayerCareerAdapter(private val items: List<PlayerCareerData>) :
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    fun getItems(): List<PlayerCareerData> = items
+
+    fun updateItems(newItems: List<PlayerCareerData>) {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
     }
 }

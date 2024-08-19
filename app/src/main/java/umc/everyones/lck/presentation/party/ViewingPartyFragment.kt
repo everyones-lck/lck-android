@@ -1,24 +1,17 @@
 package umc.everyones.lck.presentation.party
 
 import android.app.Activity
-import android.content.Intent
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.time.delay
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentViewingPartyBinding
-import umc.everyones.lck.domain.model.party.ViewingPartyItem
-import umc.everyones.lck.domain.model.response.party.ViewingPartyListModel
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.mypage.MyPageActivity
 import umc.everyones.lck.presentation.party.adapter.ViewingPartyRVA
@@ -35,6 +28,7 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
         findNavController()
     }
     private var isWriteDone = false
+    private var isRefreshed = false
 
     private var writeResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if (result.resultCode == Activity.RESULT_OK){
@@ -46,9 +40,19 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     }
 
     override fun initObserver() {
-        repeatOnStarted {
+        viewLifecycleOwner.repeatOnStarted {
             viewModel.viewingPartyListPage.collectLatest{ data ->
                 viewingPartyRVA?.submitData(data)
+            }
+        }
+
+        viewLifecycleOwner.repeatOnStarted {
+            viewModel.isRefreshNeeded.collect { isRefreshNeeded ->
+                if(isRefreshNeeded) {
+                    viewingPartyRVA?.refresh()
+                    viewModel.setIsRefreshNeeded(false)
+                    isRefreshed = true
+                }
             }
         }
     }
@@ -67,31 +71,22 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
 
     private fun initViewingPartyRVAdapter(){
         _viewIngPartyRVA = ViewingPartyRVA { postId, shortLocation ->
+            isRefreshed = false
             val action = ViewingPartyFragmentDirections.actionViewingPartyFragmentToReadViewingPartyFragment(postId, shortLocation ?: "")
             navigator.navigate(action)
         }
-        binding.rvViewingParty.adapter = viewingPartyRVA
-        viewingPartyRVA?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                if (positionStart == 0) {
-                    if (isWriteDone) {
-                        binding.rvViewingParty.layoutManager?.scrollToPosition(0)
-                    }
-                }
-            }
-        })
 
         viewingPartyRVA?.addLoadStateListener { combinedLoadStates ->
-            Log.d("loadStates", combinedLoadStates.toString())
             with(binding){
+                if(combinedLoadStates.source.refresh is LoadState.Loading){
+                    binding.rvViewingParty.layoutManager?.scrollToPosition(0)
+                }
                 ivViewingPartyLoadingImg.isVisible = combinedLoadStates.source.refresh is LoadState.Loading
                 rvViewingParty.isVisible = combinedLoadStates.source.refresh is LoadState.NotLoading
             }
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
+        binding.rvViewingParty.adapter = viewingPartyRVA
     }
 
     override fun onDestroyView() {

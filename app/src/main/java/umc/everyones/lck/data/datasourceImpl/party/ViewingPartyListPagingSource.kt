@@ -12,10 +12,10 @@ class ViewingPartyListPagingSource @Inject constructor(
     private val viewingPartyService: ViewingPartyService
 ) : PagingSource<Int, ViewingPartyListModel.ViewingPartyElementModel>() {
     override fun getRefreshKey(state: PagingState<Int, ViewingPartyListModel.ViewingPartyElementModel>): Int? {
-        return state.anchorPosition?.let { anchorPosition ->
+        return 0/*state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
-        }
+        }*/
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ViewingPartyListModel.ViewingPartyElementModel> {

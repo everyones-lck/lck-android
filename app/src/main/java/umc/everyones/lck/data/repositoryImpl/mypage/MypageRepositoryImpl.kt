@@ -1,6 +1,8 @@
 package umc.everyones.lck.data.repositoryImpl.mypage
 
 import umc.everyones.lck.data.datasource.MypageDataSource
+import umc.everyones.lck.data.dto.request.mypage.CancelParticipateViewingPartyMypageRequestDto
+import umc.everyones.lck.domain.model.request.mypage.CancelParticipateViewingPartyMypageModel
 import umc.everyones.lck.domain.model.response.mypage.CommentsMypageModel
 import umc.everyones.lck.domain.model.response.mypage.HostViewingPartyMypageModel
 import umc.everyones.lck.domain.model.response.mypage.InquiryProfilesModel
@@ -26,5 +28,7 @@ class MypageRepositoryImpl  @Inject constructor(
 
     override suspend fun hostViewingPartyMypage(token: String, size: Int, page: Int): Result<HostViewingPartyMypageModel> =
         runCatching { mypageDataSource.hostViewingPartyMypage(token, size, page).data.toHostViewingPartyMypageModel() }
-}
 
+    override suspend fun cancelParticipateViewingPartyMypage(token: String, request: CancelParticipateViewingPartyMypageModel): Result<Boolean> =
+        runCatching { mypageDataSource.cancelParticipateViewingPartyMypage(token, CancelParticipateViewingPartyMypageRequestDto(request.viewingPartyId)).data }
+}

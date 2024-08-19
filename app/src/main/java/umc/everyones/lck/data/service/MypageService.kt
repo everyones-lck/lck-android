@@ -1,11 +1,12 @@
 package umc.everyones.lck.data.service
 
+import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.PATCH
-import retrofit2.http.Part
 import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
+import umc.everyones.lck.data.dto.request.mypage.CancelParticipateViewingPartyMypageRequestDto
 import umc.everyones.lck.data.dto.response.mypage.CommentsMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.HostViewingPartyMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.InquiryProfilesResponseDto
@@ -46,4 +47,10 @@ interface MypageService {
         @Query("size") size: Int = 6, // 기본값 6
         @Query("page") page: Int = 0 // 기본값 0
     ):BaseResponse<HostViewingPartyMypageResponseDto>
+
+    @DELETE("my-pages/viewing-parties/participate")
+    suspend fun cancelParticipateViewingPartyMypage(
+        @Header("Authorization") token: String,
+        @Body request: CancelParticipateViewingPartyMypageRequestDto
+    ):BaseResponse<Boolean>
 }

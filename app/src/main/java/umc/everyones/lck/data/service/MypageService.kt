@@ -10,9 +10,11 @@ import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.Part
 import retrofit2.http.Query
+import umc.everyones.lck.data.UpdateProfileRequest
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.mypage.CancelHostViewingPartyMypageRequestDto
 import umc.everyones.lck.data.dto.request.mypage.CancelParticipateViewingPartyMypageRequestDto
+import umc.everyones.lck.data.dto.request.mypage.UpdateTeamRequestDto
 import umc.everyones.lck.data.dto.response.mypage.CommentsMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.HostViewingPartyMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.InquiryProfilesResponseDto
@@ -84,4 +86,10 @@ interface MypageService {
         @Part profileImage: MultipartBody.Part?,
         @Part("updateProfileRequest") updateProfileRequest: RequestBody
     ): BaseResponse<UpdateProfilesResponseDto>
+
+    @PATCH("my-pages/my-team")
+    suspend fun updateTeam(
+        @Header("Authorization") token: String,
+        @Body request: UpdateTeamRequestDto
+    ): BaseResponse<Boolean>
 }

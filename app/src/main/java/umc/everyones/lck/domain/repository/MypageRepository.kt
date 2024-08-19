@@ -3,8 +3,10 @@ package umc.everyones.lck.domain.repository
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import umc.everyones.lck.data.UpdateProfileRequest
+import umc.everyones.lck.data.dto.request.mypage.UpdateTeamRequestDto
 import umc.everyones.lck.domain.model.request.mypage.CancelHostViewingPartyMypageModel
 import umc.everyones.lck.domain.model.request.mypage.CancelParticipateViewingPartyMypageModel
+import umc.everyones.lck.domain.model.request.mypage.UpdateTeamModel
 import umc.everyones.lck.domain.model.response.mypage.CommentsMypageModel
 import umc.everyones.lck.domain.model.response.mypage.HostViewingPartyMypageModel
 import umc.everyones.lck.domain.model.response.mypage.InquiryProfilesModel
@@ -32,5 +34,7 @@ interface MypageRepository {
     suspend fun withdraw(token: String): Result<Boolean>
 
     suspend fun updateProfiles(profileImage: MultipartBody.Part?, updateProfileRequest: RequestBody): Result<UpdateProfilesModel>
+
+    suspend fun updateTeam(token: String, request: UpdateTeamModel): Result<Boolean>
 
 }

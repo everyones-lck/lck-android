@@ -6,6 +6,7 @@ import umc.everyones.lck.data.datasource.MypageDataSource
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.mypage.CancelHostViewingPartyMypageRequestDto
 import umc.everyones.lck.data.dto.request.mypage.CancelParticipateViewingPartyMypageRequestDto
+import umc.everyones.lck.data.dto.request.mypage.UpdateTeamRequestDto
 import umc.everyones.lck.data.dto.response.mypage.CommentsMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.HostViewingPartyMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.InquiryProfilesResponseDto
@@ -47,4 +48,7 @@ class MypageDataSourceImpl @Inject constructor(
 
     override suspend fun updateProfiles(profileImage: MultipartBody.Part?, updateProfileRequest: RequestBody): BaseResponse<UpdateProfilesResponseDto> =
         mypageService.updateProfiles(profileImage, updateProfileRequest)
+
+    override suspend fun updateTeam(token: String, requestDto: UpdateTeamRequestDto): BaseResponse<Boolean> =
+        mypageService.updateTeam(token, requestDto)
 }

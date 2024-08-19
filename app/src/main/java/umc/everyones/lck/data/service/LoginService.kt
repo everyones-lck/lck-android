@@ -8,6 +8,8 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Path
+import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.login.CommonLoginRequestDto
 import umc.everyones.lck.data.dto.request.login.NicknameAuthUserRequestDto
@@ -18,10 +20,7 @@ interface LoginService {
     @Multipart
     @POST("/auth/signup")
     suspend fun signup(
-        @Part("kakaoUserId") kakaoUserId: RequestBody,
-        @Part("nickName") nickName: RequestBody,
-        @Part("role") role: RequestBody,
-        @Part("teamId") teamId: RequestBody,
+        @Part("signupUserData") signupUserData: RequestBody,
         @Part profileImage: MultipartBody.Part
     ): BaseResponse<CommonLoginResponseDto>
 
@@ -35,10 +34,10 @@ interface LoginService {
         @Body request: CommonLoginRequestDto
     ):BaseResponse<CommonLoginResponseDto>
 
-    @GET("/auth/nickname")
+    @GET("auth/nickname")
     suspend fun nickname(
         @Body request: NicknameAuthUserRequestDto
-    ):BaseResponse<Unit>
+    ): BaseResponse<Boolean>
 
     @GET("/auth/users/test")
     suspend fun usertest(

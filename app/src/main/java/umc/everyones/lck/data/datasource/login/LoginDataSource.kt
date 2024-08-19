@@ -8,13 +8,13 @@ import umc.everyones.lck.data.dto.request.login.NicknameAuthUserRequestDto
 import umc.everyones.lck.data.dto.response.login.CommonLoginResponseDto
 
 interface LoginDataSource {
-    suspend fun signup(kakaoUserId: RequestBody, nickName: RequestBody, role: RequestBody, teamId: RequestBody, profileImage: MultipartBody.Part): BaseResponse<CommonLoginResponseDto>
+    suspend fun signup(signupUserData: RequestBody, profileImage: MultipartBody.Part): BaseResponse<CommonLoginResponseDto>
 
     suspend fun login(requestDto: CommonLoginRequestDto): BaseResponse<CommonLoginResponseDto>
 
     suspend fun refresh(requestDto: CommonLoginRequestDto): BaseResponse<CommonLoginResponseDto>
 
-    suspend fun nickname(request: NicknameAuthUserRequestDto): Result<Unit>
+    suspend fun nickname(request: NicknameAuthUserRequestDto): BaseResponse<Boolean>
 
     suspend fun usertest(token: String): BaseResponse<Unit>
 }

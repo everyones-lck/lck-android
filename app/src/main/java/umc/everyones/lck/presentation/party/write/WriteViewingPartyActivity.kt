@@ -20,6 +20,7 @@ import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.party.dialog.CalendarDialogFragment
+import umc.everyones.lck.presentation.party.write.WriteViewingPartyViewModel.Companion.GEOCODING_FAIL
 import umc.everyones.lck.util.extension.addDecimalFormattedTextWatcher
 import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnEditorActionListener
@@ -62,6 +63,9 @@ class WriteViewingPartyActivity :
 
             is UiState.Failure -> {
                 showCustomSnackBar(binding.root, state.msg)
+                if(state.msg == GEOCODING_FAIL){
+                    viewingPartyMarker.map = null
+                }
             }
 
             else -> Unit
@@ -243,7 +247,7 @@ class WriteViewingPartyActivity :
                         .isNotEmpty()
                 ) {
                     if (etWriteViewingPartyParticipantMaximum.text.toString().replace(",", "")
-                            .toInt() <
+                            .toInt() <=
                         etWriteViewingPartyParticipantMinimum.text.toString().replace(",", "")
                             .toInt()
                     ) {
@@ -255,7 +259,7 @@ class WriteViewingPartyActivity :
                 // 제목이나 본문 입력하지 않을 시 예외처리
                 if (etWriteViewingPartyName.text.isEmpty() || etWriteViewingPartyPrice.text.isEmpty() ||
                     etWriteViewingPartyParticipantMinimum.text.isEmpty() || etWriteViewingPartyParticipantMaximum.text.isEmpty() ||
-                    etWriteViewingPartyQualify.text.isEmpty() || tvWriteViewingPartyDate.text == "시간을 입력하세요" //|| viewingPartyMarker.map == null
+                    etWriteViewingPartyQualify.text.isEmpty() || tvWriteViewingPartyDate.text == "시간을 입력하세요" || viewingPartyMarker.map == null
                 ) {
                     showCustomSnackBar(binding.tvWriteGuide, "필수 항목을 입력하지 않았습니다")
                     return@setOnClickListener
@@ -271,9 +275,9 @@ class WriteViewingPartyActivity :
                     longitude = viewingPartyMarker.position.longitude,
                     location = etWriteViewingPartyAddress.textToString(),
                     shortLocation = shortLocation,
-                    price = etWriteViewingPartyPrice.textToString(),
-                    lowParticipate = etWriteViewingPartyParticipantMinimum.textToString(),
-                    highParticipate = etWriteViewingPartyParticipantMaximum.textToString(),
+                    price = etWriteViewingPartyPrice.textToString().trim(),
+                    lowParticipate = etWriteViewingPartyParticipantMinimum.textToString().trim(),
+                    highParticipate = etWriteViewingPartyParticipantMaximum.textToString().trim(),
                     qualify = etWriteViewingPartyQualify.textToString(),
                     etc = etWriteViewingPartyEtc.textToString()
                 )

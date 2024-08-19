@@ -32,6 +32,8 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
     private val navigator by lazy { findNavController() }
     private lateinit var pagerAdapter: TeamVPAdapter
 
+    private var teamLogoUrl: String? = null
+
     override fun initObserver() {
 
     }
@@ -65,7 +67,8 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
         // Safe Args로 전달된 teamId 수신
         val teamId = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamId }
         val teamName = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamName }
-        val teamLogoUrl = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamLogoUrl }
+        teamLogoUrl = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamLogoUrl }
+
         Log.d("AboutLckTeamFragment", "teamId: $teamId, teamName: $teamName, teamLogoUrl: $teamLogoUrl")
 
         teamId?.let {
@@ -113,8 +116,7 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
     }
 
     override fun onPlayerItemClick(player: PlayerData) {
-        val action = AboutLckTeamFragmentDirections.actionAboutLCKTeamFragmentToAboutLckTeamPlayerFragment(player.playerId)
+        val action = AboutLckTeamFragmentDirections.actionAboutLCKTeamFragmentToAboutLckTeamPlayerFragment(player.playerId,teamLogoUrl?:" ")
         navigator.navigate(action)
     }
-
 }

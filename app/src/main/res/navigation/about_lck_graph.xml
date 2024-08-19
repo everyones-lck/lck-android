@@ -68,5 +68,9 @@
             android:name="playerId"
             app:argType="integer"
             android:defaultValue="20"/>
+        <argument
+            android:name="teamLogoUrl"
+            app:argType="string"
+            android:defaultValue="2"/>
     </fragment>
 </navigation>

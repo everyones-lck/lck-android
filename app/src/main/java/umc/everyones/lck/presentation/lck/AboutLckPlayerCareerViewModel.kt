@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import umc.everyones.lck.domain.model.about_lck.AboutLckPlayerModel
 import umc.everyones.lck.domain.repository.about_lck.AboutLckRepository
 import javax.inject.Inject
 
@@ -20,6 +21,9 @@ class AboutLckPlayerCareerViewModel @Inject constructor(
 
     private val _history = MutableStateFlow<List<String>>(emptyList())
     val history: StateFlow<List<String>> get() = _history
+
+    private val _player = MutableStateFlow<Result<AboutLckPlayerModel>?>(null)
+    val player: StateFlow<Result<AboutLckPlayerModel>?> get() = _player
 
     fun fetchLckWinningCareer(playerId: Int, page: Int, size: Int) {
         viewModelScope.launch {
@@ -55,10 +59,12 @@ class AboutLckPlayerCareerViewModel @Inject constructor(
         viewModelScope.launch {
             val result = repository.fetchLckPlayer(playerId)
 
-            result.onSuccess {
+            result.onSuccess {response->
                 Log.d("AboutLckPlayerCareerViewModel", "fetchLckPlayer API 호출 성공")
-            }.onFailure {
-                Log.e("AboutLckPlayerCareerViewModel", "fetchLckPlayer API 호출 실패: ${it.message}")
+                _player.value = Result.success(response)
+            }.onFailure {exception->
+                Log.e("AboutLckPlayerCareerViewModel", "fetchLckPlayer API 호출 실패: ${exception.message}")
+                _player.value = Result.failure(exception)
             }
         }
     }

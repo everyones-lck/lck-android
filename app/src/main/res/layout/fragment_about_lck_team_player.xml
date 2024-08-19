@@ -45,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="@id/iv_about_lck_team_player_img"/>
 
         <TextView
-            android:id="@+id/iv_about_lck_team_player_name"
+            android:id="@+id/tv_about_lck_team_player_nick_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="FAKER"
@@ -68,6 +68,7 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
+                android:id="@+id/tv_about_lck_team_player_birth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1996.05.07"
@@ -82,12 +83,14 @@
                 android:layout_marginTop="4dp">
 
                 <ImageView
+                    android:id="@+id/iv_about_lck_team_player_position"
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:src="@drawable/ic_pencil"
+                    android:src="@drawable/ic_mid"
                     android:layout_gravity="center"/>
 
                 <TextView
+                    android:id="@+id/tv_about_lck_team_player_position"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MID"
@@ -99,6 +102,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_about_lck_team_player_real_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="이상혁"
@@ -118,7 +122,7 @@
             android:layout_marginTop="20dp"
             android:nestedScrollingEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_about_lck_team_player_name" />
+            app:layout_constraintTop_toBottomOf="@id/tv_about_lck_team_player_nick_name" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
+import umc.everyones.lck.data.dto.request.mypage.CancelHostViewingPartyMypageRequestDto
 import umc.everyones.lck.data.dto.request.mypage.CancelParticipateViewingPartyMypageRequestDto
 import umc.everyones.lck.data.dto.response.mypage.CommentsMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.HostViewingPartyMypageResponseDto
@@ -52,5 +53,11 @@ interface MypageService {
     suspend fun cancelParticipateViewingPartyMypage(
         @Header("Authorization") token: String,
         @Body request: CancelParticipateViewingPartyMypageRequestDto
+    ):BaseResponse<Boolean>
+
+    @DELETE("my-pages/viewing-parties/host")
+    suspend fun cancelHostViewingPartyMypage(
+        @Header("Authorization") token: String,
+        @Body request: CancelHostViewingPartyMypageRequestDto
     ):BaseResponse<Boolean>
 }

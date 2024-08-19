@@ -1,5 +1,6 @@
 package umc.everyones.lck.domain.repository
 
+import umc.everyones.lck.domain.model.request.mypage.CancelHostViewingPartyMypageModel
 import umc.everyones.lck.domain.model.request.mypage.CancelParticipateViewingPartyMypageModel
 import umc.everyones.lck.domain.model.response.mypage.CommentsMypageModel
 import umc.everyones.lck.domain.model.response.mypage.HostViewingPartyMypageModel
@@ -19,4 +20,7 @@ interface MypageRepository {
     suspend fun hostViewingPartyMypage(token: String, size: Int, page: Int): Result<HostViewingPartyMypageModel>
 
     suspend fun cancelParticipateViewingPartyMypage(token: String, request: CancelParticipateViewingPartyMypageModel): Result<Boolean>
+
+    suspend fun cancelHostViewingPartyMypage(token: String, request: CancelHostViewingPartyMypageModel): Result<Boolean>
+
 }

@@ -2,6 +2,7 @@ package umc.everyones.lck.data.repositoryImpl.mypage
 
 import umc.everyones.lck.data.datasource.MypageDataSource
 import umc.everyones.lck.data.dto.request.mypage.CancelParticipateViewingPartyMypageRequestDto
+import umc.everyones.lck.domain.model.request.mypage.CancelHostViewingPartyMypageModel
 import umc.everyones.lck.domain.model.request.mypage.CancelParticipateViewingPartyMypageModel
 import umc.everyones.lck.domain.model.response.mypage.CommentsMypageModel
 import umc.everyones.lck.domain.model.response.mypage.HostViewingPartyMypageModel
@@ -30,5 +31,8 @@ class MypageRepositoryImpl  @Inject constructor(
         runCatching { mypageDataSource.hostViewingPartyMypage(token, size, page).data.toHostViewingPartyMypageModel() }
 
     override suspend fun cancelParticipateViewingPartyMypage(token: String, request: CancelParticipateViewingPartyMypageModel): Result<Boolean> =
-        runCatching { mypageDataSource.cancelParticipateViewingPartyMypage(token, CancelParticipateViewingPartyMypageRequestDto(request.viewingPartyId)).data }
+        runCatching { mypageDataSource.cancelParticipateViewingPartyMypage(token, request.toCancelParticipateViewingPartyMypageRequestDto()).data }
+
+    override suspend fun cancelHostViewingPartyMypage(token: String, request: CancelHostViewingPartyMypageModel): Result<Boolean> =
+        runCatching { mypageDataSource.cancelHostViewingPartyMypage(token, request.toCancelHostViewingPartyMypageRequestDto()).data }
 }

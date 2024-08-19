@@ -31,7 +31,7 @@ class AboutLckCoachesFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R.l
                             teamColor = getTeamColorResource(viewModel.teamId.value ?: 0),
                             name = player.playerName,
                             teamLogo = getTeamLogoResource(viewModel.teamId.value ?: 0),
-                            position = R.drawable.img_about_lck_player_position // 임시로 고정값 사용
+                            position = if (player.position.toString() == "COACH") null else getPositionDrawable(player.position.toString())
                         )
                     }
                     listener?.let {
@@ -72,6 +72,17 @@ class AboutLckCoachesFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R.l
             4 -> R.drawable.img_about_lck_player_team_logo_t1
             // 필요한 만큼 추가
             else -> R.drawable.img_about_lck_gen_g_gray
+        }
+    }
+
+    private fun getPositionDrawable(position: String): Int {
+        return when (position) {
+            "TOP" -> R.drawable.ic_top
+            "JUNGLE" -> R.drawable.ic_jgl
+            "MID" -> R.drawable.ic_mid
+            "BOT" -> R.drawable.ic_bot
+            "SUPPORT" -> R.drawable.ic_support
+            else -> R.drawable.ic_top
         }
     }
 

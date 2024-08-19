@@ -31,7 +31,7 @@ class AboutLckRoasterFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R.l
                             teamColor = getTeamColorResource(viewModel.teamId.value ?: 0),
                             name = player.playerName,
                             teamLogo = getTeamLogoResource(viewModel.teamId.value ?: 0),
-                            position = R.drawable.img_about_lck_player_position // 임시로 고정값 사용
+                            position = if (player.position.toString() == "COACH") null else getPositionDrawable(player.position.toString())
                         )
                     }
                     listener?.let {
@@ -81,6 +81,17 @@ class AboutLckRoasterFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R.l
             else ->R.drawable.img_about_lck_ok_gray
         }
         return logoRes
+    }
+
+    private fun getPositionDrawable(position: String): Int {
+        return when (position) {
+            "TOP" -> R.drawable.ic_top
+            "JUNGLE" -> R.drawable.ic_jgl
+            "MID" -> R.drawable.ic_mid
+            "BOT" -> R.drawable.ic_bot
+            "SUPPORT" -> R.drawable.ic_support
+            else -> R.drawable.ic_top
+        }
     }
 
     private fun findParentListener(): OnPlayerItemClickListener? {

@@ -22,6 +22,7 @@ class PlayerAdapter(
         val playerImage: ImageView = itemView.findViewById(R.id.iv_about_lck_player)
         val teamColorImage: ImageView = itemView.findViewById(R.id.iv_about_lck_player_team_color)
         val playerPosition: ImageView = itemView.findViewById(R.id.iv_about_lck_player_position)
+        //val playerLeaderPosition: ImageView = itemView.findViewById(R.id.iv_about_lck_player_leader_position)
 
         init {
             itemView.setOnClickListener {
@@ -49,13 +50,14 @@ class PlayerAdapter(
 
         holder.teamColorImage.setImageResource(player.teamColor)
         holder.playerTeamLogo.setImageResource(player.teamLogo)
-        holder.playerPosition.setImageResource(player.position)
+        holder.playerPosition.setImageResource(player.position ?: return)
 
         holder.playerImage.bringToFront()
         holder.teamColorImage.bringToFront()
         holder.playerTeamLogo.bringToFront()
         holder.playerName.bringToFront()
         holder.playerPosition.bringToFront()
+        //holder.playerLeaderPosition.bringToFront()
     }
 
     override fun getItemCount() = playerList.size

@@ -11,6 +11,7 @@ data class AboutLckPlayerDetailsModel(
         val playerId: Int,
         val playerName: String,
         val playerRole: PlayerRole?,
+        val position : PlayerPosition,
         val profileImageUrl:String
     )
     enum class PlayerRole {
@@ -28,4 +29,13 @@ data class AboutLckPlayerDetailsModel(
             }
         }
     }
+    enum class PlayerPosition{
+        TOP,
+        JUNGLE,
+        MID,
+        BOT,
+        SUPPORT,
+        COACH
+    }
 }
+

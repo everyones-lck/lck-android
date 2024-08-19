@@ -6,5 +6,5 @@ data class PlayerData(
     val teamColor: Int,
     val name: String,
     val teamLogo: Int,
-    val position: Int
+    val position: Int?
 )

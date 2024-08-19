@@ -68,11 +68,20 @@
             android:id="@+id/iv_about_lck_player_position"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:src="@drawable/img_about_lck_player_position"
             android:layout_marginEnd="2dp"
             app:layout_constraintEnd_toStartOf="@id/tv_about_lck_player_name"
             app:layout_constraintTop_toTopOf="@id/tv_about_lck_player_name"
             app:layout_constraintBottom_toBottomOf="@id/tv_about_lck_player_name"
+            android:elevation="3dp"/>
+
+        <ImageView
+            android:id="@+id/iv_about_lck_player_leader_position"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toStartOf="@id/iv_about_lck_player_position"
+            app:layout_constraintTop_toTopOf="@id/iv_about_lck_player_position"
+            app:layout_constraintBottom_toBottomOf="@id/iv_about_lck_player_position"
             android:elevation="3dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

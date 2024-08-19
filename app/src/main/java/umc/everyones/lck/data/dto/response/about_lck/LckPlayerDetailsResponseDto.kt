@@ -10,10 +10,30 @@ data class LckPlayerDetailsResponseDto(
         val playerId: Int,
         val playerName: String,
         val playerRole: PlayerRole,
+        val position : PlayerPosition,
         val profileImageUrl: String
     ) {
         fun toAboutLckPlayerDetailsElementModel() =
-            AboutLckPlayerDetailsModel.AboutLckPlayerDetailsElementModel(playerId, playerName, playerRole.toAboutLckPlayerRole(), profileImageUrl)
+            AboutLckPlayerDetailsModel.AboutLckPlayerDetailsElementModel(playerId, playerName, playerRole.toAboutLckPlayerRole(), position.toAboutLckPlayerPosition(),profileImageUrl)
+    }
+    enum class PlayerPosition{
+        TOP,
+        JUNGLE,
+        MID,
+        BOT,
+        SUPPORT,
+        COACH;
+
+        fun toAboutLckPlayerPosition(): AboutLckPlayerDetailsModel.PlayerPosition {
+            return when (this) {
+                TOP -> AboutLckPlayerDetailsModel.PlayerPosition.TOP
+                JUNGLE -> AboutLckPlayerDetailsModel.PlayerPosition.JUNGLE
+                MID -> AboutLckPlayerDetailsModel.PlayerPosition.MID
+                BOT -> AboutLckPlayerDetailsModel.PlayerPosition.BOT
+                SUPPORT -> AboutLckPlayerDetailsModel.PlayerPosition.SUPPORT
+                COACH -> AboutLckPlayerDetailsModel.PlayerPosition.COACH
+            }
+        }
     }
 
     enum class PlayerRole {

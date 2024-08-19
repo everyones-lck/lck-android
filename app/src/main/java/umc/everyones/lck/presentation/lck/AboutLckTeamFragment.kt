@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -33,18 +34,22 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
     private lateinit var pagerAdapter: TeamVPAdapter
 
     private var teamLogoUrl: String? = null
+    private var teamId: Int ?= null
 
     override fun initObserver() {
 
     }
 
     override fun initView() {
+        receiveSafeArgs()
+        setupViewPagerAndTabs()
+        setupButtons()
+        setupTeamInfo()
+    }
+
+    private fun setupViewPagerAndTabs() {
         val tabLayout: TabLayout = binding.tbAboutLckTeam
         val viewPager: ViewPager2 = binding.vpAboutLckTeam
-        val backButton: ImageView = binding.ivAboutLckTeamPre
-        val nextButton: ImageView = binding.ivAboutLckTeamNext
-        val teamTitleTextView: TextView = binding.tvAboutLckTeamTitle
-        val teamLogoImageView: ImageView = binding.ivAboutLckTeamLogo
 
         pagerAdapter = TeamVPAdapter(this)
         viewPager.adapter = pagerAdapter
@@ -57,46 +62,6 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
                 else -> throw IllegalArgumentException("Invalid tab position")
             }
         }.attach()
-
-
-        backButton.setOnClickListener {
-            navigator.popBackStack()
-        }
-
-
-        // Safe Args로 전달된 teamId 수신
-        val teamId = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamId }
-        val teamName = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamName }
-        teamLogoUrl = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamLogoUrl }
-
-        Log.d("AboutLckTeamFragment", "teamId: $teamId, teamName: $teamName, teamLogoUrl: $teamLogoUrl")
-
-        teamId?.let {
-            viewModel.setTeamId(it)
-            Log.d("AboutLckTeamFragment", "Team ID set in ViewModel: $it")
-        }
-
-        teamName?.let {
-            teamTitleTextView.text = it
-        }
-
-        teamLogoUrl?.let {
-            Glide.with(this)
-                .load(it)
-                .into(teamLogoImageView)
-        }
-
-        nextButton.setOnClickListener {
-            teamId?.let { id ->
-                val action = AboutLckTeamFragmentDirections
-                    .actionAboutLCKTeamFragmentToAboutLckTeamHistoryFragment(
-                        teamId = id,
-                        teamName = teamName ?: "",
-                        teamLogoUrl = teamLogoUrl ?: ""
-                    )
-                navigator.navigate(action)
-            } ?: Log.e("AboutLckTeamFragment", "teamId is null, cannot navigate")
-        }
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -114,7 +79,55 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
             }
         })
     }
+    private fun setupButtons() {
+        val backButton: ImageView = binding.ivAboutLckTeamPre
+        val nextButton: ImageView = binding.ivAboutLckTeamNext
 
+        backButton.setOnClickListener { navigator.popBackStack() }
+
+        nextButton.setOnClickListener {
+            val teamId = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamId }
+            teamId?.let {
+                val action = AboutLckTeamFragmentDirections
+                    .actionAboutLCKTeamFragmentToAboutLckTeamHistoryFragment(
+                        teamId = it,
+                        teamName = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamName } ?: "",
+                        teamLogoUrl = teamLogoUrl ?: ""
+                    )
+                navigator.navigate(action)
+            } ?: Log.e("AboutLckTeamFragment", "teamId is null, cannot navigate")
+        }
+    }
+
+    private fun receiveSafeArgs() {
+        val teamId = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamId }
+        val teamName = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamName }
+        teamLogoUrl = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamLogoUrl }
+
+        Log.d("AboutLckTeamFragment", "teamId: $teamId, teamName: $teamName, teamLogoUrl: $teamLogoUrl")
+
+        teamId?.let {
+            viewModel.setTeamId(it)
+            Log.d("AboutLckTeamFragment", "Team ID set in ViewModel: $it")
+        }
+    }
+
+    private fun setupTeamInfo() {
+        val teamTitleTextView: TextView = binding.tvAboutLckTeamTitle
+        val teamLogoImageView: ImageView = binding.ivAboutLckTeamLogo
+
+        val teamName = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamName }
+
+        teamName?.let {
+            teamTitleTextView.text = it
+        }
+
+        teamLogoUrl?.let {
+            Glide.with(this)
+                .load(it)
+                .into(teamLogoImageView)
+        }
+    }
     override fun onPlayerItemClick(player: PlayerData) {
         val action = AboutLckTeamFragmentDirections.actionAboutLCKTeamFragmentToAboutLckTeamPlayerFragment(player.playerId,teamLogoUrl?:" ")
         navigator.navigate(action)

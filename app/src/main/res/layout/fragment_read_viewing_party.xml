@@ -80,8 +80,7 @@
                     android:id="@+id/group_read_writer_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:constraint_referenced_ids="iv_read_delete_btn, iv_read_edit_btn"
-                    />
+                    app:constraint_referenced_ids="iv_read_delete_btn, iv_read_edit_btn" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_read_profile_background"
@@ -172,6 +171,7 @@
                         style="@style/Widget.AppCompat.TextView.LCK"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="32dp"
                         android:gravity="center"
                         android:text="To. KT Rolster팬"
@@ -199,9 +199,10 @@
                         style="@style/Widget.AppCompat.TextView.LCK"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="12dp"
-                        android:text="부천시 역곡동 지봉로 24 @@카페"
                         android:gravity="center"
+                        android:text="부천시 역곡동 지봉로 24 @@카페"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintEnd_toEndOf="parent"

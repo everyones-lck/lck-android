@@ -8,8 +8,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import umc.everyones.lck.domain.model.response.party.ViewingPartyListModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
@@ -20,7 +18,7 @@ import umc.everyones.lck.util.network.MutableEventFlow
 class ViewingPartyViewModel @Inject constructor(
     private val repository: ViewingPartyRepository
 ) : ViewModel() {
-    private var _viewingPartyListPage = repository.fetchPagingSource().cachedIn(viewModelScope)
+    private var _viewingPartyListPage = repository.fetchViewingPartyListPagingSource().cachedIn(viewModelScope)
 
     val viewingPartyListPage: Flow<PagingData<ViewingPartyListModel.ViewingPartyElementModel>>
         get() = _viewingPartyListPage
@@ -45,7 +43,7 @@ class ViewingPartyViewModel @Inject constructor(
     }
 
     fun resetViewingPartyListPage(){
-        _viewingPartyListPage = repository.fetchPagingSource().cachedIn(viewModelScope)
+        _viewingPartyListPage = repository.fetchViewingPartyListPagingSource().cachedIn(viewModelScope)
     }
 }
 

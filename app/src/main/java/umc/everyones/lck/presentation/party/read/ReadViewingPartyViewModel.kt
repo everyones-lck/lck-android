@@ -6,6 +6,7 @@ import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -32,6 +33,10 @@ class ReadViewingPartyViewModel @Inject constructor(
 
     private val _isWriter = MutableEventFlow<Boolean>()
     val isWriter: EventFlow<Boolean> get() = _isWriter
+
+    private var _viewingPartyParticipantsPage = repository.fetchViewingPartyParticipantsPagingSource(postId.value).cachedIn(viewModelScope)
+
+    val viewingPartyParticipantsPage get() = _viewingPartyParticipantsPage
     sealed class ReadViewingPartyEvent {
         data class ReadViewingParty(val viewingParty: ReadViewingPartyModel): ReadViewingPartyEvent()
         data object JoinViewingParty: ReadViewingPartyEvent()
@@ -48,6 +53,7 @@ class ReadViewingPartyViewModel @Inject constructor(
 
     fun setPostId(postId: Long){
         _postId.value = postId
+        _viewingPartyParticipantsPage = repository.fetchViewingPartyParticipantsPagingSource(postId).cachedIn(viewModelScope)
     }
 
     fun fetchViewingParty() {

@@ -2,6 +2,7 @@ package umc.everyones.lck.presentation.party.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,10 +11,11 @@ import umc.everyones.lck.databinding.ItemParticipantBinding
 import umc.everyones.lck.databinding.ItemViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ParticipantItem
 import umc.everyones.lck.domain.model.party.ViewingPartyItem
+import umc.everyones.lck.domain.model.response.party.ViewingPartyParticipantsModel
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 class ParticipantsRVA(val goToChat: () -> Unit) :
-    ListAdapter<ParticipantItem, ParticipantsRVA.ParticipantViewHolder>(DiffCallback()) {
+    PagingDataAdapter<ViewingPartyParticipantsModel.ParticipantsModel, ParticipantsRVA.ParticipantViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParticipantViewHolder {
         return ParticipantViewHolder(
@@ -26,19 +28,22 @@ class ParticipantsRVA(val goToChat: () -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ParticipantViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        val participant = getItem(position)
+        if(participant != null) {
+            holder.bind(participant)
+        }
     }
 
     inner class ParticipantViewHolder(private val binding: ItemParticipantBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(participantItem: ParticipantItem) {
+        fun bind(participantItem: ViewingPartyParticipantsModel.ParticipantsModel) {
             with(binding){
-                /*Glide.with(ivParticipantProfileImage.context)
-                    .load(participantItem.profileImage)
+                Glide.with(ivParticipantProfileImage.context)
+                    .load(participantItem.image)
                     .into(ivParticipantProfileImage)
 
                 tvParticipantName.text = participantItem.name
-                tvParticipantFavoriteTeam.text = participantItem.favoriteTeam*/
+                tvParticipantFavoriteTeam.text = participantItem.team
                 ivParticipantChatBtn.setOnSingleClickListener {
                     goToChat()
                 }
@@ -46,11 +51,11 @@ class ParticipantsRVA(val goToChat: () -> Unit) :
         }
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<ParticipantItem>() {
-        override fun areItemsTheSame(oldItem: ParticipantItem, newItem: ParticipantItem) =
-            oldItem.name == newItem.name
+    class DiffCallback : DiffUtil.ItemCallback<ViewingPartyParticipantsModel.ParticipantsModel>() {
+        override fun areItemsTheSame(oldItem: ViewingPartyParticipantsModel.ParticipantsModel, newItem: ViewingPartyParticipantsModel.ParticipantsModel) =
+            oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: ParticipantItem, newItem: ParticipantItem) =
+        override fun areContentsTheSame(oldItem: ViewingPartyParticipantsModel.ParticipantsModel, newItem: ViewingPartyParticipantsModel.ParticipantsModel) =
             oldItem == newItem
     }
 }

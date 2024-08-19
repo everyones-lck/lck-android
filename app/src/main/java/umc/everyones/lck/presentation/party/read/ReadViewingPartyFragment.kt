@@ -68,7 +68,6 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.isWriter.collect{ isWriter ->
-                Log.d("isWriter", isWriter.toString())
                 if(!isWriter) {
                     with(binding){
                         groupReadWriterMenu.visibility = View.GONE
@@ -160,7 +159,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     private fun askToHost(){
         binding.tvReadAskToHost.setOnSingleClickListener {
-            startActivity(ViewingPartyChatActivity.newIntent(requireContext(), 4, true))
+            startActivity(ViewingPartyChatActivity.newIntent(requireContext(), postId, true))
         }
     }
 

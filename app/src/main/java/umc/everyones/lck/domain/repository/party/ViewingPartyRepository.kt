@@ -32,5 +32,7 @@ interface ViewingPartyRepository {
 
     suspend fun createViewingPartyChatRoomAsParticipant(viewingPartyId: Long): Result<ViewingPartyChatRoomModel>
 
-    fun fetchPagingSource(): Flow<PagingData<ViewingPartyListModel.ViewingPartyElementModel>>
+    fun fetchViewingPartyListPagingSource(): Flow<PagingData<ViewingPartyListModel.ViewingPartyElementModel>>
+
+    fun fetchViewingPartyParticipantsPagingSource(viewingPartyId: Long): Flow<PagingData<ViewingPartyParticipantsModel.ParticipantsModel>>
 }

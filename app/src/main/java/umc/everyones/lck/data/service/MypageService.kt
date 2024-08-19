@@ -60,4 +60,10 @@ interface MypageService {
         @Header("Authorization") token: String,
         @Body request: CancelHostViewingPartyMypageRequestDto
     ):BaseResponse<Boolean>
+
+    @DELETE("my-pages/logout")
+    suspend fun logout(
+        @Header("Authorization") token: String,
+        @Header("Refresh") refreshToken: String
+    ): BaseResponse<Boolean>
 }

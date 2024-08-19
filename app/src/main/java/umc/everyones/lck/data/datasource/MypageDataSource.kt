@@ -24,4 +24,6 @@ interface MypageDataSource {
 
     suspend fun cancelHostViewingPartyMypage(token: String, requestDto: CancelHostViewingPartyMypageRequestDto): BaseResponse<Boolean>
 
+    suspend fun logout(token: String, refreshToken: String): BaseResponse<Boolean>
+
 }

@@ -23,4 +23,6 @@ interface MypageRepository {
 
     suspend fun cancelHostViewingPartyMypage(token: String, request: CancelHostViewingPartyMypageModel): Result<Boolean>
 
+    suspend fun logout(token: String, refreshToken: String): Result<Boolean>
+
 }

@@ -35,4 +35,7 @@ class MypageRepositoryImpl  @Inject constructor(
 
     override suspend fun cancelHostViewingPartyMypage(token: String, request: CancelHostViewingPartyMypageModel): Result<Boolean> =
         runCatching { mypageDataSource.cancelHostViewingPartyMypage(token, request.toCancelHostViewingPartyMypageRequestDto()).data }
+
+    override suspend fun logout(token: String, refreshToken: String): Result<Boolean> =
+        runCatching { mypageDataSource.logout(token, refreshToken).data }
 }

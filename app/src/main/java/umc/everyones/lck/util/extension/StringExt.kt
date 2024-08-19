@@ -17,7 +17,7 @@ fun String.toCategoryPosition(): Int{
 }
 
 fun String.combineNicknameAndTeam(team: String): String{
-    return "$this | $team"
+    return if(team == "empty") this else "$this | $team"
 }
 fun String.toReadViewingPartyDateFormat(): String {
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
@@ -36,4 +36,12 @@ fun String.toWriteViewingPartyDateFormat(): String {
     return this.split(" ").run {
         "20${this[0].replace(".", " / ")} | ${this[1].trim()}"
     }
+}
+
+fun String.toListViewingPartyDateFormat(): String{
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
+
+    val partyDateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
+    return LocalDateTime.parse(this, formatter).format(partyDateFormatter).toString()
 }

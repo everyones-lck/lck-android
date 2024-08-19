@@ -39,8 +39,9 @@ object RepositoryModule {
 
     @ViewModelScoped
     @Provides
-    fun providesNaverRepository(naverService: NaverService): NaverRepository =
-        NaverRepositoryImpl(naverService)
+    fun providesNaverRepository(
+        naverRepositoryImpl: NaverRepositoryImpl
+    ): NaverRepository = naverRepositoryImpl
 
     @ViewModelScoped
     @Provides

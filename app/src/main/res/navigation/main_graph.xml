@@ -70,11 +70,11 @@
                 android:id="@+id/action_readViewingPartyFragment_to_participantsFragment"
                 app:destination="@id/participantsFragment" />
             <argument
-                android:name="isWriter"
-                app:argType="boolean" />
-            <argument
                 android:name="postId"
                 app:argType="long" />
+            <argument
+                android:name="shortLocation"
+                app:argType="string" />
         </fragment>
         <fragment
             android:id="@+id/participantsFragment"

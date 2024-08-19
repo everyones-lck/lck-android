@@ -4,6 +4,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import umc.everyones.lck.data.datasource.MypageDataSource
 import umc.everyones.lck.data.dto.BaseResponse
+import umc.everyones.lck.data.dto.response.mypage.CommentsMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.InquiryProfilesResponseDto
 import umc.everyones.lck.data.dto.response.mypage.PostsMypageResponseDto
 import umc.everyones.lck.data.service.MypageService
@@ -18,4 +19,6 @@ class MypageDataSourceImpl @Inject constructor(
     override suspend fun postsProfiles(token: String, size: Int, page: Int): BaseResponse<PostsMypageResponseDto> =
         mypageService.postsMypage(token, size, page)
 
+    override suspend fun commentsProfiles(token: String, size: Int, page: Int): BaseResponse<CommentsMypageResponseDto> =
+        mypageService.commentsMypage(token, size, page)
 }

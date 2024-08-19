@@ -6,6 +6,7 @@ import retrofit2.http.PATCH
 import retrofit2.http.Part
 import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
+import umc.everyones.lck.data.dto.response.mypage.CommentsMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.InquiryProfilesResponseDto
 import umc.everyones.lck.data.dto.response.mypage.PostsMypageResponseDto
 
@@ -22,4 +23,11 @@ interface MypageService {
         @Query("size") size: Int = 6, // 기본값 6
         @Query("page") page: Int = 0 // 기본값 0
     ): BaseResponse<PostsMypageResponseDto>
+
+    @GET("my-pages/comments")
+    suspend fun commentsMypage(
+        @Header("Authorization") token: String,
+        @Query("size") size: Int = 6, // 기본값 6
+        @Query("page") page: Int = 0 // 기본값 0
+    ):BaseResponse<CommentsMypageResponseDto>
 }

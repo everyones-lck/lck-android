@@ -63,5 +63,4 @@ class ViewingPartyDataSourceImpl @Inject constructor(
     override suspend fun createViewingPartyChatRoomAsParticipant(viewingPartyId: Long): BaseResponse<ViewingPartyChatRoomResponseDto> =
         viewingPartyService.createViewingPartyChatRoomAsParticipant(viewingPartyId)
 
-
 }

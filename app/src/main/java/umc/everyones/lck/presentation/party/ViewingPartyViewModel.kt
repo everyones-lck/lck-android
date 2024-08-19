@@ -8,11 +8,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import umc.everyones.lck.domain.model.response.party.ViewingPartyListModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
-import umc.everyones.lck.util.network.onSuccess
 
 @HiltViewModel
 class ViewingPartyViewModel @Inject constructor(
@@ -29,8 +27,7 @@ class ViewingPartyViewModel @Inject constructor(
         }
     }
 
-    fun fetchViewingPartyListPage(): Flow<PagingData<ViewingPartyListModel.ViewingPartyElementModel>> =
-        repository.fetchPagingSource().cachedIn(viewModelScope)
+    val viewingPartyListPage = repository.fetchPagingSource().cachedIn(viewModelScope)
 
 }
 

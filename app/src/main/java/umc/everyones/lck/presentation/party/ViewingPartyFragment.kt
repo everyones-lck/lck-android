@@ -39,12 +39,15 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     private var writeResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if (result.resultCode == Activity.RESULT_OK){
             isWriteDone = result.data?.getBooleanExtra("isWriteDone", false) ?: false
+            if(isWriteDone){
+                viewingPartyRVA?.refresh()
+            }
         }
     }
 
     override fun initObserver() {
         repeatOnStarted {
-            viewModel.fetchViewingPartyListPage().collectLatest{ data ->
+            viewModel.viewingPartyListPage.collectLatest{ data ->
                 viewingPartyRVA?.submitData(data)
             }
         }
@@ -89,7 +92,6 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
 
     override fun onResume() {
         super.onResume()
-        viewingPartyRVA?.refresh()
     }
 
     override fun onDestroyView() {

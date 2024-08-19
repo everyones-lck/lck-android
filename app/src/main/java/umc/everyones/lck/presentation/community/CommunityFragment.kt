@@ -24,6 +24,7 @@ import umc.everyones.lck.util.extension.toCategoryPosition
 class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragment_community) {
     private val readPostViewModel: ReadPostViewModel by viewModels()
     private val writePostViewModel: WritePostViewModel by activityViewModels()
+    private val communityViewModel: CommunityViewModel by activityViewModels()
     private val navigator by lazy {
         findNavController()
     }
@@ -46,6 +47,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
         goToWritePost()
         initPostListVPAdapter()
         setupMypageButton()
+        communityViewModel.fetchCommunityList("잡담", 0, 10)
     }
 
     private fun initPostListVPAdapter(){

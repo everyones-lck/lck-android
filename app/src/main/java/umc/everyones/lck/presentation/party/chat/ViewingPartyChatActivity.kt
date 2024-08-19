@@ -2,22 +2,40 @@ package umc.everyones.lck.presentation.party.chat
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityViewingPartyChatBinding
 import umc.everyones.lck.domain.model.party.ChatItem
-import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.party.adapter.ChatRVA
 import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.RECEIVER
 import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.SENDER
 import umc.everyones.lck.util.extension.drawableOf
+import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.textToString
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R.layout.activity_viewing_party_chat) {
+class ViewingPartyChatActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityViewingPartyChatBinding
+
+    @Inject
+    lateinit var okHttpClient: OkHttpClient
+
+    @Inject
+    lateinit var request: Request
+
+    @Inject
+    lateinit var spf: SharedPreferences
+
     private val chatRVA by lazy {
         ChatRVA()
     }
@@ -31,14 +49,24 @@ class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R
     }
 
     private val viewModel: ViewingPartyChatViewModel by viewModels()
-    override fun initView() {
+
+    private lateinit var wsClient: WsClient
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityViewingPartyChatBinding.inflate(layoutInflater).apply {
+            setContentView(this.root)
+        }
+        initObserver()
+        initView()
+    }
+    private fun initView() {
         viewModel.setPostId(postId)
         if(isParticipant){
             viewModel.createViewingPartyChatRoomAsParticipant()
         } else {
             viewModel.createViewingPartyChatRoom()
         }
-        viewModel.fetchViewingPartyChatLog()
         validateMessageSend()
         initChatRVAdapter()
         sendMessage()
@@ -84,16 +112,33 @@ class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R
     private fun sendMessage(){
         with(binding){
             ivChatSendBtn.setOnClickListener {
-                chatRVA.submitList(chatRVA.currentList.toMutableList().apply {
+                /*chatRVA.submitList(chatRVA.currentList.toMutableList().apply {
                     add(ChatItem("ds", etChatInput.text.toString(), SENDER, 5))
                 })
+                etChatInput.setText("")*/
+                wsClient.sendMessage(etChatInput.textToString())
                 etChatInput.setText("")
             }
         }
     }
 
-    override fun initObserver() {
+    private fun initObserver() {
+        repeatOnStarted {
+            viewModel.roomId.collect{roomId ->
+                if(roomId != 0L){
+                    viewModel.fetchViewingPartyChatLog(roomId)
+                    initWsClient()
+                }
+            }
+        }
+    }
 
+    private fun initWsClient(){
+        wsClient = WsClient(viewModel, okHttpClient, request, spf)
+        wsClient.apply {
+            connectWebSocket()
+            enterChatRoom("되나")
+        }
     }
 
     companion object {

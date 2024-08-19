@@ -17,7 +17,7 @@ class ViewingPartyChatViewModel @Inject constructor(
     private val _postId = MutableStateFlow<Long>(-1)
     val postId: StateFlow<Long> get() = _postId
     
-    private val _roomId = MutableStateFlow<Long>(4)
+    private val _roomId = MutableStateFlow<Long>(0L)
     val roomId: StateFlow<Long> get() = _roomId
 
 
@@ -46,9 +46,9 @@ class ViewingPartyChatViewModel @Inject constructor(
         }
     }
 
-    fun fetchViewingPartyChatLog(){
+    fun fetchViewingPartyChatLog(roomId: Long){
         viewModelScope.launch{
-            repository.fetchViewingPartyChatLog(roomId.value, 0, 10).onSuccess { response ->
+            repository.fetchViewingPartyChatLog(roomId, 0, 10).onSuccess { response ->
                 Log.d("fetchViewingPartyChatLog", response.toString())
             }.onFailure {
                 Log.d("createViewingPartyChatRoom error", it.stackTraceToString())

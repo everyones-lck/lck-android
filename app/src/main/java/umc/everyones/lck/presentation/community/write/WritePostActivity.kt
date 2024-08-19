@@ -12,6 +12,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.http.Multipart
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWritePostBinding
 import umc.everyones.lck.domain.model.community.Post
@@ -22,6 +28,7 @@ import umc.everyones.lck.util.GridSpaceItemDecoration
 import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.toCategoryPosition
 import umc.everyones.lck.util.extension.validateMaxLength
+import java.io.File
 
 @AndroidEntryPoint
 class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activity_write_post) {
@@ -71,16 +78,16 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
 
 
     // 글 수정 시 기존 게시글 Data View에 반영
-    private fun initEditView(){
+    private fun initEditView() {
         val post: Post? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra("edit", Post::class.java)
         } else {
             intent.getSerializableExtra("edit") as? Post
         }
 
-        if(post != null){
+        if (post != null) {
             Log.d("post", post.toString())
-            with(binding){
+            with(binding) {
                 spinnerWriteCategory.setSelection(post.category.toCategoryPosition())
                 etWriteTitle.setText(post.title)
                 etWriteBody.setText(post.body)
@@ -159,7 +166,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
     private fun handleMediaUris(uris: List<Uri>) {
         var updateList = writeMediaRVA.currentList.toMutableList().apply {
             // 미디어 12개 선택 초과 시 앞에서 부터 12개만 반영
-            val addUris = if(uris.size > 12){
+            val addUris = if (uris.size > 12) {
                 uris.take(12)
             } else {
                 uris
@@ -170,7 +177,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
         // 미디어 추가 버튼 1개 + 미디어 개수 12개일 때
         // 미디어 추가 버튼 삭제
         // Uri 리스트 앞에서 부터 12개만 반영
-        if(updateList.size > 12){
+        if (updateList.size > 12) {
             updateList.apply { removeAt(0) }
             updateList = updateList.take(12).toMutableList()
         }
@@ -186,16 +193,19 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
             ivWriteDone.setOnClickListener {
 
                 // 제목이나 본문 입력하지 않을 시 예외처리
-                if(etWriteTitle.text.isEmpty() || etWriteBody.text.isEmpty()){
+                if (etWriteTitle.text.isEmpty() || etWriteBody.text.isEmpty()) {
                     showCustomSnackBar(binding.tvWriteGuide, "필수 항목을 입력하지 않았습니다")
                     return@setOnClickListener
                 }
+                val file = File.createTempFile("dsd",".tmp")
+                val imageFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+                writePostViewModel.writeCommunity(listOf(MultipartBody.Part.createFormData("files", file.name, imageFile)), "REVIEW", "ㅇㅇ", "ㅇㅇ")
 
                 Intent(this@WritePostActivity, WritePostActivity::class.java).apply {
                     putExtra("category", spinnerWriteCategory.selectedItem.toString())
                     setResult(RESULT_OK, this)
                 }
-                finish()
+                //finish()
             }
         }
     }

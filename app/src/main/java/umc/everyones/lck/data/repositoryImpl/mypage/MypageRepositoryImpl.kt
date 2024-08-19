@@ -38,4 +38,7 @@ class MypageRepositoryImpl  @Inject constructor(
 
     override suspend fun logout(token: String, refreshToken: String): Result<Boolean> =
         runCatching { mypageDataSource.logout(token, refreshToken).data }
+
+    override suspend fun withdraw(token: String): Result<Boolean> =
+        runCatching { mypageDataSource.withdraw(token).data }
 }

@@ -26,4 +26,5 @@ interface MypageDataSource {
 
     suspend fun logout(token: String, refreshToken: String): BaseResponse<Boolean>
 
+    suspend fun withdraw(token: String): BaseResponse<Boolean>
 }

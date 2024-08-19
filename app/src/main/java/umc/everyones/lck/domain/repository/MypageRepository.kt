@@ -25,4 +25,6 @@ interface MypageRepository {
 
     suspend fun logout(token: String, refreshToken: String): Result<Boolean>
 
+    suspend fun withdraw(token: String): Result<Boolean>
+
 }

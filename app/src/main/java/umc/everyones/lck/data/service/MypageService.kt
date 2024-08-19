@@ -66,4 +66,9 @@ interface MypageService {
         @Header("Authorization") token: String,
         @Header("Refresh") refreshToken: String
     ): BaseResponse<Boolean>
+
+    @DELETE("my-pages/withdrawal")
+    suspend fun withdraw(
+        @Header("Authorization") token: String
+    ): BaseResponse<Boolean>
 }

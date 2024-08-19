@@ -40,4 +40,7 @@ class MypageDataSourceImpl @Inject constructor(
 
     override suspend fun logout(token: String, refreshToken: String): BaseResponse<Boolean> =
         mypageService.logout(token, refreshToken)
+
+    override suspend fun withdraw(token: String): BaseResponse<Boolean> =
+        mypageService.withdraw(token)
 }

@@ -20,7 +20,10 @@ import umc.everyones.lck.util.network.MutableEventFlow
 class ViewingPartyViewModel @Inject constructor(
     private val repository: ViewingPartyRepository
 ) : ViewModel() {
-    val viewingPartyListPage = repository.fetchPagingSource().cachedIn(viewModelScope)
+    private var _viewingPartyListPage = repository.fetchPagingSource().cachedIn(viewModelScope)
+
+    val viewingPartyListPage: Flow<PagingData<ViewingPartyListModel.ViewingPartyElementModel>>
+        get() = _viewingPartyListPage
     
     private val _isRefreshNeeded = MutableEventFlow<Boolean>()
     val isRefreshNeeded: EventFlow<Boolean> get() = _isRefreshNeeded
@@ -39,6 +42,10 @@ class ViewingPartyViewModel @Inject constructor(
         viewModelScope.launch {
             _isRefreshNeeded.emit(isRefreshNeeded)
         }
+    }
+
+    fun resetViewingPartyListPage(){
+        _viewingPartyListPage = repository.fetchPagingSource().cachedIn(viewModelScope)
     }
 }
 

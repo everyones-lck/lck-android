@@ -5,11 +5,17 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentViewingPartyBinding
 import umc.everyones.lck.presentation.base.BaseFragment
@@ -34,7 +40,7 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
         if (result.resultCode == Activity.RESULT_OK){
             isWriteDone = result.data?.getBooleanExtra("isWriteDone", false) ?: false
             if(isWriteDone){
-                viewingPartyRVA?.refresh()
+                viewModel.resetViewingPartyListPage()
             }
         }
     }
@@ -78,9 +84,6 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
 
         viewingPartyRVA?.addLoadStateListener { combinedLoadStates ->
             with(binding){
-                if(combinedLoadStates.source.refresh is LoadState.Loading){
-                    binding.rvViewingParty.layoutManager?.scrollToPosition(0)
-                }
                 ivViewingPartyLoadingImg.isVisible = combinedLoadStates.source.refresh is LoadState.Loading
                 rvViewingParty.isVisible = combinedLoadStates.source.refresh is LoadState.NotLoading
             }

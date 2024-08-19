@@ -52,6 +52,7 @@ class ReadViewingPartyViewModel @Inject constructor(
 
     fun fetchViewingParty() {
         viewModelScope.launch {
+            _readViewingPartyEvent.value = UiState.Loading
             repository.fetchViewingParty(postId.value).onSuccess { response ->
                 Log.d("fetchViewingParty", response.toString())
                 _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.ReadViewingParty(response))
@@ -66,6 +67,7 @@ class ReadViewingPartyViewModel @Inject constructor(
 
     fun joinViewingParty(){
         viewModelScope.launch{
+            _readViewingPartyEvent.value = UiState.Loading
             repository.joinViewingParty(postId.value).onSuccess { response ->
                 Log.d("joinViewingParty", response.toString())
                 _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.JoinViewingParty)
@@ -78,6 +80,7 @@ class ReadViewingPartyViewModel @Inject constructor(
 
     fun deleteViewingParty(){
         viewModelScope.launch {
+            _readViewingPartyEvent.value = UiState.Loading
             repository.deleteViewingParty(postId.value).onSuccess { response ->
                 Log.d("deleteViewingParty", response.toString())
                 _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.DeleteViewingParty)
@@ -90,6 +93,7 @@ class ReadViewingPartyViewModel @Inject constructor(
 
     fun fetchViewingPartyParticipants(){
         viewModelScope.launch {
+            _readViewingPartyEvent.value = UiState.Loading
             repository.fetchViewingPartyParticipants(postId.value, 0 ,10).onSuccess { response ->
                 _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.ReadParticipants(response))
                 Log.d("fetchViewingPartyParticipants", response.toString())

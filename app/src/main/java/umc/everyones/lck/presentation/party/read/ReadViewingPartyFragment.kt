@@ -15,6 +15,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentReadViewingPartyBinding
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.presentation.party.ViewingPartyViewModel
 import umc.everyones.lck.presentation.party.chat.ViewingPartyChatActivity
 import umc.everyones.lck.presentation.party.dialog.JoinViewingPartyDialogFragment
 import umc.everyones.lck.presentation.party.write.WriteViewingPartyActivity
@@ -29,6 +30,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R.layout.fragment_read_viewing_party) {
     private val viewModel: ReadViewingPartyViewModel by activityViewModels()
+    private val viewingPartyViewModel: ViewingPartyViewModel by activityViewModels()
     private val navigator by lazy {
         findNavController()
     }
@@ -106,6 +108,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
             }
 
             ReadViewingPartyViewModel.ReadViewingPartyEvent.DeleteViewingParty -> {
+                viewingPartyViewModel.setIsRefreshNeeded(true)
                 navigator.navigateUp()
             }
             ReadViewingPartyViewModel.ReadViewingPartyEvent.JoinViewingParty -> {
@@ -139,7 +142,6 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     private fun joinViewingParty(){
         binding.tvReadJoinViewingParty.setOnSingleClickListener {
-            //viewModel.setTitle(binding.tvReadViewingPartyTitle.text.toString())
             val dialog = JoinViewingPartyDialogFragment()
             dialog.setOnJoinViewingPartyClickListener(object : JoinViewingPartyDialogFragment.OnJoinViewingPartyClickListener{
                 override fun onConfirm() {

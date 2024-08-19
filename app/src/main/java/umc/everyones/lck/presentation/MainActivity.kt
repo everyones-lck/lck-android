@@ -7,8 +7,10 @@ import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import androidx.paging.PagingData
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.flowOf
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityMainBinding
 import umc.everyones.lck.presentation.base.BaseActivity
@@ -47,6 +49,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.mainBnv.setupWithNavControllerCustom(navController){
             if(it.itemId == R.id.viewingPartyTab){
                 viewingPartyViewModel.setIsRefreshNeeded(true)
+            } else {
+                viewingPartyViewModel.resetViewingPartyListPage()
             }
             true
         }

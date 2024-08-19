@@ -63,5 +63,10 @@
         android:id="@+id/aboutLckTeamPlayerFragment"
         android:name="umc.everyones.lck.presentation.lck.AboutLckTeamPlayerFragment"
         android:label="aboutLckTeamPlayerFragment"
-        tools:layout="@layout/fragment_about_lck_team_player"/>
+        tools:layout="@layout/fragment_about_lck_team_player">
+        <argument
+            android:name="playerId"
+            app:argType="integer"
+            android:defaultValue="20"/>
+    </fragment>
 </navigation>

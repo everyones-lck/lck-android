@@ -113,7 +113,8 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
     }
 
     override fun onPlayerItemClick(player: PlayerData) {
-        navigator.navigate(R.id.action_aboutLCKTeamFragment_to_aboutLckTeamPlayerFragment)
+        val action = AboutLckTeamFragmentDirections.actionAboutLCKTeamFragmentToAboutLckTeamPlayerFragment(player.playerId)
+        navigator.navigate(action)
     }
 
 }

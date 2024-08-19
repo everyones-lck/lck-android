@@ -26,6 +26,7 @@ class AboutLckRoasterFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R.l
                 result?.onSuccess { playerDetails ->
                     val playerDataList = playerDetails.playerDetails.map { player ->
                         PlayerData(
+                            playerId = player.playerId,
                             playerImg = player.profileImageUrl,
                             teamColor = getTeamColorResource(viewModel.teamId.value ?: 0),
                             name = player.playerName,

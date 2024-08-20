@@ -28,7 +28,6 @@ class SmallTalkListFragment  : BaseFragment<FragmentPostListBinding>(R.layout.fr
 
     private var readResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if (result.resultCode == Activity.RESULT_OK){
-            Log.d("isReadMenuDone", result.data?.getBooleanExtra("isReadMenuDone", false).toString())
             if(result.data?.getBooleanExtra("isReadMenuDone", false) == true){
                 _postListRVA?.refresh()
                 binding.rvPostList.scrollToPosition(0)

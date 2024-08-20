@@ -1,12 +1,14 @@
 package umc.everyones.lck.presentation.community.write
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,10 +23,13 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWritePostBinding
+import umc.everyones.lck.domain.model.community.EditPost
 import umc.everyones.lck.domain.model.community.Post
+import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.community.adapter.SpinnerAdapter
 import umc.everyones.lck.presentation.community.adapter.WriteMediaRVA
+import umc.everyones.lck.presentation.community.read.ReadPostActivity
 import umc.everyones.lck.util.GridSpaceItemDecoration
 import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.showCustomSnackBar
@@ -57,12 +62,20 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
             }
         }
 
+    private var isEdit = false
+
     override fun initObserver() {
         repeatOnStarted {
             writePostViewModel.writeDoneEvent.collect { state ->
                 when (state) {
                     is UiState.Success -> {
                         if (state.data) {
+                            if (isEdit) {
+                                setResult(
+                                    RESULT_OK,
+                                    ReadPostActivity.editDoneIntent(this@WritePostActivity, true)
+                                )
+                            }
                             finish()
                         }
                     }
@@ -90,18 +103,26 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
 
     // 글 수정 시 기존 게시글 Data View에 반영
     private fun initEditView() {
-        val post: Post? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra("edit", Post::class.java)
+        val post: EditPost? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("edit", EditPost::class.java)
         } else {
-            intent.getSerializableExtra("edit") as? Post
+            intent.getSerializableExtra("edit") as? EditPost
         }
 
         if (post != null) {
+            isEdit = true
+            writePostViewModel.setPostId(post.postId)
             Log.d("post", post.toString())
             with(binding) {
                 spinnerWriteCategory.setSelection(post.category.toCategoryPosition())
                 etWriteTitle.setText(post.title)
                 etWriteBody.setText(post.body)
+                tvWriteTitle.text = "글 수정하기"
+                ivWriteDone.text = "수정"
+                line3.visibility = View.GONE
+                tvWriteUploadTitle.visibility = View.GONE
+                rvWriteMedia.visibility = View.GONE
+                tvWriteGuideMedia.text = "\u00B7 게시된 사진 및 영상은 수정 불가능합니다."
             }
         }
     }
@@ -174,34 +195,40 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
                     return@setOnClickListener
                 }
 
-                val imageParts = mutableListOf<MultipartBody.Part?>()
-                val uris = writeMediaRVA.currentList
-                if (uris.size > 1) {
-                    uris.filter { it != Uri.EMPTY }.forEach { uri ->
-                        val file = uriToFile(uri)
-                        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-                        val body =
-                            MultipartBody.Part.createFormData("files", file.name, requestFile)
-                        imageParts.add(body)
-                    }
+                if (isEdit) {
+                    writePostViewModel.editCommunityPost(
+                        spinnerWriteCategory.selectedItem.toString(),
+                        etWriteTitle.textToString(),
+                        etWriteBody.textToString()
+                    )
                 } else {
-                    val emptyFile = "".toRequestBody("image/*".toMediaTypeOrNull())
-                    val emptyPart = MultipartBody.Part.createFormData("files", "", emptyFile)
-                    imageParts.add(emptyPart)
+                    val imageParts = mutableListOf<MultipartBody.Part?>()
+                    val uris = writeMediaRVA.currentList
+                    if (uris.size > 1) {
+                        uris.filter { it != Uri.EMPTY }.forEach { uri ->
+                            val file = uriToFile(uri)
+                            val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+                            val body =
+                                MultipartBody.Part.createFormData("files", file.name, requestFile)
+                            imageParts.add(body)
+                        }
+                    } else {
+                        val emptyFile = "".toRequestBody("image/*".toMediaTypeOrNull())
+                        val emptyPart = MultipartBody.Part.createFormData("files", "", emptyFile)
+                        imageParts.add(emptyPart)
+                    }
+
+                    writePostViewModel.writeCommunityPost(
+                        imageParts,
+                        spinnerWriteCategory.selectedItem.toString(),
+                        etWriteTitle.textToString(),
+                        etWriteBody.textToString()
+                    )
                 }
-
-                writePostViewModel.writeCommunityPost(
-                    imageParts,
-                    spinnerWriteCategory.selectedItem.toString(),
-                    etWriteTitle.textToString(),
-                    etWriteBody.textToString()
-                )
-
-                Intent(this@WritePostActivity, WritePostActivity::class.java).apply {
+                Intent(this@WritePostActivity, MainActivity::class.java).apply {
                     putExtra("category", spinnerWriteCategory.selectedItem.toString())
                     setResult(RESULT_OK, this)
                 }
-                finish()
             }
         }
     }
@@ -213,7 +240,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
             Intent(context, WritePostActivity::class.java).apply {
             }
 
-        fun editIntent(context: Context, post: Post) =
+        fun editIntent(context: Context, post: EditPost) =
             Intent(context, WritePostActivity::class.java).apply {
                 putExtra("edit", post)
             }

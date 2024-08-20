@@ -1,9 +1,11 @@
 package umc.everyones.lck.presentation.community.read
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
@@ -11,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityReadPostBinding
 import umc.everyones.lck.domain.model.community.Comment
+import umc.everyones.lck.domain.model.community.EditPost
 import umc.everyones.lck.domain.model.community.Post
 import umc.everyones.lck.domain.model.response.community.ReadCommunityResponseModel
 import umc.everyones.lck.presentation.MainActivity
@@ -24,6 +27,7 @@ import umc.everyones.lck.util.extension.drawableOf
 import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.textToString
 import umc.everyones.lck.util.network.UiState
 
 @AndroidEntryPoint
@@ -50,6 +54,18 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
     // Community Fragment에서 전송한 postId 수신
     private val postId by lazy {
         intent.getLongExtra("postId", 0)
+    }
+
+    private var editResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+        if (result.resultCode == Activity.RESULT_OK){
+            if(result.data?.getBooleanExtra("isEditDone", false) == true){
+                setResult(
+                    RESULT_OK,
+                    MainActivity.readMenuDoneIntent(this, true)
+                )
+                finish()
+            }
+        }
     }
 
     override fun initObserver() {
@@ -134,12 +150,12 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
     private fun editPost() {
         binding.layoutReadEditBtn.setOnSingleClickListener {
             // 글 작성 화면으로 이동 및 현재 게시글 Data 전송
-            startActivity(
+            editResultLauncher.launch(
                 WritePostActivity.editIntent(
                     this,
-                    Post(
-                        0, "ㅇㅇ", binding.tvReadPostTitle.text.toString(),
-                        binding.tvReadPostBody.text.toString(), "후기"
+                    EditPost(
+                        postId, binding.tvReadPostTitle.text.toString(),
+                        binding.tvReadPostBody.text.toString(), binding.tvReadCategory.textToString()
                     )
                 )
             )
@@ -206,6 +222,11 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         fun newIntent(context: Context, postId: Long) =
             Intent(context, ReadPostActivity::class.java).apply {
                 putExtra("postId", postId)
+            }
+
+        fun editDoneIntent(context: Context, isEditDone: Boolean) =
+            Intent(context, ReadPostActivity::class.java).apply {
+                putExtra("isEditDone", isEditDone)
             }
     }
 

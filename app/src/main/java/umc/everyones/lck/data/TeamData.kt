@@ -31,16 +31,16 @@ object TeamData {
     )
 
     val signupSuccessTeamBackground = mapOf(
-        "Hanhwa" to R.drawable.img_signup_success_hanhwa_logo,
-        "Gen.G" to R.drawable.img_signup_success_gen_g_logo,
-        "T1" to R.drawable.img_signup_success_t1_logo,
-        "Kwangdong Freecs" to R.drawable.img_signup_success_kwangdong_freecs_logo,
-        "BNK" to R.drawable.img_signup_success_bnk_logo,
-        "Nongshim Red Force" to R.drawable.img_signup_success_nongshim_red_force_logo,
-        "DRX" to R.drawable.img_signup_success_drx_logo,
-        "OK Saving Bank Brion" to R.drawable.img_signup_success_ok_saving_bank_brion_logo,
-        "Dplus Kia" to R.drawable.img_signup_success_dplus_kia_logo,
-        "KT Rolster" to R.drawable.img_signup_success_kt_rolster_logo
+        2 to R.drawable.img_signup_success_gen_g_logo,
+        3 to R.drawable.img_signup_success_hanhwa_logo,
+        4 to R.drawable.img_signup_success_dplus_kia_logo,
+        5 to R.drawable.img_signup_success_t1_logo,
+        6 to R.drawable.img_signup_success_kt_rolster_logo,
+        7 to R.drawable.img_signup_success_kwangdong_freecs_logo,
+        8 to R.drawable.img_signup_success_bnk_logo,
+        9 to R.drawable.img_signup_success_nongshim_red_force_logo,
+        10 to R.drawable.img_signup_success_drx_logo,
+        11 to R.drawable.img_signup_success_ok_saving_bank_brion_logo
     )
 
     val mypageTeamBackground = mapOf(
@@ -57,11 +57,11 @@ object TeamData {
         "KT Rolster" to R.drawable.img_mypage_kt_rolster_background
     )
 
-    fun getSignupSuccessTeamLogo(teamName: String): Int {
-        return signupSuccessTeamBackground[teamName] ?: android.R.color.transparent
+    fun getSignupSuccessTeamLogo(teamId: Int): Int {
+        return signupSuccessTeamBackground[teamId] ?: android.R.color.transparent
     }
 
-    fun getMypageTeamBackground(teamName: String): Int {
-        return mypageTeamBackground[teamName] ?: android.R.color.transparent
+    fun getMypageTeamBackground(teamId: Int): Int {
+        return mypageTeamBackground[teamId] ?: android.R.color.transparent
     }
 }

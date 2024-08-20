@@ -47,8 +47,8 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
             }
         }
 
-        viewModel.nickName.observe(viewLifecycleOwner) { nickName ->
-            Log.d("SignupProfileFragment", "Observed Nickname: $nickName")
+        viewModel.nickName.observe(viewLifecycleOwner) { nickname ->
+            Log.d("SignupProfileFragment", "닉네임: $nickname")
         }
     }
     override fun initView() {

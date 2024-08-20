@@ -25,6 +25,7 @@ import umc.everyones.lck.data.SignupUserData
 import umc.everyones.lck.data.dto.request.login.SignupAuthUserRequestDto
 import umc.everyones.lck.data.service.LoginService
 import umc.everyones.lck.domain.model.request.login.NicknameAuthUserRequestModel
+import umc.everyones.lck.domain.model.response.login.CommonLoginResponseModel
 import umc.everyones.lck.domain.repository.login.LoginRepository
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
@@ -51,8 +52,13 @@ class SignupViewModel @Inject constructor(
     private val _profileUri = MutableLiveData<Uri?>()
     val profileUri: LiveData<Uri?> get() = _profileUri
 
-    private val _teamId = MutableLiveData<Int?>()
-    val teamId: LiveData<Int?> get() = _teamId
+    private val _teamId = MutableLiveData<Int>()
+    val teamId: LiveData<Int> get() = _teamId
+
+    private val _signupResponse = MutableLiveData<Result<CommonLoginResponseModel>?>()
+    val signupResponse: LiveData<Result<CommonLoginResponseModel>?> get() = _signupResponse
+
+    private val context: Context = application
 
     fun setKakaoUserId(kakaoUserId: String) {
         _kakaoUserId.value = kakaoUserId
@@ -96,7 +102,71 @@ class SignupViewModel @Inject constructor(
         }
     }
 
-    fun signupUser(){
+    fun sendSignupData() {
+        viewModelScope.launch {
+            try {
+                val signupRequest = prepareSignupRequest()
+
+                Log.d("SignupViewModel", "Sending API request with data: ${signupRequest.signupUserData}")
+
+                val gson = Gson()
+                val signupUserDataJson = gson.toJson(signupRequest.signupUserData)
+
+                // API 호출
+                val response = repository.signup(
+                    signupUserDataJson.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull()),
+                    signupRequest.profileImage
+                )
+
+                Log.d("SignupViewModel", "API call successful: $response")
+                _signupResponse.value = response // 응답 값을 LiveData에 저장
+            } catch (e: Exception) {
+                Log.e("SignupViewModel", "API call failed: ${e.message}")
+                _signupResponse.value = null // 실패 시 null 처리
+            }
+        }
+    }
+
+    private fun prepareSignupRequest(): SignupAuthUserRequestDto {
+        // Mock data, replace with actual data
+        val kakaoUserId = _kakaoUserId.value ?: throw IllegalArgumentException("Kakao User ID is required.")
+        val nickName = _nickName.value ?: throw IllegalArgumentException("Nickname is required.")
+        val role = "ROLE_USER"
+        val teamId = _teamId.value ?: 1 // 기본값 설정
+        val tier = "Bronze" // 실제 티어로 대체
+
+        // 리소스에서 Bitmap을 생성하여 MultipartBody.Part로 변환
+        val profileImagePart = try {
+            val defaultImageBitmap: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.img_signup_profile)
+            val defaultImageStream = ByteArrayOutputStream().apply {
+                defaultImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, this)
+            }
+            val defaultImageBytes = defaultImageStream.toByteArray()
+
+            val requestBody = defaultImageBytes.toRequestBody("image/*".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData(
+                "profileImage", "img_signup_profile.png", requestBody
+            )
+        } catch (e: Exception) {
+            Log.e("SignupViewModel", "Error creating MultipartBody.Part for profile image: ${e.message}")
+            val emptyImageRequestBody = ByteArray(0).toRequestBody("image/*".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData(
+                "profileImage", "img_signup_profile.png", emptyImageRequestBody
+            )
+        }
+
+        return SignupAuthUserRequestDto(
+            profileImage = profileImagePart,
+            signupUserData = SignupAuthUserRequestDto.SignupUserDataRequestDto(
+                kakaoUserId = kakaoUserId,
+                nickName = nickName,
+                role = role,
+                tier = tier,
+                teamId = teamId
+            )
+        )
+    }
+    fun signupUser() {
 
     }
 }

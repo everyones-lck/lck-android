@@ -1,5 +1,6 @@
 package umc.everyones.lck.presentation.login
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -30,7 +31,6 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
             } else {
                 binding.layoutSignupNicknameWarning4.visibility = View.VISIBLE // 중복
                 binding.viewSignupNicknameBar.setBackgroundResource(R.drawable.shape_rect_4_red_line) // 실패 색상
-                //이럴 경우 중복 확인 눌렀을 때 팝업 안뜨도록 해줘
             }
         }
     }
@@ -50,7 +50,6 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
                     binding.tvSignupNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_white_line) // 기본 배경
                     binding.tvSignupNicknameDuplication.setOnClickListener {
                         viewModel.checkNicknameAvailability(nickname) // 중복 확인 로직 호출
-                        viewModel.setNickName(nickname)
                     }
                     binding.layoutSignupNicknameWarning4.visibility = View.GONE // 중복 아님
                     binding.tvSignupNicknameDuplication.isEnabled = true // 버튼 활성화
@@ -85,6 +84,10 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
         dialog.window?.attributes = layoutParams
 
         dialogBinding.btnConfirm.setOnClickListener {
+            val nickname = binding.etSignupNicknameName.text.toString() // 닉네임 가져오기
+            if (nickname.isNotEmpty()) {
+                viewModel.setNickName(nickname) // 닉네임 저장
+            }
             dialog.dismiss()
             navigateToSignupProfile()
         }
@@ -127,6 +130,6 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
 
     private fun navigateToSignupProfile() {
         navigator.navigate(R.id.action_signupNicknameFragment_to_signupProfileFragment)
+        //여기서 viewmodel에 nickname값 저장
     }
-
 }

@@ -39,7 +39,7 @@
                 android:id="@+id/tv_dialog_message2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="추후에 마이페이지에서 변경가능합니다."
+                android:text="추후에 마이페이지에서 변경 가능합니다"
                 style="@style/TextAppearance.LCK.Light.Body_14sp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/tv_dialog_title"

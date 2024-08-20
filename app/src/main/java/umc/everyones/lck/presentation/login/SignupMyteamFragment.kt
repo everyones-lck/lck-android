@@ -21,7 +21,6 @@ import umc.everyones.lck.util.TeamData
 @AndroidEntryPoint
 class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.fragment_signup_myteam) {
 
-    private var selectedTeamName: String? = null
     private val viewModel: SignupViewModel by activityViewModels()
     private val navigator by lazy { findNavController() }
     private var selectedTeamId: Int? = 1
@@ -36,9 +35,8 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
         setupTeamSelection()
 
         binding.ivSignupMyteamNext.setOnClickListener {
-            // selectedTeamId를 사용하여 확인
             if (selectedTeamId == null) {
-                showTeamConfirmDialog(profileImageUri)
+                showTeamConfirmDialog()
             } else {
                 navigateToSuccessFragment()
             }
@@ -75,7 +73,7 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
         }
     }
 
-    private fun showTeamConfirmDialog(profileImageUri: String?) {
+    private fun showTeamConfirmDialog() {
         val dialogView =
             LayoutInflater.from(requireContext()).inflate(R.layout.dialog_myteam_confirm, null)
         val dialogBinding = DialogMyteamConfirmBinding.bind(dialogView)

@@ -82,8 +82,12 @@ class ReadPostViewModel @Inject constructor(
                 Log.d("reportCommunityPost", response.toString())
                 _readCommunityEvent.value = UiState.Success(ReadCommunityEvent.ReportPost)
             }.onFailure {
-                Log.d("reportCommunityPost error", it.stackTraceToString())
-                _readCommunityEvent.value = UiState.Failure("커뮤니티 게시글 신고에 실패했습니다")
+                Log.d("reportCommunityPost error", it.message.toString())
+                if(it.message?.trim() == "HTTP 404"){
+                    _readCommunityEvent.value = UiState.Failure("이미 신고한 게시글입니다")
+                } else {
+                    _readCommunityEvent.value = UiState.Failure("커뮤니티 게시글 신고에 실패했습니다")
+                }
             }
         }
     }
@@ -95,8 +99,12 @@ class ReadPostViewModel @Inject constructor(
                 Log.d("reportCommunityComment", response.toString())
                 _readCommunityEvent.value = UiState.Success(ReadCommunityEvent.ReportComment)
             }.onFailure {
-                Log.d("reportCommunityComment error", it.stackTraceToString())
-                _readCommunityEvent.value = UiState.Failure("커뮤니티 댓글 신고에 실패했습니다")
+                Log.d("reportCommunityComment error", it.message.toString())
+                if(it.message?.trim() == "HTTP 404"){
+                    _readCommunityEvent.value = UiState.Failure("이미 신고한 댓글입니다")
+                } else {
+                    _readCommunityEvent.value = UiState.Failure("커뮤니티 댓글 신고에 실패했습니다")
+                }
             }
         }
     }

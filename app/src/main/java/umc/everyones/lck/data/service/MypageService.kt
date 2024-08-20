@@ -66,7 +66,7 @@ interface MypageService {
         @Header("Refresh") refreshToken: String
     ): BaseResponse<Boolean>
 
-    @DELETE("my-pages/withdrawal")
+    @PATCH("my-pages/withdrawal")
     suspend fun withdraw(): BaseResponse<Boolean>
 
     @Multipart

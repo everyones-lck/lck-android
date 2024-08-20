@@ -20,9 +20,9 @@ import umc.everyones.lck.presentation.lck.adapter.PlayerAdapter
 import umc.everyones.lck.presentation.lck.data.PlayerData
 import umc.everyones.lck.presentation.lck.util.OnPlayerItemClickListener
 @AndroidEntryPoint
-class AboutLckClRoasterFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R.layout.fragment_about_lck_roaster) {
+class AboutLckClRoasterFragment : BaseFragment<FragmentAboutLckClRoasterBinding>(R.layout.fragment_about_lck_cl_roaster) {
 
-    private val viewModel: AboutLckTeamViewModel by viewModels()
+    private val viewModel: AboutLckTeamViewModel by viewModels({requireParentFragment()})
     private var listener: OnPlayerItemClickListener? = null
 
     override fun initObserver() {
@@ -40,7 +40,7 @@ class AboutLckClRoasterFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R
                         )
                     }
                     listener?.let {
-                        binding.rvAboutLckRoaster.adapter = PlayerAdapter(playerDataList, it)
+                        binding.rvAboutLckClRoaster.adapter = PlayerAdapter(playerDataList, it)
                     }
                 }?.onFailure {
 
@@ -55,7 +55,7 @@ class AboutLckClRoasterFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R
     }
 
     private fun initRecyclerView() {
-        val recyclerView: RecyclerView = binding.rvAboutLckRoaster
+        val recyclerView: RecyclerView = binding.rvAboutLckClRoaster
         recyclerView.layoutManager = GridLayoutManager(context, 3)
     }
 

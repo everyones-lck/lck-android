@@ -64,6 +64,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         validateCommentSend()
         editPost()
         reportPost()
+        deletePost()
         viewModel.fetchCommunityPost()
 
         binding.ivReadBackBtn.setOnSingleClickListener {
@@ -91,6 +92,12 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
                     )
                 )
             )
+        }
+    }
+
+    private fun deletePost(){
+        binding.layoutReadDeleteBtn.setOnSingleClickListener {
+            viewModel.deleteCommunityPost()
         }
     }
 

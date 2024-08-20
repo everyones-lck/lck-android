@@ -1,6 +1,7 @@
 package umc.everyones.lck.data.repositoryImpl.community
 
 import umc.everyones.lck.data.datasource.community.CommunityDataSource
+import umc.everyones.lck.data.dto.response.NotBaseResponse
 import umc.everyones.lck.domain.model.community.CommunityListModel
 import umc.everyones.lck.domain.model.request.community.WriteCommunityRequestModel
 import umc.everyones.lck.domain.model.response.community.ReadCommunityResponseModel
@@ -28,5 +29,10 @@ class CommunityRepositoryImpl @Inject constructor(
     override suspend fun fetchCommunityPost(postId: Long): Result<ReadCommunityResponseModel> =
         runCatching {
             communityDataSource.fetchCommunityPost(postId).data.toReadCommunityResponseModel()
+        }
+
+    override suspend fun deleteCommunityPost(postId: Long): Result<NotBaseResponse> =
+        runCatching {
+            communityDataSource.deleteCommunityPost(postId)
         }
 }

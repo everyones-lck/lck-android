@@ -3,6 +3,7 @@ package umc.everyones.lck.data.datasourceImpl.community
 import umc.everyones.lck.data.datasource.community.CommunityDataSource
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.community.WriteCommunityRequestDto
+import umc.everyones.lck.data.dto.response.NotBaseResponse
 import umc.everyones.lck.data.dto.response.community.CommunityListResponseDto
 import umc.everyones.lck.data.dto.response.community.ReadCommunityResponseDto
 import umc.everyones.lck.data.dto.response.community.WriteCommunityResponseDto
@@ -26,5 +27,8 @@ class CommunityDataSourceImpl @Inject constructor(
 
     override suspend fun fetchCommunityPost(postId: Long): BaseResponse<ReadCommunityResponseDto> =
         communityService.fetchCommunityPost(postId)
+
+    override suspend fun deleteCommunityPost(postId: Long): NotBaseResponse =
+        communityService.deleteCommunityPost(postId)
 
 }

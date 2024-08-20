@@ -24,9 +24,19 @@ class ReadPostViewModel @Inject constructor(
     fun fetchCommunityPost(){
         viewModelScope.launch {
             repository.fetchCommunityPost(postId.value).onSuccess { response ->
-                Log.d("fetchCommunity", response.toString())
+                Log.d("fetchCommunityPost", response.toString())
             }.onFailure {
-                Log.d("fetchCommunity", it.stackTraceToString())
+                Log.d("fetchCommunityPost error", it.stackTraceToString())
+            }
+        }
+    }
+
+    fun deleteCommunityPost(){
+        viewModelScope.launch{
+            repository.deleteCommunityPost(postId.value).onSuccess { response ->
+                Log.d("deleteCommunityPost", response.toString())
+            }.onFailure {
+                Log.d("deleteCommunityPost error", it.stackTraceToString())
             }
         }
     }

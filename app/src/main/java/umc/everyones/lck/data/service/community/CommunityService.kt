@@ -10,6 +10,7 @@ import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
+import umc.everyones.lck.data.dto.response.NotBaseResponse
 import umc.everyones.lck.data.dto.response.community.CommunityListResponseDto
 import umc.everyones.lck.data.dto.response.community.ReadCommunityResponseDto
 import umc.everyones.lck.data.dto.response.community.WriteCommunityResponseDto
@@ -35,5 +36,7 @@ interface CommunityService {
     ): BaseResponse<ReadCommunityResponseDto>
 
     @DELETE("post/{postId}/delete")
-    suspend fun deleteCommunityPost
+    suspend fun deleteCommunityPost(
+        @Path("postId") postId: Long
+    ): NotBaseResponse
 }

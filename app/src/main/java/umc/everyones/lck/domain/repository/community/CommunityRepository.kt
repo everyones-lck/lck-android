@@ -1,5 +1,6 @@
 package umc.everyones.lck.domain.repository.community
 
+import umc.everyones.lck.data.dto.response.NotBaseResponse
 import umc.everyones.lck.domain.model.community.CommunityListModel
 import umc.everyones.lck.domain.model.request.community.WriteCommunityRequestModel
 import umc.everyones.lck.domain.model.response.community.ReadCommunityResponseModel
@@ -11,4 +12,6 @@ interface CommunityRepository {
     suspend fun writeCommunityPost(requestModel: WriteCommunityRequestModel): Result<WriteCommunityResponseModel>
 
     suspend fun fetchCommunityPost(postId: Long): Result<ReadCommunityResponseModel>
+
+    suspend fun deleteCommunityPost(postId: Long): Result<NotBaseResponse>
 }

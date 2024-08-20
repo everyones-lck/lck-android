@@ -12,6 +12,7 @@ import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
+import umc.everyones.lck.data.dto.request.community.CreateCommentRequestDto
 import umc.everyones.lck.data.dto.request.community.EditCommunityRequestDto
 import umc.everyones.lck.data.dto.response.NonBaseResponse
 import umc.everyones.lck.data.dto.response.community.CommunityListResponseDto
@@ -58,5 +59,11 @@ interface CommunityService {
     @POST("report/comment/{commentId}/create")
     suspend fun reportCommunityComment(
         @Path("commentId") commentId: Long
+    ): NonBaseResponse
+
+    @POST("comment/{postId}/create")
+    suspend fun createComment(
+        @Path("postId") postId: Long,
+        @Body request: CreateCommentRequestDto
     ): NonBaseResponse
 }

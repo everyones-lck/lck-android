@@ -122,6 +122,13 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
             ReadPostViewModel.ReadCommunityEvent.ReportPost -> {
                 showCustomSnackBar(binding.layoutReadReportBtn, "게시글이 신고 되었습니다")
             }
+
+            ReadPostViewModel.ReadCommunityEvent.CreateComment -> {
+                binding.etReadCommentInput.setText("")
+            }
+            ReadPostViewModel.ReadCommunityEvent.DeleteComment -> {
+
+            }
         }
     }
 
@@ -137,6 +144,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         editPost()
         reportPost()
         deletePost()
+        sendComment()
         viewModel.fetchCommunityPost()
 
         binding.ivReadBackBtn.setOnSingleClickListener {
@@ -220,6 +228,14 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
                 }
             }
         )
+    }
+
+    private fun sendComment(){
+        with(binding){
+            ivReadSendCommentBtn.setOnSingleClickListener {
+                viewModel.createComment(etReadCommentInput.textToString())
+            }
+        }
     }
 
     companion object {

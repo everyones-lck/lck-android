@@ -1,6 +1,7 @@
 package umc.everyones.lck.data.datasource.community
 
 import umc.everyones.lck.data.dto.BaseResponse
+import umc.everyones.lck.data.dto.request.community.CreateCommentRequestDto
 import umc.everyones.lck.data.dto.request.community.EditCommunityRequestDto
 import umc.everyones.lck.data.dto.request.community.WriteCommunityRequestDto
 import umc.everyones.lck.data.dto.response.NonBaseResponse
@@ -23,4 +24,6 @@ interface CommunityDataSource {
     suspend fun reportCommunityPost(postId: Long): NonBaseResponse
 
     suspend fun reportCommunityComment(commentId: Long): NonBaseResponse
+
+    suspend fun createComment(postId: Long, request: CreateCommentRequestDto): NonBaseResponse
 }

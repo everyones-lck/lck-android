@@ -10,6 +10,7 @@ import umc.everyones.lck.data.datasourceImpl.community.CommunityListPagingSource
 import umc.everyones.lck.data.dto.response.NonBaseResponse
 import umc.everyones.lck.data.service.community.CommunityService
 import umc.everyones.lck.domain.model.community.CommunityListModel
+import umc.everyones.lck.domain.model.request.community.CreateCommentRequestModel
 import umc.everyones.lck.domain.model.request.community.EditCommunityRequestModel
 import umc.everyones.lck.domain.model.request.community.WriteCommunityRequestModel
 import umc.everyones.lck.domain.model.response.community.EditCommunityResponseModel
@@ -69,4 +70,7 @@ class CommunityRepositoryImpl @Inject constructor(
 
     override suspend fun reportCommunityComment(commentId: Long): Result<NonBaseResponse> =
         runCatching { communityDataSource.reportCommunityComment(commentId) }
+
+    override suspend fun createComment(postId: Long, request: CreateCommentRequestModel): Result<NonBaseResponse> =
+        runCatching { communityDataSource.createComment(postId, request.toCreateCommentRequestDto()) }
 }

@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import umc.everyones.lck.domain.model.request.community.CreateCommentRequestModel
 import umc.everyones.lck.domain.model.request.community.EditCommunityRequestModel
 import umc.everyones.lck.domain.model.response.community.ReadCommunityResponseModel
 import umc.everyones.lck.domain.repository.community.CommunityRepository
@@ -46,6 +47,10 @@ class ReadPostViewModel @Inject constructor(
         data object ReportPost : ReadCommunityEvent()
 
         data object ReportComment : ReadCommunityEvent()
+
+        data object CreateComment : ReadCommunityEvent()
+
+        data object DeleteComment : ReadCommunityEvent()
     }
 
     fun fetchCommunityPost(){
@@ -105,6 +110,21 @@ class ReadPostViewModel @Inject constructor(
                 } else {
                     _readCommunityEvent.value = UiState.Failure("커뮤니티 댓글 신고에 실패했습니다")
                 }
+            }
+        }
+    }
+
+    fun createComment(content: String){
+        viewModelScope.launch {
+            _readCommunityEvent.value = UiState.Loading
+            repository.createComment(postId.value, CreateCommentRequestModel(content)).onSuccess { response ->
+                Log.d("createComment", response.toString())
+                _readCommunityEvent.value = UiState.Success(ReadCommunityEvent.CreateComment)
+                fetchCommunityPost()
+            }.onFailure {
+                Log.d("createComment error", it.message.toString())
+                _readCommunityEvent.value = UiState.Failure("커뮤니티 댓글 생성에 실패했습니다")
+
             }
         }
     }

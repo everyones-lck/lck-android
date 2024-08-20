@@ -2,6 +2,7 @@ package umc.everyones.lck.data.datasourceImpl.community
 
 import umc.everyones.lck.data.datasource.community.CommunityDataSource
 import umc.everyones.lck.data.dto.BaseResponse
+import umc.everyones.lck.data.dto.request.community.CreateCommentRequestDto
 import umc.everyones.lck.data.dto.request.community.EditCommunityRequestDto
 import umc.everyones.lck.data.dto.request.community.WriteCommunityRequestDto
 import umc.everyones.lck.data.dto.response.NonBaseResponse
@@ -44,5 +45,8 @@ class CommunityDataSourceImpl @Inject constructor(
 
     override suspend fun reportCommunityComment(commentId: Long): NonBaseResponse =
         communityService.reportCommunityComment(commentId)
+
+    override suspend fun createComment(postId: Long, request: CreateCommentRequestDto): NonBaseResponse =
+        communityService.createComment(postId, request)
 
 }

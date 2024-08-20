@@ -14,14 +14,14 @@ import umc.everyones.lck.domain.repository.community.CommunityRepository
 class WritePostViewModel @Inject constructor(
     private val repository: CommunityRepository
 ) : ViewModel() {
-    fun writeCommunity(
+    fun writeCommunityPost(
         files: List<MultipartBody.Part>,
         postType: String,
         postTitle: String,
         postContent: String
     ) {
         viewModelScope.launch {
-            repository.writeCommunity(
+            repository.writeCommunityPost(
                 WriteCommunityRequestModel(
                     files,
                     WriteCommunityRequestModel.WriteRequestModel(postType, postTitle, postContent)

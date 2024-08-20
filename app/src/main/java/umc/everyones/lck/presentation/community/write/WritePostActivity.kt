@@ -14,10 +14,7 @@ import androidx.core.content.ContextCompat
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.http.Multipart
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWritePostBinding
 import umc.everyones.lck.domain.model.community.Post
@@ -199,7 +196,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
                 }
                 val file = File.createTempFile("dsd",".tmp")
                 val imageFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-                writePostViewModel.writeCommunity(listOf(MultipartBody.Part.createFormData("files", file.name, imageFile)), "REVIEW", "ㅇㅇ", "ㅇㅇ")
+                writePostViewModel.writeCommunityPost(listOf(MultipartBody.Part.createFormData("files", file.name, imageFile)), "REVIEW", "ㅇㅇ", "ㅇㅇ")
 
                 Intent(this@WritePostActivity, WritePostActivity::class.java).apply {
                     putExtra("category", spinnerWriteCategory.selectedItem.toString())

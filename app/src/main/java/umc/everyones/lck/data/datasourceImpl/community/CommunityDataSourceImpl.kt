@@ -1,7 +1,5 @@
 package umc.everyones.lck.data.datasourceImpl.community
 
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import umc.everyones.lck.data.datasource.community.CommunityDataSource
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.community.WriteCommunityRequestDto
@@ -21,12 +19,12 @@ class CommunityDataSourceImpl @Inject constructor(
     ): BaseResponse<CommunityListResponseDto> =
         communityService.fetchCommunityList(postType, page, size)
 
-    override suspend fun writeCommunity(
+    override suspend fun writeCommunityPost(
         request: WriteCommunityRequestDto
     ): BaseResponse<WriteCommunityResponseDto> =
-        communityService.writeCommunity(request.files, request.writeRequest)
+        communityService.writeCommunityPost(request.files, request.writeRequest)
 
-    override suspend fun fetchCommunity(postId: Long): BaseResponse<ReadCommunityResponseDto> =
-        communityService.fetchCommunity(postId)
+    override suspend fun fetchCommunityPost(postId: Long): BaseResponse<ReadCommunityResponseDto> =
+        communityService.fetchCommunityPost(postId)
 
 }

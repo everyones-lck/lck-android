@@ -20,13 +20,13 @@ class CommunityRepositoryImpl @Inject constructor(
             communityDataSource.fetchCommunityList(postType, page, size).data.toCommunityListModel()
         }
 
-    override suspend fun writeCommunity(requestModel: WriteCommunityRequestModel): Result<WriteCommunityResponseModel> =
+    override suspend fun writeCommunityPost(requestModel: WriteCommunityRequestModel): Result<WriteCommunityResponseModel> =
         runCatching {
-            communityDataSource.writeCommunity(requestModel.toWriteCommunityRequestDto()).data.toWriteCommunityResponseModel()
+            communityDataSource.writeCommunityPost(requestModel.toWriteCommunityRequestDto()).data.toWriteCommunityResponseModel()
         }
 
-    override suspend fun fetchCommunity(postId: Long): Result<ReadCommunityResponseModel> =
+    override suspend fun fetchCommunityPost(postId: Long): Result<ReadCommunityResponseModel> =
         runCatching {
-            communityDataSource.fetchCommunity(postId).data.toReadCommunityResponseModel()
+            communityDataSource.fetchCommunityPost(postId).data.toReadCommunityResponseModel()
         }
 }

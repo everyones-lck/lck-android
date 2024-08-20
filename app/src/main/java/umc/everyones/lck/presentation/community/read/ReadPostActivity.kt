@@ -64,7 +64,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         validateCommentSend()
         editPost()
         reportPost()
-        viewModel.fetchCommunity()
+        viewModel.fetchCommunityPost()
 
         binding.ivReadBackBtn.setOnSingleClickListener {
             finish()

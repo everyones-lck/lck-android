@@ -21,9 +21,9 @@ class ReadPostViewModel @Inject constructor(
         _postId.value = postId
     }
 
-    fun fetchCommunity(){
+    fun fetchCommunityPost(){
         viewModelScope.launch {
-            repository.fetchCommunity(postId.value).onSuccess { response ->
+            repository.fetchCommunityPost(postId.value).onSuccess { response ->
                 Log.d("fetchCommunity", response.toString())
             }.onFailure {
                 Log.d("fetchCommunity", it.stackTraceToString())

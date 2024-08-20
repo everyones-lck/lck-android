@@ -1,8 +1,8 @@
 package umc.everyones.lck.data.service.community
 
-import android.util.Size
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -24,13 +24,16 @@ interface CommunityService {
 
     @Multipart
     @POST("post/create")
-    suspend fun writeCommunity(
+    suspend fun writeCommunityPost(
         @Part files: List<MultipartBody.Part>,
         @Part("request") request: RequestBody
     ): BaseResponse<WriteCommunityResponseDto>
 
     @GET("post/{postId}/detail")
-    suspend fun fetchCommunity(
+    suspend fun fetchCommunityPost(
         @Path("postId") postId: Long
     ): BaseResponse<ReadCommunityResponseDto>
+
+    @DELETE("post/{postId}/delete")
+    suspend fun deleteCommunityPost
 }

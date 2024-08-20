@@ -69,13 +69,11 @@ class ViewingPartyRepositoryImpl @Inject constructor(
         roomId: Long,
         page: Int,
         size: Int
-    ): Result<ViewingPartyChatLogModel> {
-        val result = viewingPartyDataSource.fetchViewingPartyChatLog(roomId, page, size).data
-        val isOwner = result.receiverName == spf.getString("nickname", "")
-        return runCatching {
-            result.toViewingPartyChatLogModel(isOwner)
+    ): Result<ViewingPartyChatLogModel> =
+        runCatching {
+            viewingPartyDataSource.fetchViewingPartyChatLog(roomId, page, size).data.toViewingPartyChatLogModel(spf.getString("nickname", "")?:"")
         }
-    }
+
 
     override suspend fun createViewingPartyChatRoomAsParticipant(viewingPartyId: Long): Result<ViewingPartyChatRoomModel> =
         runCatching { viewingPartyDataSource.createViewingPartyChatRoomAsParticipant(viewingPartyId).data.toViewingPartyChatRoomModel() }

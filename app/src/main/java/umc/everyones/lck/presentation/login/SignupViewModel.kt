@@ -99,5 +99,4 @@ class SignupViewModel @Inject constructor(
     fun signupUser(){
 
     }
-
 }

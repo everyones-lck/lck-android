@@ -19,9 +19,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import umc.everyones.lck.R
+import umc.everyones.lck.databinding.DialogMyteamConfirmBinding
 import umc.everyones.lck.databinding.DialogProfileConfirmBinding
 import umc.everyones.lck.databinding.FragmentSignupProfileBinding
 import umc.everyones.lck.presentation.base.BaseFragment
@@ -80,7 +82,7 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
             if (profileImageUri != null) {
                 navigateToSignupMyTeam() // 다음 화면으로 이동
             } else {
-                showProfileDialog()
+                showProfileConfirmDialog()
             }
         }
 
@@ -97,14 +99,31 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
         pickImageLauncher.launch(intent) // 갤러리 열기
     }
 
-    private fun showProfileDialog() {
-        // 프로필 이미지 미선택 시 사용자에게 알림 다이얼로그 표시
-        AlertDialog.Builder(requireContext())
-            .setTitle("알림")
-            .setMessage("프로필 이미지를 선택해주세요.")
-            .setPositiveButton("확인") { dialog, _ -> dialog.dismiss() }
+    private fun showProfileConfirmDialog() {
+        val dialogView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_profile_confirm, null)
+        val dialogBinding = DialogProfileConfirmBinding.bind(dialogView)
+
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogView)
+            .setCancelable(false)
             .create()
-            .show()
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+
+        val layoutParams = dialog.window?.attributes
+        layoutParams?.dimAmount = 0.8f
+        dialog.window?.attributes = layoutParams
+
+        dialogBinding.btnChange.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialogBinding.btnConfirm.setOnClickListener {
+            dialog.dismiss()
+            navigateToSignupMyTeam()
+        }
     }
 
     private fun navigateToSignupMyTeam() {

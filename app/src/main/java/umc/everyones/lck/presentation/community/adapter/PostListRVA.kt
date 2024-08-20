@@ -39,7 +39,10 @@ class PostListRVA(val readPost: (Long) -> Unit) : PagingDataAdapter<CommunityLis
                     tvPostNickname.text = postListItem.userNickname
                     tvPostFavoriteTeam.text = postListItem.supportTeamName
                     tvPostComment.text = postListItem.commentCounts.toString()
-                    
+
+                    Glide.with(ivPostImage.context)
+                        .load(postListItem.postPicture)
+                        .into(ivPostImage)
                     // 게시글 postId 전달
                     root.setOnClickListener {
                         readPost(postListItem.postId)

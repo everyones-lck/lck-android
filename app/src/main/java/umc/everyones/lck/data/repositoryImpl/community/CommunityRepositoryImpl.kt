@@ -1,5 +1,6 @@
 package umc.everyones.lck.data.repositoryImpl.community
 
+import android.content.SharedPreferences
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -20,7 +21,8 @@ import javax.inject.Inject
 
 class CommunityRepositoryImpl @Inject constructor(
     private val communityDataSource: CommunityDataSource,
-    private val communityService: CommunityService
+    private val communityService: CommunityService,
+    private val spf: SharedPreferences
 ): CommunityRepository {
     override suspend fun fetchCommunityList(
         postType: String,
@@ -38,7 +40,7 @@ class CommunityRepositoryImpl @Inject constructor(
 
     override suspend fun fetchCommunityPost(postId: Long): Result<ReadCommunityResponseModel> =
         runCatching {
-            communityDataSource.fetchCommunityPost(postId).data.toReadCommunityResponseModel()
+            communityDataSource.fetchCommunityPost(postId).data.toReadCommunityResponseModel(spf.getString("nickname","")?:"")
         }
 
     override suspend fun deleteCommunityPost(postId: Long): Result<NotBaseResponse> =

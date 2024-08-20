@@ -1,6 +1,9 @@
 package umc.everyones.lck.data.dto.response.community
 
 import umc.everyones.lck.domain.model.response.community.ReadCommunityResponseModel
+import umc.everyones.lck.util.extension.combineNicknameAndTeam
+import umc.everyones.lck.util.extension.toListViewingPartyDateFormat
+import umc.everyones.lck.util.extension.toReadDateFormat
 
 data class ReadCommunityResponseDto(
     val postType: String,
@@ -18,27 +21,28 @@ data class ReadCommunityResponseDto(
         val nickname: String,
         val supportTeam: String,
         val content: String,
-        val createdAt: String
+        val createdAt: String,
+        val commentId: Long
     ) {
-        fun toCommentListElementModel() =
+        fun toCommentListElementModel(userNickname: String) =
             ReadCommunityResponseModel.CommentListElementModel(
                 profileUrl,
-                nickname,
-                supportTeam,
+                nickname.combineNicknameAndTeam(supportTeam),
                 content,
-                createdAt
+                createdAt.slice(0..15).toListViewingPartyDateFormat(),
+                commentId,
+                if(userNickname == nickname) true else false
             )
     }
 
-    fun toReadCommunityResponseModel() =
+    fun toReadCommunityResponseModel(userNickname: String) =
         ReadCommunityResponseModel(
             postType,
             writerProfileUrl,
-            writerNickname,
-            writerTeam,
+            writerNickname.combineNicknameAndTeam(writerTeam),
             postTitle,
-            postCreatedAt,
+            postCreatedAt.slice(0..15).toReadDateFormat(),
             content,
             fileUrlList,
-            commentList.map { it.toCommentListElementModel() })
+            commentList.map { it.toCommentListElementModel(userNickname) })
 }

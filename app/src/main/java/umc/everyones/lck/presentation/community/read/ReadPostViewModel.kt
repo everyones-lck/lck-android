@@ -64,12 +64,26 @@ class ReadPostViewModel @Inject constructor(
 
     fun deleteCommunityPost(){
         viewModelScope.launch{
+            _readCommunityEvent.value = UiState.Loading
             repository.deleteCommunityPost(postId.value).onSuccess { response ->
                 Log.d("deleteCommunityPost", response.toString())
                 _readCommunityEvent.value = UiState.Success(ReadCommunityEvent.DeletePost)
             }.onFailure {
                 Log.d("deleteCommunityPost error", it.stackTraceToString())
                 _readCommunityEvent.value = UiState.Failure("커뮤니티 게시글 삭제에 실패했습니다")
+            }
+        }
+    }
+
+    fun reportCommunityPost(){
+        viewModelScope.launch {
+            _readCommunityEvent.value = UiState.Loading
+            repository.reportCommunityPost(postId.value).onSuccess { response ->
+                Log.d("reportCommunityPost", response.toString())
+                _readCommunityEvent.value = UiState.Success(ReadCommunityEvent.ReportPost)
+            }.onFailure {
+                Log.d("reportCommunityPost error", it.stackTraceToString())
+                _readCommunityEvent.value = UiState.Failure("커뮤니티 게시글 신고에 실패했습니다")
             }
         }
     }

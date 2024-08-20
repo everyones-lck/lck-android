@@ -7,8 +7,7 @@ import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import umc.everyones.lck.data.datasource.community.CommunityDataSource
 import umc.everyones.lck.data.datasourceImpl.community.CommunityListPagingSource
-import umc.everyones.lck.data.datasourceImpl.party.ViewingPartyListPagingSource
-import umc.everyones.lck.data.dto.response.NotBaseResponse
+import umc.everyones.lck.data.dto.response.NonBaseResponse
 import umc.everyones.lck.data.service.community.CommunityService
 import umc.everyones.lck.domain.model.community.CommunityListModel
 import umc.everyones.lck.domain.model.request.community.EditCommunityRequestModel
@@ -43,7 +42,7 @@ class CommunityRepositoryImpl @Inject constructor(
             communityDataSource.fetchCommunityPost(postId).data.toReadCommunityResponseModel(spf.getString("nickname","")?:"")
         }
 
-    override suspend fun deleteCommunityPost(postId: Long): Result<NotBaseResponse> =
+    override suspend fun deleteCommunityPost(postId: Long): Result<NonBaseResponse> =
         runCatching {
             communityDataSource.deleteCommunityPost(postId)
         }
@@ -64,4 +63,7 @@ class CommunityRepositoryImpl @Inject constructor(
             ),
             pagingSourceFactory = { CommunityListPagingSource(communityService, category) }
         ).flow
+
+    override suspend fun reportCommunityPost(postId: Long): Result<NonBaseResponse> =
+        runCatching { communityService.reportCommunityPost(postId)}
 }

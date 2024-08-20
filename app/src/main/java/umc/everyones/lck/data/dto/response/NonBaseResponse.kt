@@ -1,6 +1,6 @@
 package umc.everyones.lck.data.dto.response
 
-data class NotBaseResponse(
+data class NonBaseResponse(
     val message: String,
     val success: Boolean
 )

@@ -13,7 +13,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.community.EditCommunityRequestDto
-import umc.everyones.lck.data.dto.response.NotBaseResponse
+import umc.everyones.lck.data.dto.response.NonBaseResponse
 import umc.everyones.lck.data.dto.response.community.CommunityListResponseDto
 import umc.everyones.lck.data.dto.response.community.EditCommunityResponseDto
 import umc.everyones.lck.data.dto.response.community.ReadCommunityResponseDto
@@ -42,11 +42,16 @@ interface CommunityService {
     @DELETE("post/{postId}/delete")
     suspend fun deleteCommunityPost(
         @Path("postId") postId: Long
-    ): NotBaseResponse
+    ): NonBaseResponse
 
     @PATCH("post/{postId}/modify")
     suspend fun editCommunityPost(
         @Path("postId") postId: Long,
         @Body responseDto: EditCommunityRequestDto
     ): BaseResponse<EditCommunityResponseDto>
+
+    @POST("report/post/{postId}/create")
+    suspend fun reportCommunityPost(
+        @Path("postId") postId: Long
+    ): NonBaseResponse
 }

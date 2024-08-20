@@ -117,7 +117,9 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
                 }
             }
             ReadPostViewModel.ReadCommunityEvent.ReportComment -> {}
-            ReadPostViewModel.ReadCommunityEvent.ReportPost -> {}
+            ReadPostViewModel.ReadCommunityEvent.ReportPost -> {
+                showCustomSnackBar(binding.layoutReadReportBtn, "게시글이 신고 되었습니다")
+            }
         }
     }
 
@@ -143,7 +145,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
 
     private fun reportPost(){
         binding.layoutReadReportBtn.setOnSingleClickListener {
-            showCustomSnackBar(binding.layoutReadReportBtn, "게시글이 신고 되었습니다")
+            viewModel.reportCommunityPost()
         }
     }
 

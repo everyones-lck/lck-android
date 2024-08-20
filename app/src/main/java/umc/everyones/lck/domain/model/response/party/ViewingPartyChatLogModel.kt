@@ -8,6 +8,7 @@ data class ViewingPartyChatLogModel(
 ){
     data class ChatLogModel(
         val senderId: Long,
-        val message: String
+        val message: String,
+        val viewType: Int
     )
 }

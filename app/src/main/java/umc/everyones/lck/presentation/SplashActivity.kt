@@ -23,8 +23,6 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        spf.edit().putString("nickname", "준").apply()
-
         val loginManager = LoginManager(this)
 
         Handler(Looper.getMainLooper()).postDelayed({

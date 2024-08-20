@@ -22,28 +22,25 @@ class WsClient @Inject constructor(
     }
 
     fun enterChatRoom(text: String){
-        val gson = Gson()
-        val jsonMessage = gson.toJson(
-            ChatMessage(
+        val chatMessage = ChatMessage(
             type = ENTER,
             senderName = nickname,
             chatRoomId = roomId,
-            message = text
-        )
-        )
+            message = text)
+        val gson = Gson()
+        val jsonMessage = gson.toJson(chatMessage)
         webSocket?.send(jsonMessage)
     }
 
     fun sendMessage(text: String){
-        val gson = Gson()
-        val jsonMessage = gson.toJson(
-            ChatMessage(
+        val chatMessage = ChatMessage(
             type = TALK,
             senderName = nickname,
             chatRoomId = roomId,
-            message = text
-        )
-        )
+            message = text)
+
+        val gson = Gson()
+        val jsonMessage = gson.toJson(chatMessage)
         webSocket?.send(jsonMessage)
     }
 
@@ -53,6 +50,7 @@ class WsClient @Inject constructor(
 
     override fun onMessage(webSocket: WebSocket, text: String) {
         Log.d("WebSocket", "Message received: $text")
+        viewModel.fetchViewingPartyChatLog(roomId.toLong())
     }
 
     override fun onMessage(webSocket: WebSocket, bytes: okio.ByteString) {

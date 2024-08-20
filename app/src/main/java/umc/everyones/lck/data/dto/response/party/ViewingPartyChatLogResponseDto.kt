@@ -1,6 +1,8 @@
 package umc.everyones.lck.data.dto.response.party
 
 import umc.everyones.lck.domain.model.response.party.ViewingPartyChatLogModel
+import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.RECEIVER
+import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.SENDER
 
 data class ViewingPartyChatLogResponseDto(
     val viewingPartyName: String,
@@ -10,12 +12,13 @@ data class ViewingPartyChatLogResponseDto(
 ){
     data class ChatLogResponseDto(
         val senderId: Long,
-        val message: String
+        val message: String,
     ){
-        fun toChatLogModel() =
-            ViewingPartyChatLogModel.ChatLogModel(senderId, message)
+        fun toChatLogModel(isOwner: Boolean): ViewingPartyChatLogModel.ChatLogModel{
+            return ViewingPartyChatLogModel.ChatLogModel(senderId, message, if (isOwner) SENDER else RECEIVER)
+        }
     }
 
-    fun toViewingPartyChatLogModel() =
-        ViewingPartyChatLogModel(viewingPartyName, receiverName, receiverTeam, chatMessageList.map { it.toChatLogModel() })
+    fun toViewingPartyChatLogModel(isOwner: Boolean) =
+        ViewingPartyChatLogModel(viewingPartyName, receiverName, receiverTeam, chatMessageList.map { it.toChatLogModel(isOwner) })
 }

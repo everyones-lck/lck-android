@@ -1,5 +1,6 @@
 package umc.everyones.lck.data.repositoryImpl.party
 
+import android.content.SharedPreferences
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -21,7 +22,8 @@ import javax.inject.Inject
 
 class ViewingPartyRepositoryImpl @Inject constructor(
     private val viewingPartyDataSource: ViewingPartyDataSource,
-    private val viewingPartyService: ViewingPartyService
+    private val viewingPartyService: ViewingPartyService,
+    private val spf: SharedPreferences
 ) : ViewingPartyRepository {
     override suspend fun fetchViewingPartyList(
         page: Int,
@@ -67,8 +69,13 @@ class ViewingPartyRepositoryImpl @Inject constructor(
         roomId: Long,
         page: Int,
         size: Int
-    ): Result<ViewingPartyChatLogModel> =
-        runCatching { viewingPartyDataSource.fetchViewingPartyChatLog(roomId, page, size).data.toViewingPartyChatLogModel() }
+    ): Result<ViewingPartyChatLogModel> {
+        val result = viewingPartyDataSource.fetchViewingPartyChatLog(roomId, page, size).data
+        val isOwner = result.receiverName == spf.getString("nickname", "")
+        return runCatching {
+            result.toViewingPartyChatLogModel(isOwner)
+        }
+    }
 
     override suspend fun createViewingPartyChatRoomAsParticipant(viewingPartyId: Long): Result<ViewingPartyChatRoomModel> =
         runCatching { viewingPartyDataSource.createViewingPartyChatRoomAsParticipant(viewingPartyId).data.toViewingPartyChatRoomModel() }

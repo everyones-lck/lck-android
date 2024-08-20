@@ -3,6 +3,7 @@ package umc.everyones.lck.presentation.community.read
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
@@ -21,6 +22,7 @@ import umc.everyones.lck.util.extension.showCustomSnackBar
 
 @AndroidEntryPoint
 class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity_read_post) {
+    private val viewModel: ReadPostViewModel by viewModels()
     private val commentRVA by lazy {
         CommentRVA(
             // 댓긇 수정 기능
@@ -44,7 +46,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
 
     // Community Fragment에서 전송한 postId 수신
     private val postId by lazy {
-        intent.getIntExtra("postId", 0)
+        intent.getLongExtra("postId", 0)
     }
 
     override fun initObserver() {
@@ -53,6 +55,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
 
     override fun initView() {
         // 키보드 올라올 때 화면 맨 밑으로 자동스크롤을 위한 리스너 등록
+        viewModel.setPostId(postId)
         KeyboardUtil.registerKeyboardVisibilityListener(binding.root, binding.svRead)
         initCommentRVAdapter()
         initReadMediaRVAdapter()
@@ -61,6 +64,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         validateCommentSend()
         editPost()
         reportPost()
+        viewModel.fetchCommunity()
 
         binding.ivReadBackBtn.setOnSingleClickListener {
             finish()
@@ -153,7 +157,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
     }
 
     companion object {
-        fun newIntent(context: Context, postId: Int) =
+        fun newIntent(context: Context, postId: Long) =
             Intent(context, ReadPostActivity::class.java).apply {
                 putExtra("postId", postId)
             }

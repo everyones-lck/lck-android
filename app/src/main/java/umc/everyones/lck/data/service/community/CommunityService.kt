@@ -11,6 +11,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.response.community.CommunityListResponseDto
+import umc.everyones.lck.data.dto.response.community.ReadCommunityResponseDto
 import umc.everyones.lck.data.dto.response.community.WriteCommunityResponseDto
 
 interface CommunityService {
@@ -27,4 +28,9 @@ interface CommunityService {
         @Part files: List<MultipartBody.Part>,
         @Part("request") request: RequestBody
     ): BaseResponse<WriteCommunityResponseDto>
+
+    @GET("post/{postId}/detail")
+    suspend fun fetchCommunity(
+        @Path("postId") postId: Long
+    ): BaseResponse<ReadCommunityResponseDto>
 }

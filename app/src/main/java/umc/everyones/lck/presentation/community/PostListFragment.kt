@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentPostListBinding
+import umc.everyones.lck.domain.model.community.CommunityListModel
 import umc.everyones.lck.domain.model.community.PostListItem
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.community.adapter.PostListRVA
@@ -32,23 +33,12 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
     private fun initPostListRVAdapter(){
         binding.rvPostList.adapter = postListRVA
         val list = listOf(
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
-            PostListItem(1, "테스트", "2024.01.01", "ㅇㄴㅇㄴㅇ", "T1", 20, ""),
+            CommunityListModel.CommunityListElementModel(0L, "", "", "", "", "", 0),
+            CommunityListModel.CommunityListElementModel(1L, "", "", "", "", "", 0),
+            CommunityListModel.CommunityListElementModel(2L, "", "", "", "", "", 0),
+            CommunityListModel.CommunityListElementModel(3L, "", "", "", "", "", 0),
+            CommunityListModel.CommunityListElementModel(4L, "", "", "", "", "", 0),
+
             )
         postListRVA.submitList(list)
     }

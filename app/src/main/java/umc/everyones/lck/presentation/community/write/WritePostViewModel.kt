@@ -5,11 +5,9 @@ import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
-import umc.everyones.lck.domain.model.community.WriteCommunityRequestModel
+import umc.everyones.lck.domain.model.request.community.WriteCommunityRequestModel
 import umc.everyones.lck.domain.repository.community.CommunityRepository
 
 @HiltViewModel

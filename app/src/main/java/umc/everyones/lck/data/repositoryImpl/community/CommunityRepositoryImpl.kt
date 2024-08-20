@@ -1,12 +1,10 @@
 package umc.everyones.lck.data.repositoryImpl.community
 
-import com.google.gson.Gson
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
 import umc.everyones.lck.data.datasource.community.CommunityDataSource
 import umc.everyones.lck.domain.model.community.CommunityListModel
-import umc.everyones.lck.domain.model.community.WriteCommunityRequestModel
-import umc.everyones.lck.domain.model.community.WriteCommunityResponseModel
+import umc.everyones.lck.domain.model.request.community.WriteCommunityRequestModel
+import umc.everyones.lck.domain.model.response.community.ReadCommunityResponseModel
+import umc.everyones.lck.domain.model.response.community.WriteCommunityResponseModel
 import umc.everyones.lck.domain.repository.community.CommunityRepository
 import javax.inject.Inject
 
@@ -25,5 +23,10 @@ class CommunityRepositoryImpl @Inject constructor(
     override suspend fun writeCommunity(requestModel: WriteCommunityRequestModel): Result<WriteCommunityResponseModel> =
         runCatching {
             communityDataSource.writeCommunity(requestModel.toWriteCommunityRequestDto()).data.toWriteCommunityResponseModel()
+        }
+
+    override suspend fun fetchCommunity(postId: Long): Result<ReadCommunityResponseModel> =
+        runCatching {
+            communityDataSource.fetchCommunity(postId).data.toReadCommunityResponseModel()
         }
 }

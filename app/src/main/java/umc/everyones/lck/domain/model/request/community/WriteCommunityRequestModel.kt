@@ -1,4 +1,4 @@
-package umc.everyones.lck.domain.model.community
+package umc.everyones.lck.domain.model.request.community
 
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

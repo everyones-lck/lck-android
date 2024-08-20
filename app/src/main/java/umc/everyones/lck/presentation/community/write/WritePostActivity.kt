@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
@@ -28,54 +29,33 @@ import umc.everyones.lck.util.GridSpaceItemDecoration
 import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.toCategoryPosition
 import umc.everyones.lck.util.extension.uriToFile
+import umc.everyones.lck.util.extension.uriToFileCopy
 import umc.everyones.lck.util.extension.validateMaxLength
 import java.io.File
+import java.util.UUID
 
 @AndroidEntryPoint
 class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activity_write_post) {
     private val writePostViewModel: WritePostViewModel by viewModels()
 
     private val writeMediaRVA by lazy {
-        WriteMediaRVA({
-            // 미디어 추가 버튼 클릭 시
-            // 권한 검사 및 요청 -> 미디어 선택
-
-            checkPermissionAndOpenMediaPicker()
-        },
-            {
-                imageParts.removeAt(it)
-                Log.d("remove imageParts", imageParts.toString())
-            })
+        WriteMediaRVA {
+            // 미디어 추가 버튼 클릭 시 미디어 선택
+            photoPickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo))
+        }
     }
 
     // 권한 요청
-    private val requestPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            if (isGranted) {
-                openMediaPicker()
-            } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-    // 미디어 선택
-    private val selectMediaLauncher =
-        registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris: List<Uri> ->
+    private val photoPickerLauncher =
+        registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(12)) { uris ->
             if (uris.isNotEmpty()) {
+                val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
                 uris.forEach { uri ->
-                    val file = uriToFile(uri)
-                    val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-                    val body =
-                        MultipartBody.Part.createFormData("files", file.name, requestFile)
-                    imageParts.add(body)
+                    contentResolver.takePersistableUriPermission(uri, flag)
                 }
+                handleMediaUris(uris)
             }
-            Log.d("imageParts", imageParts.toString())
-            handleMediaUris(uris)
         }
-
-    private val imageParts = mutableListOf<MultipartBody.Part?>()
-
 
     override fun initObserver() {
 
@@ -146,40 +126,6 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
         writeMediaRVA.submitList(listOf(Uri.EMPTY))
     }
 
-    // 권한 검사 및 요청
-    private fun checkPermissionAndOpenMediaPicker() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requestPermission(Manifest.permission.READ_MEDIA_IMAGES)
-        } else {
-            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-        }
-    }
-
-    private fun requestPermission(permission: String) {
-        when {
-            ContextCompat.checkSelfPermission(
-                this,
-                permission
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                openMediaPicker()
-            }
-
-            shouldShowRequestPermissionRationale(permission) -> {
-                Toast.makeText(this, "Permission needed to access media", Toast.LENGTH_SHORT).show()
-                requestPermissionLauncher.launch(permission)
-            }
-
-            else -> {
-                requestPermissionLauncher.launch(permission)
-            }
-        }
-    }
-
-    private fun openMediaPicker() {
-        // 사진과 비디오를 모두 선택할 수 있도록 MIME 타입을 설정
-        selectMediaLauncher.launch("image/* video/*")
-    }
-
     // 선택한 미디어 Uri를 통해 RecyclerView에 반영
     private fun handleMediaUris(uris: List<Uri>) {
         var updateList = writeMediaRVA.currentList.toMutableList().apply {
@@ -215,20 +161,26 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
                     return@setOnClickListener
                 }
 
-                if (imageParts.isEmpty()) {
-                    val emptyFile = "".toRequestBody("image/*".toMediaTypeOrNull())
-                    val emptyPart = MultipartBody.Part.createFormData("files", "", emptyFile)
+                val imageParts = mutableListOf<MultipartBody.Part?>()
+                val uris = writeMediaRVA.currentList
+                if (uris.isNotEmpty()) {
+                    uris.filter { it != Uri.EMPTY }.forEach { uri ->
+                        val file = uriToFile(uri)
+                        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+                        val body =
+                            MultipartBody.Part.createFormData("files", file.name, requestFile)
+                        imageParts.add(body)
+                    }
 
-                    imageParts.add(emptyPart)
+
+                    writePostViewModel.writeCommunityPost(imageParts, "잡담", "ㅇㅇ", "ㅇㅇ")
+
+                    Intent(this@WritePostActivity, WritePostActivity::class.java).apply {
+                        putExtra("category", spinnerWriteCategory.selectedItem.toString())
+                        setResult(RESULT_OK, this)
+                    }
+                    finish()
                 }
-
-                writePostViewModel.writeCommunityPost(imageParts, "잡담", "ㅇㅇ", "ㅇㅇ")
-
-                Intent(this@WritePostActivity, WritePostActivity::class.java).apply {
-                    putExtra("category", spinnerWriteCategory.selectedItem.toString())
-                    setResult(RESULT_OK, this)
-                }
-                //finish()
             }
         }
     }

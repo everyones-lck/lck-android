@@ -24,8 +24,7 @@ class MyPageViewModel @Inject constructor(
     fun loadUser(nickname: String?, signupViewModel: SignupViewModel) {
         viewModelScope.launch {
             if (nickname != null) {
-                val currentUser = signupViewModel.getUser(nickname)
-                _user.value = currentUser
+                val currentUser = signupViewModel.signupUser()
                 Log.d("MyPageViewModel", "Loaded user: $currentUser")
             } else {
                 Log.d("MyPageViewModel", "Nickname is null")

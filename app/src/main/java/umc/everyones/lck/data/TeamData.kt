@@ -5,16 +5,16 @@ import umc.everyones.lck.R
 object TeamData {
 
     val teamLogos = mapOf(
-        R.id.iv_signup_myteam_hanhwa to "Hanhwa",
-        R.id.iv_signup_myteam_gen_g to "Gen.G",
-        R.id.iv_signup_myteam_t1 to "T1",
-        R.id.iv_signup_myteam_kwangdong_freecs to "Kwangdong Freecs",
-        R.id.iv_signup_myteam_bnk to "BNK",
-        R.id.iv_signup_myteam_nongshim_red_force to "Nongshim Red Force",
-        R.id.iv_signup_myteam_drx to "DRX",
-        R.id.iv_signup_myteam_ok_saving_bank_brion to "OK Saving Bank Brion",
-        R.id.iv_signup_myteam_dplus_kia to "Dplus Kia",
-        R.id.iv_signup_myteam_kt_rolster to "KT Rolster"
+        R.id.iv_signup_myteam_gen_g to 2,
+        R.id.iv_signup_myteam_hanhwa to 3,
+        R.id.iv_signup_myteam_dplus_kia to 4,
+        R.id.iv_signup_myteam_t1 to 5,
+        R.id.iv_signup_myteam_kt_rolster to 6,
+        R.id.iv_signup_myteam_kwangdong_freecs to 7,
+        R.id.iv_signup_myteam_bnk to 8,
+        R.id.iv_signup_myteam_nongshim_red_force to 9,
+        R.id.iv_signup_myteam_drx to 10,
+        R.id.iv_signup_myteam_ok_saving_bank_brion to 11,
     )
 
     val myteamLogos = mapOf(
@@ -44,6 +44,7 @@ object TeamData {
     )
 
     val mypageTeamBackground = mapOf(
+        1 to R.drawable.img_mypage_empty_background,
         "Hanhwa" to R.drawable.img_mypage_hanhwa_background,
         "Gen.G" to R.drawable.img_mypage_gen_g_background,
         "T1" to R.drawable.img_mypage_t1_background,

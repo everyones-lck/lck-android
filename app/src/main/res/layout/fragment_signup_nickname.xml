@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="닉네임을 입력해주세요"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/nickname_gray"
             android:singleLine="true"
             style="@style/TextAppearance.LCK.Light.Body_14sp"
             android:textColor="@color/white"
@@ -223,6 +223,21 @@
                 android:textColor="@color/success"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_signup_nickname_duplication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="중복 확인"
+            android:background="@drawable/shape_rect_12_white_line"
+            style="@style/TextAppearance.LCK.Light.Body_14sp"
+            android:textColor="@color/white"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_signup_nickname_bar"
+            android:layout_marginTop="100dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

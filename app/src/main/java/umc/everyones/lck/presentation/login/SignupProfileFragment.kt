@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -37,82 +38,73 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
     private val REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 1001
 
     override fun initObserver() {
-        viewModel.profileImageUri.observe(viewLifecycleOwner) { uri ->
+        viewModel.profileUri.observe(viewLifecycleOwner) { uri ->
             Log.d("SignupProfileFragment", "Observed Profile Image URI: $uri")
             uri?.let {
                 binding.ivSignupProfilePicture.setImageURI(it)
             }
         }
 
-        viewModel.nickname.observe(viewLifecycleOwner) { nickname ->
-            Log.d("SignupProfileFragment", "Observed Nickname: $nickname")
-            // nickname을 사용하여 UI를 업데이트하거나 필요한 로직을 추가합니다.
+        viewModel.nickName.observe(viewLifecycleOwner) { nickName ->
+            Log.d("SignupProfileFragment", "Observed Nickname: $nickName")
         }
     }
-
     override fun initView() {
         // UI 초기화 및 클릭 리스너 설정
         binding.ivSignupProfilePicture.setImageResource(android.R.color.transparent)
 
+        // ActivityResultLauncher 설정
         pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 result.data?.data?.let { uri ->
                     profileImageUri = uri
-                    binding.ivSignupProfilePicture.setImageURI(uri)
-                    viewModel.setProfileImageUri(uri)
+                    binding.ivSignupProfilePicture.setImageURI(uri) // 선택한 이미지 미리보기
+                    viewModel.setProfileImageUri(uri) // ViewModel에 URI 저장
                 }
             }
         }
 
+        // 프로필 이미지 추가 버튼 클릭 리스너
         binding.ivSignupProfilePlus.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED) {
-                openGallery()
+            // 외부 저장소 읽기 권한 확인
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                openGallery() // 갤러리 열기
             } else {
+                // 권한 요청
                 requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_PERMISSION_READ_EXTERNAL_STORAGE)
             }
         }
 
+        // 다음 버튼 클릭 리스너
         binding.ivSignupProfileNext.setOnClickListener {
             if (profileImageUri != null) {
-                viewModel.addUser(profileImageUri.toString(), "default_team")
-                navigateToSignupMyTeam()
+                navigateToSignupMyTeam() // 다음 화면으로 이동
             } else {
                 showProfileDialog()
             }
         }
 
+        // 프로필 이미지 클릭 리스너 (이미지 변경)
         binding.ivSignupProfilePicture.setOnClickListener {
-            openGallery()
+            openGallery() // 갤러리 열기
         }
     }
 
     private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        pickImageLauncher.launch(intent)
+        val intent = Intent(Intent.ACTION_PICK).apply {
+            type = "image/*"
+        }
+        pickImageLauncher.launch(intent) // 갤러리 열기
     }
 
     private fun showProfileDialog() {
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_profile_confirm, null)
-        val dialogBinding = DialogProfileConfirmBinding.bind(dialogView)
-
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(dialogView)
-            .setCancelable(false)
+        // 프로필 이미지 미선택 시 사용자에게 알림 다이얼로그 표시
+        AlertDialog.Builder(requireContext())
+            .setTitle("알림")
+            .setMessage("프로필 이미지를 선택해주세요.")
+            .setPositiveButton("확인") { dialog, _ -> dialog.dismiss() }
             .create()
-
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.show()
-
-        dialogBinding.btnChange.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        dialogBinding.btnConfirm.setOnClickListener {
-            dialog.dismiss()
-            viewModel.addUser("", "default_team")
-            navigateToSignupMyTeam()
-        }
+            .show()
     }
 
     private fun navigateToSignupMyTeam() {
@@ -123,7 +115,9 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_PERMISSION_READ_EXTERNAL_STORAGE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                openGallery()
+                openGallery() // 권한이 승인되면 갤러리 열기
+            } else {
+                Toast.makeText(requireContext(), "권한이 거부되었습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }

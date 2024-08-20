@@ -12,7 +12,7 @@ data class CommunityListResponseDto(
         val postCreatedAt: String,
         val userNickname: String,
         val supportTeamName: String,
-        val postPicture: String,
+        val postPicture: String?,
         val commentCounts: Int
     ) {
         fun toCommunityListElementModel() =

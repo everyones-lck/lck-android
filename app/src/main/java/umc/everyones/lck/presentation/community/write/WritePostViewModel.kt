@@ -12,6 +12,7 @@ import okhttp3.MultipartBody
 import umc.everyones.lck.domain.model.request.community.EditCommunityRequestModel
 import umc.everyones.lck.domain.model.request.community.WriteCommunityRequestModel
 import umc.everyones.lck.domain.repository.community.CommunityRepository
+import umc.everyones.lck.util.network.UiState
 
 @HiltViewModel
 class WritePostViewModel @Inject constructor(
@@ -23,6 +24,10 @@ class WritePostViewModel @Inject constructor(
     fun setPostId(postId: Long){
         _postId.value = postId
     }
+
+    private val _writeDoneEvent = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
+    val writeDoneEvent: StateFlow<UiState<Boolean>> get() = _writeDoneEvent
+
     fun writeCommunityPost(
         files: List<MultipartBody.Part?>,
         postType: String,
@@ -30,6 +35,7 @@ class WritePostViewModel @Inject constructor(
         postContent: String
     ) {
         viewModelScope.launch {
+            _writeDoneEvent.value = UiState.Loading
             repository.writeCommunityPost(
                 WriteCommunityRequestModel(
                     files,
@@ -37,21 +43,26 @@ class WritePostViewModel @Inject constructor(
                 )
             ).onSuccess { response ->
                 Log.d("writeCommunity", response.toString())
+                _writeDoneEvent.value = UiState.Success(true)
             }.onFailure {
                 Log.d("writeCommunity error", it.stackTraceToString())
+                _writeDoneEvent.value = UiState.Failure("커뮤니티 게시글 작성에 실패했습니다")
             }
         }
     }
 
     fun editCommunityPost(postType: String, postTitle: String, postContent: String){
         viewModelScope.launch {
+            _writeDoneEvent.value = UiState.Loading
             repository.editCommunityPost(postId.value, EditCommunityRequestModel(
                 postType, postTitle, postContent
             )
             ).onSuccess { response ->
                 Log.d("editCommunityPost", response.toString())
+                _writeDoneEvent.value = UiState.Success(true)
             }.onFailure {
                 Log.d("editCommunityPost error", it.stackTraceToString())
+                _writeDoneEvent.value = UiState.Failure("커뮤니티 게시글 수정에 실패했습니다")
             }
         }
     }

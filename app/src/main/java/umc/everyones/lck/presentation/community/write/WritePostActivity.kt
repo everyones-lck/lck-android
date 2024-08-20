@@ -26,13 +26,13 @@ import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.community.adapter.SpinnerAdapter
 import umc.everyones.lck.presentation.community.adapter.WriteMediaRVA
 import umc.everyones.lck.util.GridSpaceItemDecoration
+import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.textToString
 import umc.everyones.lck.util.extension.toCategoryPosition
 import umc.everyones.lck.util.extension.uriToFile
-import umc.everyones.lck.util.extension.uriToFileCopy
 import umc.everyones.lck.util.extension.validateMaxLength
-import java.io.File
-import java.util.UUID
+import umc.everyones.lck.util.network.UiState
 
 @AndroidEntryPoint
 class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activity_write_post) {
@@ -58,7 +58,20 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
         }
 
     override fun initObserver() {
+        repeatOnStarted {
+            writePostViewModel.writeDoneEvent.collect { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        if (state.data) {
+                            finish()
+                        }
+                    }
 
+                    is UiState.Failure -> showCustomSnackBar(binding.root, state.msg)
+                    else -> Unit
+                }
+            }
+        }
     }
 
     override fun initView() {
@@ -163,7 +176,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
 
                 val imageParts = mutableListOf<MultipartBody.Part?>()
                 val uris = writeMediaRVA.currentList
-                if (uris.isNotEmpty()) {
+                if (uris.size > 1) {
                     uris.filter { it != Uri.EMPTY }.forEach { uri ->
                         val file = uriToFile(uri)
                         val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
@@ -171,19 +184,28 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
                             MultipartBody.Part.createFormData("files", file.name, requestFile)
                         imageParts.add(body)
                     }
-
-
-                    writePostViewModel.writeCommunityPost(imageParts, "잡담", "ㅇㅇ", "ㅇㅇ")
-
-                    Intent(this@WritePostActivity, WritePostActivity::class.java).apply {
-                        putExtra("category", spinnerWriteCategory.selectedItem.toString())
-                        setResult(RESULT_OK, this)
-                    }
-                    finish()
+                } else {
+                    val emptyFile = "".toRequestBody("image/*".toMediaTypeOrNull())
+                    val emptyPart = MultipartBody.Part.createFormData("files", "", emptyFile)
+                    imageParts.add(emptyPart)
                 }
+
+                writePostViewModel.writeCommunityPost(
+                    imageParts,
+                    spinnerWriteCategory.selectedItem.toString(),
+                    etWriteTitle.textToString(),
+                    etWriteBody.textToString()
+                )
+
+                Intent(this@WritePostActivity, WritePostActivity::class.java).apply {
+                    putExtra("category", spinnerWriteCategory.selectedItem.toString())
+                    setResult(RESULT_OK, this)
+                }
+                finish()
             }
         }
     }
+
 
     companion object {
         private val spinnerList = listOf("잡담", "응원", "FA", "거래", "질문", "후기")

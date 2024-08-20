@@ -7,11 +7,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
@@ -33,31 +35,28 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     private val navigator by lazy {
         findNavController()
     }
-    private var isWriteDone = false
-    private var isRefreshed = false
 
     private var writeResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if (result.resultCode == Activity.RESULT_OK){
-            isWriteDone = result.data?.getBooleanExtra("isWriteDone", false) ?: false
-            if(isWriteDone){
-                viewModel.resetViewingPartyListPage()
+            Log.d("isWriteDone", result.data?.getBooleanExtra("isWriteDone", false).toString())
+            if(result.data?.getBooleanExtra("isWriteDone", false) == true){
+                viewModel.setIsRefreshNeeded(true)
             }
         }
     }
 
     override fun initObserver() {
         viewLifecycleOwner.repeatOnStarted {
-            viewModel.viewingPartyListPage.collectLatest{ data ->
+            viewModel.viewingPartyListPage.collectLatest { data ->
                 viewingPartyRVA?.submitData(data)
             }
         }
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.isRefreshNeeded.collect { isRefreshNeeded ->
-                if(isRefreshNeeded) {
+                if (isRefreshNeeded) {
                     viewingPartyRVA?.refresh()
                     viewModel.setIsRefreshNeeded(false)
-                    isRefreshed = true
                 }
             }
         }
@@ -77,7 +76,6 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
 
     private fun initViewingPartyRVAdapter(){
         _viewIngPartyRVA = ViewingPartyRVA { postId, shortLocation ->
-            isRefreshed = false
             val action = ViewingPartyFragmentDirections.actionViewingPartyFragmentToReadViewingPartyFragment(postId, shortLocation ?: "")
             navigator.navigate(action)
         }

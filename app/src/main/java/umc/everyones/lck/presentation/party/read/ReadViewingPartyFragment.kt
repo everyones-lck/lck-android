@@ -49,6 +49,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
         if (result.resultCode == Activity.RESULT_OK){
             val isWriteDone = result.data?.getBooleanExtra("isWriteDone", false) ?: false
             if(isWriteDone){
+                viewingPartyViewModel.setIsRefreshNeeded(true)
                 navigator.navigateUp()
             }
         }

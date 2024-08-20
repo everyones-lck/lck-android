@@ -91,7 +91,7 @@ class ViewingPartyRepositoryImpl @Inject constructor(
         Pager(
             config = PagingConfig(
                 pageSize = 10,
-                enablePlaceholders = false,
+                enablePlaceholders = true,
             ),
             pagingSourceFactory = { ViewingPartyParticipantsPagingSource(viewingPartyService, viewingPartyId) }
         ).flow

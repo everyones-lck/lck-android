@@ -49,8 +49,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.mainBnv.setupWithNavControllerCustom(navController){
             if(it.itemId == R.id.viewingPartyTab){
                 viewingPartyViewModel.setIsRefreshNeeded(true)
-            } else {
-                viewingPartyViewModel.resetViewingPartyListPage()
             }
             true
         }

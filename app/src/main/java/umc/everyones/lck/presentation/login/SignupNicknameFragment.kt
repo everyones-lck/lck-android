@@ -26,7 +26,6 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
                 binding.viewSignupNicknameBar.setBackgroundResource(R.drawable.shape_rect_4_green_line)
                 binding.tvSignupNicknameDuplication.setTextColor(requireContext().getColor(R.color.success))
                 binding.tvSignupNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_green_line)
-
                 showNicknameConfirmDialog()
             } else {
                 binding.layoutSignupNicknameWarning4.visibility = View.VISIBLE // 중복
@@ -51,6 +50,7 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
                     binding.tvSignupNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_white_line) // 기본 배경
                     binding.tvSignupNicknameDuplication.setOnClickListener {
                         viewModel.checkNicknameAvailability(nickname) // 중복 확인 로직 호출
+                        viewModel.setNickName(nickname)
                     }
                     binding.layoutSignupNicknameWarning4.visibility = View.GONE // 중복 아님
                     binding.tvSignupNicknameDuplication.isEnabled = true // 버튼 활성화

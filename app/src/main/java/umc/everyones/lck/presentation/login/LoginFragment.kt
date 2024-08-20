@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
@@ -19,7 +20,7 @@ import umc.everyones.lck.util.LoginManager
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
-    private lateinit var loginManager: LoginManager
+    private val viewModel: SignupViewModel by activityViewModels()
     private val navigator by lazy { findNavController() }
 
     private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -36,7 +37,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     override fun initView() {
-        loginManager = LoginManager(requireContext())
         val context: Context = requireContext()
 
         with(binding) {
@@ -51,7 +51,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                             UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
                         } else if (token != null) {
                             Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
-                            goSignup()
+                            viewModel.setKakaoUserId(token.accessToken)
                         }
                     }
                 } else {

@@ -30,4 +30,6 @@ interface CommunityRepository {
     suspend fun reportCommunityComment(commentId: Long): Result<NonBaseResponse>
 
     suspend fun createComment(postId: Long, request: CreateCommentRequestModel): Result<NonBaseResponse>
+
+    suspend fun deleteComment(commentId: Long): Result<NonBaseResponse>
 }

@@ -73,4 +73,7 @@ class CommunityRepositoryImpl @Inject constructor(
 
     override suspend fun createComment(postId: Long, request: CreateCommentRequestModel): Result<NonBaseResponse> =
         runCatching { communityDataSource.createComment(postId, request.toCreateCommentRequestDto()) }
+
+    override suspend fun deleteComment(commentId: Long): Result<NonBaseResponse> =
+        runCatching { communityDataSource.deleteComment(commentId) }
 }

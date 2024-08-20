@@ -66,4 +66,9 @@ interface CommunityService {
         @Path("postId") postId: Long,
         @Body request: CreateCommentRequestDto
     ): NonBaseResponse
+
+    @DELETE("comment/{commentId}/delete")
+    suspend fun deleteCommunityComment(
+        @Path("commentId") commentId: Long
+    ): NonBaseResponse
 }

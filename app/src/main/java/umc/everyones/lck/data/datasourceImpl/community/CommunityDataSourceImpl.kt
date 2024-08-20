@@ -49,4 +49,7 @@ class CommunityDataSourceImpl @Inject constructor(
     override suspend fun createComment(postId: Long, request: CreateCommentRequestDto): NonBaseResponse =
         communityService.createComment(postId, request)
 
+    override suspend fun deleteComment(commentId: Long): NonBaseResponse =
+        communityService.deleteCommunityComment(commentId)
+
 }

@@ -41,7 +41,9 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
             },
 
             // 댓글 삭제 기능
-            deleteComment = { commentId -> }
+            deleteComment = { commentId ->
+                viewModel.deleteComment(commentId)
+            }
         )
     }
 

@@ -124,7 +124,20 @@ class ReadPostViewModel @Inject constructor(
             }.onFailure {
                 Log.d("createComment error", it.message.toString())
                 _readCommunityEvent.value = UiState.Failure("커뮤니티 댓글 생성에 실패했습니다")
+            }
+        }
+    }
 
+    fun deleteComment(commentId: Long){
+        viewModelScope.launch {
+            _readCommunityEvent.value = UiState.Loading
+            repository.deleteComment(commentId).onSuccess { response ->
+                Log.d("deleteComment", response.toString())
+                _readCommunityEvent.value = UiState.Success(ReadCommunityEvent.DeleteComment)
+                fetchCommunityPost()
+            }.onFailure {
+                Log.d("deleteComment error", it.message.toString())
+                _readCommunityEvent.value = UiState.Failure("커뮤니티 댓글 삭제에 실패했습니다")
             }
         }
     }

@@ -12,7 +12,7 @@ import umc.everyones.lck.databinding.ItemMediaAddBinding
 import umc.everyones.lck.databinding.ItemMediaWriteBinding
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 
-class WriteMediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.ViewHolder>(DiffCallback()) {
+class WriteMediaRVA(val addMedia: () -> Unit, val deleteMedia: (Int) -> Unit) : ListAdapter<Uri, RecyclerView.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -69,6 +69,8 @@ class WriteMediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.Vi
                 ivMediaDeleteBtn.setOnSingleClickListener {
                     // 미디어 개수가 12개일 때 선택한 미디어 삭제 후
                     // RecyclerView에 미디어 추가 버튼 생성
+                    deleteMedia(bindingAdapterPosition)
+
                     if(currentList.size == 12 && currentList[0] != Uri.EMPTY){
                         submitList(currentList.toMutableList().apply {
                             remove(uri)

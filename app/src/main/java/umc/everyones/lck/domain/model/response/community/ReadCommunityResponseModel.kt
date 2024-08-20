@@ -8,7 +8,7 @@ data class ReadCommunityResponseModel(
     val postTitle: String,
     val postCreatedAt: String,
     val content: String,
-    val fileList: List<String>,
+    val fileUrlList: List<String>,
     val commentList: List<CommentListElementModel>
 ) {
     data class CommentListElementModel(

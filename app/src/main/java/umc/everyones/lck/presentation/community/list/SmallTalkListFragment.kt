@@ -1,6 +1,8 @@
 package umc.everyones.lck.presentation.community.list
 
+import android.app.Activity
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,6 +25,16 @@ class SmallTalkListFragment  : BaseFragment<FragmentPostListBinding>(R.layout.fr
     private var _postListRVA: PostListRVA? = null
     private val postListRVA
         get() = _postListRVA
+
+    private var readResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+        if (result.resultCode == Activity.RESULT_OK){
+            Log.d("isReadMenuDone", result.data?.getBooleanExtra("isReadMenuDone", false).toString())
+            if(result.data?.getBooleanExtra("isReadMenuDone", false) == true){
+                _postListRVA?.refresh()
+                binding.rvPostList.scrollToPosition(0)
+            }
+        }
+    }
 
     override fun initObserver() {
         viewLifecycleOwner.repeatOnStarted {
@@ -48,7 +60,7 @@ class SmallTalkListFragment  : BaseFragment<FragmentPostListBinding>(R.layout.fr
 
     private fun initPostListRVAdapter() {
         _postListRVA = PostListRVA { postId ->
-            startActivity(ReadPostActivity.newIntent(requireContext(), postId))
+            readResultLauncher.launch(ReadPostActivity.newIntent(requireContext(), postId))
         }
         binding.rvPostList.adapter = postListRVA
     }

@@ -13,6 +13,7 @@ import umc.everyones.lck.databinding.ActivityReadPostBinding
 import umc.everyones.lck.domain.model.community.Comment
 import umc.everyones.lck.domain.model.community.Post
 import umc.everyones.lck.domain.model.response.community.ReadCommunityResponseModel
+import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.community.write.WritePostActivity
 import umc.everyones.lck.presentation.community.adapter.CommentRVA
@@ -79,7 +80,11 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
 
     private fun handleReadCommunityEvent(event: ReadPostViewModel.ReadCommunityEvent){
         when(event){
-            ReadPostViewModel.ReadCommunityEvent.DeletePost -> {}
+            ReadPostViewModel.ReadCommunityEvent.DeletePost -> {
+                setResult(RESULT_OK,
+                    MainActivity.readMenuDoneIntent(this, true))
+                finish()
+            }
             ReadPostViewModel.ReadCommunityEvent.EditPost -> {}
             is ReadPostViewModel.ReadCommunityEvent.ReadPost -> {
                 with(event.post){
@@ -121,13 +126,13 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
     }
 
     private fun reportPost(){
-        binding.layoutReadReportBtn.setOnClickListener {
+        binding.layoutReadReportBtn.setOnSingleClickListener {
             showCustomSnackBar(binding.layoutReadReportBtn, "게시글이 신고 되었습니다")
         }
     }
 
     private fun editPost() {
-        binding.layoutReadEditBtn.setOnClickListener {
+        binding.layoutReadEditBtn.setOnSingleClickListener {
             // 글 작성 화면으로 이동 및 현재 게시글 Data 전송
             startActivity(
                 WritePostActivity.editIntent(

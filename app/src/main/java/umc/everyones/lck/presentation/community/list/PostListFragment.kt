@@ -1,4 +1,4 @@
-package umc.everyones.lck.presentation.community
+package umc.everyones.lck.presentation.community.list
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -32,14 +32,5 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
 
     private fun initPostListRVAdapter(){
         binding.rvPostList.adapter = postListRVA
-        val list = listOf(
-            CommunityListModel.CommunityListElementModel(0L, "", "", "", "", "", 0),
-            CommunityListModel.CommunityListElementModel(1L, "", "", "", "", "", 0),
-            CommunityListModel.CommunityListElementModel(2L, "", "", "", "", "", 0),
-            CommunityListModel.CommunityListElementModel(3L, "", "", "", "", "", 0),
-            CommunityListModel.CommunityListElementModel(4L, "", "", "", "", "", 0),
-
-            )
-        postListRVA.submitList(list)
     }
 }

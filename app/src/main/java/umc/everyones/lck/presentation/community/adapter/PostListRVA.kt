@@ -2,6 +2,7 @@ package umc.everyones.lck.presentation.community.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +10,7 @@ import umc.everyones.lck.databinding.ItemCommunityPostBinding
 import umc.everyones.lck.domain.model.community.CommunityListModel
 import umc.everyones.lck.domain.model.community.PostListItem
 
-class PostListRVA(val readPost: (Long) -> Unit) : ListAdapter<CommunityListModel.CommunityListElementModel, PostListRVA.PostViewHolder>(DiffCallback()) {
+class PostListRVA(val readPost: (Long) -> Unit) : PagingDataAdapter<CommunityListModel.CommunityListElementModel, PostListRVA.PostViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder(
@@ -22,7 +23,10 @@ class PostListRVA(val readPost: (Long) -> Unit) : ListAdapter<CommunityListModel
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        val post = getItem(position)
+        if(post != null) {
+            holder.bind(post)
+        }
     }
 
     inner class PostViewHolder(private val binding: ItemCommunityPostBinding) :

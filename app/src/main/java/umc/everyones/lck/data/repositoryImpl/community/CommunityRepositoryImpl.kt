@@ -1,7 +1,14 @@
 package umc.everyones.lck.data.repositoryImpl.community
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
 import umc.everyones.lck.data.datasource.community.CommunityDataSource
+import umc.everyones.lck.data.datasourceImpl.community.CommunityListPagingSource
+import umc.everyones.lck.data.datasourceImpl.party.ViewingPartyListPagingSource
 import umc.everyones.lck.data.dto.response.NotBaseResponse
+import umc.everyones.lck.data.service.community.CommunityService
 import umc.everyones.lck.domain.model.community.CommunityListModel
 import umc.everyones.lck.domain.model.request.community.EditCommunityRequestModel
 import umc.everyones.lck.domain.model.request.community.WriteCommunityRequestModel
@@ -12,7 +19,8 @@ import umc.everyones.lck.domain.repository.community.CommunityRepository
 import javax.inject.Inject
 
 class CommunityRepositoryImpl @Inject constructor(
-    private val communityDataSource: CommunityDataSource
+    private val communityDataSource: CommunityDataSource,
+    private val communityService: CommunityService
 ): CommunityRepository {
     override suspend fun fetchCommunityList(
         postType: String,
@@ -45,4 +53,13 @@ class CommunityRepositoryImpl @Inject constructor(
         runCatching {
             communityDataSource.editCommunityPost(postId, request.toEditCommunityRequestDto()).data.toEditCommunityResponseModel()
         }
+
+    override fun fetchPagingSource(category: String): Flow<PagingData<CommunityListModel.CommunityListElementModel>> =
+        Pager(
+            config = PagingConfig(
+                pageSize = 10,
+                enablePlaceholders = false,
+            ),
+            pagingSourceFactory = { CommunityListPagingSource(communityService, category) }
+        ).flow
 }

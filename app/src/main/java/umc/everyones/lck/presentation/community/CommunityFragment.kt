@@ -8,6 +8,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
@@ -47,7 +49,6 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
         goToWritePost()
         initPostListVPAdapter()
         setupMypageButton()
-        communityViewModel.fetchCommunityList("잡담", 0, 10)
     }
 
     private fun initPostListVPAdapter(){
@@ -58,6 +59,21 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
             TabLayoutMediator(tabCommunityCategory, vpCommunityPostList) { tab, position ->
                 tab.text = tabTitles[position]
             }.attach()
+
+            tabCommunityCategory.addOnTabSelectedListener(object : OnTabSelectedListener{
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    communityViewModel.refreshCategoryPage(tab?.text?.toString() ?: "잡담")
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+
+                }
+
+            })
         }
     }
 

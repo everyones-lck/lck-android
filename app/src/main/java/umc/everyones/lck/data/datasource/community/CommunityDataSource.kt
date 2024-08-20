@@ -21,4 +21,6 @@ interface CommunityDataSource {
     suspend fun editCommunityPost(postId: Long, request: EditCommunityRequestDto): BaseResponse<EditCommunityResponseDto>
 
     suspend fun reportCommunityPost(postId: Long): NonBaseResponse
+
+    suspend fun reportCommunityComment(commentId: Long): NonBaseResponse
 }

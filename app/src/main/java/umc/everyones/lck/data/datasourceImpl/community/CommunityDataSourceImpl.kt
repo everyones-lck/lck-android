@@ -42,4 +42,7 @@ class CommunityDataSourceImpl @Inject constructor(
     override suspend fun reportCommunityPost(postId: Long): NonBaseResponse =
         communityService.reportCommunityPost(postId)
 
+    override suspend fun reportCommunityComment(commentId: Long): NonBaseResponse =
+        communityService.reportCommunityComment(commentId)
+
 }

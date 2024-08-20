@@ -24,4 +24,6 @@ interface CommunityRepository {
     fun fetchPagingSource(category: String): Flow<PagingData<CommunityListModel.CommunityListElementModel>>
 
     suspend fun reportCommunityPost(postId: Long): Result<NonBaseResponse>
+
+    suspend fun reportCommunityComment(commentId: Long): Result<NonBaseResponse>
 }

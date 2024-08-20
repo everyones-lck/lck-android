@@ -66,4 +66,7 @@ class CommunityRepositoryImpl @Inject constructor(
 
     override suspend fun reportCommunityPost(postId: Long): Result<NonBaseResponse> =
         runCatching { communityService.reportCommunityPost(postId)}
+
+    override suspend fun reportCommunityComment(commentId: Long): Result<NonBaseResponse> =
+        runCatching { communityDataSource.reportCommunityComment(commentId) }
 }

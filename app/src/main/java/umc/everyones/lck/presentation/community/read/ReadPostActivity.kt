@@ -37,7 +37,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         CommentRVA(
             // 댓글 신고 기능
             reportComment = { commentId ->
-                            showCustomSnackBar(binding.layoutReadReportBtn, "댓글이 신고 되었습니다")
+                viewModel.reportCommunityComment(commentId)
             },
 
             // 댓글 삭제 기능
@@ -116,7 +116,9 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
                     readMediaRVA.submitList(fileUrlList)
                 }
             }
-            ReadPostViewModel.ReadCommunityEvent.ReportComment -> {}
+            ReadPostViewModel.ReadCommunityEvent.ReportComment -> {
+                showCustomSnackBar(binding.layoutReadReportBtn, "댓글이 신고 되었습니다")
+            }
             ReadPostViewModel.ReadCommunityEvent.ReportPost -> {
                 showCustomSnackBar(binding.layoutReadReportBtn, "게시글이 신고 되었습니다")
             }

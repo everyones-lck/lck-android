@@ -87,4 +87,17 @@ class ReadPostViewModel @Inject constructor(
             }
         }
     }
+
+    fun reportCommunityComment(commentId: Long){
+        viewModelScope.launch {
+            _readCommunityEvent.value = UiState.Loading
+            repository.reportCommunityComment(commentId).onSuccess { response ->
+                Log.d("reportCommunityComment", response.toString())
+                _readCommunityEvent.value = UiState.Success(ReadCommunityEvent.ReportComment)
+            }.onFailure {
+                Log.d("reportCommunityComment error", it.stackTraceToString())
+                _readCommunityEvent.value = UiState.Failure("커뮤니티 댓글 신고에 실패했습니다")
+            }
+        }
+    }
 }

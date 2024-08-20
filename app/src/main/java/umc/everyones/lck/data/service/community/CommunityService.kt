@@ -54,4 +54,9 @@ interface CommunityService {
     suspend fun reportCommunityPost(
         @Path("postId") postId: Long
     ): NonBaseResponse
+
+    @POST("report/comment/{commentId}/create")
+    suspend fun reportCommunityComment(
+        @Path("commentId") commentId: Long
+    ): NonBaseResponse
 }

@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import umc.everyones.lck.data.dto.response.community.ReadCommunityResponseDto
 import umc.everyones.lck.databinding.ItemMediaReadBinding
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 
-class ReadMediaRVA(val viewOriginalMedia: (String) -> Unit // 미디어 원본 보기 위한 함수
- ) : ListAdapter<String, ReadMediaRVA.ReadMediaViewHolder>(DiffCallback()) {
+class ReadMediaRVA(val viewOriginalMedia: (String, Boolean) -> Unit // 미디어 원본 보기 위한 함수
+ ) : ListAdapter<ReadCommunityResponseDto.File, ReadMediaRVA.ReadMediaViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReadMediaViewHolder {
         return ReadMediaViewHolder(
@@ -28,22 +29,22 @@ class ReadMediaRVA(val viewOriginalMedia: (String) -> Unit // 미디어 원본 �
 
     inner class ReadMediaViewHolder(private val binding: ItemMediaReadBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun bind(url: String){
-                /*
+            fun bind(file: ReadCommunityResponseDto.File){
+
                 Glide.with(binding.ivMediaImage.context)
-                    .load(url)
+                    .load(file.fileUrl)
                     .into(binding.ivMediaImage)
                 binding.ivMediaImage.setOnSingleClickListener {
-                    viewOriginalMedia(url)
-                }*/
+                    viewOriginalMedia(file.fileUrl, file.isImage)
+                }
             }
         }
 
-    class DiffCallback : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String) =
+    class DiffCallback : DiffUtil.ItemCallback<ReadCommunityResponseDto.File>() {
+        override fun areItemsTheSame(oldItem: ReadCommunityResponseDto.File, newItem: ReadCommunityResponseDto.File) =
             oldItem === newItem
 
-        override fun areContentsTheSame(oldItem: String, newItem: String) =
+        override fun areContentsTheSame(oldItem: ReadCommunityResponseDto.File, newItem: ReadCommunityResponseDto.File) =
             oldItem == newItem
     }
 }

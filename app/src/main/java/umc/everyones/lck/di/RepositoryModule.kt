@@ -10,10 +10,13 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import umc.everyones.lck.data.repositoryImpl.HomeRepositoryImpl
+import umc.everyones.lck.data.repositoryImpl.TestRepositoryImpl
+import umc.everyones.lck.data.repositoryImpl.TodayMatchRepositoryImpl
 import umc.everyones.lck.data.datasource.login.LoginDataSource
 import umc.everyones.lck.data.datasourceImpl.LoginDataSourceImpl
-import umc.everyones.lck.data.repositoryImpl.TestRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.mypage.MypageRepositoryImpl
+import umc.everyones.lck.data.repositoryImpl.about_lck.AboutLckRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.community.CommunityRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.login.LoginRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.party.ViewingPartyRepositoryImpl
@@ -24,6 +27,9 @@ import umc.everyones.lck.data.service.TestService
 import umc.everyones.lck.data.service.party.ViewingPartyService
 import umc.everyones.lck.domain.repository.MypageRepository
 import umc.everyones.lck.domain.repository.TestRepository
+import umc.everyones.lck.domain.repository.home.HomeRepository
+import umc.everyones.lck.domain.repository.match.TodayMatchRepository
+import umc.everyones.lck.domain.repository.about_lck.AboutLckRepository
 import umc.everyones.lck.domain.repository.community.CommunityRepository
 import umc.everyones.lck.domain.repository.login.LoginRepository
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
@@ -49,6 +55,18 @@ object RepositoryModule {
 
     @ViewModelScoped
     @Provides
+    fun providesTodayMatchRepository(
+        todayMatchRepositoryImpl: TodayMatchRepositoryImpl
+    ): TodayMatchRepository = todayMatchRepositoryImpl
+
+    @ViewModelScoped
+    @Provides
+    fun providesHomeRepository(
+        homeRepositoryImpl: HomeRepositoryImpl
+    ): HomeRepository = homeRepositoryImpl
+
+    @Provides
+    @ViewModelScoped
     fun providesNaverRepository(
         naverRepositoryImpl: NaverRepositoryImpl
     ): NaverRepository = naverRepositoryImpl
@@ -80,4 +98,10 @@ object RepositoryModule {
     fun providesCommunityRepository(
         communityRepositoryImpl: CommunityRepositoryImpl
     ): CommunityRepository = communityRepositoryImpl
+
+    @ViewModelScoped
+    @Provides
+    fun providesAboutLckRepository(
+        aboutLckRepositoryImpl: AboutLckRepositoryImpl
+    ): AboutLckRepository = aboutLckRepositoryImpl
 }

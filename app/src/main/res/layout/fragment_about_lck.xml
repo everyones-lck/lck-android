@@ -15,15 +15,35 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_logo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="36dp"/>
+
+            <ImageView
+                android:id="@+id/iv_my_page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_my_page"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="36dp"
+                app:layout_constraintTop_toTopOf="@id/iv_logo"
+                app:layout_constraintBottom_toBottomOf="@id/iv_logo"/>
+
             <TextView
                 android:id="@+id/tv_about_lck_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ABOUT LCK"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 android:fontFamily="@font/cafe_ohsquare"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="52dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -59,9 +79,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_calendar"
-                android:layout_marginStart="96dp"
+                android:layout_marginEnd="40dp"
                 app:layout_constraintTop_toTopOf="@id/tv_about_lck_date"
-                app:layout_constraintStart_toEndOf="@id/tv_about_lck_date"/>
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp_about_lck_match"
@@ -124,10 +144,12 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 app:layout_constraintStart_toStartOf="@id/view_about_lck_rect1"
                 app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect1">
                 <ImageView
+                    android:id="@+id/iv_about_lck_ranking_1st"
                     android:layout_width="43dp"
                     android:layout_height="37dp"
                     android:src="@drawable/ic_gen_g"/>
                 <TextView
+                    android:id="@+id/tv_about_lck_ranking_1st"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Gen"
@@ -145,10 +167,12 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 app:layout_constraintStart_toStartOf="@id/view_about_lck_rect3"
                 app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect3">
                 <ImageView
+                    android:id="@+id/iv_about_lck_ranking_3rd"
                     android:layout_width="48dp"
                     android:layout_height="50dp"
                     android:src="@drawable/ic_kwangdong_freecs"/>
                 <TextView
+                    android:id="@+id/tv_about_lck_ranking_3rd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="KDF"
@@ -166,11 +190,14 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect2"
                 app:layout_constraintStart_toStartOf="@id/view_about_lck_rect2"
                 app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect2">
+
                 <ImageView
+                    android:id="@+id/iv_about_lck_ranking_2nd"
                     android:layout_width="75dp"
                     android:layout_height="30dp"
                     android:src="@drawable/ic_t1"/>
                 <TextView
+                    android:id="@+id/tv_about_lck_ranking_2nd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="T1"

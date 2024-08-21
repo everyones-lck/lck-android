@@ -2,15 +2,20 @@ package umc.everyones.lck.presentation.home.adapter
 
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ItemHomeMatchContentBinding
+import umc.everyones.lck.domain.model.response.home.HomeTodayMatchModel
 import umc.everyones.lck.domain.model.todayMatch.LckMatch
+import umc.everyones.lck.util.extension.toOrdinal
 
-class HomeMatchContentVPA(private val items: List<LckMatch>, private val onClick: () -> Unit):
+class HomeMatchContentVPA(private val items: List<HomeTodayMatchModel.TodayMatchesModel>,
+                          private val onClick: () -> Unit):
     RecyclerView.Adapter<HomeMatchContentVPA.HomeMatchContentViewHolder>(){
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -24,31 +29,41 @@ class HomeMatchContentVPA(private val items: List<LckMatch>, private val onClick
         )
         return HomeMatchContentViewHolder(binding)
     }
-
-    override fun onBindViewHolder(
-        holder: HomeMatchContentVPA.HomeMatchContentViewHolder,
-        position: Int,
-    ) {
-        holder.bind(items[position])
+    override fun onBindViewHolder(holder: HomeMatchContentViewHolder, position: Int) {
+        if (items.isEmpty()) {
+            holder.bindNoMatch()
+        } else {
+            holder.bind(items[position])
+        }
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return if (items.isEmpty()) 1 else items.size // 아이템이 없으면 1개의 'No Match' 뷰를 보여줌
     }
 
     inner class HomeMatchContentViewHolder(private val binding: ItemHomeMatchContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: LckMatch) {
-            binding.tvHomeTodayMatchContent.text = item.matchTitle
+        fun bind(item: HomeTodayMatchModel.TodayMatchesModel) {
+            binding.layoutHomeNoMatch.visibility = View.GONE
+            binding.layoutHomeMatchContainer.visibility = View.VISIBLE
+
+            binding.tvHomeTodayMatchContent.text = "${item.seasonInfo} ${item.matchNumber.toOrdinal()} Match"
             binding.tvHomeTodayMatchDate.text = item.matchDate
-            binding.ivHomeTodayMatchLogo1.setImageResource(item.team1LogoResId)
-            binding.ivHomeTodayMatchLogo2.setImageResource(item.team2LogoResId)
+
+            Glide.with(binding.root.context)
+                .load(item.team1LogoUrl)
+                .into(binding.ivHomeTodayMatchLogo1)
+            Glide.with(binding.root.context)
+                .load(item.team2LogoUrl)
+                .into(binding.ivHomeTodayMatchLogo2)
+
             binding.tvHomeTodayMatchTeam1.text = item.team1Name
             binding.tvHomeTodayMatchTeam2.text = item.team2Name
 
             val context = binding.root.context
-            val team1Color = ContextCompat.getColor(context, teamColorMap[item.team1Name] ?: R.color.white)
-            val team2Color = ContextCompat.getColor(context, teamColorMap[item.team2Name] ?: R.color.black)
+            // 팀 색이 정해지지 않았을 때 디폴트 값 설정
+            val team1Color = ContextCompat.getColor(context, teamColorMap[item.team1Name] ?: R.color.t1)
+            val team2Color = ContextCompat.getColor(context, teamColorMap[item.team2Name] ?: R.color.gray_indicator)
             binding.ivHomeTodayMatchBar1.backgroundTintList = ColorStateList.valueOf(team1Color)
             binding.ivHomeTodayMatchBar2.backgroundTintList = ColorStateList.valueOf(team2Color)
 
@@ -56,12 +71,29 @@ class HomeMatchContentVPA(private val items: List<LckMatch>, private val onClick
                 onClick()
             }
         }
+
+        fun bindNoMatch() {
+            binding.layoutHomeNoMatch.visibility = View.VISIBLE
+            binding.layoutHomeMatchContainer.visibility = View.GONE
+
+            itemView.setOnClickListener {
+                onClick()
+            }
+        }
+
     }
     private val teamColorMap = mapOf(
         "Gen.G" to R.color.gen_g,
-        "T1" to R.color.t1,
+        "GEN" to R.color.gen_g,
+        "HLE" to R.color.hanhwa,
         "DK" to R.color.gray_indicator,
-        "DRX" to R.color.drx
+        "T1" to R.color.t1,
+        "KT" to R.color.kt_rolster,
+        "KDF" to R.color.kwangdong_freecs,
+        "BNK" to R.color.bnk,
+        "NS" to R.color.ns,
+        "DRX" to R.color.drx,
+        "BRO" to R.color.ok_brion
         // 추가적인 팀과 색상 매핑
     )
 }

@@ -15,7 +15,7 @@ import umc.everyones.lck.presentation.community.adapter.PostListRVA
 import umc.everyones.lck.presentation.community.read.ReadPostActivity
 import umc.everyones.lck.util.extension.repeatOnStarted
 
-class TradeListFragment  : BaseFragment<FragmentPostListBinding>(R.layout.fragment_post_list) {
+class TradeListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment_post_list) {
     private val navigator by lazy {
         findNavController()
     }
@@ -24,28 +24,29 @@ class TradeListFragment  : BaseFragment<FragmentPostListBinding>(R.layout.fragme
     private val postListRVA
         get() = _postListRVA
 
-    private var readResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-        if (result.resultCode == Activity.RESULT_OK){
-            if(result.data?.getBooleanExtra("isReadMenuDone", false) == true){
-                _postListRVA?.refresh()
-                binding.rvPostList.scrollToPosition(0)
+    private var readResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                if (result.data?.getBooleanExtra("isReadMenuDone", false) == true) {
+                    _postListRVA?.refresh()
+                    binding.rvPostList.scrollToPosition(0)
+                }
             }
         }
-    }
 
     override fun initObserver() {
         viewLifecycleOwner.repeatOnStarted {
             viewModel.tradeListPage.collectLatest { data ->
                 postListRVA?.submitData(data)
+                binding.rvPostList.scrollToPosition(0)
             }
         }
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.categoryNeedsRefresh.collect { categoryNeedsRefresh ->
-                Log.d("categoryNeedsRefresh", categoryNeedsRefresh)
+                Log.d("trade", categoryNeedsRefresh)
                 if (categoryNeedsRefresh == CATEGORY) {
                     postListRVA?.refresh()
-                    binding.rvPostList.scrollToPosition(0)
                 }
             }
         }

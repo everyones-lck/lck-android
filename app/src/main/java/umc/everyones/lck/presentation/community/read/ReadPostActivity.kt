@@ -48,8 +48,15 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
     }
 
     private val readMediaRVA by lazy {
-        ReadMediaRVA { url ->
+        ReadMediaRVA { url, isImage ->
             // 미디어 원본 보기 기능
+            viewModel.setImageUrl(url)
+            val dialog = if(isImage){
+                ReadImageDialogFragment()
+            } else {
+                ReadVideoDialogFragment()
+            }
+            dialog.show(supportFragmentManager, dialog.tag)
         }
     }
 
@@ -74,7 +81,9 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         repeatOnStarted {
             viewModel.readCommunityEvent.collect { state ->
                 when(state){
-                    is UiState.Success -> handleReadCommunityEvent(state.data)
+                    is UiState.Success -> {
+                        handleReadCommunityEvent(state.data)
+                    }
                     is UiState.Failure -> showCustomSnackBar(binding.root, state.msg)
                     else -> Unit
                 }
@@ -115,7 +124,9 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
                         .load(writerProfileUrl)
                         .into(binding.ivReadProfileImage)
                     commentRVA.submitList(commentList)
-                    readMediaRVA.submitList(fileUrlList)
+                    readMediaRVA.submitList(fileUrlList){
+                        binding.rvReadMedia.visibility = View.VISIBLE
+                    }
                 }
             }
             ReadPostViewModel.ReadCommunityEvent.ReportComment -> {
@@ -194,19 +205,9 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
             adapter = readMediaRVA
             itemAnimator = null
         }
-        val list = listOf(
-            "dsdsd",
-            "dsdsd",
-            "dsdsd",
-            "dsdsd",
-            "dsdsd",
-            "dsdsd",
-            "dsdsd",
-        )
 
         // RecyclerView Item의 GridLayout에서의 일정한 간격을 위해 설정
         binding.rvReadMedia.addItemDecoration(GridSpaceItemDecoration(4, 8))
-        readMediaRVA.submitList(list)
     }
 
     private fun validateCommentSend() {

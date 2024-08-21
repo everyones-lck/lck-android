@@ -17,7 +17,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
-    @Inject
+    @Inject lateinit var spf: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

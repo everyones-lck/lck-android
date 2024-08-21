@@ -1,5 +1,6 @@
 package umc.everyones.lck.presentation.lck.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.ColorMatrix
@@ -12,6 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -20,38 +23,44 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import umc.everyones.lck.R
+import umc.everyones.lck.databinding.ItemAboutLckMatchesDetailBinding
+import umc.everyones.lck.domain.model.about_lck.AboutLckMatchDetailsModel
 import umc.everyones.lck.presentation.lck.data.MatchData
+import umc.everyones.lck.util.extension.formatMatchTitle
 import javax.annotation.Nullable
 import javax.sql.DataSource
 
-class MatchDetailsAdapter(private val matchDetails: List<MatchData>) :
-    RecyclerView.Adapter<MatchDetailsAdapter.MatchDetailViewHolder>() {
+class MatchDetailsAdapter() :
+    ListAdapter<AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel, MatchDetailsAdapter.MatchDetailViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchDetailViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_about_lck_matches_detail, parent, false)
-        return MatchDetailViewHolder(view)
+        return MatchDetailViewHolder(
+            ItemAboutLckMatchesDetailBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: MatchDetailViewHolder, position: Int) {
-        val detail = matchDetails[position]
-        holder.bind(detail)
+        holder.bind(currentList[position])
     }
 
-    override fun getItemCount(): Int = matchDetails.size
-
-    inner class MatchDetailViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MatchDetailViewHolder(private val binding: ItemAboutLckMatchesDetailBinding) : RecyclerView.ViewHolder(binding.root) {
         private val ivTeam1: ImageView = itemView.findViewById(R.id.iv_about_lck_team1)
         private val ivTeam2: ImageView = itemView.findViewById(R.id.iv_about_lck_team2)
         private val tvMatchTitle: TextView = itemView.findViewById(R.id.tv_match_title)
         private val tvMatchTime: TextView = itemView.findViewById(R.id.tv_match_time)
 
-        fun bind(detail: MatchData) {
-            tvMatchTitle.text = detail.matchTitle
-            tvMatchTime.text = detail.matchTime
+        @SuppressLint("SetTextI18n")
+        fun bind(detail: AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel) {
+            Log.d("detail", detail.toString())
+            tvMatchTitle.text = formatMatchTitle(detail.season, detail.matchNumber)
+            tvMatchTime.text = detail.matchTime.dropLast(3)
 
-            loadTeamLogo(detail.teamLogoUrl1, ivTeam1, detail.isTeam1Winner)
-            loadTeamLogo(detail.teamLogoUrl2, ivTeam2, detail.isTeam2Winner)
+            loadTeamLogo(detail.team1.teamLogoUrl, ivTeam1, detail.team1.winner)
+            loadTeamLogo(detail.team2.teamLogoUrl, ivTeam2, detail.team2.winner)
         }
 
         private fun loadTeamLogo(url: String?, imageView: ImageView, isWinner: Boolean) {
@@ -104,5 +113,13 @@ class MatchDetailsAdapter(private val matchDetails: List<MatchData>) :
 
             return grayscaleBitmap
         }
+    }
+
+    class DiffCallback : DiffUtil.ItemCallback<AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel>() {
+        override fun areItemsTheSame(oldItem: AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel, newItem: AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel) =
+            oldItem === newItem
+
+        override fun areContentsTheSame(oldItem: AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel, newItem: AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel) =
+            oldItem == newItem
     }
 }

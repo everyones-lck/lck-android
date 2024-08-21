@@ -21,9 +21,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 android:layout_height="wrap_content"
                 android:text="ABOUT LCK"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 android:fontFamily="@font/cafe_ohsquare"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="52dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -59,9 +59,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_calendar"
-                android:layout_marginStart="96dp"
+                android:layout_marginEnd="40dp"
                 app:layout_constraintTop_toTopOf="@id/tv_about_lck_date"
-                app:layout_constraintStart_toEndOf="@id/tv_about_lck_date"/>
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp_about_lck_match"

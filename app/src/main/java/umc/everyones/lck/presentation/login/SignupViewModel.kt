@@ -61,6 +61,9 @@ class SignupViewModel @Inject constructor(
     private val _signupResponse = MutableLiveData<Result<CommonLoginResponseModel>?>()
     val signupResponse: LiveData<Result<CommonLoginResponseModel>?> get() = _signupResponse
 
+    private val _loginResult = MutableLiveData<CommonLoginResponseModel?>()
+    val loginResult: LiveData<CommonLoginResponseModel?> get() = _loginResult
+
     private val context: Context = application
 
     fun setKakaoUserId(kakaoUserId: String) {
@@ -109,11 +112,16 @@ class SignupViewModel @Inject constructor(
         viewModelScope.launch {
             _kakaoUserId.value = kakaoUserId
             val requestModel = CommonLoginRequestModel(kakaoUserId)
+
+            // 로그인 요청
             repository.login(requestModel).onSuccess { response ->
                 Log.d("loginWithKakao", response.toString())
-            }.onFailure {
-                Log.d("loginWithKakao Error", it.message.toString())
-                Log.d("LoginWithKakao", "${requestModel}")
+                spf.edit().putString("jwt", response.accessToken).apply()
+                _loginResult.value = response // 로그인 결과를 LiveData에 저장
+            }.onFailure { error ->
+                Log.d("loginWithKakao Error", error.message.toString())
+                Log.d("LoginWithKakao", "$requestModel")
+                _loginResult.value = null // 실패 시 null 설정
             }
         }
     }
@@ -136,6 +144,7 @@ class SignupViewModel @Inject constructor(
 
                 Log.d("SignupViewModel", "API call successful: $response")
                 _signupResponse.value = response // 응답 값을 LiveData에 저장
+                spf.edit().putString("nickName", signupRequest.signupUserData.nickName).apply()
             } catch (e: Exception) {
                 Log.e("SignupViewModel", "API call failed: ${e.message}")
                 _signupResponse.value = null // 실패 시 null 처리

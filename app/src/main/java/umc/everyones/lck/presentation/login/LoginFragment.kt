@@ -34,8 +34,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     override fun initView() {
-        val context: Context = requireContext()
-
         with(binding) {
             ivLoginKakao.setOnClickListener {
                 val context: Context = requireContext()
@@ -44,7 +42,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 } else {
                     loginWithKakaoAccount()
                 }
-                navigateToSignupNicknameScreen()
             }
         }
     }
@@ -61,7 +58,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 loginWithKakaoAccount()
             } else if (token != null) {
                 Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
-                handleLoginSuccess(token)
+                handleLoginSuccess()
             }
         }
     }
@@ -72,27 +69,39 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 Log.e(TAG, "카카오 계정으로 로그인 실패", accountError)
             } else if (accountToken != null) {
                 Log.i(TAG, "카카오 계정으로 로그인 성공 ${accountToken.accessToken}")
-                handleLoginSuccess(accountToken)
+                handleLoginSuccess()
             }
         }
     }
 
-    private fun handleLoginSuccess(token: OAuthToken) {
-        // 카카오 사용자 ID 획득
+    private fun handleLoginSuccess() {
         UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e(TAG, "사용자 정보 가져오기 실패", error)
+                return@me
+            }
+
             user?.let {
-                val kakaoUserId = token.accessToken
+                val kakaoUserId = it.id.toString()
                 Log.d(TAG, "로그인 결과: $kakaoUserId") // 결과 로깅
 
                 // ViewModel에 사용자 ID 설정
                 viewModel.setKakaoUserId(kakaoUserId)
 
-                lifecycleScope.launch {
-                    viewModel.loginWithKakao(kakaoUserId) // 사용자 ID로 로그인
+                // 로그인 요청
+                viewModel.loginWithKakao(kakaoUserId)
+
+                // 로그인 결과 관찰
+                viewModel.loginResult.observe(viewLifecycleOwner) { userInfo ->
+                    handleLoginResult(userInfo) // 로그인 결과에 따라 화면 전환
                 }
+            } ?: run {
+                Log.e(TAG, "사용자 정보가 null입니다.")
+                navigateToSignupNicknameScreen() // 회원가입 화면으로 이동
             }
         }
     }
+
 
     private fun handleLoginResult(userInfo: CommonLoginResponseModel?) {
         if (userInfo != null) {

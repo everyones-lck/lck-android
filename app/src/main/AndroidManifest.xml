@@ -75,8 +75,8 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
 
-                <data android:host="kakao"
-                    android:scheme="${KAKAO_APP_KEY}"/>
+                <data android:host="oath"
+                    android:scheme="kakao${KAKAO_APP_KEY}"/>
             </intent-filter>
         </activity>
 

@@ -60,7 +60,7 @@ interface ViewingPartyService {
     @POST("viewing/{viewing_party_id}/chatroom/{participant_kakao_id}")
     suspend fun createViewingPartyChatRoom(
         @Path("viewing_party_id") viewingPartyId: Long,
-        @Path("participant_kakao_id") participantKakaoId: String = "user213"
+        @Path("participant_kakao_id") participantKakaoId: String
     ): BaseResponse<ViewingPartyChatRoomResponseDto>
 
     @GET("viewing/chat_log/{room_id}")

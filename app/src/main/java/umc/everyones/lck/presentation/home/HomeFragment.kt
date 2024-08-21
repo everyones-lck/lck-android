@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentHomeBinding
+import umc.everyones.lck.domain.model.response.home.HomeTodayMatchModel
 import umc.everyones.lck.domain.model.todayMatch.LckMatch
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.login.LoginActivity
@@ -20,53 +22,41 @@ import umc.everyones.lck.presentation.home.adapter.HomeMatchResultRVA
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by activityViewModels()
     override fun initObserver() {
-
+        viewModel.matchData.observe(viewLifecycleOwner, Observer { matchData ->
+            if (matchData?.todayMatches.isNullOrEmpty()) {
+                // 경기가 없는 경우
+                updateMatchContent(emptyList())
+            } else {
+                // 경기가 있는 경우
+                updateMatchContent(matchData!!.todayMatches)
+            }
+            updateMatchResults(matchData?.recentMatchResults ?: emptyList())
+        })
     }
 
     override fun initView() {
         viewModel.fetchHomeTodayMatchInformation()
-        val matches = listOf(
-            LckMatch(
-                matchTitle = "2024 LCK Summer 1st Match",
-                matchDate = "2024.07.12. 17:00",
-                team1Name = "Gen.G",
-                team2Name = "T1",
-                team1LogoResId = R.drawable.ic_gen_g,
-                team1LogoBlur = R.drawable.ic_geng_blurred,
-                team2LogoResId = R.drawable.ic_t1,
-                team2LogoBlur = R.drawable.ic_t1_blurred,
-                team1WinRate = "60%",
-                team2WinRate = "40%"
-            ),
-            LckMatch(
-                matchTitle = "LCK Summer 2nd Match",
-                matchDate = "2024.07.12. 20:00",
-                team1Name = "DRX",
-                team2Name = "DK",
-                team1LogoResId = R.drawable.ic_drx,
-                team1LogoBlur = R.drawable.ic_drx_blurred,
-                team2LogoResId = R.drawable.ic_dplus_kia,
-                team2LogoBlur = R.drawable.ic_dk_blurred,
-                team1WinRate = "37%",
-                team2WinRate = "63%"
-            )
-        )
 
-        val homeMatchContentVPA = HomeMatchContentVPA(matches) {
-            viewModel.setNavigateEvent(R.id.todayMatchTab)
-        }
-        binding.vpHomeMatchContent.adapter = homeMatchContentVPA
-        binding.indicatorHomeDot.attachTo(binding.vpHomeMatchContent)
-
-        val homeMatchResultRVA = HomeMatchResultRVA(matches)
-        binding.rvHomeMatchResult.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvHomeMatchResult.setHasFixedSize(true)
-        binding.rvHomeMatchResult.adapter = homeMatchResultRVA
-
+        // 초기 UI 설정
         goMatchResult()
         goAboutLck()
         goCommunity()
         goViewingParty()
+    }
+
+    private fun updateMatchContent(todayMatches: List<HomeTodayMatchModel.TodayMatchesModel>) {
+        val homeMatchContentVPA = HomeMatchContentVPA(todayMatches) {
+            viewModel.setNavigateEvent(R.id.todayMatchTab)
+        }
+        binding.vpHomeMatchContent.adapter = homeMatchContentVPA
+        binding.indicatorHomeDot.attachTo(binding.vpHomeMatchContent)
+    }
+
+    private fun updateMatchResults(recentMatchResults: List<HomeTodayMatchModel.RecentMatchResultModel>) {
+        val homeMatchResultRVA = HomeMatchResultRVA(recentMatchResults)
+        binding.rvHomeMatchResult.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvHomeMatchResult.setHasFixedSize(true)
+        binding.rvHomeMatchResult.adapter = homeMatchResultRVA
     }
 
     private fun goMatchResult() {

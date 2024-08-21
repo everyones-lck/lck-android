@@ -11,6 +11,7 @@ import umc.everyones.lck.data.dto.response.match.CommonVotePogResponseDto
 import umc.everyones.lck.data.dto.response.match.MatchTodayMatchResponseDto
 import umc.everyones.lck.data.dto.response.match.PogPlayerTodayMatchResponseDto
 import umc.everyones.lck.data.dto.response.match.TodayMatchInformationResponseDto
+import umc.everyones.lck.data.dto.response.match.TodayMatchSetCountResponseDto
 import umc.everyones.lck.data.service.match.TodayMatchService
 import javax.inject.Inject
 
@@ -49,4 +50,7 @@ class TodayMatchDataSourceImpl @Inject constructor(
 
     override suspend fun voteMatchPog(request: VoteMatchPogRequestDto): BaseResponse<CommonVotePogResponseDto> =
         todayMatchService.voteMatchPog(request)
+
+    override suspend fun fetchTodayMatchSetCount(matchId: Long): BaseResponse<TodayMatchSetCountResponseDto> =
+        todayMatchService.fetchTodayMatchSetCount(matchId)
 }

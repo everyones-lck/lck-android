@@ -6,5 +6,6 @@ data class MatchTodayMatchModel(
     val team1Id: Int,
     val team1Logo: String,
     val team2Id: Int,
-    val team2Logo: String
+    val team2Logo: String,
+    val myVoteTeamId: Int
 )

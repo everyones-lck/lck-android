@@ -8,9 +8,10 @@ data class MatchTodayMatchResponseDto(
     val team1Id: Int,
     val team1Logo: String,
     val team2Id: Int,
-    val team2Logo: String
+    val team2Logo: String,
+    val myVoteTeamId: Int
 )
 {
     fun toMatchTodayMatchModel() =
-        MatchTodayMatchModel(seasonName, matchNumber, team1Id, team1Logo, team2Id, team2Logo)
+        MatchTodayMatchModel(seasonName, matchNumber, team1Id, team1Logo, team2Id, team2Logo, myVoteTeamId)
 }

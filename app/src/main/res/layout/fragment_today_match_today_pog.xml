@@ -120,160 +120,275 @@
             app:layout_constraintTop_toBottomOf="@id/layout_today_match_today_pog_title"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/layout_today_match_today_pog_vote"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_marginBottom="50dp">
 
-                <TextView
-                    android:id="@+id/tv_today_match_today_pog_1st"
-                    style="@style/TextAppearance.LCK.Light"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_today_match_1st_vote"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1세트 POG를 선정해주세요"
-                    android:textSize="16sp"
-                    android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@+id/layout_today_match_today_pog_vote">
 
-                <ImageView
-                    android:id="@+id/iv_today_match_today_pog_1st_vote"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:layout_marginTop="45dp"
-                    android:src="@drawable/ic_vote"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_1st" />
+                    <TextView
+                        android:id="@+id/tv_today_match_today_pog_1st"
+                        style="@style/TextAppearance.LCK.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1세트 POG를 선정해주세요"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_today_match_today_pog_1st_vote"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    tools:listitem="@layout/item_today_pog_player"
-                    android:visibility="gone"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="horizontal"
-                    android:nestedScrollingEnabled="false"
-                    android:overScrollMode="never"
-                    android:layout_marginTop="45dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_1st"/>
+                    <ImageView
+                        android:id="@+id/iv_today_match_today_pog_1st_vote"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginTop="45dp"
+                        android:src="@drawable/ic_vote"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_1st" />
 
-                <TextView
-                    android:id="@+id/tv_today_match_today_pog_2nd"
-                    style="@style/TextAppearance.LCK.Light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="180dp"
-                    android:text="2세트 POG를 선정해주세요"
-                    android:textSize="16sp"
-                    android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_1st" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_today_match_today_pog_1st_vote"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        tools:listitem="@layout/item_today_pog_player"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="horizontal"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never"
+                        android:layout_marginTop="45dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_1st"/>
 
-                <ImageView
-                    android:id="@+id/iv_today_match_today_pog_2nd_vote"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:layout_marginTop="45dp"
-                    android:src="@drawable/ic_vote"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_2nd" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_today_match_today_pog_2nd_vote"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    tools:listitem="@layout/item_today_pog_player"
-                    android:visibility="gone"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="45dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_2nd"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_today_match_2nd_vote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tv_today_match_today_pog_3rd"
-                    style="@style/TextAppearance.LCK.Light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="180dp"
-                    android:text="3세트 POG를 선정해주세요"
-                    android:textSize="16sp"
-                    android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_2nd" />
+                    <TextView
+                        android:id="@+id/tv_today_match_today_pog_2nd"
+                        style="@style/TextAppearance.LCK.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="45dp"
+                        android:text="2세트 POG를 선정해주세요"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
-                <ImageView
-                    android:id="@+id/iv_today_match_today_pog_3rd_vote"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:layout_marginTop="45dp"
-                    android:src="@drawable/ic_vote"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_3rd" />
+                    <ImageView
+                        android:id="@+id/iv_today_match_today_pog_2nd_vote"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginTop="45dp"
+                        android:src="@drawable/ic_vote"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_2nd" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_today_match_today_pog_3rd_vote"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    tools:listitem="@layout/item_today_pog_player"
-                    android:visibility="gone"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="45dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_3rd"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_today_match_today_pog_2nd_vote"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        tools:listitem="@layout/item_today_pog_player"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="45dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_2nd"/>
 
-                <TextView
-                    android:id="@+id/tv_today_match_today_pog_match"
-                    style="@style/TextAppearance.LCK.Light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="180dp"
-                    android:text="매치 POG를 선정해주세요"
-                    android:textSize="16sp"
-                    android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_3rd" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/iv_today_match_today_pog_match_vote"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:layout_marginTop="45dp"
-                    android:src="@drawable/ic_vote"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_match"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_today_match_3rd_vote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_today_match_today_pog_match_vote"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    tools:listitem="@layout/item_today_pog_player"
-                    android:visibility="gone"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="45dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_match"/>
+                    <TextView
+                        android:id="@+id/tv_today_match_today_pog_3rd"
+                        style="@style/TextAppearance.LCK.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="45dp"
+                        android:text="3세트 POG를 선정해주세요"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
+                    <ImageView
+                        android:id="@+id/iv_today_match_today_pog_3rd_vote"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginTop="45dp"
+                        android:src="@drawable/ic_vote"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_3rd" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_today_match_today_pog_3rd_vote"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        tools:listitem="@layout/item_today_pog_player"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="45dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_3rd"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_today_match_4th_vote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_today_match_today_pog_4th"
+                        style="@style/TextAppearance.LCK.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="45dp"
+                        android:text="4세트 POG를 선정해주세요"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_today_match_today_pog_4th_vote"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginTop="45dp"
+                        android:src="@drawable/ic_vote"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_4th" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_today_match_today_pog_4th_vote"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        tools:listitem="@layout/item_today_pog_player"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="45dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_4th"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_today_match_5th_vote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_today_match_today_pog_5th"
+                        style="@style/TextAppearance.LCK.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="45dp"
+                        android:text="5세트 POG를 선정해주세요"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_today_match_today_pog_5th_vote"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginTop="45dp"
+                        android:src="@drawable/ic_vote"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_5th" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_today_match_today_pog_5th_vote"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        tools:listitem="@layout/item_today_pog_player"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="45dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_5th"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_today_match_match_vote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_today_match_today_pog_match"
+                        style="@style/TextAppearance.LCK.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="45dp"
+                        android:text="매치 POG를 선정해주세요"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_today_match_today_pog_match_vote"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginTop="45dp"
+                        android:src="@drawable/ic_vote"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_match"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_today_match_today_pog_match_vote"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        tools:listitem="@layout/item_today_pog_player"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="45dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_today_match_today_pog_match"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
 
 
         </androidx.core.widget.NestedScrollView>

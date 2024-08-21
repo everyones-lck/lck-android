@@ -17,7 +17,7 @@ data class HomeTodayMatchResponseDto(
         val matchNumber: Int
     ) {
         fun toTodayMatchModel() =
-            HomeTodayMatchModel.TodayMatchesModel(matchId, matchDate, team1Name, team1LogoUrl, team2Name, team2LogoUrl, seasonInfo, matchNumber)
+            HomeTodayMatchModel.TodayMatchesModel(matchId, matchDate.replace("T", " ").dropLast(3), team1Name, team1LogoUrl, team2Name, team2LogoUrl, seasonInfo, matchNumber)
     }
     data class RecentMatchResultDto(
         val matchId: Long,
@@ -29,7 +29,7 @@ data class HomeTodayMatchResponseDto(
         val matchResult: String
     ) {
         fun toRecentMatchResultModel() =
-            HomeTodayMatchModel.RecentMatchResultModel(matchId, matchDate, team1Name, team1LogoUrl, team2Name, team2LogoUrl, matchResult)
+            HomeTodayMatchModel.RecentMatchResultModel(matchId, matchDate.replace("T", " ").dropLast(3), team1Name, team1LogoUrl, team2Name, team2LogoUrl, matchResult)
     }
     fun toHomeTodayMatchModel() =
         HomeTodayMatchModel(todayMatches.map { it.toTodayMatchModel() }, recentMatchResults.map { it.toRecentMatchResultModel() })

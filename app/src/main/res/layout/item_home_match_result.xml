@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/tv_home_result_team1"
-        style="@style/TextAppearance.LCK.Bold"
+        style="@style/TextAppearance.LCK.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -57,7 +57,8 @@
         android:textColor="@color/white"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="@id/tv_home_result_date1"
-        app:layout_constraintTop_toTopOf="@id/tv_home_result_team1" />
+        app:layout_constraintTop_toTopOf="@id/tv_home_result_team1"
+        app:layout_constraintBottom_toBottomOf="@id/tv_home_result_team1"/>
 
     <TextView
         android:id="@+id/tv_home_result_date1"

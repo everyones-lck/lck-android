@@ -14,6 +14,7 @@ import umc.everyones.lck.data.dto.response.match.CommonVotePogResponseDto
 import umc.everyones.lck.data.dto.response.match.MatchTodayMatchResponseDto
 import umc.everyones.lck.data.dto.response.match.PogPlayerTodayMatchResponseDto
 import umc.everyones.lck.data.dto.response.match.TodayMatchInformationResponseDto
+import umc.everyones.lck.data.dto.response.match.TodayMatchSetCountResponseDto
 
 interface TodayMatchService {
     @GET("match/today/information")
@@ -60,4 +61,9 @@ interface TodayMatchService {
     suspend fun voteMatchPog(
         @Body request: VoteMatchPogRequestDto
     ): BaseResponse<CommonVotePogResponseDto>
+
+    @GET("match/set-count")
+    suspend fun fetchTodayMatchSetCount(
+        @Query("match-id") matchId: Long
+    ): BaseResponse<TodayMatchSetCountResponseDto>
 }

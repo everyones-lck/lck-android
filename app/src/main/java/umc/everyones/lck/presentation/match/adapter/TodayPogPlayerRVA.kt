@@ -8,10 +8,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import umc.everyones.lck.databinding.ItemTodayPogPlayerBinding
+import umc.everyones.lck.domain.model.response.match.PogPlayerTodayMatchModel
 import umc.everyones.lck.domain.model.todayMatch.TodayPog
 
-class TodayPogPlayerRVA : ListAdapter<TodayPog, TodayPogPlayerRVA.PogPlayerViewHolder>(PogPlayerDiffCallback()) {
+class TodayPogPlayerRVA(
+    private val onPlayerSelected: (Int) -> Unit // playerId를 전달하는 람다 함수
+) : ListAdapter<PogPlayerTodayMatchModel.InformationModel, TodayPogPlayerRVA.PogPlayerViewHolder>(PogPlayerDiffCallback()) {
 
     private var selectedPosition: Int? = null
 
@@ -29,12 +33,17 @@ class TodayPogPlayerRVA : ListAdapter<TodayPog, TodayPogPlayerRVA.PogPlayerViewH
             selectedPosition = if (selectedPosition == position) null else position
             previousSelectedPosition?.let { notifyItemChanged(it) }
             notifyItemChanged(position)
+
+            // 선택된 playerId를 전달
+            onPlayerSelected(getItem(position).playerId)
         }
     }
 
     inner class PogPlayerViewHolder(private val binding: ItemTodayPogPlayerBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(todayPog: TodayPog, isSelected: Boolean, onItemClick: () -> Unit) {
-            binding.ivTodayPogPlayer.setImageResource(todayPog.playerImg)
+        fun bind(player: PogPlayerTodayMatchModel.InformationModel, isSelected: Boolean, onItemClick: () -> Unit) {
+            Glide.with(binding.root.context)
+                .load(player.playerProfileImageUrl)
+                .into(binding.ivTodayPogPlayer)
 
             // 아이템이 선택되었는지 여부에 따라 색상 필터 적용
             if (isSelected) {
@@ -51,12 +60,12 @@ class TodayPogPlayerRVA : ListAdapter<TodayPog, TodayPogPlayerRVA.PogPlayerViewH
         }
     }
 
-    class PogPlayerDiffCallback : DiffUtil.ItemCallback<TodayPog>() {
-        override fun areItemsTheSame(oldItem: TodayPog, newItem: TodayPog): Boolean {
-            return oldItem.playerImg == newItem.playerImg
+    class PogPlayerDiffCallback : DiffUtil.ItemCallback<PogPlayerTodayMatchModel.InformationModel>() {
+        override fun areItemsTheSame(oldItem: PogPlayerTodayMatchModel.InformationModel, newItem: PogPlayerTodayMatchModel.InformationModel): Boolean {
+            return oldItem.playerId == newItem.playerId
         }
 
-        override fun areContentsTheSame(oldItem: TodayPog, newItem: TodayPog): Boolean {
+        override fun areContentsTheSame(oldItem: PogPlayerTodayMatchModel.InformationModel, newItem: PogPlayerTodayMatchModel.InformationModel): Boolean {
             return oldItem == newItem
         }
     }

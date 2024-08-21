@@ -10,6 +10,7 @@ import umc.everyones.lck.domain.model.response.match.CommonVotePogModel
 import umc.everyones.lck.domain.model.response.match.MatchTodayMatchModel
 import umc.everyones.lck.domain.model.response.match.PogPlayerTodayMatchModel
 import umc.everyones.lck.domain.model.response.match.TodayMatchInformationModel
+import umc.everyones.lck.domain.model.response.match.TodayMatchSetCountModel
 import umc.everyones.lck.domain.repository.match.TodayMatchRepository
 import javax.inject.Inject
 
@@ -62,5 +63,9 @@ class TodayMatchRepositoryImpl @Inject constructor(
 
     override suspend fun voteMatchPog(request: VoteMatchPogModel): Result<CommonVotePogModel> = runCatching {
         todayMatchDataSource.voteMatchPog(request.toVoteMatchPogRequestDto()).data.toCommonVotePogModel()
+    }
+
+    override suspend fun fetchTodayMatchSetCount(matchId: Long): Result<TodayMatchSetCountModel> = runCatching {
+        todayMatchDataSource.fetchTodayMatchSetCount(matchId).data.toTodayMatchSetCountModel()
     }
 }

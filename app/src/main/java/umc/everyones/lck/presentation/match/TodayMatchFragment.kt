@@ -20,7 +20,6 @@ class TodayMatchFragment : BaseFragment<FragmentTodayMatchBinding>(R.layout.frag
 
     override fun initView() {
         setupTabs()
-//        viewModel.fetchTodayMatchInformation()
     }
 
     private fun setupTabs() {

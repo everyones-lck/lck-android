@@ -9,6 +9,7 @@ import umc.everyones.lck.domain.model.response.match.CommonVotePogModel
 import umc.everyones.lck.domain.model.response.match.MatchTodayMatchModel
 import umc.everyones.lck.domain.model.response.match.PogPlayerTodayMatchModel
 import umc.everyones.lck.domain.model.response.match.TodayMatchInformationModel
+import umc.everyones.lck.domain.model.response.match.TodayMatchSetCountModel
 
 interface TodayMatchRepository {
     suspend fun fetchTodayMatchInformation(): Result<TodayMatchInformationModel>
@@ -20,4 +21,5 @@ interface TodayMatchRepository {
     suspend fun voteSetPog(request: VoteSetPogModel): Result<CommonVotePogModel>
     suspend fun voteMatch(request: VoteMatchModel): Result<CommonVotePogModel>
     suspend fun voteMatchPog(request: VoteMatchPogModel): Result<CommonVotePogModel>
+    suspend fun fetchTodayMatchSetCount(matchId: Long): Result<TodayMatchSetCountModel>
 }

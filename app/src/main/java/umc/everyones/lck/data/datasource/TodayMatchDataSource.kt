@@ -10,6 +10,7 @@ import umc.everyones.lck.data.dto.response.match.CommonVotePogResponseDto
 import umc.everyones.lck.data.dto.response.match.MatchTodayMatchResponseDto
 import umc.everyones.lck.data.dto.response.match.PogPlayerTodayMatchResponseDto
 import umc.everyones.lck.data.dto.response.match.TodayMatchInformationResponseDto
+import umc.everyones.lck.data.dto.response.match.TodayMatchSetCountResponseDto
 
 interface TodayMatchDataSource{
     suspend fun fetchTodayMatchInformation(): BaseResponse<TodayMatchInformationResponseDto>
@@ -21,4 +22,5 @@ interface TodayMatchDataSource{
     suspend fun voteSetPog(request: VoteSetPogRequestDto): BaseResponse<CommonVotePogResponseDto>
     suspend fun voteMatch(request: VoteMatchRequestDto): BaseResponse<CommonVotePogResponseDto>
     suspend fun voteMatchPog(request: VoteMatchPogRequestDto): BaseResponse<CommonVotePogResponseDto>
+    suspend fun fetchTodayMatchSetCount(matchId: Long): BaseResponse<TodayMatchSetCountResponseDto>
 }

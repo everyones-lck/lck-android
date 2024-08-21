@@ -28,7 +28,16 @@ class MatchVPAdapter : RecyclerView.Adapter<MatchVPAdapter.MatchViewHolder>() {
 
     fun addMatchDetails(details: List<MatchData>) {
         matchDetailsList.add(details)
-        notifyItemInserted(matchDetailsList.size - 1)
+        notifyDataSetChanged()
+    }
+
+    fun getMatchDataList(): List<MatchData> {
+        return matchDetailsList.flatten() // 모든 데이터를 리스트로 반환
+    }
+
+    fun clearMatchDetails() {
+        matchDetailsList.clear()
+        notifyDataSetChanged()  // 데이터가 변경되었음을 어댑터에 알림
     }
 
     inner class MatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -37,7 +46,7 @@ class MatchVPAdapter : RecyclerView.Adapter<MatchVPAdapter.MatchViewHolder>() {
         fun bind(matchDetails: List<MatchData>) {
             recyclerView.layoutManager = LinearLayoutManager(itemView.context)
             recyclerView.adapter = MatchDetailsAdapter(matchDetails)
-            //recyclerView.setNestedScrollingEnabled(false) // 스크롤 비활성화
+            recyclerView.setNestedScrollingEnabled(false) // 스크롤 비활성화
         }
     }
 }

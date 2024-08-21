@@ -13,7 +13,8 @@ data class AboutLckMatchDetailsModel(
         val matchFinished: Boolean,
         val season: String,
         val matchNumber: Int,
-        val matchTime: String
+        val matchTime: String,
+        val matchDate: String
     ) {
         data class TeamElementModel(
             val teamName: String,

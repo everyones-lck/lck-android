@@ -5,11 +5,19 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentViewingPartyBinding
 import umc.everyones.lck.presentation.base.BaseFragment
@@ -27,32 +35,29 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     private val navigator by lazy {
         findNavController()
     }
-    private var isWriteDone = false
-    private var isRefreshed = false
 
     private var writeResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if (result.resultCode == Activity.RESULT_OK){
-            isWriteDone = result.data?.getBooleanExtra("isWriteDone", false) ?: false
-            if(isWriteDone){
-                navigator.navigateUp()
-                viewingPartyRVA?.refresh()
+            Log.d("isWriteDone", result.data?.getBooleanExtra("isWriteDone", false).toString())
+            if(result.data?.getBooleanExtra("isWriteDone", false) == true){
+                viewModel.setIsRefreshNeeded(true)
             }
         }
     }
 
     override fun initObserver() {
         viewLifecycleOwner.repeatOnStarted {
-            viewModel.viewingPartyListPage.collectLatest{ data ->
+            viewModel.viewingPartyListPage.collectLatest { data ->
                 viewingPartyRVA?.submitData(data)
             }
         }
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.isRefreshNeeded.collect { isRefreshNeeded ->
-                if(isRefreshNeeded) {
+                if (isRefreshNeeded) {
                     viewingPartyRVA?.refresh()
                     viewModel.setIsRefreshNeeded(false)
-                    isRefreshed = true
+                    binding.rvViewingParty.scrollToPosition(0)
                 }
             }
         }
@@ -72,16 +77,12 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
 
     private fun initViewingPartyRVAdapter(){
         _viewIngPartyRVA = ViewingPartyRVA { postId, shortLocation ->
-            isRefreshed = false
             val action = ViewingPartyFragmentDirections.actionViewingPartyFragmentToReadViewingPartyFragment(postId, shortLocation ?: "")
             navigator.navigate(action)
         }
 
         viewingPartyRVA?.addLoadStateListener { combinedLoadStates ->
             with(binding){
-                if(combinedLoadStates.source.refresh is LoadState.Loading){
-                    binding.rvViewingParty.layoutManager?.scrollToPosition(0)
-                }
                 ivViewingPartyLoadingImg.isVisible = combinedLoadStates.source.refresh is LoadState.Loading
                 rvViewingParty.isVisible = combinedLoadStates.source.refresh is LoadState.NotLoading
             }

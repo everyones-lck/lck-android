@@ -1,23 +1,47 @@
 package umc.everyones.lck.presentation.party.chat
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityViewingPartyChatBinding
 import umc.everyones.lck.domain.model.party.ChatItem
-import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.party.adapter.ChatRVA
 import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.RECEIVER
 import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.SENDER
+import umc.everyones.lck.util.chat.WebSocketResource
 import umc.everyones.lck.util.extension.drawableOf
+import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.textToString
+import umc.everyones.lck.util.network.UiState
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R.layout.activity_viewing_party_chat) {
+class ViewingPartyChatActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityViewingPartyChatBinding
+
+    @Inject
+    lateinit var okHttpClient: OkHttpClient
+
+    @Inject
+    lateinit var request: Request
+
+    @Inject
+    lateinit var spf: SharedPreferences
+
     private val chatRVA by lazy {
         ChatRVA()
     }
@@ -26,19 +50,38 @@ class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R
         intent.getLongExtra("postId", 0L)
     }
 
+    private val participantsId by lazy {
+        intent.getLongExtra("participantsId", 0L)
+    }
+
     private val isParticipant by lazy {
         intent.getBooleanExtra("isParticipant", false)
     }
 
     private val viewModel: ViewingPartyChatViewModel by viewModels()
-    override fun initView() {
-        viewModel.setPostId(postId)
-        if(isParticipant){
+
+    private lateinit var wsClient: WsClient
+
+    private var isEntered = false
+
+    private var isFirst = true
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityViewingPartyChatBinding.inflate(layoutInflater).apply {
+            setContentView(this.root)
+        }
+        initObserver()
+        initView()
+    }
+
+    private fun initView() {
+        viewModel.setPostId(postId, participantsId)
+        if (isParticipant) {
             viewModel.createViewingPartyChatRoomAsParticipant()
         } else {
             viewModel.createViewingPartyChatRoom()
         }
-        viewModel.fetchViewingPartyChatLog()
         validateMessageSend()
         initChatRVAdapter()
         sendMessage()
@@ -47,15 +90,9 @@ class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R
         }
     }
 
-    private fun initChatRVAdapter(){
+    private fun initChatRVAdapter() {
         binding.rvChat.adapter = chatRVA
-        val list = listOf(
-            ChatItem("ds", "현재 뷰파 참여 인원이 어떻게 되나요??", RECEIVER, 1),
-            ChatItem("ds", "11명 입니다!", SENDER, 2),
-            ChatItem("ds", "감사합니당", RECEIVER, 3),
-            ChatItem("ds", "네에 ☺\uFE0F", SENDER, 4),
-        )
-        chatRVA.submitList(list)
+        binding.rvChat.itemAnimator = null
     }
 
     private fun validateMessageSend() {
@@ -64,7 +101,7 @@ class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R
                 if (text != null) {
 
                     // 댓글 작성 여부에 따른 전송 버튼 활성화 제어
-                    if(text.isEmpty()){
+                    if (text.isEmpty()) {
                         binding.ivChatSendBtn.setImageDrawable(drawableOf(R.drawable.ic_send))
                     } else {
                         binding.ivChatSendBtn.setImageDrawable(drawableOf(R.drawable.ic_send_enabled))
@@ -81,27 +118,93 @@ class ViewingPartyChatActivity : BaseActivity<ActivityViewingPartyChatBinding>(R
         )
     }
 
-    private fun sendMessage(){
-        with(binding){
+    private fun sendMessage() {
+        with(binding) {
             ivChatSendBtn.setOnClickListener {
-                chatRVA.submitList(chatRVA.currentList.toMutableList().apply {
+                /*chatRVA.submitList(chatRVA.currentList.toMutableList().apply {
                     add(ChatItem("ds", etChatInput.text.toString(), SENDER, 5))
                 })
+                etChatInput.setText("")*/
+
+                wsClient.sendMessage(etChatInput.textToString())
                 etChatInput.setText("")
             }
         }
     }
 
-    override fun initObserver() {
+    private fun initObserver() {
+        repeatOnStarted {
+            viewModel.viewingPartyChatEvent.collect { state ->
+                when (state) {
+                    is UiState.Success -> handleViewingPartyChatEvent(state.data)
+                    is UiState.Failure -> {
+                        showCustomSnackBar(binding.root, state.msg)
+                    }
+                    else -> Unit
+                }
+            }
+        }
 
+        repeatOnStarted {
+            viewModel.roomId.collect{
+                initWsClient()
+            }
+        }
+
+        repeatOnStarted {
+            viewModel.webSocketEvent.collect{ event ->
+                handleWebsocketEvent(event)
+            }
+        }
+    }
+
+    private fun handleWebsocketEvent(event: WebSocketResource){
+        when(event){
+            WebSocketResource.Enter -> {
+                isEntered = true
+            }
+             else -> Unit
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun handleViewingPartyChatEvent(event: ViewingPartyChatViewModel.ViewingPartyChatEvent){
+        when(event){
+            is ViewingPartyChatViewModel.ViewingPartyChatEvent.CreateChatRoom -> {
+                with(event.result) {
+                    viewModel.fetchViewingPartyChatLog(roomId)
+                    binding.tvChatTitle.text = viewingPartyName
+                }
+            }
+            is ViewingPartyChatViewModel.ViewingPartyChatEvent.FetchChatLog -> {
+                binding.tvChatWriter.text = "${event.chatLog.receiverName} | ${event.chatLog.receiverTeam}"
+                chatRVA.submitList(event.chatLog.chatMessageList){
+                    binding.rvChat.scrollToPosition(0)
+                }
+            }
+        }
+    }
+
+    private fun initWsClient() {
+        wsClient = WsClient(viewModel, okHttpClient, request, spf)
+        wsClient.apply {
+            connectWebSocket()
+            enterChatRoom("되나")
+        }
     }
 
     companion object {
-        fun newIntent(context: Context, postId: Long, isParticipant: Boolean): Intent =
+        fun newIntent(context: Context, postId: Long, isParticipant: Boolean, participantsId: Long): Intent =
             Intent(context, ViewingPartyChatActivity::class.java).apply {
                 putExtra("postId", postId)
                 putExtra("isParticipant", isParticipant)
+                putExtra("participantsId", participantsId)
             }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        wsClient.closeSocket()
     }
 
 }

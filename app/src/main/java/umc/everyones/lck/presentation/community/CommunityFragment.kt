@@ -2,6 +2,7 @@ package umc.everyones.lck.presentation.community
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
@@ -39,6 +40,11 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
         if (result.resultCode == Activity.RESULT_OK){
             val category = result.data?.getStringExtra("category") ?: ""
             binding.vpCommunityPostList.currentItem = category.toCategoryPosition()
+            val isWriteDone = result.data?.getBooleanExtra("isWriteDone", false) ?: false
+            Log.d("iwd", isWriteDone.toString())
+            if (isWriteDone){
+                communityViewModel.refreshCategoryPage(category)
+            }
         }
     }
 

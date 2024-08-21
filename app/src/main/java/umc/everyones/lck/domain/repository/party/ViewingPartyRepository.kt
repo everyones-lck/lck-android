@@ -26,11 +26,15 @@ interface ViewingPartyRepository {
 
     suspend fun fetchViewingPartyParticipants(viewingPartyId: Long, page: Int, size: Int): Result<ViewingPartyParticipantsModel>
 
-    suspend fun createViewingPartyChatRoom(viewingPartyId: Long): Result<ViewingPartyChatRoomModel>
+    suspend fun createViewingPartyChatRoom(viewingPartyId: Long, participantsId: String): Result<ViewingPartyChatRoomModel>
 
     suspend fun fetchViewingPartyChatLog(roomId: Long, page: Int, size: Int): Result<ViewingPartyChatLogModel>
 
     suspend fun createViewingPartyChatRoomAsParticipant(viewingPartyId: Long): Result<ViewingPartyChatRoomModel>
 
-    fun fetchPagingSource(): Flow<PagingData<ViewingPartyListModel.ViewingPartyElementModel>>
+    fun fetchViewingPartyListPagingSource(): Flow<PagingData<ViewingPartyListModel.ViewingPartyElementModel>>
+
+    fun fetchViewingPartyParticipantsPagingSource(viewingPartyId: Long): Flow<PagingData<ViewingPartyParticipantsModel.ParticipantsModel>>
+
+    fun fetchChatLogPagingSource(roomId: Long): Flow<PagingData<ViewingPartyChatLogModel.ChatLogModel>>
 }

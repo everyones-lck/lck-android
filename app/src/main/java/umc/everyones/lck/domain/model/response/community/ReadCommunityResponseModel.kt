@@ -1,5 +1,7 @@
 package umc.everyones.lck.domain.model.response.community
 
+import umc.everyones.lck.data.dto.response.community.ReadCommunityResponseDto
+
 data class ReadCommunityResponseModel(
     val postType: String,
     val writerProfileUrl: String,
@@ -7,7 +9,7 @@ data class ReadCommunityResponseModel(
     val postTitle: String,
     val postCreatedAt: String,
     val content: String,
-    val fileUrlList: List<String>,
+    val fileUrlList: List<ReadCommunityResponseDto.File>,
     val commentList: List<CommentListElementModel>
 ) {
     data class CommentListElementModel(

@@ -104,10 +104,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     private fun handleLoginResult(userInfo: CommonLoginResponseModel?) {
         if (userInfo != null) {
-            // 로그인 성공 시, 메인 화면으로 이동
             navigateToMainScreen()
         } else {
-            // 회원가입이 되어 있지 않은 경우 회원가입 화면으로 이동
             navigateToSignupNicknameScreen()
         }
     }

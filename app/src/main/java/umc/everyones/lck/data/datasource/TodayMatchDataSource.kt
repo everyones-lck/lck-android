@@ -17,8 +17,8 @@ interface TodayMatchDataSource{
     suspend fun fetchTodayMatchVoteSetPog(matchId: Long, setIndex: Int): BaseResponse<PogPlayerTodayMatchResponseDto>
     suspend fun fetchTodayMatchVoteMatch(matchId: Long): BaseResponse<MatchTodayMatchResponseDto>
     suspend fun fetchTodayMatchVoteMatchPog(matchId: Long): BaseResponse<PogPlayerTodayMatchResponseDto>
-    suspend fun voteTodayMatchSetPog(set: Int, request: CommonPogRequestDto): BaseResponse<CommonTodayMatchPogResponseDto>
-    suspend fun voteTodayMatchMatchPog(request: CommonPogRequestDto): BaseResponse<CommonTodayMatchPogResponseDto>
+    suspend fun fetchTodayMatchSetPog(setIndex: Int, request: CommonPogRequestDto): BaseResponse<CommonTodayMatchPogResponseDto>
+    suspend fun fetchTodayMatchMatchPog(request: CommonPogRequestDto): BaseResponse<CommonTodayMatchPogResponseDto>
     suspend fun voteSetPog(request: VoteSetPogRequestDto): BaseResponse<CommonVotePogResponseDto>
     suspend fun voteMatch(request: VoteMatchRequestDto): BaseResponse<CommonVotePogResponseDto>
     suspend fun voteMatchPog(request: VoteMatchPogRequestDto): BaseResponse<CommonVotePogResponseDto>

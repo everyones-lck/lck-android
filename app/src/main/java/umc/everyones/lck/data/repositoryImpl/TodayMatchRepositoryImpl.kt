@@ -39,18 +39,18 @@ class TodayMatchRepositoryImpl @Inject constructor(
         todayMatchDataSource.fetchTodayMatchVoteMatchPog(matchId).data.toPogPlayerTodayMatchModel()
     }
 
-    override suspend fun voteTodayMatchSetPog(
-        set: Int,
+    override suspend fun fetchTodayMatchSetPog(
+        setIndex: Int,
         request: CommonPogModel,
     ): Result<CommonTodayMatchPogModel> = runCatching {
-        todayMatchDataSource.voteTodayMatchSetPog(
-            set,
+        todayMatchDataSource.fetchTodayMatchSetPog(
+            setIndex,
             request.toCommonPogRequestDto()
         ).data.toCommonTodayMatchPogModel()
     }
 
-    override suspend fun voteTodayMatchMatchPog(request: CommonPogModel): Result<CommonTodayMatchPogModel> = runCatching {
-        todayMatchDataSource.voteTodayMatchMatchPog(request.toCommonPogRequestDto()).data.toCommonTodayMatchPogModel()
+    override suspend fun fetchTodayMatchMatchPog(request: CommonPogModel): Result<CommonTodayMatchPogModel> = runCatching {
+        todayMatchDataSource.fetchTodayMatchMatchPog(request.toCommonPogRequestDto()).data.toCommonTodayMatchPogModel()
     }
 
     override suspend fun voteSetPog(request: VoteSetPogModel): Result<CommonVotePogModel> = runCatching {

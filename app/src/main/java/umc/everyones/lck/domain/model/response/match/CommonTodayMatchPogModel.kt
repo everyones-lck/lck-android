@@ -6,5 +6,6 @@ data class CommonTodayMatchPogModel(
     val profileImageUrl: String,
     val seasonInfo: String,
     val matchNumber: Int,
-    val matchDate: String
+    val matchDate: String,
+    val tabIndex: Int = 0
 )

@@ -37,13 +37,13 @@ interface TodayMatchService {
     ): BaseResponse<PogPlayerTodayMatchResponseDto>
 
     @POST("pog/set")
-    suspend fun voteTodayMatchSetPog(
-        @Query("set") set: Int,
+    suspend fun fetchTodayMatchSetPog(
+        @Query("set-index") setIndex: Int,
         @Body request: CommonPogRequestDto
     ): BaseResponse<CommonTodayMatchPogResponseDto>
 
     @POST("pog/match")
-    suspend fun voteTodayMatchMatchPog(
+    suspend fun fetchTodayMatchMatchPog(
         @Body request: CommonPogRequestDto
     ): BaseResponse<CommonTodayMatchPogResponseDto>
 

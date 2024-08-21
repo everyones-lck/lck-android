@@ -1,8 +1,10 @@
 package umc.everyones.lck.presentation.party.read
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.util.Log
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -20,6 +22,7 @@ import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.textToString
 import umc.everyones.lck.util.extension.toWriteViewingPartyDateFormat
+import umc.everyones.lck.util.network.UiState
 
 @AndroidEntryPoint
 class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R.layout.fragment_read_viewing_party) {
@@ -34,13 +37,29 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
         args.postId
     }
 
-    private val isWriter by lazy {
-        args.isWriter
+    private val shortLocation by lazy {
+        args.shortLocation
     }
+
+    private var writeResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+        if (result.resultCode == Activity.RESULT_OK){
+            val isWriteDone = result.data?.getBooleanExtra("isWriteDone", false) ?: false
+            if(isWriteDone){
+                navigator.navigateUp()
+            }
+        }
+    }
+
     override fun initObserver() {
-        repeatOnStarted {
-            viewModel.readViewingPartyEvent.collect{ event ->
-                handleReadViewingPartyEvent(event)
+        viewLifecycleOwner.repeatOnStarted {
+            viewModel.readViewingPartyEvent.collect{ state ->
+                when(state){
+                    is UiState.Success -> {handleReadViewingPartyEvent(state.data)}
+                    is UiState.Failure -> {
+                        showCustomSnackBar(binding.root, state.msg)
+                    }
+                    else -> Unit
+                }
             }
         }
     }
@@ -48,10 +67,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
     @SuppressLint("SetTextI18n")
     private fun handleReadViewingPartyEvent(event: ReadViewingPartyViewModel.ReadViewingPartyEvent){
         when(event){
-            is ReadViewingPartyViewModel.ReadViewingPartyEvent.Fail -> {
-                showCustomSnackBar(binding.root, event.message)
-            }
-            is ReadViewingPartyViewModel.ReadViewingPartyEvent.Read -> {
+            is ReadViewingPartyViewModel.ReadViewingPartyEvent.ReadViewingParty -> {
                 with(binding){
                     tvReadViewingPartyTitle.text = event.viewingParty.name
                     tvReadQualify.text = "To. ${event.viewingParty.qualify}"
@@ -66,30 +82,37 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                         .into(ivReadProfileImage)
                 }
             }
-            is ReadViewingPartyViewModel.ReadViewingPartyEvent.Success -> {
-                if(event.message.isNotEmpty()){
-                    when(event.message){
-                        "delete" -> navigator.navigateUp()
-                        else -> showCustomSnackBar(binding.root, event.message)
-                    }
+
+            ReadViewingPartyViewModel.ReadViewingPartyEvent.DeleteViewingParty -> {
+                navigator.navigateUp()
+            }
+            ReadViewingPartyViewModel.ReadViewingPartyEvent.JoinViewingParty -> {
+                showCustomSnackBar(binding.root, "뷰잉파티에 참여되었습니다!")
+            }
+
+            is ReadViewingPartyViewModel.ReadViewingPartyEvent.WriteDoneViewingParty -> {
+                if(event.isWriteDone){
+                    navigator.navigateUp()
                 }
             }
+
+            else -> Unit
         }
     }
 
     override fun initView() {
         Log.d("postId", postId.toString())
-        viewModel.setPostId(4L)
+        viewModel.setPostId(postId)
         viewModel.fetchViewingParty()
         distinguishView()
         goToEditViewingParty()
-        binding.ivReadBackBtn.setOnClickListener {
+        binding.ivReadBackBtn.setOnSingleClickListener {
             navigator.navigateUp()
         }
     }
 
     private fun distinguishView(){
-        if(!isWriter) {
+        if(false) {
             with(binding){
                 groupReadWriterMenu.visibility = View.GONE
                 tvReadParticipantCancelGuide.visibility = View.VISIBLE
@@ -111,7 +134,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
     }
 
     private fun joinViewingParty(){
-        binding.tvReadJoinViewingParty.setOnClickListener {
+        binding.tvReadJoinViewingParty.setOnSingleClickListener {
             viewModel.setTitle(binding.tvReadViewingPartyTitle.text.toString())
             val dialog = JoinViewingPartyDialogFragment()
             dialog.setOnJoinViewingPartyClickListener(object : JoinViewingPartyDialogFragment.OnJoinViewingPartyClickListener{
@@ -124,22 +147,22 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
     }
 
     private fun inquireParticipantsList(){
-        binding.tvReadAskToHost.setOnClickListener {
+        binding.tvReadAskToHost.setOnSingleClickListener {
             navigator.navigate(R.id.action_readViewingPartyFragment_to_participantsFragment)
         }
     }
 
     private fun askToHost(){
-        binding.tvReadAskToHost.setOnClickListener {
+        binding.tvReadAskToHost.setOnSingleClickListener {
             startActivity(ViewingPartyChatActivity.newIntent(requireContext(), 4, true))
         }
     }
 
     private fun goToEditViewingParty(){
         with(binding){
-            ivReadEditBtn.setOnClickListener {
+            ivReadEditBtn.setOnSingleClickListener {
                 val participate = tvReadParticipants.textToString().split("-")
-                startActivity(WriteViewingPartyActivity.editIntent(requireContext(), 4L,
+                writeResultLauncher.launch(WriteViewingPartyActivity.editIntent(requireContext(), postId,
                     WriteViewingPartyModel(
                         name = tvReadViewingPartyTitle.textToString(),
                         date = tvReadDate.textToString().toWriteViewingPartyDateFormat(),
@@ -150,7 +173,8 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                         highParticipate = participate[1].replace(("[^\\d]").toRegex(), ""),
                         qualify = tvReadQualify.textToString().replace("To.", ""),
                         etc = tvReadEtc.textToString(),
-                        location = tvReadPlace.textToString()
+                        location = tvReadPlace.textToString(),
+                        shortLocation = shortLocation
                     )
                 ))
             }

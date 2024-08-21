@@ -8,6 +8,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
@@ -18,12 +20,14 @@ import umc.everyones.lck.presentation.community.read.ReadPostViewModel
 import umc.everyones.lck.presentation.community.write.WritePostActivity
 import umc.everyones.lck.presentation.community.write.WritePostViewModel
 import umc.everyones.lck.presentation.mypage.MyPageActivity
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.toCategoryPosition
 
 @AndroidEntryPoint
 class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragment_community) {
     private val readPostViewModel: ReadPostViewModel by viewModels()
     private val writePostViewModel: WritePostViewModel by activityViewModels()
+    private val communityViewModel: CommunityViewModel by activityViewModels()
     private val navigator by lazy {
         findNavController()
     }
@@ -45,7 +49,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
     override fun initView() {
         goToWritePost()
         initPostListVPAdapter()
-        setupMypageButton()
+        goMyPage()
     }
 
     private fun initPostListVPAdapter(){
@@ -56,6 +60,21 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
             TabLayoutMediator(tabCommunityCategory, vpCommunityPostList) { tab, position ->
                 tab.text = tabTitles[position]
             }.attach()
+
+            tabCommunityCategory.addOnTabSelectedListener(object : OnTabSelectedListener{
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    communityViewModel.refreshCategoryPage(tab?.text?.toString() ?: "잡담")
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+
+                }
+
+            })
         }
     }
 
@@ -75,12 +94,9 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
         private val tabTitles = listOf("잡담", "응원", "FA", "거래", "질문", "후기")
     }
 
-    private fun setupMypageButton() {
-        binding.ivMyPage.setOnClickListener {
-
-            val intent = Intent(requireContext(), MyPageActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish() // Finish the current activity
+    private fun goMyPage(){
+        binding.ivMyPage.setOnSingleClickListener {
+            startActivity(MyPageActivity.newIntent(requireContext()))
         }
     }
 }

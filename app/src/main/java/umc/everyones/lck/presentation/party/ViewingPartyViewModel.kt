@@ -5,16 +5,27 @@ import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
+import umc.everyones.lck.domain.model.response.party.ViewingPartyListModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
-import umc.everyones.lck.util.network.onSuccess
+import umc.everyones.lck.util.network.EventFlow
+import umc.everyones.lck.util.network.MutableEventFlow
 
 @HiltViewModel
 class ViewingPartyViewModel @Inject constructor(
     private val repository: ViewingPartyRepository
 ) : ViewModel() {
-    // Add ViewModel logic here
-    fun fetchViewingPartyList(){
+    val viewingPartyListPage = repository.fetchPagingSource().cachedIn(viewModelScope)
+    
+    private val _isRefreshNeeded = MutableEventFlow<Boolean>()
+    val isRefreshNeeded: EventFlow<Boolean> get() = _isRefreshNeeded
+    
+    fun fetchViewingPartyList() {
         viewModelScope.launch {
             repository.fetchViewingPartyList(0, 10).onSuccess {
                 Log.d("fetchViewingPartyList", it.toString())
@@ -23,4 +34,11 @@ class ViewingPartyViewModel @Inject constructor(
             }
         }
     }
+
+    fun setIsRefreshNeeded(isRefreshNeeded: Boolean){
+        viewModelScope.launch {
+            _isRefreshNeeded.emit(isRefreshNeeded)
+        }
+    }
 }
+

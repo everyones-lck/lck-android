@@ -253,6 +253,7 @@
                     android:layout_marginBottom="20dp">
 
                     <TextView
+                        android:id="@+id/tv_write_guide_media"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="\u00B7 사진 및 영상은 최대 12개까지 업로드 가능합니다."

@@ -200,7 +200,6 @@
                     android:gravity="end"
                     android:hint="주소를 입력하세요"
                     android:inputType="text"
-                    android:maxLength="20"
                     android:imeOptions="actionDone"
                     android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                     app:layout_constraintEnd_toEndOf="@id/map_fragment"

@@ -45,11 +45,6 @@ object RepositoryModule {
 
     @ViewModelScoped
     @Provides
-    fun providesNaverRepository(naverService: NaverService): NaverRepository =
-        NaverRepositoryImpl(naverService)
-
-    @ViewModelScoped
-    @Provides
     fun providesTodayMatchRepository(
         todayMatchRepositoryImpl: TodayMatchRepositoryImpl
     ): TodayMatchRepository = todayMatchRepositoryImpl
@@ -59,6 +54,9 @@ object RepositoryModule {
     fun providesHomeRepository(
         homeRepositoryImpl: HomeRepositoryImpl
     ): HomeRepository = homeRepositoryImpl
+
+    @Provides
+    @ViewModelScoped
     fun providesNaverRepository(
         naverRepositoryImpl: NaverRepositoryImpl
     ): NaverRepository = naverRepositoryImpl

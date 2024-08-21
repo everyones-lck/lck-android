@@ -27,6 +27,9 @@ object DataSourceModule {
     @ViewModelScoped
     fun provideHomeDataSource(homeDataSourceImpl: HomeDataSourceImpl): HomeDataSource =
         homeDataSourceImpl
+
+    @Provides
+    @ViewModelScoped
     fun provideViewingPartyDataSource(viewingPartyDataSourceImpl: ViewingPartyDataSourceImpl): ViewingPartyDataSource =
         viewingPartyDataSourceImpl
 

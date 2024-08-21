@@ -51,7 +51,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         ReadMediaRVA { url ->
             // 미디어 원본 보기 기능
             viewModel.setImageUrl(url)
-            val dialog = ReadImageDialogFragment()
+            val dialog = ReadVideoDialogFragment()//ReadImageDialogFragment()
             dialog.show(supportFragmentManager, dialog.tag)
         }
     }

@@ -127,4 +127,7 @@ dependencies {
     implementation ("io.github.ShawnLin013:number-picker:2.4.13")
 
     implementation ("androidx.paging:paging-runtime-ktx:3.1.1")
+    implementation ("com.google.android.exoplayer:exoplayer-core:2.18.2")
+    implementation ("com.google.android.exoplayer:exoplayer-dash:2.18.2")
+    implementation ("com.google.android.exoplayer:exoplayer-ui:2.18.2")
 }

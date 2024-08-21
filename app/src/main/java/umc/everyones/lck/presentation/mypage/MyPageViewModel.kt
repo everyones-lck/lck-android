@@ -20,9 +20,6 @@ class MyPageViewModel @Inject constructor(
     private val repository: MypageRepository
 ) : AndroidViewModel(application) {
 
-    private val _user = MutableLiveData<User?>()
-    val user: LiveData<User?> get() = _user
-
     private val _profileData = MutableLiveData<InquiryProfilesModel?>()
     val profileData: LiveData<InquiryProfilesModel?> get() = _profileData
 
@@ -37,4 +34,3 @@ class MyPageViewModel @Inject constructor(
         }
     }
 }
-

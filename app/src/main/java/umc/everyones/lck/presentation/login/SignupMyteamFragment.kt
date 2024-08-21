@@ -47,7 +47,6 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
         }
     }
 
-
     private fun showTeamConfirmDialog(profileImageUri: String?) {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_myteam_confirm, null)
         val dialogBinding = DialogMyteamConfirmBinding.bind(dialogView)

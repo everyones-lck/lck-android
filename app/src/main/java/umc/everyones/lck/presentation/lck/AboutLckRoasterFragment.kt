@@ -31,7 +31,8 @@ class AboutLckRoasterFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R.l
                             teamColor = getTeamColorResource(viewModel.teamId.value ?: 0),
                             name = player.playerName,
                             teamLogo = getTeamLogoResource(viewModel.teamId.value ?: 0),
-                            position = if (player.position.toString() == "COACH") null else getPositionDrawable(player.position.toString())
+                            isCaptain = player.isCaptain,
+                            position = player.position
                         )
                     }
                     listener?.let {
@@ -56,11 +57,16 @@ class AboutLckRoasterFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R.l
 
     private fun getTeamColorResource(teamId: Int): Int {
         val colorRes = when (teamId) {
-            2 -> R.drawable.img_about_lck_player_team_color_t1
-            3 -> R.drawable.img_about_lck_player_team_color_t1
-            4 -> R.drawable.img_about_lck_player_team_color_t1
-            5 -> R.drawable.img_about_lck_player_team_color_t1
-            6 -> R.drawable.img_about_lck_player_team_color_t1
+            2 -> R.drawable.img_about_lck_player_team_color_geng
+            3 -> R.drawable.img_about_lck_player_team_color_hanwha
+            4 -> R.drawable.img_about_lck_player_team_color_kia
+            5 -> R.drawable.img_about_lck_player_team_color_t1_kt_kdf
+            6 -> R.drawable.img_about_lck_player_team_color_t1_kt_kdf
+            7 -> R.drawable.img_about_lck_player_team_color_t1_kt_kdf
+            8 -> R.drawable.img_about_lck_player_team_color_bnk
+            9 -> R.drawable.img_about_lck_player_team_color_t1_kt_kdf
+            10 -> R.drawable.img_about_lck_player_team_color_drx
+            11 -> R.drawable.img_about_lck_player_team_color_ok
             else -> R.drawable.img_about_lck_player_team_color_geng
         }
         return colorRes
@@ -81,17 +87,6 @@ class AboutLckRoasterFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R.l
             else ->R.drawable.img_about_lck_ok_gray
         }
         return logoRes
-    }
-
-    private fun getPositionDrawable(position: String): Int {
-        return when (position) {
-            "TOP" -> R.drawable.ic_top
-            "JUNGLE" -> R.drawable.ic_jgl
-            "MID" -> R.drawable.ic_mid
-            "BOT" -> R.drawable.ic_bot
-            "SUPPORT" -> R.drawable.ic_support
-            else -> R.drawable.ic_top
-        }
     }
 
     private fun findParentListener(): OnPlayerItemClickListener? {

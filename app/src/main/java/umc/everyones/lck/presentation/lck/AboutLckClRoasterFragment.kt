@@ -1,10 +1,5 @@
 package umc.everyones.lck.presentation.lck
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,8 +8,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentAboutLckClRoasterBinding
-import umc.everyones.lck.databinding.FragmentAboutLckCoachesBinding
-import umc.everyones.lck.databinding.FragmentAboutLckRoasterBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.lck.adapter.PlayerAdapter
 import umc.everyones.lck.presentation.lck.data.PlayerData
@@ -36,7 +29,8 @@ class AboutLckClRoasterFragment : BaseFragment<FragmentAboutLckClRoasterBinding>
                             teamColor = getTeamColorResource(viewModel.teamId.value ?: 0),
                             name = player.playerName,
                             teamLogo = getTeamLogoResource(viewModel.teamId.value ?: 0),
-                            position = if (player.position.toString() == "COACH") null else getPositionDrawable(player.position.toString())
+                            isCaptain = player.isCaptain,
+                            position = player.position
                         )
                     }
                     listener?.let {
@@ -61,35 +55,39 @@ class AboutLckClRoasterFragment : BaseFragment<FragmentAboutLckClRoasterBinding>
 
 
     private fun getTeamColorResource(teamId: Int): Int {
-        return when (teamId) {
-            2 -> R.drawable.img_about_lck_player_team_color_t1
-            3 -> R.drawable.img_about_lck_player_team_color_t1
-            4 -> R.drawable.img_about_lck_player_team_color_t1
-            // 필요한 만큼 추가
+        val colorRes = when (teamId) {
+            2 -> R.drawable.img_about_lck_player_team_color_geng
+            3 -> R.drawable.img_about_lck_player_team_color_hanwha
+            4 -> R.drawable.img_about_lck_player_team_color_kia
+            5 -> R.drawable.img_about_lck_player_team_color_t1_kt_kdf
+            6 -> R.drawable.img_about_lck_player_team_color_t1_kt_kdf
+            7 -> R.drawable.img_about_lck_player_team_color_t1_kt_kdf
+            8 -> R.drawable.img_about_lck_player_team_color_bnk
+            9 -> R.drawable.img_about_lck_player_team_color_t1_kt_kdf
+            10 -> R.drawable.img_about_lck_player_team_color_drx
+            11 -> R.drawable.img_about_lck_player_team_color_ok
             else -> R.drawable.img_about_lck_player_team_color_geng
         }
+        return colorRes
     }
 
     private fun getTeamLogoResource(teamId: Int): Int {
-        return when (teamId) {
-            2 -> R.drawable.img_about_lck_player_team_logo_t1
-            3 -> R.drawable.img_about_lck_player_team_logo_t1
-            4 -> R.drawable.img_about_lck_player_team_logo_t1
-            // 필요한 만큼 추가
-            else -> R.drawable.img_about_lck_gen_g_gray
+        val logoRes = when (teamId) {
+            2 -> R.drawable.img_about_lck_gen_g_gray
+            3 -> R.drawable.img_about_lck_hanhwa_gray
+            4 -> R.drawable.img_about_lck_dk_gray
+            5 -> R.drawable.img_about_lck_player_team_logo_t1
+            6 -> R.drawable.img_about_lck_kt_gray
+            7 -> R.drawable.img_about_lck_gwangdong_gray
+            8 -> R.drawable.img_about_lck_bnk_gray
+            9 -> R.drawable.img_about_lck_red_force_gray
+            10 -> R.drawable.img_about_lck_drx_gray
+            11 -> R.drawable.img_about_lck_ok_gray
+            else ->R.drawable.img_about_lck_ok_gray
         }
+        return logoRes
     }
 
-    private fun getPositionDrawable(position: String): Int {
-        return when (position) {
-            "TOP" -> R.drawable.ic_top
-            "JUNGLE" -> R.drawable.ic_jgl
-            "MID" -> R.drawable.ic_mid
-            "BOT" -> R.drawable.ic_bot
-            "SUPPORT" -> R.drawable.ic_support
-            else -> R.drawable.ic_top
-        }
-    }
 
     //NavHostFragment의 호스팅으로 인해 발생하는 부모 프래그먼트 문제를 해결하기 위한 메서드
     private fun findParentListener(): OnPlayerItemClickListener? {

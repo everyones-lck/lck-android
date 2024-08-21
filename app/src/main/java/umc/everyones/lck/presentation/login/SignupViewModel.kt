@@ -143,7 +143,13 @@ class SignupViewModel @Inject constructor(
 
                 Log.d("SignupViewModel", "API call successful: $response")
                 _signupResponse.value = response // 응답 값을 LiveData에 저장
-                spf.edit().putString("nickName", signupRequest.signupUserData.nickName).apply()
+                spf.edit().apply {
+                    putString("nickName", signupRequest.signupUserData.nickName)
+                    putString("profileImage", _profileUri.value?.toString()) //URI 형식을 문자열로 변환하여 저장
+                    putString("role", signupRequest.signupUserData.role)
+                    putInt("teamId", signupRequest.signupUserData.teamId)
+                    putString("tier", signupRequest.signupUserData.tier)
+                }
             } catch (e: Exception) {
                 Log.e("SignupViewModel", "API call failed: ${e.message}")
                 _signupResponse.value = null // 실패 시 null 처리

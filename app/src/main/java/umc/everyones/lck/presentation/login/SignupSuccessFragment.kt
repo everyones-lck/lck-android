@@ -64,14 +64,6 @@ class SignupSuccessFragment : BaseFragment<FragmentSignupSuccessBinding>(R.layou
         // 닉네임을 텍스트에 반영
         binding.tvSignupSuccessCongratulation.text = "${user.nickname}님 가입을 축하드립니다!"
 
-        // 팀 로고 설정 - 배경 이미지 변경
-        val teamLogoResId = TeamData.getSignupSuccessTeamLogo(teamName)
-        if (teamLogoResId != android.R.color.transparent) {
-            binding.ivSignupSuccessBackgroundLogo.setImageResource(teamLogoResId)
-        } else {
-            Log.e("SignupSuccessFragment", "Team logo not found for team: $teamName")
-        }
-
         // 프로필 이미지 로드
         if (user.profileUri.isNotEmpty()) {
             Glide.with(this)

@@ -9,28 +9,32 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import umc.everyones.lck.User
+import umc.everyones.lck.domain.model.response.mypage.InquiryProfilesModel
+import umc.everyones.lck.domain.repository.MypageRepository
 import umc.everyones.lck.presentation.login.SignupViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    application: Application
+    application: Application,
+    private val repository: MypageRepository
 ) : AndroidViewModel(application) {
 
     private val _user = MutableLiveData<User?>()
     val user: LiveData<User?> get() = _user
 
-    // 사용자 정보를 로드하는 함수
-    fun loadUser(nickname: String?, signupViewModel: SignupViewModel) {
+    private val _profileData = MutableLiveData<InquiryProfilesModel?>()
+    val profileData: LiveData<InquiryProfilesModel?> get() = _profileData
+
+    fun inquiryProfile() {
         viewModelScope.launch {
-            if (nickname != null) {
-                val currentUser = signupViewModel.getUser(nickname)
-                _user.value = currentUser
-                Log.d("MyPageViewModel", "Loaded user: $currentUser")
-            } else {
-                Log.d("MyPageViewModel", "Nickname is null")
-                _user.value = null
+            repository.inquiryProfiles().onSuccess { response ->
+                _profileData.value = response
+                Log.d("inquiryProfile", response.toString())
+            }.onFailure {
+                Log.d("inquiryProfile", it.stackTraceToString())
             }
         }
     }
 }
+

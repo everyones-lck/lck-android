@@ -10,10 +10,6 @@ fun setupTeamSelection(view: View, onTeamSelected: (String) -> Unit) {
 
     teamViews.forEach { (viewId, teamName) ->
         val teamView = view.findViewById<ImageView>(viewId)
-        teamView.setOnClickListener {
-            toggleTeamSelection(teamView, teamName)
-            onTeamSelected(teamName)
-        }
     }
 }
 

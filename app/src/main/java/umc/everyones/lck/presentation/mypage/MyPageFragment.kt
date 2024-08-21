@@ -23,11 +23,12 @@ import umc.everyones.lck.util.TeamData
 class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment_mypage_main) {
 
     private val myPageViewModel: MyPageViewModel by activityViewModels()
-    private val signupViewModel: SignupViewModel by activityViewModels() // SignupViewModel을 가져옵니다.
+    private val signupViewModel: SignupViewModel by activityViewModels()
     private val teamLogos = TeamData.mypageTeamBackground
     private val navigator by lazy { findNavController() }
 
     override fun initObserver() {
+        // 사용자 정보를 관찰
         myPageViewModel.user.observe(viewLifecycleOwner) { user ->
             Log.d("MyPageFragment", "User observed: $user")
             if (user != null) {
@@ -40,29 +41,49 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
                 if (user.profileUri.isNotEmpty()) {
                     Glide.with(this@MyPageFragment)
                         .load(Uri.parse(user.profileUri))
-                        .placeholder(R.drawable.img_signup_profile) // 기본 이미지
+                        .placeholder(R.drawable.img_signup_profile)
                         .into(binding.ivMypageMainProfile)
                 } else {
-                    binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지
+                    binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile)
                 }
             } else {
                 Log.d("MyPageFragment", "No user found")
                 binding.tvMypageMainNickname.text = "Unknown"
                 binding.tvMypageMainTier.text = "Bronze"
                 binding.ivMypageMainTeamBackground.setImageResource(android.R.color.transparent)
-                binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지
+                binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile)
+            }
+        }
+
+        // 프로필 데이터를 관찰
+        myPageViewModel.profileData.observe(viewLifecycleOwner) { profile ->
+            profile?.let {
+                binding.tvMypageMainNickname.text = it.nickname
+                binding.tvMypageMainTier.text = it.tier
+
+                val teamLogoResId = teamLogos[it.teamId] ?: android.R.color.transparent
+                binding.ivMypageMainTeamBackground.setImageResource(teamLogoResId)
+
+                Glide.with(this@MyPageFragment)
+                    .load(Uri.parse(it.profileImageUrl))
+                    .placeholder(R.drawable.img_signup_profile)
+                    .into(binding.ivMypageMainProfile)
+            } ?: run {
+                Log.d("MyPageFragment", "No profile data found")
+                binding.tvMypageMainNickname.text = "Unknown"
+                binding.tvMypageMainTier.text = "Bronze"
+                binding.ivMypageMainTeamBackground.setImageResource(android.R.color.transparent)
+                binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile)
             }
         }
     }
 
     override fun initView() {
-        // Arguments에서 nickname 가져오기
         val nickname = arguments?.getString("nickname")
 
         // ViewModel에 nickname 설정하기
         nickname?.let {
-            // Load user data using the MyPageViewModel
-            myPageViewModel.loadUser(it, signupViewModel)
+            myPageViewModel.inquiryProfile() // 프로필 조회 호출
         }
 
         binding.ivMypageMainBack.setOnClickListener {

@@ -16,7 +16,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import umc.everyones.lck.EveryonesLCKApplication
 import umc.everyones.lck.R
+import umc.everyones.lck.data.repositoryImpl.mypage.MypageRepositoryImpl
 import umc.everyones.lck.data.service.MypageService
+import umc.everyones.lck.domain.repository.MypageRepository
 import umc.everyones.lck.util.NaverInterceptor
 import umc.everyones.lck.util.network.AuthInterceptor
 import java.util.concurrent.TimeUnit

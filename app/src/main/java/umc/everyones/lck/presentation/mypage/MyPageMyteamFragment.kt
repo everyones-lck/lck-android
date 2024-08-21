@@ -69,22 +69,8 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
         TeamData.myteamLogos.forEach { (imageViewId, teamName) ->
             val imageView = binding.root.findViewById<ImageView>(imageViewId)
             imageView.setOnClickListener {
-                selectedTeamName = if (selectedTeamName == teamName) null else teamName
-                updateTeamSelectionUI()
                 onTeamSelected(selectedTeamName)
             }
-        }
-    }
-
-    private fun updateTeamSelectionUI() {
-        TeamData.myteamLogos.forEach { (imageViewId, teamName) ->
-            val imageView = binding.root.findViewById<ImageView>(imageViewId)
-            val drawable = if (teamName == selectedTeamName) {
-                ContextCompat.getDrawable(requireContext(), R.drawable.shape_team_background_selected)
-            } else {
-                ContextCompat.getDrawable(requireContext(), R.drawable.shape_team_background)
-            }
-            imageView.background = drawable
         }
     }
 

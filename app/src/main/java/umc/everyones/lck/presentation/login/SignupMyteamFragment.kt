@@ -32,7 +32,6 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
     override fun initView() {
         val profileImageUri = viewModel.profileImageUri.value?.toString()
 
-        setupTeamSelection()
 
         binding.ivSignupMyteamNext.setOnClickListener {
             if (selectedTeamName == null) {
@@ -48,31 +47,6 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
         }
     }
 
-    private fun setupTeamSelection() {
-        TeamData.teamLogos.forEach { (imageViewId, teamName) ->
-            val imageView = binding.root.findViewById<ImageView>(imageViewId)
-            imageView.setOnClickListener {
-                selectedTeamName = if (selectedTeamName == teamName) {
-                    null // 선택된 팀을 다시 클릭하면 선택 해제
-                } else {
-                    teamName
-                }
-                updateTeamSelectionUI()
-            }
-        }
-    }
-
-    private fun updateTeamSelectionUI() {
-        TeamData.teamLogos.forEach { (imageViewId, teamName) ->
-            val imageView = binding.root.findViewById<ImageView>(imageViewId)
-            val drawable = if (teamName == selectedTeamName) {
-                ContextCompat.getDrawable(requireContext(), R.drawable.shape_team_background_selected)
-            } else {
-                ContextCompat.getDrawable(requireContext(), R.drawable.shape_team_background)
-            }
-            imageView.background = drawable
-        }
-    }
 
     private fun showTeamConfirmDialog(profileImageUri: String?) {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_myteam_confirm, null)

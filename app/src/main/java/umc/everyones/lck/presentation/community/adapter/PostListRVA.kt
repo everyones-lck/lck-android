@@ -2,13 +2,16 @@ package umc.everyones.lck.presentation.community.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import umc.everyones.lck.databinding.ItemCommunityPostBinding
+import umc.everyones.lck.domain.model.community.CommunityListModel
 import umc.everyones.lck.domain.model.community.PostListItem
 
-class PostListRVA(val readPost: (Int) -> Unit) : ListAdapter<PostListItem, PostListRVA.PostViewHolder>(DiffCallback()) {
+class PostListRVA(val readPost: (Long) -> Unit) : PagingDataAdapter<CommunityListModel.CommunityListElementModel, PostListRVA.PostViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder(
@@ -21,19 +24,25 @@ class PostListRVA(val readPost: (Int) -> Unit) : ListAdapter<PostListItem, PostL
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        val post = getItem(position)
+        if(post != null) {
+            holder.bind(post)
+        }
     }
 
     inner class PostViewHolder(private val binding: ItemCommunityPostBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun bind(postListItem: PostListItem){
+            fun bind(postListItem: CommunityListModel.CommunityListElementModel){
                 with(binding){
-                    tvPostTitle.text = postListItem.title
-                    tvPostDate.text = postListItem.date
-                    tvPostNickname.text = postListItem.nickname
-                    tvPostFavoriteTeam.text = postListItem.favoriteTeam
-                    tvPostComment.text = postListItem.commentCnt.toString()
+                    tvPostTitle.text = postListItem.postTitle
+                    tvPostDate.text = postListItem.postCreatedAt
+                    tvPostNickname.text = postListItem.userNickname
+                    tvPostFavoriteTeam.text = postListItem.supportTeamName
+                    tvPostComment.text = postListItem.commentCounts.toString()
 
+                    Glide.with(ivPostImage.context)
+                        .load(postListItem.postPicture)
+                        .into(ivPostImage)
                     // 게시글 postId 전달
                     root.setOnClickListener {
                         readPost(postListItem.postId)
@@ -42,11 +51,11 @@ class PostListRVA(val readPost: (Int) -> Unit) : ListAdapter<PostListItem, PostL
             }
         }
 
-    class DiffCallback : DiffUtil.ItemCallback<PostListItem>() {
-        override fun areItemsTheSame(oldItem: PostListItem, newItem: PostListItem) =
+    class DiffCallback : DiffUtil.ItemCallback<CommunityListModel.CommunityListElementModel>() {
+        override fun areItemsTheSame(oldItem: CommunityListModel.CommunityListElementModel, newItem: CommunityListModel.CommunityListElementModel) =
             oldItem.postId == newItem.postId
 
-        override fun areContentsTheSame(oldItem: PostListItem, newItem: PostListItem) =
+        override fun areContentsTheSame(oldItem: CommunityListModel.CommunityListElementModel, newItem: CommunityListModel.CommunityListElementModel) =
             oldItem == newItem
     }
 }

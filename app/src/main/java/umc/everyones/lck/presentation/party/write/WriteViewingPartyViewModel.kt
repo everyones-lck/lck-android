@@ -8,40 +8,125 @@ import androidx.lifecycle.viewModelScope
 import com.naver.maps.geometry.LatLng
 import umc.everyones.lck.domain.repository.NaverRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import umc.everyones.lck.util.network.onFail
-import umc.everyones.lck.util.network.onSuccess
+import umc.everyones.lck.domain.model.naver.GeocodingModel
+import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
+import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
+import umc.everyones.lck.util.network.EventFlow
+import umc.everyones.lck.util.network.MutableEventFlow
+import umc.everyones.lck.util.network.UiState
+import java.lang.IndexOutOfBoundsException
 
 @HiltViewModel
 class WriteViewingPartyViewModel @Inject constructor(
-    private val naverRepository: NaverRepository
+    private val naverRepository: NaverRepository,
+    private val repository: ViewingPartyRepository
 ) : ViewModel() {
-    private val _latLng = MutableSharedFlow<LatLng>()
-    val latLng: SharedFlow<LatLng> get() = _latLng
 
-    private val _date = MutableSharedFlow<String>()
-    val date: SharedFlow<String> get() = _date
+    private val _date = MutableEventFlow<String>()
+    val date: EventFlow<String> get() = _date
 
-    fun setDate(date: String){
+    private val _writeViewingPartyEvent =
+        MutableStateFlow<UiState<WriteViewingPartyEvent>>(UiState.Empty)
+    val writeViewingPartyEvent: StateFlow<UiState<WriteViewingPartyEvent>> get() = _writeViewingPartyEvent
+
+    sealed class WriteViewingPartyEvent {
+        data class WriteDoneViewingParty(val isWriteDone: Boolean) : WriteViewingPartyEvent()
+
+        data class Geocoding(val geoCodingResult: GeocodingModel) : WriteViewingPartyEvent()
+    }
+
+    fun setDate(date: String) {
         viewModelScope.launch {
             _date.emit(date)
         }
     }
-    fun fetchGeoCoding(query: String){
+
+    fun fetchGeocoding(query: String) {
         viewModelScope.launch {
+            _writeViewingPartyEvent.value = UiState.Loading
             naverRepository.fetchGeocoding(query).onSuccess { response ->
-                val result = response.addresses.firstOrNull()
-                if(result != null){
-                    Log.d("result", result.toString())
-                    val latLng = LatLng(result.y.toDouble(), result.x.toDouble())
-                    _latLng.emit(latLng)
-                } else {
-                    _latLng.emit(LatLng.INVALID)
+                Log.d("fetchGeocoding", response.toString())
+                if (!response.adminAddress.contains("동")){
+                    _writeViewingPartyEvent.value = UiState.Failure(GEOCODING_FAIL)
+                    return@launch
                 }
-            }.onFail {
-                _latLng.emit(LatLng.INVALID)
+                _writeViewingPartyEvent.value =
+                    UiState.Success(WriteViewingPartyEvent.Geocoding(response))
+            }.onFailure {
+                if (it is IndexOutOfBoundsException) {
+                    _writeViewingPartyEvent.value = UiState.Failure(GEOCODING_FAIL)
+                }
+                Log.d("fetchGeocoding", it.stackTraceToString())
             }
         }
+    }
+
+    fun writeViewingParty(
+        isEdit: Boolean,
+        postId: Long = 0L,
+        name: String,
+        date: String,
+        latitude: Double,
+        longitude: Double,
+        location: String,
+        shortLocation: String,
+        price: String,
+        lowParticipate: String,
+        highParticipate: String,
+        qualify: String,
+        etc: String
+    ) {
+        val writeViewingPartyModel = WriteViewingPartyModel(
+            name,
+            date,
+            latitude,
+            longitude,
+            location,
+            shortLocation,
+            price,
+            lowParticipate,
+            highParticipate,
+            qualify,
+            etc
+        )
+        Log.d("isEdit", isEdit.toString())
+        Log.d("writeViewingPartyModel", writeViewingPartyModel.toString())
+        viewModelScope.launch {
+            _writeViewingPartyEvent.value = UiState.Loading
+            if (isEdit) {
+                repository.editViewingParty(
+                    postId,
+                    writeViewingPartyModel
+                ).onSuccess { response ->
+                    Log.d("editViewingParty", response.toString())
+                    _writeViewingPartyEvent.value =
+                        UiState.Success(WriteViewingPartyEvent.WriteDoneViewingParty(true))
+                }.onFailure {
+                    Log.d("editViewingParty", it.stackTraceToString())
+                    _writeViewingPartyEvent.value = UiState.Failure(EDIT_FAIL)
+                }
+            } else {
+                repository.writeViewingParty(
+                    writeViewingPartyModel
+                ).onSuccess { response ->
+                    Log.d("writeViewingParty", response.toString())
+                    _writeViewingPartyEvent.value =
+                        UiState.Success(WriteViewingPartyEvent.WriteDoneViewingParty(true))
+                }.onFailure {
+                    Log.d("writeViewingParty", it.stackTraceToString())
+                    _writeViewingPartyEvent.value = UiState.Failure(HOST_FAIL)
+                }
+            }
+        }
+    }
+
+    companion object {
+        const val GEOCODING_FAIL = "주소를 정확히 입력해주세요"
+        const val HOST_FAIL = "뷰잉파티 개최에 실패했습니다"
+        const val EDIT_FAIL = "뷰잉파티 수정에 실패했습니다"
     }
 }

@@ -13,11 +13,16 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import umc.everyones.lck.data.repositoryImpl.HomeRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.TestRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.TodayMatchRepositoryImpl
+import umc.everyones.lck.data.repositoryImpl.community.CommunityRepositoryImpl
+import umc.everyones.lck.data.repositoryImpl.party.ViewingPartyRepositoryImpl
 import umc.everyones.lck.data.service.NaverService
 import umc.everyones.lck.data.service.TestService
+import umc.everyones.lck.data.service.party.ViewingPartyService
 import umc.everyones.lck.domain.repository.TestRepository
 import umc.everyones.lck.domain.repository.home.HomeRepository
 import umc.everyones.lck.domain.repository.match.TodayMatchRepository
+import umc.everyones.lck.domain.repository.community.CommunityRepository
+import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
 import javax.inject.Singleton
 
 @Module
@@ -54,4 +59,19 @@ object RepositoryModule {
     fun providesHomeRepository(
         homeRepositoryImpl: HomeRepositoryImpl
     ): HomeRepository = homeRepositoryImpl
+    fun providesNaverRepository(
+        naverRepositoryImpl: NaverRepositoryImpl
+    ): NaverRepository = naverRepositoryImpl
+
+    @ViewModelScoped
+    @Provides
+    fun providesViewingPartyRepository(
+        viewingPartyRepositoryImpl: ViewingPartyRepositoryImpl
+    ): ViewingPartyRepository = viewingPartyRepositoryImpl
+
+    @ViewModelScoped
+    @Provides
+    fun providesCommunityRepository(
+        communityRepositoryImpl: CommunityRepositoryImpl
+    ): CommunityRepository = communityRepositoryImpl
 }

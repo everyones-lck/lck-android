@@ -9,6 +9,8 @@ import umc.everyones.lck.data.service.NaverService
 import umc.everyones.lck.data.service.TestService
 import umc.everyones.lck.data.service.home.HomeService
 import umc.everyones.lck.data.service.match.TodayMatchService
+import umc.everyones.lck.data.service.community.CommunityService
+import umc.everyones.lck.data.service.party.ViewingPartyService
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -40,6 +42,18 @@ object ServiceModule {
     @Provides
     @Singleton
     fun provideHomeService(retrofit: Retrofit): HomeService {
+        return retrofit.buildService()
+    }
+
+    @Provides
+    @Singleton
+    fun provideViewingPartyService(retrofit: Retrofit): ViewingPartyService {
+        return retrofit.buildService()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCommunityService(retrofit: Retrofit): CommunityService {
         return retrofit.buildService()
     }
 }

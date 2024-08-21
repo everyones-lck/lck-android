@@ -64,11 +64,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     private fun loginWithKakaoAccount() {
-        UserApiClient.instance.loginWithKakaoAccount(requireContext()) { accountToken, accountError ->
-            if (accountError != null) {
-                Log.e(TAG, "카카오 계정으로 로그인 실패", accountError)
-            } else if (accountToken != null) {
-                Log.i(TAG, "카카오 계정으로 로그인 성공 ${accountToken.accessToken}")
+        UserApiClient.instance.loginWithKakaoAccount(requireContext()) {token, error ->
+            if (error != null) {
+                Log.e(TAG, "카카오 계정으로 로그인 실패", error)
+            } else if (token != null) {
+                Log.i(TAG, "카카오 계정으로 로그인 성공 ${token.accessToken}")
                 handleLoginSuccess()
             }
         }
@@ -76,11 +76,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     private fun handleLoginSuccess() {
         UserApiClient.instance.me { user, error ->
-            if (error != null) {
-                Log.e(TAG, "사용자 정보 가져오기 실패", error)
-                return@me
-            }
-
             user?.let {
                 val kakaoUserId = it.id.toString()
                 Log.d(TAG, "로그인 결과: $kakaoUserId") // 결과 로깅

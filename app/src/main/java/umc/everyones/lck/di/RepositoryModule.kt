@@ -10,14 +10,19 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import umc.everyones.lck.data.datasource.login.LoginDataSource
+import umc.everyones.lck.data.datasourceImpl.LoginDataSourceImpl
 import umc.everyones.lck.data.repositoryImpl.TestRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.community.CommunityRepositoryImpl
+import umc.everyones.lck.data.repositoryImpl.login.LoginRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.party.ViewingPartyRepositoryImpl
+import umc.everyones.lck.data.service.LoginService
 import umc.everyones.lck.data.service.NaverService
 import umc.everyones.lck.data.service.TestService
 import umc.everyones.lck.data.service.party.ViewingPartyService
 import umc.everyones.lck.domain.repository.TestRepository
 import umc.everyones.lck.domain.repository.community.CommunityRepository
+import umc.everyones.lck.domain.repository.login.LoginRepository
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
 import javax.inject.Singleton
 
@@ -45,6 +50,15 @@ object RepositoryModule {
         naverRepositoryImpl: NaverRepositoryImpl
     ): NaverRepository = naverRepositoryImpl
 
+    @ViewModelScoped
+    @Provides
+    fun providesLoginDataSource(loginService: LoginService): LoginDataSource =
+        LoginDataSourceImpl(loginService)
+
+    @ViewModelScoped
+    @Provides
+    fun providesLoginRepository(loginDataSource: LoginDataSource): LoginRepository =
+        LoginRepositoryImpl(loginDataSource) // LoginDataSource를 주입
     @ViewModelScoped
     @Provides
     fun providesViewingPartyRepository(

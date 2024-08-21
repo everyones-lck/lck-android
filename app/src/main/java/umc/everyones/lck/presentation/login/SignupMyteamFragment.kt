@@ -21,61 +21,61 @@ import umc.everyones.lck.util.TeamData
 @AndroidEntryPoint
 class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.fragment_signup_myteam) {
 
-    private var selectedTeamName: String? = null
     private val viewModel: SignupViewModel by activityViewModels()
     private val navigator by lazy { findNavController() }
+    private var selectedTeamId: Int? = 1
 
     override fun initObserver() {
-        // No specific observers are needed for now
+
     }
 
     override fun initView() {
-        val profileImageUri = viewModel.profileImageUri.value?.toString()
+        val profileImageUri = viewModel.profileUri.value?.toString()
 
         setupTeamSelection()
 
         binding.ivSignupMyteamNext.setOnClickListener {
-            if (selectedTeamName == null) {
-                showTeamConfirmDialog(profileImageUri)
+            if (selectedTeamId == null) {
+                showTeamConfirmDialog()
             } else {
-                lifecycleScope.launch {
-                    // User 추가
-                    viewModel.addUser(profileImageUri ?: "", selectedTeamName ?: "default_team")
-
-                    navigator.navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment)
-                }
+                navigateToSuccessFragment()
             }
         }
     }
 
     private fun setupTeamSelection() {
-        TeamData.teamLogos.forEach { (imageViewId, teamName) ->
+        TeamData.teamLogos.forEach { (imageViewId, teamId) ->
             val imageView = binding.root.findViewById<ImageView>(imageViewId)
             imageView.setOnClickListener {
-                selectedTeamName = if (selectedTeamName == teamName) {
+                selectedTeamId = if (selectedTeamId == teamId) {
                     null // 선택된 팀을 다시 클릭하면 선택 해제
                 } else {
-                    teamName
+                    teamId // 클릭한 팀 ID로 설정
                 }
                 updateTeamSelectionUI()
+
+                // 팀이 선택되지 않았을 경우 1로 설정
+                val teamIdToSet = selectedTeamId ?: 1 // 선택된 팀이 없으면 기본값 1
+                viewModel.setTeamId(teamIdToSet) // ViewModel에 팀 ID 설정
             }
         }
     }
 
     private fun updateTeamSelectionUI() {
-        TeamData.teamLogos.forEach { (imageViewId, teamName) ->
+        TeamData.teamLogos.forEach { (imageViewId, teamId) ->
             val imageView = binding.root.findViewById<ImageView>(imageViewId)
-            val drawable = if (teamName == selectedTeamName) {
-                ContextCompat.getDrawable(requireContext(), R.drawable.shape_team_background_selected)
+            val drawableRes = if (teamId == selectedTeamId) { // selectedTeamId로 변경
+                R.drawable.shape_team_background_selected
             } else {
-                ContextCompat.getDrawable(requireContext(), R.drawable.shape_team_background)
+                R.drawable.shape_team_background
             }
-            imageView.background = drawable
+            imageView.background = ContextCompat.getDrawable(requireContext(), drawableRes)
         }
     }
 
-    private fun showTeamConfirmDialog(profileImageUri: String?) {
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_myteam_confirm, null)
+    private fun showTeamConfirmDialog() {
+        val dialogView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_myteam_confirm, null)
         val dialogBinding = DialogMyteamConfirmBinding.bind(dialogView)
 
         val dialog = MaterialAlertDialogBuilder(requireContext())
@@ -96,11 +96,13 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
 
         dialogBinding.btnConfirm.setOnClickListener {
             dialog.dismiss()
-            lifecycleScope.launch {
-                viewModel.addUser(profileImageUri ?: "", selectedTeamName ?: "default_team")
+            navigateToSuccessFragment()
+        }
+    }
 
-                findNavController().navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment)
-            }
+    private fun navigateToSuccessFragment() {
+        lifecycleScope.launch {
+            navigator.navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment)
         }
     }
 }

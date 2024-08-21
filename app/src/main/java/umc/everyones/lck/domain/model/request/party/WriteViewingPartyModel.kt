@@ -11,6 +11,7 @@ data class WriteViewingPartyModel(
     val latitude: Double,
     val longitude: Double,
     val location: String,
+    val shortLocation: String,
     val price: String,
     val lowParticipate: String,
     val highParticipate: String,
@@ -24,9 +25,10 @@ data class WriteViewingPartyModel(
             latitude,
             longitude,
             location,
-            price.replace(",", "").toInt(),
-            lowParticipate.replace(",", "").toInt(),
-            highParticipate.replace(",", "").toInt(),
+            shortLocation,
+            price,
+            lowParticipate,
+            highParticipate,
             qualify,
             etc
         )

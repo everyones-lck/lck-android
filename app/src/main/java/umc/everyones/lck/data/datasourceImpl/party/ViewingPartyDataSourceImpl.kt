@@ -1,4 +1,4 @@
-package umc.everyones.lck.data.datasourceImpl
+package umc.everyones.lck.data.datasourceImpl.party
 
 import umc.everyones.lck.data.datasource.ViewingPartyDataSource
 import umc.everyones.lck.data.dto.BaseResponse
@@ -62,6 +62,5 @@ class ViewingPartyDataSourceImpl @Inject constructor(
 
     override suspend fun createViewingPartyChatRoomAsParticipant(viewingPartyId: Long): BaseResponse<ViewingPartyChatRoomResponseDto> =
         viewingPartyService.createViewingPartyChatRoomAsParticipant(viewingPartyId)
-
 
 }

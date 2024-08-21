@@ -4,6 +4,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import umc.everyones.lck.data.datasource.MypageDataSource
 import umc.everyones.lck.data.dto.request.mypage.CancelParticipateViewingPartyMypageRequestDto
+import umc.everyones.lck.data.dto.response.NonBaseResponse
 import umc.everyones.lck.domain.model.request.mypage.CancelHostViewingPartyMypageModel
 import umc.everyones.lck.domain.model.request.mypage.CancelParticipateViewingPartyMypageModel
 import umc.everyones.lck.domain.model.request.mypage.UpdateTeamModel
@@ -43,8 +44,8 @@ class MypageRepositoryImpl  @Inject constructor(
     override suspend fun logout(refreshToken: String): Result<Boolean> =
         runCatching { mypageDataSource.logout(refreshToken).data }
 
-    override suspend fun withdraw(): Result<Boolean> =
-        runCatching { mypageDataSource.withdraw().data }
+    override suspend fun withdraw(): Result<NonBaseResponse> =
+        runCatching { mypageDataSource.withdraw() }
 
     override suspend fun updateProfiles(profileImage: MultipartBody.Part?, updateProfileRequest: RequestBody): Result<UpdateProfilesModel> =
         runCatching { mypageDataSource.updateProfiles(profileImage, updateProfileRequest).data.toUpdateProfilesModel() }

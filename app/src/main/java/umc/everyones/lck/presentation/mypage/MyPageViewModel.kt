@@ -46,7 +46,7 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-/*    fun withdraw() {
+    fun withdraw() {
         viewModelScope.launch {
             repository.withdraw().onSuccess {response ->
                 _withdrawResult.value = true
@@ -56,5 +56,5 @@ class MyPageViewModel @Inject constructor(
                 _withdrawResult.value = false
             }
         }
-    }*/
+    }
 }

@@ -17,7 +17,7 @@ class MyPageProfileWithdrawFragment : BaseFragment<FragmentMypageProfileWithdraw
     private val myPageViewModel: MyPageViewModel by activityViewModels()
 
     override fun initObserver() {
-/*        myPageViewModel.withdrawResult.observe(viewLifecycleOwner) { success ->
+        myPageViewModel.withdrawResult.observe(viewLifecycleOwner) { success ->
             if (success) {
                 Log.d("MyActivity", "회원 탈퇴 후 로그인 화면으로 이동")
                 navigateToLoginScreen()
@@ -25,7 +25,7 @@ class MyPageProfileWithdrawFragment : BaseFragment<FragmentMypageProfileWithdraw
                 Log.e("MyActivity", "회원 탈퇴 실패, 오류 처리 필요")
                 Toast.makeText(requireContext(), "계정 탈퇴에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
             }
-        }*/
+        }
     }
 
     override fun initView() {
@@ -48,9 +48,9 @@ class MyPageProfileWithdrawFragment : BaseFragment<FragmentMypageProfileWithdraw
             findNavController().navigateUp()
         }
 
-/*        binding.tvMypageProfileWithdraw.setOnClickListener {
+        binding.tvMypageProfileWithdraw.setOnClickListener {
             myPageViewModel.withdraw()
-        }*/
+        }
     }
 
     private fun navigateToLoginScreen() {

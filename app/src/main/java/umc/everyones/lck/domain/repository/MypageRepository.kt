@@ -4,6 +4,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import umc.everyones.lck.data.UpdateProfileRequest
 import umc.everyones.lck.data.dto.request.mypage.UpdateTeamRequestDto
+import umc.everyones.lck.data.dto.response.NonBaseResponse
 import umc.everyones.lck.domain.model.request.mypage.CancelHostViewingPartyMypageModel
 import umc.everyones.lck.domain.model.request.mypage.CancelParticipateViewingPartyMypageModel
 import umc.everyones.lck.domain.model.request.mypage.UpdateTeamModel
@@ -31,7 +32,7 @@ interface MypageRepository {
 
     suspend fun logout(refreshToken: String): Result<Boolean>
 
-    suspend fun withdraw(): Result<Boolean>
+    suspend fun withdraw(): Result<NonBaseResponse>
 
     suspend fun updateProfiles(profileImage: MultipartBody.Part?, updateProfileRequest: RequestBody): Result<UpdateProfilesModel>
 

@@ -6,6 +6,7 @@ import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.mypage.CancelHostViewingPartyMypageRequestDto
 import umc.everyones.lck.data.dto.request.mypage.CancelParticipateViewingPartyMypageRequestDto
 import umc.everyones.lck.data.dto.request.mypage.UpdateTeamRequestDto
+import umc.everyones.lck.data.dto.response.NonBaseResponse
 import umc.everyones.lck.data.dto.response.mypage.CommentsMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.HostViewingPartyMypageResponseDto
 import umc.everyones.lck.data.dto.response.mypage.InquiryProfilesResponseDto
@@ -30,7 +31,7 @@ interface MypageDataSource {
 
     suspend fun logout(refreshToken: String): BaseResponse<Boolean>
 
-    suspend fun withdraw(): BaseResponse<Boolean>
+    suspend fun withdraw(): NonBaseResponse
 
     suspend fun updateProfiles(profileImage: MultipartBody.Part?, updateProfileRequest: RequestBody): BaseResponse<UpdateProfilesResponseDto>
 

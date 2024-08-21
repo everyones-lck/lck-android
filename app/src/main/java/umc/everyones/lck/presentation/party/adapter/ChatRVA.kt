@@ -10,9 +10,10 @@ import umc.everyones.lck.databinding.ItemReceiverChatBinding
 import umc.everyones.lck.databinding.ItemSenderChatBinding
 import umc.everyones.lck.domain.model.party.ChatItem
 import umc.everyones.lck.domain.model.party.ParticipantItem
+import umc.everyones.lck.domain.model.response.party.ViewingPartyChatLogModel
 
 class ChatRVA :
-    ListAdapter<ChatItem, RecyclerView.ViewHolder>(DiffCallback()) {
+    ListAdapter<ViewingPartyChatLogModel.ChatLogModel, RecyclerView.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -35,7 +36,7 @@ class ChatRVA :
 
     inner class SenderChatViewHolder(private val binding: ItemSenderChatBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(chatItem: ChatItem) {
+        fun bind(chatItem: ViewingPartyChatLogModel.ChatLogModel) {
             with(binding){
                 tvSendererChat.text = chatItem.message
                 /*Glide.with(ivParticipantProfileImage.context)
@@ -50,7 +51,7 @@ class ChatRVA :
 
     inner class ReceiverChatViewHolder(private val binding: ItemReceiverChatBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(chatItem: ChatItem) {
+        fun bind(chatItem: ViewingPartyChatLogModel.ChatLogModel) {
             with(binding){
                 tvReceiverChat.text = chatItem.message
                 /*Glide.with(ivParticipantProfileImage.context)
@@ -67,11 +68,10 @@ class ChatRVA :
         return currentList[position].viewType
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<ChatItem>() {
-        override fun areItemsTheSame(oldItem: ChatItem, newItem: ChatItem) =
-            oldItem.userId == newItem.userId
-
-        override fun areContentsTheSame(oldItem: ChatItem, newItem: ChatItem) =
+    class DiffCallback : DiffUtil.ItemCallback<ViewingPartyChatLogModel.ChatLogModel>() {
+        override fun areItemsTheSame(oldItem: ViewingPartyChatLogModel.ChatLogModel, newItem: ViewingPartyChatLogModel.ChatLogModel) =
+            oldItem === newItem
+        override fun areContentsTheSame(oldItem: ViewingPartyChatLogModel.ChatLogModel, newItem: ViewingPartyChatLogModel.ChatLogModel) =
             oldItem == newItem
     }
 

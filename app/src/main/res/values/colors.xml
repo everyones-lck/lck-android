@@ -43,4 +43,5 @@
     <color name="green">#32D892</color>
     <color name="receiver_bg">#E2E3F1</color>
     <color name="sender_bg">#EFEFEF</color>
+    <color name="nickname_gray">#8C8C8C</color>
 </resources>

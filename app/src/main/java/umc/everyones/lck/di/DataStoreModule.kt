@@ -7,7 +7,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-
+import umc.everyones.lck.data.datasource.MypageDataSource
+import umc.everyones.lck.data.datasourceImpl.MypageDataSourceImpl
+import umc.everyones.lck.data.service.MypageService
+import umc.everyones.lck.util.network.AuthInterceptor
 import javax.inject.Singleton
 
 @Module
@@ -17,4 +20,8 @@ object DataStoreModule {
     @Singleton
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
         context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
+
+    @Provides
+    fun provideMypageDataSource(mypageService: MypageService): MypageDataSource = MypageDataSourceImpl(mypageService)
+
 }

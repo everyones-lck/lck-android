@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.R
 import umc.everyones.lck.presentation.lck.data.HistoryData
 
-class HistoryAdapter(private val items: List<HistoryData>) :
+class HistoryAdapter(private val items: MutableList<HistoryData>) :
     RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
     inner class HistoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -46,5 +46,13 @@ class HistoryAdapter(private val items: List<HistoryData>) :
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    fun getItems(): List<HistoryData> = items
+
+    fun updateItems(newItems: List<HistoryData>) {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
     }
 }

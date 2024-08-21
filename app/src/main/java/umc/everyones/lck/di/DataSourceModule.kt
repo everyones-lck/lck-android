@@ -9,9 +9,11 @@ import umc.everyones.lck.data.datasource.HomeDataSource
 import umc.everyones.lck.data.datasource.TodayMatchDataSource
 import umc.everyones.lck.data.datasourceImpl.HomeDataSourceImpl
 import umc.everyones.lck.data.datasourceImpl.TodayMatchDataSourceImpl
+import umc.everyones.lck.data.datasource.AboutLckDataSource
 import umc.everyones.lck.data.datasource.NaverDataSource
 import umc.everyones.lck.data.datasource.ViewingPartyDataSource
 import umc.everyones.lck.data.datasource.community.CommunityDataSource
+import umc.everyones.lck.data.datasourceImpl.AboutLckDataSourceImpl
 import umc.everyones.lck.data.datasourceImpl.community.CommunityDataSourceImpl
 import umc.everyones.lck.data.datasourceImpl.naver.NaverDataSourceImpl
 import umc.everyones.lck.data.datasourceImpl.party.ViewingPartyDataSourceImpl
@@ -42,4 +44,10 @@ object DataSourceModule {
     @ViewModelScoped
     fun provideCommunityDataSource(communityDataSourceImpl: CommunityDataSourceImpl): CommunityDataSource =
         communityDataSourceImpl
+
+    @Provides
+    @ViewModelScoped
+    fun provideAboutLckDataSource(aboutLckDataSourceImpl: AboutLckDataSourceImpl): AboutLckDataSource =
+        aboutLckDataSourceImpl
+
 }

@@ -7,6 +7,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
 import umc.everyones.lck.util.network.NetworkConnectionChecker
 // @HiltAndroidApp : Hilt 사용시 반드시 선행 되어야 하는 부분, 모든 의존성 주입의 시작점
@@ -17,6 +18,10 @@ class EveryonesLCKApplication : Application(), DefaultLifecycleObserver {
         context = applicationContext
         networkConnectionChecker = NetworkConnectionChecker(context)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        val kakaoAppKey = getString(R.string.kakao_app_key)
+        KakaoSdk.init(context,kakaoAppKey)
+
     }
 
     override fun onStop(owner: LifecycleOwner) {

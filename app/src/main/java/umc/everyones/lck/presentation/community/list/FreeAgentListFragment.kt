@@ -6,6 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentPostListBinding
@@ -43,7 +44,7 @@ class FreeAgentListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fra
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.categoryNeedsRefresh.collect { categoryNeedsRefresh ->
-                Log.d("categoryNeedsRefresh", categoryNeedsRefresh)
+                Log.d("FreeAgent", categoryNeedsRefresh)
                 if (categoryNeedsRefresh == CATEGORY) {
                     postListRVA?.refresh()
                     binding.rvPostList.scrollToPosition(0)

@@ -18,56 +18,34 @@ import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.login.SignupViewModel
 import umc.everyones.lck.util.TeamData
+import umc.everyones.lck.util.TeamData.teamLogos
 
 @AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment_mypage_main) {
 
     private val myPageViewModel: MyPageViewModel by activityViewModels()
-    private val signupViewModel: SignupViewModel by activityViewModels() // SignupViewModel을 가져옵니다.
     private val teamLogos = TeamData.mypageTeamBackground
     private val navigator by lazy { findNavController() }
 
     override fun initObserver() {
-        myPageViewModel.user.observe(viewLifecycleOwner) { user ->
-            Log.d("MyPageFragment", "User observed: $user")
-            if (user != null) {
-                binding.tvMypageMainNickname.text = user.nickname
-                binding.tvMypageMainTier.text = user.tier
+        myPageViewModel.profileData.observe(viewLifecycleOwner) { profile ->
+            profile?.let {
+                binding.tvMypageMainNickname.text = it.nickname // 닉네임 설정
+                binding.tvMypageMainTier.text = it.tier // 티어 설정
 
-                val teamLogoResId = teamLogos[user.team] ?: android.R.color.transparent
-                binding.ivMypageMainTeamBackground.setImageResource(teamLogoResId)
+                // 팀 로고 설정
+                val teamBackgroundResId = teamLogos[it.teamId] ?: R.drawable.img_mypage_empty_background
+                binding.ivMypageMainTeamBackground.setImageResource(teamBackgroundResId)
 
-                if (user.profileUri.isNotEmpty()) {
-                    Glide.with(this@MyPageFragment)
-                        .load(Uri.parse(user.profileUri))
-                        .placeholder(R.drawable.img_signup_profile) // 기본 이미지
-                        .into(binding.ivMypageMainProfile)
-                } else {
-                    binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지
-                }
-            } else {
-                Log.d("MyPageFragment", "No user found")
-                binding.tvMypageMainNickname.text = "Unknown"
-                binding.tvMypageMainTier.text = "Bronze"
-                binding.ivMypageMainTeamBackground.setImageResource(android.R.color.transparent)
-                binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지
+                loadProfileImage(it.profileImageUrl) // 프로필 이미지 로드
             }
         }
     }
 
     override fun initView() {
-        // Arguments에서 nickname 가져오기
-        val nickname = arguments?.getString("nickname")
-
-        // ViewModel에 nickname 설정하기
-        nickname?.let {
-            // Load user data using the MyPageViewModel
-            myPageViewModel.loadUser(it, signupViewModel)
-        }
 
         binding.ivMypageMainBack.setOnClickListener {
             val intent = Intent(requireContext(), MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             navigator.navigateUp()
         }
@@ -86,6 +64,19 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
 
         binding.tvMypageMainViewingPartyText.setOnClickListener {
             navigator.navigate(R.id.action_myPageFragment_to_myPageViewingPartyFragment)
+        }
+
+        myPageViewModel.inquiryProfile()
+    }
+
+    private fun loadProfileImage(uri: String?) {
+        uri?.let {
+            Glide.with(this)
+                .load(it)
+                .placeholder(R.drawable.img_signup_profile) // 기본 이미지
+                .into(binding.ivMypageMainProfile) // 프로필 이미지 뷰에 로드
+        } ?: run {
+            binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지 설정
         }
     }
 }

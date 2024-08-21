@@ -12,27 +12,35 @@
         android:background="@drawable/bg_gradient_color">
 
         <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_logo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="36dp"/>
+
+        <ImageView
+            android:id="@+id/iv_my_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_my_page"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="36dp"
+            app:layout_constraintTop_toTopOf="@id/iv_logo"
+            app:layout_constraintBottom_toBottomOf="@id/iv_logo"/>
+
+        <ImageView
             android:id="@+id/iv_about_lck_team_history_pre"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="16.25dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="26dp"
             android:src="@drawable/ic_arrow_previous"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/iv_logo" />
 
-        <TextView
-            android:id="@+id/tv_about_lck_team_history_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="About T1"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/cafe_ohsquare"
-            app:layout_constraintTop_toTopOf="@id/iv_about_lck_team_history_pre"
-            app:layout_constraintBottom_toBottomOf="@id/iv_about_lck_team_history_pre"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
 
         <ImageView
             android:id="@+id/iv_about_lck_team_history_logo"
@@ -42,7 +50,7 @@
             android:layout_marginTop="90dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_about_lck_team_history_title"/>
+            app:layout_constraintTop_toBottomOf="@id/iv_about_lck_team_history_pre"/>
 
         <TextView
             android:id="@+id/iv_about_lck_team_history_team_name"

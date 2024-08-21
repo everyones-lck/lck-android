@@ -3,7 +3,9 @@ package umc.everyones.lck.presentation.mypage
 import android.content.Intent
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.DialogMypageProfileLogoutBinding
@@ -11,18 +13,34 @@ import umc.everyones.lck.databinding.FragmentMypageProfileBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.login.LoginActivity
 import umc.everyones.lck.util.LoginManager
+import umc.everyones.lck.util.TeamData
 
 @AndroidEntryPoint
 class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layout.fragment_mypage_profile) {
 
+    private val myPageViewModel: MyPageViewModel by activityViewModels()
+    private val teamLogos = TeamData.mypageTeamBackground
     private val navigator by lazy { findNavController() }
 
     override fun initObserver() {
-        // Initialize observers if needed
+        myPageViewModel.profileData.observe(viewLifecycleOwner) { profile ->
+            profile?.let {
+                binding.tvMypageProfileNickname.text = it.nickname // 닉네임 설정
+                binding.tvMypageProfileTier.text = it.tier // 티어 설정
+
+                // 팀 로고 설정
+                val teamBackgroundResId = teamLogos[it.teamId] ?: R.drawable.img_mypage_empty_background
+                binding.ivMypageMainTeamBackground.setImageResource(teamBackgroundResId)
+
+                loadProfileImage(it.profileImageUrl) // 프로필 이미지 로드
+
+                updateTierUI(it.tier)
+            }
+        }
     }
 
     override fun initView() {
-        // Initialize views and set up listeners
+
         binding.tvMypageProfileEditText.setOnClickListener {
             navigator.navigate(R.id.action_myPageProfileFragment_to_myPageProfileEditFragment)
         }
@@ -37,16 +55,11 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         binding.ivMypageProfileBack.setOnClickListener{
             navigator.navigateUp()
         }
-
-        // Update UI with user's tier color
-        updateTierUI()
     }
 
-    private fun updateTierUI() {
-        val tier = getUserTier()
-
+    private fun updateTierUI(tier: String) {
         val tierBackgrounds = mapOf(
-            "Bronze" to R.drawable.shape_oval_bronze,
+            "bronze" to R.drawable.shape_oval_bronze,
             "Silver" to R.drawable.shape_oval_silver,
             "Gold" to R.drawable.shape_oval_gold,
             "Master" to R.drawable.shape_oval_master,
@@ -54,7 +67,7 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         )
 
         val tierStyles = mapOf(
-            "Bronze" to R.style.TextAppearance_Bronze,
+            "bronze" to R.style.TextAppearance_Bronze,
             "Silver" to R.style.TextAppearance_Silver,
             "Gold" to R.style.TextAppearance_Gold,
             "Master" to R.style.TextAppearance_Master,
@@ -68,14 +81,6 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
 
         // 티어 텍스트 업데이트
         binding.tvMypageProfileTier.text = tier
-    }
-
-
-    private fun getUserTier(): String {
-        // Fetch the user tier from LoginManager or other source
-        // Here, we are assuming LoginManager has a method to get the tier
-        val loginManager = LoginManager(requireContext())
-        return loginManager.getUserTier() ?: "Bronze"
     }
 
     private fun showProfileDialog() {
@@ -109,6 +114,17 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
             requireActivity().finish()
+        }
+    }
+
+    private fun loadProfileImage(uri: String?) {
+        uri?.let {
+            Glide.with(this)
+                .load(it)
+                .placeholder(R.drawable.img_signup_profile) // 기본 이미지
+                .into(binding.ivMypageMainProfile) // 프로필 이미지 뷰에 로드
+        } ?: run {
+            binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지 설정
         }
     }
 }

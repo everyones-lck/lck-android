@@ -15,7 +15,6 @@ import umc.everyones.lck.data.repositoryImpl.TestRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.TodayMatchRepositoryImpl
 import umc.everyones.lck.data.datasource.login.LoginDataSource
 import umc.everyones.lck.data.datasourceImpl.LoginDataSourceImpl
-import umc.everyones.lck.data.repositoryImpl.TestRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.mypage.MypageRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.about_lck.AboutLckRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.community.CommunityRepositoryImpl

@@ -12,7 +12,8 @@ data class AboutLckPlayerDetailsModel(
         val playerName: String,
         val playerRole: PlayerRole?,
         val position : PlayerPosition,
-        val profileImageUrl:String
+        val profileImageUrl:String,
+        val isCaptain: Boolean
     )
     enum class PlayerRole {
         LCK_ROSTER,

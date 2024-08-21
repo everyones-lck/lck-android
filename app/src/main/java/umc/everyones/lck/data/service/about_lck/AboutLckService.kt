@@ -1,8 +1,6 @@
 package umc.everyones.lck.data.service.about_lck
 
-import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
@@ -15,7 +13,6 @@ import umc.everyones.lck.data.dto.response.about_lck.LckRankingResponseDto
 import umc.everyones.lck.data.dto.response.about_lck.LckRecentPerformanceResponseDto
 import umc.everyones.lck.data.dto.response.about_lck.LckWinningCareerResponseDto
 import umc.everyones.lck.data.dto.response.about_lck.LckWinningHistoryResponseDto
-import umc.everyones.lck.domain.model.about_lck.AboutLckPlayerDetailsModel
 
 interface AboutLckService {
     @GET("aboutlck/match")

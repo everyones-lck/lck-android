@@ -37,6 +37,9 @@ class ReadPostViewModel @Inject constructor(
     private val _isWriter = MutableEventFlow<Boolean>()
     val isWriter: EventFlow<Boolean> get() = _isWriter
 
+    private val _imageUrl = MutableStateFlow<String>("")
+    val imageUrl: StateFlow<String> get() = _imageUrl
+
     sealed class ReadCommunityEvent{
         data class ReadPost(val post: ReadCommunityResponseModel): ReadCommunityEvent()
 
@@ -51,6 +54,11 @@ class ReadPostViewModel @Inject constructor(
         data object CreateComment : ReadCommunityEvent()
 
         data object DeleteComment : ReadCommunityEvent()
+    }
+
+    fun setImageUrl(url: String){
+        _imageUrl.value = ""
+        _imageUrl.value = url
     }
 
     fun fetchCommunityPost(){

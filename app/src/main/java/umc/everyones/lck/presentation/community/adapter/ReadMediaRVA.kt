@@ -29,13 +29,13 @@ class ReadMediaRVA(val viewOriginalMedia: (String) -> Unit // 미디어 원본 �
     inner class ReadMediaViewHolder(private val binding: ItemMediaReadBinding) :
         RecyclerView.ViewHolder(binding.root) {
             fun bind(url: String){
-                /*
+
                 Glide.with(binding.ivMediaImage.context)
                     .load(url)
                     .into(binding.ivMediaImage)
                 binding.ivMediaImage.setOnSingleClickListener {
                     viewOriginalMedia(url)
-                }*/
+                }
             }
         }
 

@@ -50,6 +50,9 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
     private val readMediaRVA by lazy {
         ReadMediaRVA { url ->
             // 미디어 원본 보기 기능
+            viewModel.setImageUrl(url)
+            val dialog = ReadImageDialogFragment()
+            dialog.show(supportFragmentManager, dialog.tag)
         }
     }
 
@@ -74,7 +77,9 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         repeatOnStarted {
             viewModel.readCommunityEvent.collect { state ->
                 when(state){
-                    is UiState.Success -> handleReadCommunityEvent(state.data)
+                    is UiState.Success -> {
+                        handleReadCommunityEvent(state.data)
+                    }
                     is UiState.Failure -> showCustomSnackBar(binding.root, state.msg)
                     else -> Unit
                 }
@@ -115,7 +120,9 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
                         .load(writerProfileUrl)
                         .into(binding.ivReadProfileImage)
                     commentRVA.submitList(commentList)
-                    readMediaRVA.submitList(fileUrlList)
+                    readMediaRVA.submitList(fileUrlList){
+                        binding.rvReadMedia.visibility = View.VISIBLE
+                    }
                 }
             }
             ReadPostViewModel.ReadCommunityEvent.ReportComment -> {

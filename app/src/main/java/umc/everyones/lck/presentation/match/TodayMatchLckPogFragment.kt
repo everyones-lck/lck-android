@@ -18,7 +18,6 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
     private val viewModel: TodayMatchLckPogViewModel by viewModels()
     private lateinit var lckPogMatchRVA: LckPogMatchRVA
     private var tabIndex = 0
-//    private lateinit var lckPogPlayerRVA: LckPogPlayerRVA
 
     override fun initObserver() {
         // 세트 수를 받아와서 탭 레이아웃 설정
@@ -26,28 +25,13 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
             lckPogMatchRVA.updateSetCount(setCountModel.setCount)
             Log.d("TodayMatchLckPogFragment", "Set Count: ${setCountModel.setCount}")
         }
-//        // 각 세트의 POG 데이터를 관찰하여 리사이클러뷰 업데이트
-//        viewModel.setPogData.observe(viewLifecycleOwner) { pogData ->
-//            pogData?.let {
-//                lckPogMatchRVA.submitList(listOf(it)) // 데이터를 리스트로 변환하여 전달
-//                Log.d("TodayMatchLckPogFragment", "Set POG Data: $pogData")
-//            }
-//        }
         // 각 세트의 POG 데이터를 관찰하여 리사이클러뷰 업데이트
         viewModel.setPogData.observe(viewLifecycleOwner) { pogData ->
             pogData?.let {
-                lckPogMatchRVA.updatePlayers(listOf(it))
+                lckPogMatchRVA.updatePlayers(listOf(CommonTodayMatchPogModel(it.id, it.name, it.profileImageUrl, it.seasonInfo, it.matchNumber, it.matchDate, tabIndex)))
                 Log.d("TodayMatchLckPogFragment", "Set POG Data: $pogData")
             }
         }
-
-//        // 매치 POG 데이터를 관찰하여 리사이클러뷰 업데이트
-//        viewModel.matchPogData.observe(viewLifecycleOwner) { pogData ->
-//            pogData?.let {
-//                lckPogMatchRVA.submitList(listOf(it))  // 매치별 POG 데이터를 업데이트
-//                Log.d("TodayMatchLckPogFragment", "Match POG Data: $pogData")
-//            }
-//        }
         // 매치 POG 데이터를 관찰하여 리사이클러뷰 업데이트
         viewModel.matchPogData.observe(viewLifecycleOwner) { pogData ->
             pogData?.let {
@@ -55,16 +39,6 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
                 Log.d("TodayMatchLckPogFragment", "Match POG Data: $pogData")
             }
         }
-//        // 탭 선택 시 세트별 POG 데이터를 불러오기
-//        viewModel.selectedTabIndex.observe(viewLifecycleOwner) { tabIndex ->
-//            val matchId = 3L // 실제 matchId를 사용
-//            if (tabIndex < (viewModel.setCount.value?.setCount ?: 0)) {
-//                viewModel.fetchTodayMatchSetPog(tabIndex + 1, matchId)
-//            } else {
-//                viewModel.fetchTodayMatchMatchPog(matchId)
-//            }
-//            Log.d("TodayMatchLckPogFragment", "Tab selected: $tabIndex")
-//        }
         // 탭 선택 시 세트별 POG 데이터를 불러오기
         viewModel.selectedTabIndex.observe(viewLifecycleOwner) { tabIndex ->
             val matchId = 3L
@@ -81,8 +55,6 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
     override fun initView() {
         setupRecyclerView()
         viewModel.fetchTodayMatchSetCount(3)
-//        viewModel.fetchTodayMatchSetPog(1,3)
-//        viewModel.fetchTodayMatchMatchPog(3)
         viewModel.updateSelectedTab(0)
     }
     private fun setupRecyclerView() {
@@ -96,10 +68,8 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
         )
         binding.rvTodayMatchLckPogContainer.layoutManager = LinearLayoutManager(context)
         binding.rvTodayMatchLckPogContainer.adapter = lckPogMatchRVA
+        binding.rvTodayMatchLckPogContainer.itemAnimator = null
 
     }
-//    private fun updateRecyclerView(pogData: List<CommonTodayMatchPogModel>) {
-//        lckPogMatchRVA.updateItems(pogData)
-//    }
 
 }

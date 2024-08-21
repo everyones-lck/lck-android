@@ -78,45 +78,6 @@ class LckPogMatchRVA(
             playerAdapter.submitList(listOf(item))
         }
     }
-    //        fun bind(item: CommonTodayMatchPogModel) {
-//            binding.tvTodayMatchLckPogMatchTitle.text = "${item.seasonInfo} ${item.matchNumber.toOrdinal()} Match"
-//            binding.tvTodayMatchLckPogMatchDate.text = item.matchDate
-//
-//            val playerAdapter = LckPogPlayerRVA()
-//            binding.rvTodayMatchLckPogPlayer.adapter = playerAdapter
-//
-//            // 탭 레이아웃 초기화 및 세트 수에 맞춰 탭 추가
-//            binding.tabTodayMatchLckPog.removeAllTabs()
-//            for (i in 1..setCount) {
-//                binding.tabTodayMatchLckPog.addTab(binding.tabTodayMatchLckPog.newTab().setText("${i.toOrdinal()} POG"))
-//            }
-//            binding.tabTodayMatchLckPog.addTab(binding.tabTodayMatchLckPog.newTab().setText("by Match"))
-//
-//            // 탭의 마진 설정
-//            for (i in 0 until binding.tabTodayMatchLckPog.tabCount) {
-//                val tab = (binding.tabTodayMatchLckPog.getChildAt(0) as? ViewGroup)?.getChildAt(i)
-//                tab?.let {
-//                    val layoutParams = it.layoutParams as LinearLayout.LayoutParams
-//                    layoutParams.marginStart = 20
-//                    layoutParams.marginEnd = 20 // 20dp margin between tabs
-//                    it.layoutParams = layoutParams
-//                }
-//            }
-//
-//            // 탭 선택 시 리스너 설정
-//            binding.tabTodayMatchLckPog.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//                override fun onTabSelected(tab: TabLayout.Tab?) {
-//                    tab?.position?.let { position ->
-//                        onTabSelected(position)
-//                    }
-//                }
-//
-//                override fun onTabUnselected(tab: TabLayout.Tab?) {}
-//
-//                override fun onTabReselected(tab: TabLayout.Tab?) {}
-//            })
-//        }
-//    }
     fun updatePlayers(players: List<CommonTodayMatchPogModel>) {
         submitList(players)
     }

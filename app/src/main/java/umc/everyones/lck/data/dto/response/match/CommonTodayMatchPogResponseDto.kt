@@ -11,5 +11,5 @@ data class CommonTodayMatchPogResponseDto(
     val matchDate: String
 ) {
     fun toCommonTodayMatchPogModel() =
-        CommonTodayMatchPogModel(id, name, profileImageUrl, seasonInfo, matchNumber, matchDate)
+        CommonTodayMatchPogModel(id, name, profileImageUrl, seasonInfo, matchNumber, matchDate.replace("T", " ").dropLast(3))
 }

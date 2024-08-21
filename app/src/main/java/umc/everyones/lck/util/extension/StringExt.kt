@@ -37,3 +37,13 @@ fun String.toWriteViewingPartyDateFormat(): String {
         "20${this[0].replace(".", " / ")} | ${this[1].trim()}"
     }
 }
+
+fun formatMatchTitle(season: String, matchNumber: Int): String {
+    val suffix = when (matchNumber % 10) {
+        1 -> "st"
+        2 -> "nd"
+        3 -> "rd"
+        else -> "th"
+    }
+    return "$season LCK ${matchNumber}${suffix} Match"
+}

@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -34,6 +35,17 @@ class AboutLckViewModel @Inject constructor(
     private val _rankingDetails = MutableStateFlow<Result<AboutLckRankingDetailsModel>?>(null)
     val rankingDetails: StateFlow<Result<AboutLckRankingDetailsModel>?> get() = _rankingDetails
 
+    val temp = MutableSharedFlow<AboutLckMatchDetailsModel>()
+
+    fun fetch(){
+        viewModelScope.launch {
+            repository.fetchLckMatchDetails("2024-08-21").onSuccess {
+                temp.emit(it)
+            }.onFailure {
+
+            }
+        }
+    }
 
     fun fetchLckMatchDetails(searchDate: String) {
         viewModelScope.launch {

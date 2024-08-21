@@ -1,5 +1,6 @@
 package umc.everyones.lck.presentation.lck
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentAboutLckBinding
@@ -25,7 +25,11 @@ import umc.everyones.lck.presentation.lck.data.RankingData
 import umc.everyones.lck.presentation.lck.util.CustomDatePickerDialog
 import umc.everyones.lck.presentation.lck.util.OnTeamClickListener
 import umc.everyones.lck.presentation.lck.util.VerticalSpaceItemDecoration
+import umc.everyones.lck.util.extension.repeatOnStarted
+import umc.everyones.lck.util.extension.showCustomSnackBar
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 
 @AndroidEntryPoint
 class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment_about_lck),
@@ -42,28 +46,58 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
     private val viewModel: AboutLckViewModel by viewModels()
 
     private var selectedDate: Calendar = Calendar.getInstance()
+    @SuppressLint("SimpleDateFormat")
     override fun initObserver() {
-        lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.repeatOnStarted {
             viewModel.matchDetails.collect { result ->
                 Log.d("AboutLCKFragment", "Collect")
                 handleMatchDetailsResult(result)
             }
         }
-        lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.repeatOnStarted {
             viewModel.rankingDetails.collect { result ->
                 handleRankingDetailsResult(result)
+            }
+        }
+
+        viewLifecycleOwner.repeatOnStarted {
+            viewModel.temp.collect{
+                val temp = it.matchDetailList.groupBy { it.matchDate }
+                val temp1 = temp.map {Test(it.key, it.value)
+                }.sortedBy { it.date }
+                Log.d("temp1", temp1.toString())
+                matchVPAdapter.submitList(temp1)
+                scrollWithDate("")
             }
         }
     }
 
     override fun initView() {
+        viewModel.fetch()
         initMatchViewPager()
         initRankingRecyclerView()
         initBackButton()
         initCalendarButton()
-        initViewPagerSwipe()
-        updateDateTextView(selectedDate)
-        fetchMatchDataForSelectedDate()
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun scrollWithDate(inputDate: String){
+        Log.d("inputDate", inputDate)
+        if(matchVPAdapter.currentList.isEmpty()){
+            return
+        }
+        val date = inputDate.replace(".","-").ifEmpty {
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+            val currentDate = Date(System.currentTimeMillis())
+            dateFormat.format(currentDate)
+        }
+        val index = matchVPAdapter.currentList.indexOfFirst { it.date == date }
+        if(index == -1){
+            showCustomSnackBar(binding.root, "해당 날짜에 예정된 경기가 없습니다")
+        } else {
+            binding.vpAboutLckMatch.setCurrentItem(matchVPAdapter.currentList.indexOfFirst { it.date == date }, false)
+            binding.tvAboutLckDate.text = date.replace("-",".")
+        }
     }
 
     private fun handleMatchDetailsResult(result: Result<AboutLckMatchDetailsModel>?) {
@@ -71,8 +105,6 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
         result?.onSuccess { data ->
             Log.d("AboutLCKFragment", "Successfully fetched match details")
-
-            matchVPAdapter.clearMatchDetails()
 
             val matchDataList = matchVPAdapter.getMatchDataList().toMutableList()
 
@@ -87,7 +119,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
 
 
-            updateMatchViewPager(matchDataList)
+            //updateMatchViewPager(matchDataList)
         }?.onFailure { throwable ->
             Log.e("AboutLCKFragment", "Failed to fetch match details: ${throwable.message}", throwable)
         }
@@ -115,62 +147,18 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         )
     }
 
-    private fun updateMatchViewPager(matchDataList: List<MatchData>) {
-        Log.d("AboutLCKFragment", "Updating MatchViewPager with matchDataList: $matchDataList")
-
-        val groupedMatchData = matchDataList.groupBy { it.matchDate }
-        val selectedDateString = String.format(
-            "%d-%02d-%02d",
-            selectedDate.get(Calendar.YEAR),
-            selectedDate.get(Calendar.MONTH) + 1,
-            selectedDate.get(Calendar.DAY_OF_MONTH)
-        )
-
-        val dateRange = listOf(
-            LocalDate.parse(selectedDateString).minusDays(1).toString(),  // 어제
-            selectedDateString,  // 오늘
-            LocalDate.parse(selectedDateString).plusDays(1).toString()  // 내일
-        )
-
-        Log.d("AboutLCKFragment", "Date range for ViewPager: $dateRange")
-
-        val viewPagerDataList = mutableListOf<List<MatchData>>()
-        dateRange.forEach { date ->
-            val matches = groupedMatchData[date]
-            Log.d("AboutLCKFragment", "Matches for date $date: $matches")
-
-            if (matches.isNullOrEmpty()) {
-                viewPagerDataList.add(
-                    listOf(
-                        MatchData(
-                            date, "No Matches", null, null, null, false, false
-                        )
-                    )
-                )
-            } else {
-                viewPagerDataList.add(matches)
-            }
-        }
-
-        if (!::matchVPAdapter.isInitialized) {
-            matchVPAdapter = MatchVPAdapter()
-            binding.vpAboutLckMatch.adapter = matchVPAdapter
-        }
-
-        matchVPAdapter.clearMatchDetails()
-        viewPagerDataList.forEach { matchDetailsList ->
-            matchVPAdapter.addMatchDetails(matchDetailsList)
-        }
-        matchVPAdapter.notifyDataSetChanged()
-
-        Log.d("AboutLCKFragment", "MatchViewPager updated with new data, setting current item to today")
-        binding.vpAboutLckMatch.setCurrentItem(1, false)
-    }
-
+    @SuppressLint("SimpleDateFormat")
     private fun initMatchViewPager() {
         val viewPager: ViewPager2 = binding.vpAboutLckMatch
         matchVPAdapter = MatchVPAdapter()
         viewPager.adapter = matchVPAdapter
+
+        binding.vpAboutLckMatch.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                binding.tvAboutLckDate.text = matchVPAdapter.currentList[position].date.replace("-",".")
+                Log.d("selected dates vp", matchVPAdapter.currentList[position].date)
+            }
+        })
 
         val pageMarginPx = 16 * resources.displayMetrics.densityDpi / 160
         val offsetPx = 40 * resources.displayMetrics.densityDpi / 160
@@ -185,64 +173,6 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         recyclerViewMatches.setPadding(pageMarginPx, 0, pageMarginPx, 0)
         recyclerViewMatches.clipToPadding = false
     }
-    private fun updateDateTextView(date: Calendar) {
-        val dateTextView: TextView = binding.tvAboutLckDate
-        val formattedDate = String.format("%d.%02d.%02d", date.get(Calendar.YEAR), date.get(Calendar.MONTH) + 1, date.get(Calendar.DAY_OF_MONTH))
-        dateTextView.text = formattedDate
-    }
-
-    private fun fetchMatchDataForSelectedDate() {
-        binding.vpAboutLckMatch.post {
-            matchVPAdapter.clearMatchDetails()
-            matchVPAdapter.notifyDataSetChanged()
-
-            val formattedDate = String.format(
-                "%d-%02d-%02d",
-                selectedDate.get(Calendar.YEAR),
-                selectedDate.get(Calendar.MONTH) + 1,
-                selectedDate.get(Calendar.DAY_OF_MONTH)
-            )
-            Log.d("API_CALL", "Fetching match data for date: $formattedDate")
-            viewModel.fetchLckMatchDetails(formattedDate)
-        }
-    }
-
-    private fun initViewPagerSwipe() {
-        binding.vpAboutLckMatch.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                Log.d("ViewPagerSwipe", "Page selected: $position")
-
-                when (position) {
-                    0 -> {
-                        Log.d("ViewPagerSwipe", "Swiped to previous date (Left)")
-                        moveToPreviousDate()
-                    }
-                    2 -> {
-                        Log.d("ViewPagerSwipe", "Swiped to next date (Right)")
-                        moveToNextDate()
-                    }
-                    else -> {
-                        Log.d("ViewPagerSwipe", "Currently on the selected date")
-                    }
-                }
-            }
-        })
-    }
-
-    private fun moveToPreviousDate() {
-        selectedDate.add(Calendar.DAY_OF_MONTH, -1)
-        updateDateTextView(selectedDate)
-        fetchMatchDataForSelectedDate()
-    }
-
-    private fun moveToNextDate() {
-        selectedDate.add(Calendar.DAY_OF_MONTH, +1)
-        updateDateTextView(selectedDate)
-        fetchMatchDataForSelectedDate()
-    }
-
     private fun handleRankingDetailsResult(result: Result<AboutLckRankingDetailsModel>?) {
         result?.onSuccess { rankingDetails ->
             val teamDetails = rankingDetails.teamDetailList
@@ -381,12 +311,17 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
     private fun updateSelectedDate(year: Int, month: Int, day: Int) {
         selectedDate.set(year, month, day)
-        updateDateTextView(selectedDate)
-        fetchMatchDataForSelectedDate()
+        val formattedDate = String.format("%d.%02d.%02d", selectedDate.get(Calendar.YEAR), selectedDate.get(Calendar.MONTH) + 1, selectedDate.get(Calendar.DAY_OF_MONTH))
+        scrollWithDate(formattedDate)
     }
 
     override fun onTeamClick(team: RankingData) {
         val action = AboutLCKFragmentDirections.actionAboutLCKFragmentToAboutLckTeamFragment(team.teamId,team.teamName,team.teamLogoUrl)
         navigator.navigate(action)
     }
+
+    data class Test(
+        val date: String,
+        val list: List<AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel>
+    )
 }

@@ -27,4 +27,5 @@ class HistoryDetailAdapter(private val details: List<String>) :
     override fun getItemCount(): Int {
         return details.size
     }
+
 }

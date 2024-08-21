@@ -34,7 +34,7 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
                 binding.tvMypageMainNickname.text = user.nickname
                 binding.tvMypageMainTier.text = user.tier
 
-                val teamLogoResId = teamLogos[user.team] ?: android.R.color.transparent
+                val teamLogoResId = teamLogos[user.teamId] ?: android.R.color.transparent
                 binding.ivMypageMainTeamBackground.setImageResource(teamLogoResId)
 
                 if (user.profileUri.isNotEmpty()) {

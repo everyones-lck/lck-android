@@ -5,3 +5,4 @@ import umc.everyones.lck.presentation.lck.data.RankingData
 interface OnTeamClickListener {
     fun onTeamClick(team: RankingData)
 }
+

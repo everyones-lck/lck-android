@@ -28,17 +28,20 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "NAVER_CLIENT_ID", "\""+properties["NAVER_CLIENT_ID"]+"\"")
         buildConfigField("String", "NAVER_CLIENT_SECRET", "\""+properties["NAVER_CLIENT_SECRET"]+"\"")
+        buildConfigField("String", "KAKAO_APP_KEY", "\"${properties["KAKAO_APP_KEY"]}\"")
     }
 
     buildTypes {
         debug {
             isMinifyEnabled = false
             manifestPlaceholders["NAVER_CLIENT_ID"] = properties["NAVER_CLIENT_ID"] as String
+            manifestPlaceholders["KAKAO_APP_KEY"] = properties["KAKAO_APP_KEY"] as String
         }
 
         release {
             isMinifyEnabled = false
             manifestPlaceholders["NAVER_CLIENT_ID"] = properties["NAVER_CLIENT_ID"] as String
+            manifestPlaceholders["KAKAO_APP_KEY"] = properties["KAKAO_APP_KEY"] as String
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -130,4 +133,7 @@ dependencies {
     implementation ("com.google.android.exoplayer:exoplayer-core:2.18.2")
     implementation ("com.google.android.exoplayer:exoplayer-dash:2.18.2")
     implementation ("com.google.android.exoplayer:exoplayer-ui:2.18.2")
+
+    //kakao Login
+    implementation ("com.kakao.sdk:v2-user:2.20.3") // 카카오 로그인 API 모듈
 }

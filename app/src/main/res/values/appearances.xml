@@ -57,6 +57,10 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="TextAppearance.LCK.Light.List_16sp">
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="TextAppearance.LCK.Light.Body_14sp">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/black</item>

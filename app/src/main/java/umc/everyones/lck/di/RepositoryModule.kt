@@ -13,14 +13,17 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import umc.everyones.lck.data.datasource.login.LoginDataSource
 import umc.everyones.lck.data.datasourceImpl.LoginDataSourceImpl
 import umc.everyones.lck.data.repositoryImpl.TestRepositoryImpl
+import umc.everyones.lck.data.repositoryImpl.mypage.MypageRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.about_lck.AboutLckRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.community.CommunityRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.login.LoginRepositoryImpl
 import umc.everyones.lck.data.repositoryImpl.party.ViewingPartyRepositoryImpl
+import umc.everyones.lck.data.service.MypageService
 import umc.everyones.lck.data.service.LoginService
 import umc.everyones.lck.data.service.NaverService
 import umc.everyones.lck.data.service.TestService
 import umc.everyones.lck.data.service.party.ViewingPartyService
+import umc.everyones.lck.domain.repository.MypageRepository
 import umc.everyones.lck.domain.repository.TestRepository
 import umc.everyones.lck.domain.repository.about_lck.AboutLckRepository
 import umc.everyones.lck.domain.repository.community.CommunityRepository
@@ -66,6 +69,13 @@ object RepositoryModule {
     fun providesViewingPartyRepository(
         viewingPartyRepositoryImpl: ViewingPartyRepositoryImpl
     ): ViewingPartyRepository = viewingPartyRepositoryImpl
+
+    @ViewModelScoped
+    @Provides
+    fun provideMypageRepository(
+        mypageRepositoryImpl: MypageRepositoryImpl
+    ): MypageRepository = mypageRepositoryImpl
+
 
     @ViewModelScoped
     @Provides

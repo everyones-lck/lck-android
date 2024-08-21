@@ -42,7 +42,6 @@ class AboutLckTeamHistoryViewModel @Inject constructor(
     fun fetchLckRecentPerformances(teamId: Int, page: Int, size: Int) {
         viewModelScope.launch {
             val result = repository.fetchLckRecentPerformances(teamId, page, size)
-
             result.onSuccess { response ->
                 Log.d("AboutLckTeamHistoryViewModel", "fetchLckRecentPerformances API 호출 성공")
                 val formattedPerformances = response.seasonDetailList.map { detail ->
@@ -61,14 +60,14 @@ class AboutLckTeamHistoryViewModel @Inject constructor(
 
             result.onSuccess { response ->
                 Log.d("AboutLckTeamHistoryViewModel", "fetchLckHistoryOfRoaster API 호출 성공")
-
-                val historyOfRoaster = response.seasonDetails.map { seasonDetail ->
-                    val playersByPosition = listOf("TOP", "JUNGLE", "MID", "BOT", "SUPPORT").map { position ->
-                        seasonDetail.players.find { it.playerPosition.name == position }?.playerName ?: "000"
-                    }.joinToString(" | ")
-
-                    "${seasonDetail.seasonName} $playersByPosition"
-                }
+                val historyOfRoaster = response.seasonDetails
+                    .filter { it.players.isNotEmpty() }
+                    .map { seasonDetail ->
+                        val playersByPosition = listOf("TOP", "JUNGLE", "MID", "BOT", "SUPPORT").map { position ->
+                            seasonDetail.players.find { it.playerPosition?.name == position }?.playerName ?: "000"
+                        }.joinToString(" | ")
+                        "${seasonDetail.seasonName} $playersByPosition"
+                    }
                 _historyOfRoaster.update { historyOfRoaster }
             }.onFailure {
                 Log.e("AboutLckTeamHistoryViewModel", "fetchLckHistoryOfRoaster API 호출 실패: ${it.message}")

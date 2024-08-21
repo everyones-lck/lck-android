@@ -15,8 +15,8 @@ data class AboutLckHistoryOfRoasterModel(
         data class LckHistoryOfRoasterPlayerElementModel(
             val playerId: Int,
             val playerName: String,
-            val playerRole: PlayerRole,
-            val playerPosition:PlayerPosition
+            val playerRole: PlayerRole?,
+            val playerPosition:PlayerPosition?
         )
         enum class PlayerRole {
             LCK_ROSTER,

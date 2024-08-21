@@ -18,11 +18,16 @@ data class LckHistoryOfRoasterResponseDto(
         data class LckHistoryOfRoasterPlayerElementDto(
             val playerId: Int,
             val playerName: String,
-            val playerRole: PlayerRole,
-            val playerPosition:PlayerPosition
+            val playerRole: PlayerRole?,
+            val playerPosition: PlayerPosition?
         ){
             fun toAboutLckHistoryOfRoasterPlayerElementModel() =
-                AboutLckHistoryOfRoasterModel.LckHistoryOfRoasterSeasonPlayerElementModel.LckHistoryOfRoasterPlayerElementModel(playerId,playerName,playerRole.toAboutLckPlayerRole(),playerPosition.toAboutLckPlayerPosition())
+                AboutLckHistoryOfRoasterModel.LckHistoryOfRoasterSeasonPlayerElementModel.LckHistoryOfRoasterPlayerElementModel(
+                    playerId,
+                    playerName,
+                    playerRole?.toAboutLckPlayerRole() ?: AboutLckHistoryOfRoasterModel.LckHistoryOfRoasterSeasonPlayerElementModel.PlayerRole.DEFAULT,
+                    playerPosition?.toAboutLckPlayerPosition() ?: AboutLckHistoryOfRoasterModel.LckHistoryOfRoasterSeasonPlayerElementModel.PlayerPosition.COACH
+                )
 
             enum class PlayerRole {
                 LCK_ROSTER,

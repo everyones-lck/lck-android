@@ -73,17 +73,17 @@ class AboutLckCoachesFragment : BaseFragment<FragmentAboutLckCoachesBinding>(R.l
 
     private fun getTeamLogoResource(teamId: Int): Int {
         val logoRes = when (teamId) {
-            2 -> R.drawable.img_about_lck_gen_g_gray
-            3 -> R.drawable.img_about_lck_hanhwa_gray
-            4 -> R.drawable.img_about_lck_dk_gray
+            2 -> R.drawable.img_about_lck_player_team_logo_geng
+            3 -> R.drawable.img_about_lck_player_team_logo_hanhwa
+            4 -> R.drawable.img_about_lck_player_team_logo_dk
             5 -> R.drawable.img_about_lck_player_team_logo_t1
-            6 -> R.drawable.img_about_lck_kt_gray
-            7 -> R.drawable.img_about_lck_gwangdong_gray
-            8 -> R.drawable.img_about_lck_bnk_gray
-            9 -> R.drawable.img_about_lck_red_force_gray
-            10 -> R.drawable.img_about_lck_drx_gray
-            11 -> R.drawable.img_about_lck_ok_gray
-            else ->R.drawable.img_about_lck_ok_gray
+            6 -> R.drawable.img_about_lck_player_team_logo_kt
+            7 -> R.drawable.img_about_lck_player_team_logo_kwangdong
+            8 -> R.drawable.img_about_lck_player_team_logo_bnk
+            9 -> R.drawable.img_about_lck_player_team_logo_ns
+            10 -> R.drawable.img_about_lck_player_team_logo_drx
+            11 -> R.drawable.img_about_lck_player_team_logo_ok
+            else ->R.drawable.img_about_lck_player_team_logo_t1
         }
         return logoRes
     }

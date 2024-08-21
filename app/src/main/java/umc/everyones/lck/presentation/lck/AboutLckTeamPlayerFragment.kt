@@ -15,6 +15,8 @@ import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.lck.adapter.HistoryAdapter
 import umc.everyones.lck.presentation.lck.adapter.PlayerCareerAdapter
 import umc.everyones.lck.presentation.lck.data.PlayerCareerData
+import umc.everyones.lck.presentation.mypage.MyPageActivity
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class AboutLckTeamPlayerFragment : BaseFragment<FragmentAboutLckTeamPlayerBinding>(R.layout.fragment_about_lck_team_player) {
@@ -45,6 +47,7 @@ class AboutLckTeamPlayerFragment : BaseFragment<FragmentAboutLckTeamPlayerBindin
     override fun initView() {
         initRecyclerView()
         initBackButton()
+        goMyPage()
         val playerId = arguments?.let { AboutLckTeamPlayerFragmentArgs.fromBundle(it).playerId }
 
         val page = 0
@@ -126,6 +129,12 @@ class AboutLckTeamPlayerFragment : BaseFragment<FragmentAboutLckTeamPlayerBindin
         val backButton = binding.ivAboutLckTeamPlayerPre
         backButton.setOnClickListener {
             findNavController().popBackStack()
+        }
+    }
+
+    private fun goMyPage(){
+        binding.ivMyPage.setOnSingleClickListener {
+            startActivity(MyPageActivity.newIntent(requireContext()))
         }
     }
 }

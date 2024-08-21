@@ -24,6 +24,8 @@ import umc.everyones.lck.presentation.lck.util.OnPlayerItemClickListener
 import com.google.android.material.tabs.TabLayoutMediator
 import umc.everyones.lck.data.dto.response.about_lck.LckPlayerDetailsResponseDto
 import umc.everyones.lck.domain.model.about_lck.AboutLckPlayerDetailsModel
+import umc.everyones.lck.presentation.mypage.MyPageActivity
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.fragment_about_lck_team),
@@ -42,6 +44,7 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
 
     override fun initView() {
         receiveSafeArgs()
+        goMyPage()
 
         if (teamId != null) {
             setupViewPagerAndTabs()
@@ -135,5 +138,11 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
     override fun onPlayerItemClick(player: PlayerData) {
         val action = AboutLckTeamFragmentDirections.actionAboutLCKTeamFragmentToAboutLckTeamPlayerFragment(player.playerId,teamLogoUrl?:" ")
         navigator.navigate(action)
+    }
+
+    private fun goMyPage(){
+        binding.ivMyPage.setOnSingleClickListener {
+            startActivity(MyPageActivity.newIntent(requireContext()))
+        }
     }
 }

@@ -13,6 +13,8 @@ import umc.everyones.lck.databinding.FragmentAboutLckTeamHistoryBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.lck.adapter.HistoryAdapter
 import umc.everyones.lck.presentation.lck.data.HistoryData
+import umc.everyones.lck.presentation.mypage.MyPageActivity
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class AboutLckTeamHistoryFragment : BaseFragment<FragmentAboutLckTeamHistoryBinding>(R.layout.fragment_about_lck_team_history) {
@@ -43,6 +45,7 @@ class AboutLckTeamHistoryFragment : BaseFragment<FragmentAboutLckTeamHistoryBind
         initBackButton()
         setupTeamInfo()
         fetchTeamData()
+        goMyPage()
     }
 
     private fun initRecyclerView() {
@@ -119,6 +122,11 @@ class AboutLckTeamHistoryFragment : BaseFragment<FragmentAboutLckTeamHistoryBind
         val backButton = binding.ivAboutLckTeamHistoryPre
         backButton.setOnClickListener {
             findNavController().popBackStack()
+        }
+    }
+    private fun goMyPage(){
+        binding.ivMyPage.setOnSingleClickListener {
+            startActivity(MyPageActivity.newIntent(requireContext()))
         }
     }
 }

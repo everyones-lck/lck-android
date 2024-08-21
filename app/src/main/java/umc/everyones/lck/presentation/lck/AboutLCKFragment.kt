@@ -25,7 +25,9 @@ import umc.everyones.lck.presentation.lck.data.RankingData
 import umc.everyones.lck.presentation.lck.util.CustomDatePickerDialog
 import umc.everyones.lck.presentation.lck.util.OnTeamClickListener
 import umc.everyones.lck.presentation.lck.util.VerticalSpaceItemDecoration
+import umc.everyones.lck.presentation.mypage.MyPageActivity
 import umc.everyones.lck.util.extension.repeatOnStarted
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -78,6 +80,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         initRankingRecyclerView()
         initBackButton()
         initCalendarButton()
+        goMyPage()
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -324,4 +327,10 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         val date: String,
         val list: List<AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel>
     )
+
+    private fun goMyPage(){
+        binding.ivMyPage.setOnSingleClickListener {
+            startActivity(MyPageActivity.newIntent(requireContext()))
+        }
+    }
 }

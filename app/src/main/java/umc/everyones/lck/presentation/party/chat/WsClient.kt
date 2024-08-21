@@ -5,6 +5,7 @@ import android.util.Log
 import com.google.gson.Gson
 import okhttp3.*
 import umc.everyones.lck.data.dto.request.party.ChatMessage
+import umc.everyones.lck.util.chat.WebSocketResource
 import javax.inject.Inject
 
 class WsClient @Inject constructor(
@@ -44,6 +45,10 @@ class WsClient @Inject constructor(
         webSocket?.send(jsonMessage)
     }
 
+    fun closeSocket(){
+        webSocket?.close(1000, "")
+    }
+
     override fun onOpen(webSocket: WebSocket, response: Response) {
         Log.d("WebSocket", "Connection opened: $response")
     }
@@ -68,6 +73,8 @@ class WsClient @Inject constructor(
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
         Log.e("WebSocket", "Error: ${t.message}", t)
+            connectWebSocket()
+            enterChatRoom("") // 필요시 다시 입장 시도
     }
 
     companion object {

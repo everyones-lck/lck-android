@@ -161,7 +161,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     private fun askToHost(){
         binding.tvReadAskToHost.setOnSingleClickListener {
-            startActivity(ViewingPartyChatActivity.newIntent(requireContext(), postId, true))
+            startActivity(ViewingPartyChatActivity.newIntent(requireContext(), postId, true, 0L))
         }
     }
 

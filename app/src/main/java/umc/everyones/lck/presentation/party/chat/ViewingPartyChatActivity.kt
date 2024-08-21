@@ -1,5 +1,6 @@
 package umc.everyones.lck.presentation.party.chat
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -10,6 +11,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import umc.everyones.lck.R
@@ -18,6 +20,7 @@ import umc.everyones.lck.domain.model.party.ChatItem
 import umc.everyones.lck.presentation.party.adapter.ChatRVA
 import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.RECEIVER
 import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.SENDER
+import umc.everyones.lck.util.chat.WebSocketResource
 import umc.everyones.lck.util.extension.drawableOf
 import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnSingleClickListener
@@ -47,6 +50,10 @@ class ViewingPartyChatActivity : AppCompatActivity() {
         intent.getLongExtra("postId", 0L)
     }
 
+    private val participantsId by lazy {
+        intent.getLongExtra("participantsId", 0L)
+    }
+
     private val isParticipant by lazy {
         intent.getBooleanExtra("isParticipant", false)
     }
@@ -54,6 +61,10 @@ class ViewingPartyChatActivity : AppCompatActivity() {
     private val viewModel: ViewingPartyChatViewModel by viewModels()
 
     private lateinit var wsClient: WsClient
+
+    private var isEntered = false
+
+    private var isFirst = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +76,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        viewModel.setPostId(postId)
+        viewModel.setPostId(postId, participantsId)
         if (isParticipant) {
             viewModel.createViewingPartyChatRoomAsParticipant()
         } else {
@@ -81,6 +92,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
 
     private fun initChatRVAdapter() {
         binding.rvChat.adapter = chatRVA
+        binding.rvChat.itemAnimator = null
     }
 
     private fun validateMessageSend() {
@@ -113,6 +125,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
                     add(ChatItem("ds", etChatInput.text.toString(), SENDER, 5))
                 })
                 etChatInput.setText("")*/
+
                 wsClient.sendMessage(etChatInput.textToString())
                 etChatInput.setText("")
             }
@@ -137,19 +150,37 @@ class ViewingPartyChatActivity : AppCompatActivity() {
                 initWsClient()
             }
         }
+
+        repeatOnStarted {
+            viewModel.webSocketEvent.collect{ event ->
+                handleWebsocketEvent(event)
+            }
+        }
     }
 
+    private fun handleWebsocketEvent(event: WebSocketResource){
+        when(event){
+            WebSocketResource.Enter -> {
+                isEntered = true
+            }
+             else -> Unit
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
     private fun handleViewingPartyChatEvent(event: ViewingPartyChatViewModel.ViewingPartyChatEvent){
         when(event){
             is ViewingPartyChatViewModel.ViewingPartyChatEvent.CreateChatRoom -> {
                 with(event.result) {
                     viewModel.fetchViewingPartyChatLog(roomId)
                     binding.tvChatTitle.text = viewingPartyName
-                    //initWsClient()
                 }
             }
             is ViewingPartyChatViewModel.ViewingPartyChatEvent.FetchChatLog -> {
-                chatRVA.submitList(event.chatLog.chatMessageList)
+                binding.tvChatWriter.text = "${event.chatLog.receiverName} | ${event.chatLog.receiverTeam}"
+                chatRVA.submitList(event.chatLog.chatMessageList){
+                    binding.rvChat.scrollToPosition(0)
+                }
             }
         }
     }
@@ -163,11 +194,17 @@ class ViewingPartyChatActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun newIntent(context: Context, postId: Long, isParticipant: Boolean): Intent =
+        fun newIntent(context: Context, postId: Long, isParticipant: Boolean, participantsId: Long): Intent =
             Intent(context, ViewingPartyChatActivity::class.java).apply {
                 putExtra("postId", postId)
                 putExtra("isParticipant", isParticipant)
+                putExtra("participantsId", participantsId)
             }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        wsClient.closeSocket()
     }
 
 }

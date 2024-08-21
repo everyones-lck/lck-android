@@ -14,7 +14,7 @@ import umc.everyones.lck.domain.model.party.ViewingPartyItem
 import umc.everyones.lck.domain.model.response.party.ViewingPartyParticipantsModel
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 
-class ParticipantsRVA(val goToChat: () -> Unit) :
+class ParticipantsRVA(val goToChat: (Long) -> Unit) :
     PagingDataAdapter<ViewingPartyParticipantsModel.ParticipantsModel, ParticipantsRVA.ParticipantViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParticipantViewHolder {
@@ -45,7 +45,7 @@ class ParticipantsRVA(val goToChat: () -> Unit) :
                 tvParticipantName.text = participantItem.name
                 tvParticipantFavoriteTeam.text = participantItem.team
                 ivParticipantChatBtn.setOnSingleClickListener {
-                    goToChat()
+                    goToChat(participantItem.id)
                 }
             }
         }

@@ -72,7 +72,7 @@ class ParticipantsFragment : BaseFragment<FragmentParticipantsBinding>(R.layout.
 
     private fun initParticipantRVAdapter(){
         _participantsRVA = ParticipantsRVA{
-            startActivity(ViewingPartyChatActivity.newIntent(requireContext(), viewModel.postId.value, false))
+            startActivity(ViewingPartyChatActivity.newIntent(requireContext(), viewModel.postId.value, false, it))
         }
         binding.rvParticipantsList.adapter = participantsRVA
     }

@@ -48,10 +48,14 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
     }
 
     private val readMediaRVA by lazy {
-        ReadMediaRVA { url ->
+        ReadMediaRVA { url, isImage ->
             // 미디어 원본 보기 기능
             viewModel.setImageUrl(url)
-            val dialog = ReadVideoDialogFragment()//ReadImageDialogFragment()
+            val dialog = if(isImage){
+                ReadImageDialogFragment()
+            } else {
+                ReadVideoDialogFragment()
+            }
             dialog.show(supportFragmentManager, dialog.tag)
         }
     }
@@ -201,19 +205,9 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
             adapter = readMediaRVA
             itemAnimator = null
         }
-        val list = listOf(
-            "dsdsd",
-            "dsdsd",
-            "dsdsd",
-            "dsdsd",
-            "dsdsd",
-            "dsdsd",
-            "dsdsd",
-        )
 
         // RecyclerView Item의 GridLayout에서의 일정한 간격을 위해 설정
         binding.rvReadMedia.addItemDecoration(GridSpaceItemDecoration(4, 8))
-        readMediaRVA.submitList(list)
     }
 
     private fun validateCommentSend() {

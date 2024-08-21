@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="20dp"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:id="@+id/tv_viewing_party_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="240514 홍대 뷰파"
+            tools:text="240514 홍대 뷰파"
             android:textAppearance="@style/TextAppearance.LCK.Bold.List_14sp"
             android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +38,7 @@
                 android:id="@+id/iv_viewing_party_profile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_t1"
+                tools:src="@drawable/ic_t1"
                 android:scaleType="center"/>
 
         </androidx.cardview.widget.CardView>
@@ -47,7 +47,7 @@
             android:id="@+id/tv_viewing_party_writer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Perfect 조아 | KT"
+            tools:text="Perfect 조아 | KT"
             android:textAppearance="@style/TextAppearance.LCK.Light.Detail_10sp"
             android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="@id/cv_viewing_party_profile_bg"
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rect_12_black_line"
-            android:text="부천시 역곡동"
+            tools:text="부천시 역곡동"
             android:textAppearance="@style/TextAppearance.LCK.Light.Detail_10sp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rect_12_black_line"
-            android:text="2024.07.10"
+            tools:text="2024.07.10"
             android:textAppearance="@style/TextAppearance.LCK.Light.Detail_10sp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"

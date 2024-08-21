@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -19,14 +20,14 @@
             android:id="@+id/tv_post_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1경기 전력 어떻게 봐?" />
+            tools:text="1경기 전력 어떻게 봐?" />
 
         <TextView
             style="@style/TextAppearance.LCK.Light.Detail_10sp"
             android:id="@+id/tv_post_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2024.03.08"
+            tools:text="2024.03.08"
             android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="@id/tv_post_title"
             app:layout_constraintTop_toBottomOf="@id/tv_post_title" />
@@ -36,7 +37,7 @@
             android:id="@+id/tv_post_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Perfect 조아"
+            tools:text="Perfect 조아"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_post_date"
             app:layout_constraintStart_toEndOf="@id/tv_post_date"
             android:layout_marginStart="4dp" />
@@ -46,7 +47,7 @@
             android:id="@+id/tv_post_favorite_team"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="T1"
+            tools:text="T1"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_post_date"
             app:layout_constraintStart_toEndOf="@id/tv_post_nickname"
             android:layout_marginStart="4dp" />
@@ -66,7 +67,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.LCK.Light.Comment_8sp"
             android:textColor="@color/white"
-            android:text="38"
+            tools:text="38"
             app:layout_constraintTop_toTopOf="@id/iv_post_comment"
             app:layout_constraintBottom_toBottomOf="@id/iv_post_comment"
             app:layout_constraintStart_toEndOf="@id/iv_post_comment"
@@ -86,7 +87,7 @@
                 android:layout_width="42dp"
                 android:layout_height="42dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_hanhwa" />
+                tools:src="@drawable/ic_hanhwa" />
         </androidx.cardview.widget.CardView>
 
         <View

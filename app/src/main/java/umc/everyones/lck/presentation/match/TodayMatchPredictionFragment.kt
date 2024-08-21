@@ -12,6 +12,7 @@ import umc.everyones.lck.domain.model.response.match.MatchTodayMatchModel
 import umc.everyones.lck.domain.model.todayMatch.LckMatch
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.match.adapter.MatchPredictionRVA
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.toOrdinal
 
@@ -32,15 +33,6 @@ class TodayMatchPredictionFragment : BaseFragment<FragmentTodayMatchPredictionBi
                 setupRecyclerView(it)
             }
         })
-//        viewModel.voteResponse.observe(viewLifecycleOwner, Observer { message ->
-//            showCustomSnackBar(binding.root, message)
-//        })
-        viewModel.isVoteCompleted.observe(viewLifecycleOwner) { isCompleted ->
-            if (isCompleted) {
-                binding.tvTodayMatchPredictionVote.isEnabled = false
-                binding.tvTodayMatchPredictionVote.alpha = 0.5f // 버튼을 반투명하게 설정
-            }
-        }
     }
 
     override fun initView() {
@@ -57,8 +49,8 @@ class TodayMatchPredictionFragment : BaseFragment<FragmentTodayMatchPredictionBi
         }
     }
     private fun matchVoteButton() {
-        binding.tvTodayMatchPredictionVote.setOnClickListener {
-            val matchId = arguments?.getLong("matchId") ?: return@setOnClickListener
+        binding.tvTodayMatchPredictionVote.setOnSingleClickListener {
+            val matchId = arguments?.getLong("matchId") ?: return@setOnSingleClickListener
             selectedTeam?.let { teamId ->
                 viewModel.voteMatch(matchId, teamId)
             } ?: run {

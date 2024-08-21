@@ -44,18 +44,10 @@ class MatchPredictionRVA(private val onOptionSelected: (Int) -> Unit) :
                 .into(binding.ivTodayMatchPredictionTeam2Logo)
 
             // 라디오 버튼 상태 설정
-//            binding.btnTodayMatchPredictionRadio1.isChecked = selectedTeam == 1
-//            binding.btnTodayMatchPredictionRadio2.isChecked = selectedTeam == 2
             binding.btnTodayMatchPredictionRadio1.isChecked = selectedTeam == match.team1Id
             binding.btnTodayMatchPredictionRadio2.isChecked = selectedTeam == match.team2Id
 
             // 클릭 이벤트 설정
-//            binding.layoutTodayMatchPredictionContainer1.setOnSingleClickListener {
-//                onClick(1)
-//            }
-//            binding.layoutTodayMatchPredictionContainer2.setOnSingleClickListener {
-//                onClick(2)
-//            }
             binding.layoutTodayMatchPredictionContainer1.setOnSingleClickListener {
                 onClick(match.team1Id)
             }

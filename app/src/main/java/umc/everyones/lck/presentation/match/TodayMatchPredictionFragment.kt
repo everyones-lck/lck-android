@@ -2,26 +2,45 @@ package umc.everyones.lck.presentation.match
 
 import android.util.Log
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
-import umc.everyones.lck.databinding.FragmentTodayMatchLckPogBinding
 import umc.everyones.lck.databinding.FragmentTodayMatchPredictionBinding
+import umc.everyones.lck.domain.model.response.match.MatchTodayMatchModel
 import umc.everyones.lck.domain.model.todayMatch.LckMatch
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.match.adapter.MatchPredictionRVA
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.toOrdinal
 
+@AndroidEntryPoint
 class TodayMatchPredictionFragment : BaseFragment<FragmentTodayMatchPredictionBinding>(R.layout.fragment_today_match_prediction) {
+    private val viewModel: TodayMatchPredictionViewModel by viewModels()
     private lateinit var matchPredictionRVA: MatchPredictionRVA
-    override fun initObserver() {
+    private var selectedTeam: Int? = null // 사용자가 선택한 팀 ID를 저장할 변수
 
+
+    override fun initObserver() {
+        viewModel.matchData.observe(viewLifecycleOwner, Observer { matchData ->
+            matchData?.let {
+                // seasonName과 서수를 포함한 matchNumber 설정
+                binding.tvTodayMatchPredictionDate.text = "${it.seasonName} ${it.matchNumber.toOrdinal()} Match"
+
+                // RecyclerView 설정
+                setupRecyclerView(it)
+            }
+        })
     }
 
     override fun initView() {
         goBackButton()
         matchVoteButton()
-        setupRecyclerView()
+
+        val matchId = arguments?.getLong("matchId") ?: return
+        viewModel.fetchTodayMatchVoteMatch(matchId)
     }
 
     private fun goBackButton() {
@@ -30,37 +49,27 @@ class TodayMatchPredictionFragment : BaseFragment<FragmentTodayMatchPredictionBi
         }
     }
     private fun matchVoteButton() {
-        binding.tvTodayMatchPredictionVote.setOnClickListener {
-            showCustomSnackBar(binding.root,"투표 되었습니다!")
+        binding.tvTodayMatchPredictionVote.setOnSingleClickListener {
+            val matchId = arguments?.getLong("matchId") ?: return@setOnSingleClickListener
+            selectedTeam?.let { teamId ->
+                viewModel.voteMatch(matchId, teamId)
+            } ?: run {
+                showCustomSnackBar(binding.root, "투표할 팀을 선택해주세요.")
+            }
+        }
+        // voteResponse를 관찰하여 메시지를 표시
+        viewModel.voteResponse.observe(viewLifecycleOwner) { message ->
+            showCustomSnackBar(binding.root, message)
         }
     }
 
-    private fun setupRecyclerView() {
-    matchPredictionRVA = MatchPredictionRVA { selectedMatch, selectedTeam ->
-        // 사용자가 선택한 팀을 처리할 수 있습니다.
-        // selectedTeam == 1이면 첫 번째 팀, 2이면 두 번째 팀이 선택됨을 의미
-    }
-    binding.rvTodayMatchPrediction.adapter = matchPredictionRVA
+    private fun setupRecyclerView(matchData: MatchTodayMatchModel) {
+        matchPredictionRVA = MatchPredictionRVA { selectedTeam ->
+            // 사용자가 선택한 팀을 처리할 수 있습니다.
+            this.selectedTeam = selectedTeam // 선택한 팀 ID를 저장
+        }
+        matchPredictionRVA.submitList(listOf(matchData))
+        binding.rvTodayMatchPrediction.adapter = matchPredictionRVA
 
-    // 전달된 팀 로고 리스트를 받는다.
-    val teamLogos = arguments?.getIntArray("teamLogos")?.let { logos ->
-        Log.d("TodayMatchPredictionFragment", "Received teamLogos: ${logos.joinToString()}")
-        listOf(
-            LckMatch(
-                matchTitle = "",
-                matchDate = "",
-                team1Name = "팀 1", // 팀 이름을 실제 데이터로 대체
-                team2Name = "팀 2", // 팀 이름을 실제 데이터로 대체
-                team1LogoResId = logos[0],
-                team1LogoBlur = 0,
-                team2LogoResId = logos[1],
-                team2LogoBlur = 0,
-                team1WinRate = "",
-                team2WinRate = ""
-            )
-        )
-    } ?: emptyList()
-
-    matchPredictionRVA.submitList(teamLogos)
     }
 }

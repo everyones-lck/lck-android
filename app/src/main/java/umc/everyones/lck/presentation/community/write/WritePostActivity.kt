@@ -1,30 +1,22 @@
 package umc.everyones.lck.presentation.community.write
 
-import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWritePostBinding
 import umc.everyones.lck.domain.model.community.EditPost
-import umc.everyones.lck.domain.model.community.Post
 import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.community.adapter.SpinnerAdapter
@@ -74,6 +66,11 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
                                 setResult(
                                     RESULT_OK,
                                     ReadPostActivity.editDoneIntent(this@WritePostActivity, true)
+                                )
+                            } else {
+                                setResult(
+                                    RESULT_OK,
+                                    MainActivity.writePostDoneIntent(this@WritePostActivity, true, binding.spinnerWriteCategory.selectedItem.toString())
                                 )
                             }
                             finish()

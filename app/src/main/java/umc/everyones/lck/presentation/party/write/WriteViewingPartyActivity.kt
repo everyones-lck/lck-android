@@ -6,7 +6,6 @@ import android.os.Build
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
-import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
@@ -15,7 +14,6 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWriteViewingPartyBinding
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
@@ -105,7 +103,7 @@ class WriteViewingPartyActivity :
                 if(event.isWriteDone) {
                     setResult(
                         RESULT_OK,
-                        MainActivity.writeDoneIntent(this@WriteViewingPartyActivity, true)
+                        MainActivity.writePartyDoneIntent(this@WriteViewingPartyActivity, true)
                     )
                     finish()
                 }

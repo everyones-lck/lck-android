@@ -59,7 +59,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
                 tab.text = tabTitles[position]
             }.attach()
 
-            tabCommunityCategory.addOnTabSelectedListener(object : OnTabSelectedListener{
+            tabCommunityCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     communityViewModel.refreshCategoryPage(tab?.text?.toString() ?: "잡담")
                 }

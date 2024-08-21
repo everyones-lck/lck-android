@@ -113,7 +113,6 @@ class SignupViewModel @Inject constructor(
             _kakaoUserId.value = kakaoUserId
             val requestModel = CommonLoginRequestModel(kakaoUserId)
 
-            // 로그인 요청
             repository.login(requestModel).onSuccess { response ->
                 Log.d("loginWithKakao", response.toString())
                 spf.edit().putString("jwt", response.accessToken).apply()

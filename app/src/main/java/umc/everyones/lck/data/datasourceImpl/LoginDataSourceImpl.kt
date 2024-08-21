@@ -26,5 +26,5 @@ class LoginDataSourceImpl @Inject constructor(
 
     override suspend fun nickname(requestDto: NicknameAuthUserRequestDto): BaseResponse<Boolean> = loginService.nickname(requestDto.nickName)
 
-    override suspend fun usertest(token: String): BaseResponse<Unit> = loginService.usertest(token)
+    override suspend fun usertest(token: String): BaseResponse<Unit> = loginService.usertest()
 }

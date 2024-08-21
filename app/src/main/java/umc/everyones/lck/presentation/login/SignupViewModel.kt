@@ -24,6 +24,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.data.SignupUserData
 import umc.everyones.lck.data.dto.request.login.SignupAuthUserRequestDto
 import umc.everyones.lck.data.service.LoginService
+import umc.everyones.lck.domain.model.request.login.CommonLoginRequestModel
 import umc.everyones.lck.domain.model.request.login.NicknameAuthUserRequestModel
 import umc.everyones.lck.domain.model.response.login.CommonLoginResponseModel
 import umc.everyones.lck.domain.repository.login.LoginRepository
@@ -44,6 +45,8 @@ class SignupViewModel @Inject constructor(
     val nickName: LiveData<String> get() = _nickName
 
     private var signupUserData: SignupUserData? = null
+    private var userInfo: CommonLoginResponseModel? = null
+
 
     // 중복 체크 결과를 위한 LiveData 추가
     private val _isNicknameAvailable = MutableLiveData<Boolean>()
@@ -98,6 +101,19 @@ class SignupViewModel @Inject constructor(
                 }
             }.onFailure {
                 _nickName.value = "Failed to check nickname availability"
+            }
+        }
+    }
+
+    fun loginWithKakao(kakaoUserId: String) {
+        viewModelScope.launch {
+            _kakaoUserId.value = kakaoUserId
+            val requestModel = CommonLoginRequestModel(kakaoUserId)
+            repository.login(requestModel).onSuccess { response ->
+                Log.d("loginWithKakao", response.toString())
+            }.onFailure {
+                Log.d("loginWithKakao Error", it.message.toString())
+                Log.d("LoginWithKakao", "${requestModel}")
             }
         }
     }
@@ -166,7 +182,9 @@ class SignupViewModel @Inject constructor(
             )
         )
     }
+
     fun signupUser() {
 
     }
+
 }

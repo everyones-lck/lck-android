@@ -40,7 +40,5 @@ interface LoginService {
     ): BaseResponse<Boolean>
 
     @GET("/auth/users/test")
-    suspend fun usertest(
-        @Header("Authorization") token: String
-    ):BaseResponse<Unit>
+    suspend fun usertest():BaseResponse<Unit>
 }

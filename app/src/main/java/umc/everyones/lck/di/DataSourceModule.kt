@@ -5,12 +5,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import dagger.hilt.components.SingletonComponent
-import umc.everyones.lck.data.datasource.AboutLckDataSource
+import umc.everyones.lck.data.datasource.NaverDataSource
 import umc.everyones.lck.data.datasource.ViewingPartyDataSource
-import umc.everyones.lck.data.datasourceImpl.AboutLckDataSourceImpl
-import umc.everyones.lck.data.datasourceImpl.ViewingPartyDataSourceImpl
-import javax.inject.Singleton
+import umc.everyones.lck.data.datasource.community.CommunityDataSource
+import umc.everyones.lck.data.datasourceImpl.community.CommunityDataSourceImpl
+import umc.everyones.lck.data.datasourceImpl.naver.NaverDataSourceImpl
+import umc.everyones.lck.data.datasourceImpl.party.ViewingPartyDataSourceImpl
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -22,6 +22,11 @@ object DataSourceModule {
 
     @Provides
     @ViewModelScoped
-    fun provideAboutLckDataSource(aboutLckDataSourceImpl: AboutLckDataSourceImpl): AboutLckDataSource =
-        aboutLckDataSourceImpl
+    fun provideNaverDataSource(naverDataSourceImpl: NaverDataSourceImpl): NaverDataSource =
+        naverDataSourceImpl
+
+    @Provides
+    @ViewModelScoped
+    fun provideCommunityDataSource(communityDataSourceImpl: CommunityDataSourceImpl): CommunityDataSource =
+        communityDataSourceImpl
 }

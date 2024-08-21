@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
@@ -24,6 +25,7 @@ import umc.everyones.lck.util.extension.toCategoryPosition
 class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragment_community) {
     private val readPostViewModel: ReadPostViewModel by viewModels()
     private val writePostViewModel: WritePostViewModel by activityViewModels()
+    private val communityViewModel: CommunityViewModel by activityViewModels()
     private val navigator by lazy {
         findNavController()
     }
@@ -56,6 +58,21 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
             TabLayoutMediator(tabCommunityCategory, vpCommunityPostList) { tab, position ->
                 tab.text = tabTitles[position]
             }.attach()
+
+            tabCommunityCategory.addOnTabSelectedListener(object : OnTabSelectedListener{
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    communityViewModel.refreshCategoryPage(tab?.text?.toString() ?: "잡담")
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+
+                }
+
+            })
         }
     }
 

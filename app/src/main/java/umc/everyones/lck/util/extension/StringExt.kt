@@ -17,9 +17,9 @@ fun String.toCategoryPosition(): Int{
 }
 
 fun String.combineNicknameAndTeam(team: String): String{
-    return "$this | $team"
+    return if(team == "empty") this else "$this | $team"
 }
-fun String.toReadViewingPartyDateFormat(): String {
+fun String.toReadDateFormat(): String {
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
 
     val partyDateFormatter = DateTimeFormatter.ofPattern("yy.MM.dd hh:mm")
@@ -38,12 +38,10 @@ fun String.toWriteViewingPartyDateFormat(): String {
     }
 }
 
-fun formatMatchTitle(season: String, matchNumber: Int): String {
-    val suffix = when (matchNumber % 10) {
-        1 -> "st"
-        2 -> "nd"
-        3 -> "rd"
-        else -> "th"
-    }
-    return "$season LCK ${matchNumber}${suffix} Match"
+fun String.toListViewingPartyDateFormat(): String{
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
+
+    val partyDateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
+    return LocalDateTime.parse(this, formatter).format(partyDateFormatter).toString()
 }

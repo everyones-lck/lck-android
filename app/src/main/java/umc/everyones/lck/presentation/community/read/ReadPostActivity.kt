@@ -1,14 +1,22 @@
 package umc.everyones.lck.presentation.community.read
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityReadPostBinding
 import umc.everyones.lck.domain.model.community.Comment
+import umc.everyones.lck.domain.model.community.EditPost
 import umc.everyones.lck.domain.model.community.Post
+import umc.everyones.lck.domain.model.response.community.ReadCommunityResponseModel
+import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.community.write.WritePostActivity
 import umc.everyones.lck.presentation.community.adapter.CommentRVA
@@ -16,23 +24,26 @@ import umc.everyones.lck.presentation.community.adapter.ReadMediaRVA
 import umc.everyones.lck.util.GridSpaceItemDecoration
 import umc.everyones.lck.util.KeyboardUtil
 import umc.everyones.lck.util.extension.drawableOf
+import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.textToString
+import umc.everyones.lck.util.network.UiState
 
 @AndroidEntryPoint
 class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity_read_post) {
+    private val viewModel: ReadPostViewModel by viewModels()
     private val commentRVA by lazy {
         CommentRVA(
-            // 댓긇 수정 기능
-            editComment = { commentId, Body -> },
-
             // 댓글 신고 기능
             reportComment = { commentId ->
-                            showCustomSnackBar(binding.layoutReadReportBtn, "댓글이 신고 되었습니다")
+                viewModel.reportCommunityComment(commentId)
             },
 
             // 댓글 삭제 기능
-            deleteComment = { commentId -> }
+            deleteComment = { commentId ->
+                viewModel.deleteComment(commentId)
+            }
         )
     }
 
@@ -44,15 +55,88 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
 
     // Community Fragment에서 전송한 postId 수신
     private val postId by lazy {
-        intent.getIntExtra("postId", 0)
+        intent.getLongExtra("postId", 0)
+    }
+
+    private var editResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+        if (result.resultCode == Activity.RESULT_OK){
+            if(result.data?.getBooleanExtra("isEditDone", false) == true){
+                setResult(
+                    RESULT_OK,
+                    MainActivity.readMenuDoneIntent(this, true)
+                )
+                finish()
+            }
+        }
     }
 
     override fun initObserver() {
+        repeatOnStarted {
+            viewModel.readCommunityEvent.collect { state ->
+                when(state){
+                    is UiState.Success -> handleReadCommunityEvent(state.data)
+                    is UiState.Failure -> showCustomSnackBar(binding.root, state.msg)
+                    else -> Unit
+                }
+            }
+        }
 
+        repeatOnStarted {
+            viewModel.isWriter.collect{ isWriter ->
+                with(binding) {
+                    if (isWriter) {
+                        layoutReadReportBtn.visibility = View.GONE
+                        layoutReadWriterMenu.visibility = View.VISIBLE
+                    } else {
+                        layoutReadReportBtn.visibility = View.VISIBLE
+                        layoutReadWriterMenu.visibility = View.GONE
+                    }
+                }
+            }
+        }
+    }
+
+    private fun handleReadCommunityEvent(event: ReadPostViewModel.ReadCommunityEvent){
+        when(event){
+            ReadPostViewModel.ReadCommunityEvent.DeletePost -> {
+                setResult(RESULT_OK,
+                    MainActivity.readMenuDoneIntent(this, true))
+                finish()
+            }
+            ReadPostViewModel.ReadCommunityEvent.EditPost -> {}
+            is ReadPostViewModel.ReadCommunityEvent.ReadPost -> {
+                with(event.post){
+                    binding.tvReadPostTitle.text = postTitle
+                    binding.tvReadPostBody.text = content
+                    binding.tvReadWriter.text = writerInfo
+                    binding.tvReadCategory.text = postType
+                    binding.tvReadDate.text = postCreatedAt
+                    Glide.with(this@ReadPostActivity)
+                        .load(writerProfileUrl)
+                        .into(binding.ivReadProfileImage)
+                    commentRVA.submitList(commentList)
+                    readMediaRVA.submitList(fileUrlList)
+                }
+            }
+            ReadPostViewModel.ReadCommunityEvent.ReportComment -> {
+                showCustomSnackBar(binding.layoutReadReportBtn, "댓글이 신고 되었습니다")
+            }
+            ReadPostViewModel.ReadCommunityEvent.ReportPost -> {
+                showCustomSnackBar(binding.layoutReadReportBtn, "게시글이 신고 되었습니다")
+            }
+
+            ReadPostViewModel.ReadCommunityEvent.CreateComment -> {
+                binding.etReadCommentInput.setText("")
+            }
+            ReadPostViewModel.ReadCommunityEvent.DeleteComment -> {
+
+            }
+        }
     }
 
     override fun initView() {
         // 키보드 올라올 때 화면 맨 밑으로 자동스크롤을 위한 리스너 등록
+        viewModel.setPostId(postId)
         KeyboardUtil.registerKeyboardVisibilityListener(binding.root, binding.svRead)
         initCommentRVAdapter()
         initReadMediaRVAdapter()
@@ -61,6 +145,9 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         validateCommentSend()
         editPost()
         reportPost()
+        deletePost()
+        sendComment()
+        viewModel.fetchCommunityPost()
 
         binding.ivReadBackBtn.setOnSingleClickListener {
             finish()
@@ -69,24 +156,29 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
     }
 
     private fun reportPost(){
-        binding.layoutReadReportBtn.setOnClickListener {
-            showCustomSnackBar(binding.layoutReadReportBtn, "게시글이 신고 되었습니다")
+        binding.layoutReadReportBtn.setOnSingleClickListener {
+            viewModel.reportCommunityPost()
         }
     }
 
     private fun editPost() {
-        binding.layoutReadEditBtn.setOnClickListener {
-
+        binding.layoutReadEditBtn.setOnSingleClickListener {
             // 글 작성 화면으로 이동 및 현재 게시글 Data 전송
-            startActivity(
+            editResultLauncher.launch(
                 WritePostActivity.editIntent(
                     this,
-                    Post(
-                        0, "ㅇㅇ", binding.tvReadPostTitle.text.toString(),
-                        binding.tvReadPostBody.text.toString(), "후기"
+                    EditPost(
+                        postId, binding.tvReadPostTitle.text.toString(),
+                        binding.tvReadPostBody.text.toString(), binding.tvReadCategory.textToString()
                     )
                 )
             )
+        }
+    }
+
+    private fun deletePost(){
+        binding.layoutReadDeleteBtn.setOnSingleClickListener {
+            viewModel.deleteCommunityPost()
         }
     }
 
@@ -95,18 +187,6 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
             adapter = commentRVA
             itemAnimator = null
         }
-        val list = listOf(
-            Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ","#잡담게시판"),
-            Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ","#잡담게시판"),
-            Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ","#잡담게시판"),
-            Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ","#잡담게시판"),
-            Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ","#잡담게시판"),
-            Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ","#잡담게시판"),
-            Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ","#잡담게시판"),
-            Comment(0, "ㅇㄴㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㅇㄴ", "ㄴㅇ","#잡담게시판"),
-        )
-        commentRVA.submitList(list)
-
     }
 
     private fun initReadMediaRVAdapter() {
@@ -152,10 +232,23 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         )
     }
 
+    private fun sendComment(){
+        with(binding){
+            ivReadSendCommentBtn.setOnSingleClickListener {
+                viewModel.createComment(etReadCommentInput.textToString())
+            }
+        }
+    }
+
     companion object {
-        fun newIntent(context: Context, postId: Int) =
+        fun newIntent(context: Context, postId: Long) =
             Intent(context, ReadPostActivity::class.java).apply {
                 putExtra("postId", postId)
+            }
+
+        fun editDoneIntent(context: Context, isEditDone: Boolean) =
+            Intent(context, ReadPostActivity::class.java).apply {
+                putExtra("isEditDone", isEditDone)
             }
     }
 

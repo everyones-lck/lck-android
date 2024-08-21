@@ -125,4 +125,6 @@ dependencies {
     implementation ("com.jakewharton.threetenabp:threetenabp:1.2.1")
 
     implementation ("io.github.ShawnLin013:number-picker:2.4.13")
+
+    implementation ("androidx.paging:paging-runtime-ktx:3.1.1")
 }

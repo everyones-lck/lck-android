@@ -131,7 +131,7 @@ class WriteViewingPartyActivity :
         val editViewingParty = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra("viewingParty", WriteViewingPartyModel::class.java)
         } else {
-            intent.getSerializableExtra("viewingParty") as WriteViewingPartyModel
+            intent.getSerializableExtra("viewingParty") as? WriteViewingPartyModel
         }
         if (editViewingParty != null) {
             isEdit = true

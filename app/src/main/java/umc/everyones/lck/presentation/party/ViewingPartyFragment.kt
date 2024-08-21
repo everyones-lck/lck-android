@@ -57,6 +57,7 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
                 if (isRefreshNeeded) {
                     viewingPartyRVA?.refresh()
                     viewModel.setIsRefreshNeeded(false)
+                    binding.rvViewingParty.scrollToPosition(0)
                 }
             }
         }

@@ -14,7 +14,7 @@ class WsClient @Inject constructor(
     private val spf: SharedPreferences
 ) : WebSocketListener() {
     private var webSocket: WebSocket? = null
-    private var nickname = spf.getString("nickname", "") ?: "알 수 없음"
+    private var nickname = spf.getString("nickName", "") ?: "알 수 없음"
     private val roomId = viewModel.roomId.value.toInt()
 
     fun connectWebSocket() {

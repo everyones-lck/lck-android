@@ -59,7 +59,7 @@ class ReadPostViewModel @Inject constructor(
             repository.fetchCommunityPost(postId.value).onSuccess { response ->
                 Log.d("fetchCommunityPost", response.toString())
                 _readCommunityEvent.value = UiState.Success(ReadCommunityEvent.ReadPost(response))
-                _isWriter.emit(spf.getString("nickname", "") == response.writerInfo.split("|")[0].trim())
+                _isWriter.emit(spf.getString("nickName", "") == response.writerInfo.split("|")[0].trim())
             }.onFailure {
                 Log.d("fetchCommunityPost error", it.stackTraceToString())
                 _readCommunityEvent.value = UiState.Failure("커뮤니티 게시글 상세조회에 실패했습니다")

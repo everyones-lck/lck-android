@@ -62,8 +62,9 @@ class ReadViewingPartyViewModel @Inject constructor(
             repository.fetchViewingParty(postId.value).onSuccess { response ->
                 Log.d("fetchViewingParty", response.toString())
                 _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.ReadViewingParty(response))
-                val writerName = response.writerInfo.split(" ").first().trim()
-                _isWriter.emit(spf.getString("nickname", "").toString() == writerName)
+                val writerName = response.writerInfo.split("|").first().trim()
+                Log.d("writername", writerName.toString())
+                _isWriter.emit(spf.getString("nickName", "").toString() == writerName)
             }.onFailure {
                 Log.d("fetchViewingParty error", it.stackTraceToString())
                 _readViewingPartyEvent.value = UiState.Failure("뷰잉파티를 조회하지 못했습니다")

@@ -69,6 +69,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.isWriter.collect{ isWriter ->
+                Log.d("iSwrite", isWriter.toString())
                 if(!isWriter) {
                     with(binding){
                         groupReadWriterMenu.visibility = View.GONE

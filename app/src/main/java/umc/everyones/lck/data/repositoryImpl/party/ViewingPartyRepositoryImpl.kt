@@ -71,7 +71,7 @@ class ViewingPartyRepositoryImpl @Inject constructor(
         size: Int
     ): Result<ViewingPartyChatLogModel> =
         runCatching {
-            viewingPartyDataSource.fetchViewingPartyChatLog(roomId, page, size).data.toViewingPartyChatLogModel(spf.getString("nickname", "")?:"")
+            viewingPartyDataSource.fetchViewingPartyChatLog(roomId, page, size).data.toViewingPartyChatLogModel(spf.getString("nickName", "")?:"")
         }
 
 

@@ -40,7 +40,7 @@ class CommunityRepositoryImpl @Inject constructor(
 
     override suspend fun fetchCommunityPost(postId: Long): Result<ReadCommunityResponseModel> =
         runCatching {
-            communityDataSource.fetchCommunityPost(postId).data.toReadCommunityResponseModel(spf.getString("nickname","")?:"")
+            communityDataSource.fetchCommunityPost(postId).data.toReadCommunityResponseModel(spf.getString("nickName","")?:"")
         }
 
     override suspend fun deleteCommunityPost(postId: Long): Result<NonBaseResponse> =

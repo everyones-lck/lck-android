@@ -5,11 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import umc.everyones.lck.databinding.ItemTodayMatchPredictionBinding
+import umc.everyones.lck.domain.model.response.match.MatchTodayMatchModel
 import umc.everyones.lck.domain.model.todayMatch.LckMatch
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
-class MatchPredictionRVA(private val onOptionSelected: (LckMatch, Int) -> Unit) :
-    ListAdapter<LckMatch, MatchPredictionRVA.MatchPredictionViewHolder>(PredictionOptionDiffCallback()) {
+class MatchPredictionRVA(private val onOptionSelected: (Int) -> Unit) :
+    ListAdapter<MatchTodayMatchModel, MatchPredictionRVA.MatchPredictionViewHolder>(PredictionOptionDiffCallback()) {
 
     private var selectedTeam: Int? = null
 
@@ -23,38 +26,43 @@ class MatchPredictionRVA(private val onOptionSelected: (LckMatch, Int) -> Unit) 
         holder.bind(item, selectedTeam) { team ->
             selectedTeam = team
             notifyDataSetChanged() // 선택된 팀이 변경되었음을 알림
-            onOptionSelected(item, team)
+            onOptionSelected(team)
         }
     }
 
     inner class MatchPredictionViewHolder(private val binding: ItemTodayMatchPredictionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(match: LckMatch, selectedTeam: Int?, onClick: (Int) -> Unit) {
+        fun bind(match: MatchTodayMatchModel, selectedTeam: Int?, onClick: (Int) -> Unit) {
             // 팀 로고 설정
-            binding.ivTodayMatchPredictionTeam1Logo.setImageResource(match.team1LogoResId)
-            binding.ivTodayMatchPredictionTeam2Logo.setImageResource(match.team2LogoResId)
+            Glide.with(binding.root.context)
+                .load(match.team1Logo)
+                .into(binding.ivTodayMatchPredictionTeam1Logo)
+
+            Glide.with(binding.root.context)
+                .load(match.team2Logo)
+                .into(binding.ivTodayMatchPredictionTeam2Logo)
 
             // 라디오 버튼 상태 설정
-            binding.btnTodayMatchPredictionRadio1.isChecked = selectedTeam == 1
-            binding.btnTodayMatchPredictionRadio2.isChecked = selectedTeam == 2
+            binding.btnTodayMatchPredictionRadio1.isChecked = selectedTeam == match.team1Id
+            binding.btnTodayMatchPredictionRadio2.isChecked = selectedTeam == match.team2Id
 
             // 클릭 이벤트 설정
-            binding.layoutTodayMatchPredictionContainer1.setOnClickListener {
-                onClick(1)
+            binding.layoutTodayMatchPredictionContainer1.setOnSingleClickListener {
+                onClick(match.team1Id)
             }
-            binding.layoutTodayMatchPredictionContainer2.setOnClickListener {
-                onClick(2)
+            binding.layoutTodayMatchPredictionContainer2.setOnSingleClickListener {
+                onClick(match.team2Id)
             }
         }
     }
 
-    class PredictionOptionDiffCallback : DiffUtil.ItemCallback<LckMatch>() {
-        override fun areItemsTheSame(oldItem: LckMatch, newItem: LckMatch): Boolean {
-            return oldItem.team1LogoResId == newItem.team1LogoResId && oldItem.team2LogoResId == newItem.team2LogoResId
+    class PredictionOptionDiffCallback : DiffUtil.ItemCallback<MatchTodayMatchModel>() {
+        override fun areItemsTheSame(oldItem: MatchTodayMatchModel, newItem: MatchTodayMatchModel): Boolean {
+            return oldItem.team1Id == newItem.team1Id && oldItem.team2Id == newItem.team2Id
         }
 
-        override fun areContentsTheSame(oldItem: LckMatch, newItem: LckMatch): Boolean {
+        override fun areContentsTheSame(oldItem: MatchTodayMatchModel, newItem: MatchTodayMatchModel): Boolean {
             return oldItem == newItem
         }
     }

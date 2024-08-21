@@ -40,8 +40,8 @@
             android:id="@+id/tv_mypage_profile_withdraw_text1"
             android:layout_width="321dp"
             android:layout_height="wrap_content"
-            android:text="Second line of text in here for this text element or component. Second line of text in here for this text element or component. Second line of text in here for this text element or component. Second line of text in here for this text element or component. Second line of text in here for this text element or component. "
-            style="@style/TextAppearance.LCK.Light.Body_14sp"
+            android:text=""
+            style="@style/TextAppearance.LCK.Light.List_16sp"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,10 +49,11 @@
             android:layout_marginTop="52dp"/>
 
         <TextView
+            android:id="@+id/tv_mypage_profile_withdraw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="탈퇴하기"
-            style="@style/TextAppearance.LCK.Light.Body_14sp"
+            style="@style/TextAppearance.LCK.Light.List_16sp"
             android:textColor="@color/white"
             android:background="@drawable/shape_rect_8_white_line"
             android:paddingHorizontal="10dp"
@@ -61,7 +62,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="50dp"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

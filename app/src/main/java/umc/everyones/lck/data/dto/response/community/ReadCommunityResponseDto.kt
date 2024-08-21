@@ -13,7 +13,7 @@ data class ReadCommunityResponseDto(
     val postTitle: String,
     val postCreatedAt: String,
     val content: String,
-    val fileUrlList: List<String>,
+    val fileList: List<File>,
     val commentList: List<CommentListElementDto>
 ) {
     data class CommentListElementDto(
@@ -43,6 +43,10 @@ data class ReadCommunityResponseDto(
             postTitle,
             postCreatedAt.slice(0..15).toReadDateFormat(),
             content,
-            fileUrlList,
+            fileList,
             commentList.map { it.toCommentListElementModel(userNickname) })
+    data class File(
+        val fileUrl: String,
+        val isImage: Boolean
+    )
 }

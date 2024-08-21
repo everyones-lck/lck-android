@@ -1,11 +1,14 @@
 package umc.everyones.lck.data.repositoryImpl.party
 
+import android.content.SharedPreferences
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import umc.everyones.lck.data.datasource.ViewingPartyDataSource
+import umc.everyones.lck.data.datasourceImpl.party.ViewingPartyChatLogPagingSource
 import umc.everyones.lck.data.datasourceImpl.party.ViewingPartyListPagingSource
+import umc.everyones.lck.data.datasourceImpl.party.ViewingPartyParticipantsPagingSource
 import umc.everyones.lck.data.service.party.ViewingPartyService
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.CommonViewingPartyModel
@@ -20,7 +23,8 @@ import javax.inject.Inject
 
 class ViewingPartyRepositoryImpl @Inject constructor(
     private val viewingPartyDataSource: ViewingPartyDataSource,
-    private val viewingPartyService: ViewingPartyService
+    private val viewingPartyService: ViewingPartyService,
+    private val spf: SharedPreferences
 ) : ViewingPartyRepository {
     override suspend fun fetchViewingPartyList(
         page: Int,
@@ -59,26 +63,47 @@ class ViewingPartyRepositoryImpl @Inject constructor(
     ): Result<ViewingPartyParticipantsModel> =
         runCatching { viewingPartyDataSource.fetchViewingPartyParticipants(viewingPartyId, page, size).data.toViewingPartyParticipantsModel() }
 
-    override suspend fun createViewingPartyChatRoom(viewingPartyId: Long): Result<ViewingPartyChatRoomModel> =
-        runCatching { viewingPartyDataSource.createViewingPartyChatRoom(viewingPartyId).data.toViewingPartyChatRoomModel() }
+    override suspend fun createViewingPartyChatRoom(viewingPartyId: Long, participantsId: String): Result<ViewingPartyChatRoomModel> =
+        runCatching { viewingPartyDataSource.createViewingPartyChatRoom(viewingPartyId, participantsId).data.toViewingPartyChatRoomModel() }
 
     override suspend fun fetchViewingPartyChatLog(
         roomId: Long,
         page: Int,
         size: Int
     ): Result<ViewingPartyChatLogModel> =
-        runCatching { viewingPartyDataSource.fetchViewingPartyChatLog(roomId, page, size).data.toViewingPartyChatLogModel() }
+        runCatching {
+            viewingPartyDataSource.fetchViewingPartyChatLog(roomId, page, size).data.toViewingPartyChatLogModel(spf.getString("nickName", "")?:"")
+        }
+
 
     override suspend fun createViewingPartyChatRoomAsParticipant(viewingPartyId: Long): Result<ViewingPartyChatRoomModel> =
         runCatching { viewingPartyDataSource.createViewingPartyChatRoomAsParticipant(viewingPartyId).data.toViewingPartyChatRoomModel() }
 
-    override fun fetchPagingSource(): Flow<PagingData<ViewingPartyListModel.ViewingPartyElementModel>> =
+    override fun fetchViewingPartyListPagingSource(): Flow<PagingData<ViewingPartyListModel.ViewingPartyElementModel>> =
         Pager(
             config = PagingConfig(
                 pageSize = 10,
                 enablePlaceholders = false,
             ),
             pagingSourceFactory = { ViewingPartyListPagingSource(viewingPartyService) }
+        ).flow
+
+    override fun fetchViewingPartyParticipantsPagingSource(viewingPartyId: Long): Flow<PagingData<ViewingPartyParticipantsModel.ParticipantsModel>> =
+        Pager(
+            config = PagingConfig(
+                pageSize = 10,
+                enablePlaceholders = true,
+            ),
+            pagingSourceFactory = { ViewingPartyParticipantsPagingSource(viewingPartyService, viewingPartyId) }
+        ).flow
+
+    override fun fetchChatLogPagingSource(roomId: Long): Flow<PagingData<ViewingPartyChatLogModel.ChatLogModel>> =
+        Pager(
+            config = PagingConfig(
+                pageSize = 10,
+                enablePlaceholders = true,
+            ),
+            pagingSourceFactory = { ViewingPartyChatLogPagingSource(viewingPartyService, roomId, spf) }
         ).flow
 
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -42,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp"
-                    android:text="240514 홍대 뷰파"
+                    tools:text="240514 홍대 뷰파"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/tv_read_title"
@@ -80,8 +81,7 @@
                     android:id="@+id/group_read_writer_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:constraint_referenced_ids="iv_read_delete_btn, iv_read_edit_btn"
-                    />
+                    app:constraint_referenced_ids="iv_read_delete_btn, iv_read_edit_btn" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_read_profile_background"
@@ -98,7 +98,8 @@
                         android:id="@+id/iv_read_profile_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_t1" />
+                        tools:src="@drawable/ic_t1"
+                        android:scaleType="centerCrop"/>
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -106,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="Perfect 조아 | KT"
+                    tools:text="Perfect 조아 | KT"
                     android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="@id/cv_read_profile_background"
@@ -139,6 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="40dp"
                     android:layout_marginTop="30dp"
+                    android:minHeight="500dp"
                     android:background="@drawable/shape_rect_4_gray_fill"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -172,9 +174,10 @@
                         style="@style/Widget.AppCompat.TextView.LCK"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="32dp"
                         android:gravity="center"
-                        android:text="To. KT Rolster팬"
+                        tools:text="To. KT Rolster팬"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -187,7 +190,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="36dp"
-                        android:text="2024.05.14 16:30"
+                        tools:text="2024.05.14 16:30"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -199,9 +202,10 @@
                         style="@style/Widget.AppCompat.TextView.LCK"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="12dp"
-                        android:text="부천시 역곡동 지봉로 24 @@카페"
                         android:gravity="center"
+                        tools:text="부천시 역곡동 지봉로 24 @@카페"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -214,7 +218,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:text="|"
+                        tools:text="|"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -227,7 +231,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="12dp"
-                        android:text="₩20,000"
+                        tools:text="₩20,000"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintBaseline_toBaselineOf="@id/tv_read_divider"
@@ -240,7 +244,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:text="10 - 20 명"
+                        tools:text="10 - 20 명"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintBaseline_toBaselineOf="@id/tv_read_divider"
@@ -268,7 +272,7 @@
                         android:layout_marginHorizontal="63dp"
                         android:layout_marginTop="12dp"
                         android:gravity="center"
-                        android:text="기본적인 식사, 음료 제공
+                        tools:text="기본적인 식사, 음료 제공
 음주 시 추가 금액 + 10000
 뷰파는 경기 끝날떄까지만 하고
 2차가고 싶으신 분은 자유롭게 !"

@@ -1,6 +1,7 @@
 package umc.everyones.lck.presentation.party.dialog
 
 import android.util.Log
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.DialogJoinViewingPartyBinding
@@ -9,14 +10,14 @@ import umc.everyones.lck.presentation.party.read.ReadViewingPartyViewModel
 import umc.everyones.lck.util.extension.repeatOnStarted
 
 class JoinViewingPartyDialogFragment: BaseDialogFragment<DialogJoinViewingPartyBinding>(R.layout.dialog_join_viewing_party) {
-    private val viewModel: ReadViewingPartyViewModel by viewModels({requireParentFragment()})
+    private val viewModel: ReadViewingPartyViewModel by activityViewModels()
     private var onJoinViewingPartyClickListener: OnJoinViewingPartyClickListener? = null
     fun setOnJoinViewingPartyClickListener(listener: OnJoinViewingPartyClickListener){
         onJoinViewingPartyClickListener = listener
     }
 
     override fun initObserver() {
-        repeatOnStarted {
+        viewLifecycleOwner.repeatOnStarted {
             viewModel.title.collect{ title ->
                 Log.d("title", title)
                 binding.tvJoinViewingPartyTitle.text = title

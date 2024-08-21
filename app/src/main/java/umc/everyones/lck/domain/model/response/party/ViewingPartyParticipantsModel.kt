@@ -4,10 +4,10 @@ import umc.everyones.lck.data.dto.response.party.ViewingPartyParticipantsRespons
 
 data class ViewingPartyParticipantsModel(
     val viewingPartyName: String,
-    val ownerName: String,
-    val ownerTeam: String,
+    val ownerInfo: String,
     val ownerImage: String,
-    val participantList: List<ParticipantsModel>
+    val participantList: List<ParticipantsModel>,
+    val isLast: Boolean
 ) {
     data class ParticipantsModel(
         val id: Long,

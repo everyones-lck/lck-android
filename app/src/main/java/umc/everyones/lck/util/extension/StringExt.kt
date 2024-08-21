@@ -45,3 +45,13 @@ fun String.toListViewingPartyDateFormat(): String{
 
     return LocalDateTime.parse(this, formatter).format(partyDateFormatter).toString()
 }
+
+fun formatMatchTitle(season: String, matchNumber: Int): String {
+    val suffix = when (matchNumber % 10) {
+        1 -> "st"
+        2 -> "nd"
+        3 -> "rd"
+        else -> "th"
+    }
+    return "$season LCK ${matchNumber}${suffix} Match"
+}

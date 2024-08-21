@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="20dp">
 
     <androidx.cardview.widget.CardView
@@ -17,7 +18,7 @@
             android:id="@+id/iv_comment_profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_logo"
+            tools:src="@drawable/ic_logo"
             android:scaleType="centerCrop"/>
     </androidx.cardview.widget.CardView>
 
@@ -27,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:text="모두의 LCK | KT"
+        tools:text="모두의 LCK | KT"
         app:layout_constraintStart_toEndOf="@id/cv_comment"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +37,7 @@
         style="@style/TextAppearance.LCK.Light.Detail_10sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="모두의 마블\n모두의 마블"
+        tools:text="모두의 마블\n모두의 마블"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="@id/tv_commnet_date"
         app:layout_constrainedWidth="true"
@@ -51,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         app:layout_goneMarginEnd="28dp"
-        android:text="2024.07,01"
+        tools:text="2024.07,01"
         app:layout_constraintBottom_toBottomOf="@id/tv_comment_nickname"
         app:layout_constraintEnd_toStartOf="@id/iv_comment_report_btn"
         app:layout_constraintTop_toTopOf="@id/tv_comment_nickname" />

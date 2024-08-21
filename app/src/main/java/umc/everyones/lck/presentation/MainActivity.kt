@@ -2,12 +2,9 @@ package umc.everyones.lck.presentation
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityMainBinding
@@ -15,12 +12,8 @@ import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.community.write.WritePostViewModel
 import umc.everyones.lck.presentation.home.HomeViewModel
 import umc.everyones.lck.presentation.party.ViewingPartyViewModel
-import umc.everyones.lck.presentation.party.read.ReadViewingPartyViewModel
-import umc.everyones.lck.presentation.party.write.WriteViewingPartyViewModel
 import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setupWithNavControllerCustom
-import umc.everyones.lck.util.extension.showCustomSnackBar
-import umc.everyones.lck.util.network.UiState
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -53,9 +46,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     companion object {
-        fun writeDoneIntent(context: Context, isWriteDone: Boolean) =
+        fun writePartyDoneIntent(context: Context, isWriteDone: Boolean) =
             Intent(context, MainActivity::class.java).apply {
                 putExtra("isWriteDone", isWriteDone)
+            }
+
+        fun writePostDoneIntent(context: Context, isWriteDone: Boolean, category: String) =
+            Intent(context, MainActivity::class.java).apply {
+                putExtra("isWriteDone", isWriteDone)
+                putExtra("category", category)
             }
 
         fun readMenuDoneIntent(context: Context, isReadMenuDone: Boolean) =

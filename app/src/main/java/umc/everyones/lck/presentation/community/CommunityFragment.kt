@@ -2,6 +2,7 @@ package umc.everyones.lck.presentation.community
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
@@ -9,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
@@ -40,6 +40,11 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
         if (result.resultCode == Activity.RESULT_OK){
             val category = result.data?.getStringExtra("category") ?: ""
             binding.vpCommunityPostList.currentItem = category.toCategoryPosition()
+            val isWriteDone = result.data?.getBooleanExtra("isWriteDone", false) ?: false
+            Log.d("iwd", isWriteDone.toString())
+            if (isWriteDone){
+                communityViewModel.refreshCategoryPage(category)
+            }
         }
     }
 
@@ -61,7 +66,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
                 tab.text = tabTitles[position]
             }.attach()
 
-            tabCommunityCategory.addOnTabSelectedListener(object : OnTabSelectedListener{
+            tabCommunityCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     communityViewModel.refreshCategoryPage(tab?.text?.toString() ?: "잡담")
                 }

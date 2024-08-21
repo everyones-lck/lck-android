@@ -2,6 +2,7 @@ package umc.everyones.lck.presentation.party.read
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,6 +15,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentReadViewingPartyBinding
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.presentation.party.ViewingPartyViewModel
 import umc.everyones.lck.presentation.party.chat.ViewingPartyChatActivity
 import umc.everyones.lck.presentation.party.dialog.JoinViewingPartyDialogFragment
 import umc.everyones.lck.presentation.party.write.WriteViewingPartyActivity
@@ -23,10 +25,12 @@ import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.textToString
 import umc.everyones.lck.util.extension.toWriteViewingPartyDateFormat
 import umc.everyones.lck.util.network.UiState
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R.layout.fragment_read_viewing_party) {
     private val viewModel: ReadViewingPartyViewModel by activityViewModels()
+    private val viewingPartyViewModel: ViewingPartyViewModel by activityViewModels()
     private val navigator by lazy {
         findNavController()
     }
@@ -45,11 +49,11 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
         if (result.resultCode == Activity.RESULT_OK){
             val isWriteDone = result.data?.getBooleanExtra("isWriteDone", false) ?: false
             if(isWriteDone){
+                viewingPartyViewModel.setIsRefreshNeeded(true)
                 navigator.navigateUp()
             }
         }
     }
-
     override fun initObserver() {
         viewLifecycleOwner.repeatOnStarted {
             viewModel.readViewingPartyEvent.collect{ state ->
@@ -59,6 +63,25 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                         showCustomSnackBar(binding.root, state.msg)
                     }
                     else -> Unit
+                }
+            }
+        }
+
+        viewLifecycleOwner.repeatOnStarted {
+            viewModel.isWriter.collect{ isWriter ->
+                Log.d("iSwrite", isWriter.toString())
+                if(!isWriter) {
+                    with(binding){
+                        groupReadWriterMenu.visibility = View.GONE
+                        tvReadParticipantCancelGuide.visibility = View.VISIBLE
+                        tvReadAskToHost.text = "주최자에게 질문하기"
+                        tvReadJoinViewingParty.text = "Viewing Party 참여하기"
+                        askToHost()
+                        joinViewingParty()
+                    }
+                } else {
+                    inquireParticipantsList()
+                    deleteViewingParty()
                 }
             }
         }
@@ -80,10 +103,13 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                     Glide.with(requireContext())
                         .load(event.viewingParty.ownerImage)
                         .into(ivReadProfileImage)
+
+                    viewModel.setTitle(event.viewingParty.name)
                 }
             }
 
             ReadViewingPartyViewModel.ReadViewingPartyEvent.DeleteViewingParty -> {
+                viewingPartyViewModel.setIsRefreshNeeded(true)
                 navigator.navigateUp()
             }
             ReadViewingPartyViewModel.ReadViewingPartyEvent.JoinViewingParty -> {
@@ -104,29 +130,11 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
         Log.d("postId", postId.toString())
         viewModel.setPostId(postId)
         viewModel.fetchViewingParty()
-        distinguishView()
         goToEditViewingParty()
         binding.ivReadBackBtn.setOnSingleClickListener {
             navigator.navigateUp()
         }
     }
-
-    private fun distinguishView(){
-        if(false) {
-            with(binding){
-                groupReadWriterMenu.visibility = View.GONE
-                tvReadParticipantCancelGuide.visibility = View.VISIBLE
-                tvReadAskToHost.text = "주최자에게 질문하기"
-                tvReadJoinViewingParty.text = "Viewing Party 참여하기"
-                askToHost()
-                joinViewingParty()
-            }
-        } else {
-            inquireParticipantsList()
-            deleteViewingParty()
-        }
-    }
-
     private fun deleteViewingParty(){
         binding.ivReadDeleteBtn.setOnSingleClickListener {
             viewModel.deleteViewingParty()
@@ -135,7 +143,6 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     private fun joinViewingParty(){
         binding.tvReadJoinViewingParty.setOnSingleClickListener {
-            viewModel.setTitle(binding.tvReadViewingPartyTitle.text.toString())
             val dialog = JoinViewingPartyDialogFragment()
             dialog.setOnJoinViewingPartyClickListener(object : JoinViewingPartyDialogFragment.OnJoinViewingPartyClickListener{
                 override fun onConfirm() {
@@ -154,7 +161,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     private fun askToHost(){
         binding.tvReadAskToHost.setOnSingleClickListener {
-            startActivity(ViewingPartyChatActivity.newIntent(requireContext(), 4, true))
+            startActivity(ViewingPartyChatActivity.newIntent(requireContext(), postId, true, 0L))
         }
     }
 

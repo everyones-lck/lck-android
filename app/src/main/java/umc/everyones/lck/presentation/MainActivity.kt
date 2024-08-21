@@ -57,5 +57,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             Intent(context, MainActivity::class.java).apply {
                 putExtra("isWriteDone", isWriteDone)
             }
+
+        fun readMenuDoneIntent(context: Context, isReadMenuDone: Boolean) =
+            Intent(context, MainActivity::class.java).apply {
+                putExtra("isReadMenuDone", isReadMenuDone)
+            }
     }
 }

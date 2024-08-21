@@ -2,8 +2,7 @@ package umc.everyones.lck.data.dto.response.party
 
 import umc.everyones.lck.domain.model.response.party.ReadViewingPartyModel
 import umc.everyones.lck.util.extension.combineNicknameAndTeam
-import umc.everyones.lck.util.extension.toReadViewingPartyDateFormat
-import java.text.DecimalFormat
+import umc.everyones.lck.util.extension.toReadDateFormat
 
 data class ReadViewingPartyResponseDto(
     val name: String,
@@ -26,7 +25,7 @@ data class ReadViewingPartyResponseDto(
             ownerName.combineNicknameAndTeam(ownerTeam),
             ownerImage,
             qualify,
-            partyDate.slice(0..15).toReadViewingPartyDateFormat(),
+            partyDate.slice(0..15).toReadDateFormat(),
             location,
             latitude,
             longitude,

@@ -85,6 +85,7 @@
                 android:id="@+id/iv_post_image"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ic_hanhwa" />
         </androidx.cardview.widget.CardView>
 

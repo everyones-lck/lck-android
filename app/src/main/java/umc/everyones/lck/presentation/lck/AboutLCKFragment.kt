@@ -146,7 +146,8 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
             teamLogoUrl1 = match.team1.teamLogoUrl,
             teamLogoUrl2 = match.team2.teamLogoUrl,
             isTeam1Winner = match.team1.winner,
-            isTeam2Winner = match.team2.winner
+            isTeam2Winner = match.team2.winner,
+            isMatchFinished = match.matchFinished
         )
     }
 

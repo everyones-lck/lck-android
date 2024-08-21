@@ -59,11 +59,11 @@ class MatchDetailsAdapter() :
             tvMatchTitle.text = formatMatchTitle(detail.season, detail.matchNumber)
             tvMatchTime.text = detail.matchTime.dropLast(3)
 
-            loadTeamLogo(detail.team1.teamLogoUrl, ivTeam1, detail.team1.winner)
-            loadTeamLogo(detail.team2.teamLogoUrl, ivTeam2, detail.team2.winner)
+            loadTeamLogo(detail.team1.teamLogoUrl, ivTeam1, detail.team1.winner, detail.matchFinished)
+            loadTeamLogo(detail.team2.teamLogoUrl, ivTeam2, detail.team2.winner, detail.matchFinished)
         }
 
-        private fun loadTeamLogo(url: String?, imageView: ImageView, isWinner: Boolean) {
+        private fun loadTeamLogo(url: String?, imageView: ImageView, isWinner: Boolean, isMatchFinished: Boolean) {
             if (url.isNullOrEmpty()) {
                 imageView.visibility = View.GONE
                 return
@@ -77,7 +77,7 @@ class MatchDetailsAdapter() :
                         resource: Bitmap,
                         transition: Transition<in Bitmap>?
                     ) {
-                        if (!isWinner) {
+                        if (isMatchFinished && !isWinner) {
                             val grayscaleBitmap = convertToGrayscale(resource)
                             imageView.setImageBitmap(grayscaleBitmap)
                         } else {

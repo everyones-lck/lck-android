@@ -7,5 +7,6 @@ data class MatchData(
     val teamLogoUrl1: String? = null,
     val teamLogoUrl2: String? = null,
     val isTeam1Winner: Boolean,
-    val isTeam2Winner: Boolean
+    val isTeam2Winner: Boolean,
+    val isMatchFinished:Boolean
 )

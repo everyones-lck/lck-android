@@ -57,7 +57,16 @@ class MatchDetailsAdapter() :
         fun bind(detail: AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel) {
             Log.d("detail", detail.toString())
             tvMatchTitle.text = formatMatchTitle(detail.season, detail.matchNumber)
-            tvMatchTime.text = detail.matchTime.dropLast(3)
+
+            if (detail.matchFinished) {
+                val winningTeamName = if (detail.team1.winner) {
+                    detail.team1.teamName
+                } else {
+                    detail.team2.teamName }
+                tvMatchTime.text = "WIN | $winningTeamName"
+            } else {
+                tvMatchTime.text = detail.matchTime.dropLast(3)
+            }
 
             loadTeamLogo(detail.team1.teamLogoUrl, ivTeam1, detail.team1.winner, detail.matchFinished)
             loadTeamLogo(detail.team2.teamLogoUrl, ivTeam2, detail.team2.winner, detail.matchFinished)

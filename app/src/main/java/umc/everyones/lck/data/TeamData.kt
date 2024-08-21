@@ -45,16 +45,16 @@ object TeamData {
 
     val mypageTeamBackground = mapOf(
         1 to R.drawable.img_mypage_empty_background,
-        "Hanhwa" to R.drawable.img_mypage_hanhwa_background,
-        "Gen.G" to R.drawable.img_mypage_gen_g_background,
-        "T1" to R.drawable.img_mypage_t1_background,
-        "Kwangdong Freecs" to R.drawable.img_mypage_kwangdong_background,
-        "BNK" to R.drawable.img_mypage_bnk_background,
-        "Nongshim Red Force" to R.drawable.img_mypage_nongshim_red_force_background,
-        "DRX" to R.drawable.img_mypage_drx_background,
-        "OK Saving Bank Brion" to R.drawable.img_mypage_ok_saving_bank_biron_background,
-        "Dplus Kia" to R.drawable.img_mypage_dplus_kia_background,
-        "KT Rolster" to R.drawable.img_mypage_kt_rolster_background
+        2 to R.drawable.img_mypage_gen_g_background,
+        3 to R.drawable.img_mypage_hanhwa_background,
+        4 to R.drawable.img_mypage_dplus_kia_background,
+        5 to R.drawable.img_mypage_t1_background,
+        6 to R.drawable.img_mypage_kt_rolster_background,
+        7 to R.drawable.img_mypage_kwangdong_background,
+        8 to R.drawable.img_mypage_bnk_background,
+        9 to R.drawable.img_mypage_nongshim_red_force_background,
+        10 to R.drawable.img_mypage_drx_background,
+        11 to R.drawable.img_mypage_ok_saving_bank_biron_background
     )
 
     fun getSignupSuccessTeamLogo(teamId: Int): Int {

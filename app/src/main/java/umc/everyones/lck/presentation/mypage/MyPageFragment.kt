@@ -18,6 +18,7 @@ import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.login.SignupViewModel
 import umc.everyones.lck.util.TeamData
+import umc.everyones.lck.util.TeamData.teamLogos
 
 @AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment_mypage_main) {
@@ -31,6 +32,11 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
             profile?.let {
                 binding.tvMypageMainNickname.text = it.nickname // 닉네임 설정
                 binding.tvMypageMainTier.text = it.tier // 티어 설정
+
+                // 팀 로고 설정
+                val teamBackgroundResId = teamLogos[it.teamId] ?: R.drawable.img_mypage_empty_background
+                binding.ivMypageMainTeamBackground.setImageResource(teamBackgroundResId)
+
                 loadProfileImage(it.profileImageUrl) // 프로필 이미지 로드
             }
         }

@@ -14,10 +14,6 @@ import kotlinx.coroutines.launch
 import umc.everyones.lck.domain.model.about_lck.AboutLckMatchDetailsModel
 import umc.everyones.lck.domain.model.about_lck.AboutLckRankingDetailsModel
 import umc.everyones.lck.domain.repository.about_lck.AboutLckRepository
-import umc.everyones.lck.util.network.NetworkResult
-import umc.everyones.lck.util.network.onSuccess
-import java.time.LocalDate
-import java.time.LocalDate.parse
 
 import javax.inject.Inject
 
@@ -43,49 +39,6 @@ class AboutLckViewModel @Inject constructor(
                 temp.emit(it)
             }.onFailure {
 
-            }
-        }
-    }
-
-    fun fetchLckMatchDetails(searchDate: String) {
-        viewModelScope.launch {
-            try {
-                val startDate = parse(searchDate).minusDays(1)
-                val endDate = parse(searchDate).plusDays(1)
-
-                val matchDetailsList = mutableListOf<AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel>()
-
-                val dateRange = generateSequence(startDate) { it.plusDays(1) }
-                    .takeWhile { it <= endDate }
-
-                Log.d("ViewModel", "Fetching matches for dates: ${dateRange.joinToString()}")
-
-                dateRange.forEach { date ->
-                    Log.d("ViewModel", "Fetching match details for date: $date")
-                    val result = repository.fetchLckMatchDetails(date.toString())
-                    result.onSuccess { data ->
-                        Log.d("ViewModel", "Fetched ${data.matchDetailList.size} matches for date: $date")
-                        matchDetailsList.addAll(data.matchDetailList)
-                    }.onFailure { error ->
-                        Log.e("ViewModel", "Failed to fetch matches for date $date: ${error.message}")
-                    }
-                }
-
-                val matchDetailsModel = AboutLckMatchDetailsModel(matchDetailsList, matchDetailsList.size)
-                _matchDetails.value = Result.success(matchDetailsModel)
-
-                _title.value = if (matchDetailsList.isNotEmpty()) {
-                    formatMatchTitle(matchDetailsList.first().season, matchDetailsList.first().matchNumber)
-                } else {
-                    "No Matches"
-                }
-
-                Log.d("ViewModel", "Final match details size: ${matchDetailsList.size}")
-
-            } catch (e: Exception) {
-                Log.e("ViewModel", "Exception during match details fetch: ${e.message}")
-                _matchDetails.value = Result.failure(e)
-                _title.value = "Failed to load matches"
             }
         }
     }

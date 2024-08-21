@@ -104,24 +104,14 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
     }
 
     private fun handleMatchDetailsResult(result: Result<AboutLckMatchDetailsModel>?) {
-        Log.d("AboutLCKFragment", "handleMatchDetailsResult called with result: $result")
-
         result?.onSuccess { data ->
-            Log.d("AboutLCKFragment", "Successfully fetched match details")
-
             val matchDataList = matchVPAdapter.getMatchDataList().toMutableList()
 
             val mappedMatches = data.matchDetailList.map { match ->
                 val matchData = createMatchData(match)
-                Log.d("AboutLCKFragment", "Mapped match data: $matchData")
                 matchData
             }
-
             matchDataList.addAll(mappedMatches)
-            Log.d("AboutLCKFragment", "Final match data list after adding new data: $matchDataList")
-
-
-
             //updateMatchViewPager(matchDataList)
         }?.onFailure { throwable ->
             Log.e("AboutLCKFragment", "Failed to fetch match details: ${throwable.message}", throwable)

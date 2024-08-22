@@ -1,6 +1,8 @@
 package umc.everyones.lck.presentation.mypage
 
 import android.content.Intent
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -10,6 +12,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentMypageProfileWithdrawBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.login.LoginActivity
+import umc.everyones.lck.util.extension.showCustomSnackBar
 
 @AndroidEntryPoint
 class MyPageProfileWithdrawFragment : BaseFragment<FragmentMypageProfileWithdrawBinding>(R.layout.fragment_mypage_profile_withdraw) {
@@ -54,9 +57,11 @@ class MyPageProfileWithdrawFragment : BaseFragment<FragmentMypageProfileWithdraw
     }
 
     private fun navigateToLoginScreen() {
-        // 로그인 화면으로 전환하는 코드
-        val intent = Intent(requireContext(), LoginActivity::class.java)
-        startActivity(intent)
-        requireActivity().finish() // 현재 액티비티 종료
+        showCustomSnackBar(binding.root, "계정 탈퇴 되었습니다")
+        Handler(Looper.getMainLooper()).postDelayed({
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }, 2000)
     }
 }

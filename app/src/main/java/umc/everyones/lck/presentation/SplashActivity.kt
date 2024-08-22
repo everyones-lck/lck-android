@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.presentation.login.LoginActivity
-import umc.everyones.lck.util.LoginManager
 import javax.inject.Inject
 
 @SuppressLint("CustomSplashScreen")
@@ -23,11 +22,9 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-
-        val loginManager = LoginManager(this)
-
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = if (loginManager.getIsLoggedIn()) {
+            val isLoggedIn = spf.getBoolean("isLoggedIn", false) // SharedPreferences에서 로그인 상태 가져오기
+            val intent = if (isLoggedIn) {
                 Intent(this, MainActivity::class.java) // 로그인된 상태라면 홈 화면으로
             } else {
                 Intent(this, LoginActivity::class.java) // 로그인되지 않은 상태라면 로그인 화면으로

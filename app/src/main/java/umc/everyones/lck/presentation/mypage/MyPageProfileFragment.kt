@@ -12,7 +12,6 @@ import umc.everyones.lck.databinding.DialogMypageProfileLogoutBinding
 import umc.everyones.lck.databinding.FragmentMypageProfileBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.login.LoginActivity
-import umc.everyones.lck.util.LoginManager
 import umc.everyones.lck.util.TeamData
 
 @AndroidEntryPoint
@@ -22,6 +21,7 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
     private val teamLogos = TeamData.mypageTeamBackground
     private val navigator by lazy { findNavController() }
 
+
     override fun initObserver() {
         myPageViewModel.profileData.observe(viewLifecycleOwner) { profile ->
             profile?.let {
@@ -29,7 +29,8 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
                 binding.tvMypageProfileTier.text = it.tier // 티어 설정
 
                 // 팀 로고 설정
-                val teamBackgroundResId = teamLogos[it.teamId] ?: R.drawable.img_mypage_empty_background
+                val teamBackgroundResId =
+                    teamLogos[it.teamId] ?: R.drawable.img_mypage_empty_background
                 binding.ivMypageMainTeamBackground.setImageResource(teamBackgroundResId)
 
                 loadProfileImage(it.profileImageUrl) // 프로필 이미지 로드
@@ -52,7 +53,7 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         binding.tvMypageProfileLogoutText.setOnClickListener {
             showProfileDialog()
         }
-        binding.ivMypageProfileBack.setOnClickListener{
+        binding.ivMypageProfileBack.setOnClickListener {
             navigator.navigateUp()
         }
     }
@@ -84,7 +85,8 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
     }
 
     private fun showProfileDialog() {
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_mypage_profile_logout, null)
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_mypage_profile_logout, null)
         val dialogBinding = DialogMypageProfileLogoutBinding.bind(dialogView)
 
         val dialog = AlertDialog.Builder(requireContext())
@@ -107,10 +109,8 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         // Logout button
         dialogBinding.btnConfirm.setOnClickListener {
             dialog.dismiss()
-            val loginManager = LoginManager(requireContext())
-            loginManager.clearLogin()
+            myPageViewModel.logout()
 
-            // Navigate to login activity
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
             requireActivity().finish()

@@ -3,6 +3,7 @@ package umc.everyones.lck.presentation.mypage
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -25,6 +26,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
+    private val spf: SharedPreferences,
     application: Application,
     private val repository: MypageRepository
 ) : AndroidViewModel(application) {
@@ -34,6 +36,10 @@ class MyPageViewModel @Inject constructor(
 
     private val _withdrawResult = MutableLiveData<Boolean>()
     val withdrawResult: LiveData<Boolean> get() = _withdrawResult
+
+    private val _logoutResult = MutableLiveData<Boolean>()
+    val logoutResult: LiveData<Boolean> get() = _logoutResult
+
 
     fun inquiryProfile() {
         viewModelScope.launch {
@@ -50,11 +56,31 @@ class MyPageViewModel @Inject constructor(
         viewModelScope.launch {
             repository.withdraw().onSuccess {response ->
                 _withdrawResult.value = true
-                Log.d("MyViewModel", "회원 탈퇴 성공: $response")
+                Log.d("withdraw", "회원 탈퇴 성공: $response")
+                spf.edit().putBoolean("isLoggedIn", false).apply()
             }.onFailure { error ->
-                Log.e("MyViewModel", "회원 탈퇴 실패: ${error.message}")
+                Log.e("withdraw", "회원 탈퇴 실패: ${error.message}")
                 _withdrawResult.value = false
             }
+        }
+    }
+
+    fun logout() {
+        val refreshToken = spf.getString("refreshToken", null)
+        if (refreshToken != null) {
+            viewModelScope.launch {
+                repository.logout(refreshToken).onSuccess { response ->
+                    _logoutResult.value = true
+                    Log.d("logout", "로그아웃 성공: $response")
+                    spf.edit().putBoolean("isLoggedIn", false).apply()
+                }.onFailure { error ->
+                    _logoutResult.value = false
+                    Log.e("logout", "로그아웃 실패: ${error.message}")
+                }
+            }
+        } else {
+            Log.e("logout", "refreshToken이 없습니다.")
+            _logoutResult.value = false
         }
     }
 }

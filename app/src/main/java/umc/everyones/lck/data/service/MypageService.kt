@@ -65,7 +65,7 @@ interface MypageService {
     @DELETE("my-pages/logout")
     suspend fun logout(
         @Header("Refresh") refreshToken: String
-    ): BaseResponse<Boolean>
+    ): NonBaseResponse
 
     @PATCH("my-pages/withdrawal")
     suspend fun withdraw(): NonBaseResponse

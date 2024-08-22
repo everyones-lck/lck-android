@@ -3,6 +3,7 @@ package umc.everyones.lck.presentation.match
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -17,7 +18,7 @@ import umc.everyones.lck.presentation.match.adapter.LckMatchContentRVA
 
 @AndroidEntryPoint
 class TodayMatchLckMatchFragment : BaseFragment<FragmentTodayMatchLckMatchBinding>(R.layout.fragment_today_match_lck_match) {
-    private val viewModel: TodayMatchLckMatchViewModel by viewModels()
+    private val viewModel: TodayMatchLckMatchViewModel by activityViewModels()
     private lateinit var lckMatchContentRVA: LckMatchContentRVA
     override fun initObserver() {
         // ViewModel의 matchData를 관찰하여 데이터 변경 시 UI를 업데이트

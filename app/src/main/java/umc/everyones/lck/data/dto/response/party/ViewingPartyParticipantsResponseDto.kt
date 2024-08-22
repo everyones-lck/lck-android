@@ -12,13 +12,14 @@ data class ViewingPartyParticipantsResponseDto(
     val isLast: Boolean
 ){
     data class ParticipantsResponseDto(
+        val kakaoUserId: String,
         val id: Long,
         val name: String,
         val team: String,
         val image: String
     ){
         fun toParticipantsModel() =
-            ViewingPartyParticipantsModel.ParticipantsModel(id, name, team, image)
+            ViewingPartyParticipantsModel.ParticipantsModel(kakaoUserId, id, name, team, image)
     }
 
     fun toViewingPartyParticipantsModel() =

@@ -51,7 +51,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
     }
 
     private val participantsId by lazy {
-        intent.getLongExtra("participantsId", 0L)
+        intent.getStringExtra("participantsId")
     }
 
     private val isParticipant by lazy {
@@ -76,7 +76,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        viewModel.setPostId(postId, participantsId)
+        viewModel.setPostId(postId, participantsId?:"")
         if (isParticipant) {
             viewModel.createViewingPartyChatRoomAsParticipant()
         } else {
@@ -194,7 +194,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun newIntent(context: Context, postId: Long, isParticipant: Boolean, participantsId: Long): Intent =
+        fun newIntent(context: Context, postId: Long, isParticipant: Boolean, participantsId: String): Intent =
             Intent(context, ViewingPartyChatActivity::class.java).apply {
                 putExtra("postId", postId)
                 putExtra("isParticipant", isParticipant)

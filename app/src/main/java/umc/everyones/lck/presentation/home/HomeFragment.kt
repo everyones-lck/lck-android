@@ -10,6 +10,7 @@ import umc.everyones.lck.domain.model.response.home.HomeTodayMatchModel
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.home.adapter.HomeMatchContentVPA
 import umc.everyones.lck.presentation.home.adapter.HomeMatchResultRVA
+import umc.everyones.lck.presentation.mypage.MyPageActivity
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint

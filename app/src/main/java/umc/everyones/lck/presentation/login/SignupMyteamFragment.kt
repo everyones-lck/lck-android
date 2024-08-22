@@ -30,8 +30,8 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
     }
 
     override fun initView() {
-        val profileImageUri = viewModel.profileUri.value?.toString()
 
+        setupTeamSelection()
 
         binding.ivSignupMyteamNext.setOnClickListener {
             if (selectedTeamId == null) {

@@ -30,8 +30,8 @@ class ViewingPartyChatViewModel @Inject constructor(
     private val _postId = MutableStateFlow<Long>(-1)
     val postId: StateFlow<Long> get() = _postId
 
-    private val _participantsId = MutableStateFlow<Long>(-1)
-    val participantsId: StateFlow<Long> get() = _participantsId
+    private val _participantsId = MutableStateFlow<String>("")
+    val participantsId: StateFlow<String> get() = _participantsId
     
     private val _roomId = MutableStateFlow<Long>(0L)
     val roomId: StateFlow<Long> get() = _roomId
@@ -53,14 +53,14 @@ class ViewingPartyChatViewModel @Inject constructor(
         }
     }
 
-    fun setPostId(postId: Long, participantsId: Long){
+    fun setPostId(postId: Long, participantsId: String){
         _postId.value = postId
         _participantsId.value = participantsId
     }
     fun createViewingPartyChatRoom(){
         viewModelScope.launch {
             _viewingPartyChatEvent.value = UiState.Loading
-            repository.createViewingPartyChatRoom(postId.value, "3660655605").onSuccess { response ->
+            repository.createViewingPartyChatRoom(postId.value, participantsId.value).onSuccess { response ->
                 _viewingPartyChatEvent.value = UiState.Success(ViewingPartyChatEvent.CreateChatRoom(response))
                 Log.d("createViewingPartyChatRoom", response.toString())
                 _roomId.value = response.roomId

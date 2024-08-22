@@ -10,6 +10,7 @@ data class ViewingPartyParticipantsModel(
     val isLast: Boolean
 ) {
     data class ParticipantsModel(
+        val kakaoUserId: String,
         val id: Long,
         val name: String,
         val team: String,

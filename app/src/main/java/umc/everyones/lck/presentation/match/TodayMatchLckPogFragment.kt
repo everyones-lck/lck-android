@@ -1,6 +1,8 @@
 package umc.everyones.lck.presentation.match
 
 import android.util.Log
+import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,6 +18,7 @@ import umc.everyones.lck.presentation.match.adapter.LckPogPlayerRVA
 @AndroidEntryPoint
 class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R.layout.fragment_today_match_lck_pog) {
     private val viewModel: TodayMatchLckPogViewModel by viewModels()
+    private val todayViewModel: TodayMatchLckMatchViewModel by activityViewModels()
     private lateinit var lckPogMatchRVA: LckPogMatchRVA
     private var tabIndex = 0
 
@@ -49,6 +52,19 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
                 viewModel.fetchTodayMatchMatchPog(matchId)
             }
             Log.d("TodayMatchLckPogFragment", "Tab selected: $tabIndex")
+        }
+        // ViewModel의 matchData를 관찰하여 데이터 변경 시 UI를 업데이트
+        todayViewModel.matchData.observe(viewLifecycleOwner) { matchData ->
+            if (matchData == null || matchData.matchResponses.isEmpty()) {
+                // 경기가 없을 때
+                binding.layoutTodayMatchPogNoMatch.visibility = View.VISIBLE
+                binding.rvTodayMatchLckPogContainer.visibility = View.GONE
+            } else {
+                // 경기가 있을 때
+                binding.layoutTodayMatchPogNoMatch.visibility = View.GONE
+                binding.rvTodayMatchLckPogContainer.visibility = View.VISIBLE
+//                updateMatchContent(matchData.matchResponses)
+            }
         }
     }
 

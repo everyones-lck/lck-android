@@ -30,7 +30,7 @@ interface MypageRepository {
 
     suspend fun cancelHostViewingPartyMypage(viewingPartyId: Int): Result<Boolean>
 
-    suspend fun logout(refreshToken: String): Result<Boolean>
+    suspend fun logout(refreshToken: String): Result<NonBaseResponse>
 
     suspend fun withdraw(): Result<NonBaseResponse>
 

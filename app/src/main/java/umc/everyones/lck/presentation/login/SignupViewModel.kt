@@ -116,6 +116,8 @@ class SignupViewModel @Inject constructor(
             repository.login(requestModel).onSuccess { response ->
                 Log.d("loginWithKakao", response.toString())
                 spf.edit().putString("jwt", response.accessToken).apply()
+                spf.edit().putString("refreshToken", response.refreshToken).apply()
+                spf.edit().putBoolean("isLoggedIn", true).apply()
                 _loginResult.value = response // 로그인 결과를 LiveData에 저장
             }.onFailure { error ->
                 Log.d("loginWithKakao Error", error.message.toString())
@@ -150,6 +152,7 @@ class SignupViewModel @Inject constructor(
                     putInt("teamId", signupRequest.signupUserData.teamId)
                     putString("tier", signupRequest.signupUserData.tier)
                 }
+                spf.edit().putBoolean("isLoggedIn", true).apply()
             } catch (e: Exception) {
                 Log.e("SignupViewModel", "API call failed: ${e.message}")
                 _signupResponse.value = null // 실패 시 null 처리
@@ -196,9 +199,4 @@ class SignupViewModel @Inject constructor(
             )
         )
     }
-
-    fun signupUser() {
-
-    }
-
 }

@@ -29,7 +29,7 @@ interface MypageDataSource {
 
     suspend fun cancelHostViewingPartyMypage(viewingPartyId: Int): BaseResponse<Boolean>
 
-    suspend fun logout(refreshToken: String): BaseResponse<Boolean>
+    suspend fun logout(refreshToken: String): NonBaseResponse
 
     suspend fun withdraw(): NonBaseResponse
 

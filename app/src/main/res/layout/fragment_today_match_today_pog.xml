@@ -45,7 +45,7 @@
 
         <LinearLayout
             android:id="@+id/layout_today_match_today_pog_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="25dp"
@@ -57,6 +57,7 @@
                 android:id="@+id/iv_today_match_today_pog_back"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
+                android:layout_weight="1"
                 android:layout_marginEnd="25dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_arrow_thin_previous"/>
@@ -64,6 +65,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center">
 
                 <TextView
@@ -93,19 +95,30 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tv_today_match_today_pog_vote"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.LCK.Light"
-                android:text="투표"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:layout_gravity="center"
-                android:paddingVertical="4dp"
-                android:paddingHorizontal="8dp"
-                android:layout_marginStart="25dp"
-                android:background="@drawable/shape_rect_12_white_thin_line"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_today_match_today_pog_vote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.LCK.Light"
+                    android:text="투표"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:layout_gravity="center"
+                    android:paddingVertical="4dp"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/shape_rect_12_white_thin_line"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 

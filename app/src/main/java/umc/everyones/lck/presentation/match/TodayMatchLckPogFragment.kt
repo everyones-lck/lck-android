@@ -44,7 +44,7 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
         }
         // 탭 선택 시 세트별 POG 데이터를 불러오기
         viewModel.selectedTabIndex.observe(viewLifecycleOwner) { tabIndex ->
-            val matchId = 3L
+            val matchId = 94L
             this.tabIndex = tabIndex
             if (tabIndex < (viewModel.setCount.value?.setCount ?: 0)) {
                 viewModel.fetchTodayMatchSetPog(tabIndex + 1, matchId)
@@ -70,7 +70,7 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
 
     override fun initView() {
         setupRecyclerView()
-        viewModel.fetchTodayMatchSetCount(3)
+        viewModel.fetchTodayMatchSetCount(94)
         viewModel.updateSelectedTab(0)
     }
     private fun setupRecyclerView() {

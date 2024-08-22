@@ -199,7 +199,7 @@
                     android:src="@drawable/ic_arrow_right"
                     android:layout_marginTop="19dp"
                     android:layout_marginEnd="13dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/iv_home_about_lck_box"
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <ImageView
@@ -208,7 +208,7 @@
                     android:layout_height="68.97dp"
                     android:src="@drawable/ic_polished_lck"
                     android:layout_marginBottom="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/iv_home_about_lck_box"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -253,7 +253,7 @@
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintEnd_toEndOf="@id/iv_home_community_box"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -297,7 +297,7 @@
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintEnd_toEndOf="@id/iv_home_viewing_party_box"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

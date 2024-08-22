@@ -1,8 +1,5 @@
 package umc.everyones.lck.presentation.home
 
-import android.content.Intent
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,11 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentHomeBinding
 import umc.everyones.lck.domain.model.response.home.HomeTodayMatchModel
-import umc.everyones.lck.domain.model.todayMatch.LckMatch
 import umc.everyones.lck.presentation.base.BaseFragment
-import umc.everyones.lck.presentation.login.LoginActivity
-import umc.everyones.lck.presentation.mypage.MyPageActivity
-import umc.everyones.lck.util.LoginManager
 import umc.everyones.lck.presentation.home.adapter.HomeMatchContentVPA
 import umc.everyones.lck.presentation.home.adapter.HomeMatchResultRVA
 import umc.everyones.lck.util.extension.setOnSingleClickListener

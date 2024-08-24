@@ -51,6 +51,7 @@ class MyPageViewModel @Inject constructor(
                 _withdrawResult.value = true
                 Log.d("withdraw", "회원 탈퇴 성공: $response")
                 spf.edit().putBoolean("isLoggedIn", false).apply()
+                clearAppCache()
             }.onFailure { error ->
                 Log.e("withdraw", "회원 탈퇴 실패: ${error.message}")
                 _withdrawResult.value = false

@@ -119,7 +119,7 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
 
     private fun loadProfileImage(uri: String?) {
         uri?.let {
-            Glide.with(this)
+            Glide. with(this)
                 .load(it)
                 .placeholder(R.drawable.img_signup_profile) // 기본 이미지
                 .into(binding.ivMypageMainProfile) // 프로필 이미지 뷰에 로드

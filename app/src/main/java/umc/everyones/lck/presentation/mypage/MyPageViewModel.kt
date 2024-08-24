@@ -2,26 +2,17 @@ package umc.everyones.lck.presentation.mypage
 
 import android.app.Application
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import umc.everyones.lck.R
 import umc.everyones.lck.domain.model.response.mypage.InquiryProfilesModel
 import umc.everyones.lck.domain.repository.MypageRepository
-import umc.everyones.lck.presentation.MainActivity
-import umc.everyones.lck.presentation.login.LoginActivity
-import umc.everyones.lck.presentation.login.SignupViewModel
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,6 +21,8 @@ class MyPageViewModel @Inject constructor(
     application: Application,
     private val repository: MypageRepository
 ) : AndroidViewModel(application) {
+
+    private val context: Context = getApplication<Application>().applicationContext
 
     private val _profileData = MutableLiveData<InquiryProfilesModel?>()
     val profileData: LiveData<InquiryProfilesModel?> get() = _profileData
@@ -73,6 +66,7 @@ class MyPageViewModel @Inject constructor(
                     _logoutResult.value = true
                     Log.d("logout", "로그아웃 성공: $response")
                     spf.edit().putBoolean("isLoggedIn", false).apply()
+                    clearAppCache()
                 }.onFailure { error ->
                     _logoutResult.value = false
                     Log.e("logout", "로그아웃 실패: ${error.message}")
@@ -83,4 +77,24 @@ class MyPageViewModel @Inject constructor(
             _logoutResult.value = false
         }
     }
+
+    private fun clearAppCache() {
+        val cacheDir = context.cacheDir
+        if (cacheDir.isDirectory) {
+            deleteDir(cacheDir)
+        }
+    }
+
+    private fun deleteDir(dir: File): Boolean {
+        if (dir.isDirectory) {
+            val children = dir.list()
+            if (children != null) {
+                for (child in children) {
+                    deleteDir(File(dir, child))
+                }
+            }
+        }
+        return dir.delete()
+    }
+
 }

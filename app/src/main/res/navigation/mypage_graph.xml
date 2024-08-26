@@ -42,6 +42,9 @@
         android:name="umc.everyones.lck.presentation.mypage.MyPageProfileEditFragment"
         android:label="MyPage Profile Edit Fragment"
         tools:layout="@layout/fragment_mypage_profile_edit">
+        <action
+            android:id="@+id/action_myPageProfileEditFragment_to_myPageProfileFragment"
+            app:destination="@+id/myPageProfileFragment"/>
     </fragment>
 
     <fragment

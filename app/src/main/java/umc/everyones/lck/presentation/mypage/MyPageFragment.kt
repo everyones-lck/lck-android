@@ -23,12 +23,12 @@ import umc.everyones.lck.util.TeamData.teamLogos
 @AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment_mypage_main) {
 
-    private val myPageViewModel: MyPageViewModel by activityViewModels()
+    private val viewModel: MyPageViewModel by activityViewModels()
     private val teamLogos = TeamData.mypageTeamBackground
     private val navigator by lazy { findNavController() }
 
     override fun initObserver() {
-        myPageViewModel.profileData.observe(viewLifecycleOwner) { profile ->
+        viewModel.profileData.observe(viewLifecycleOwner) { profile ->
             profile?.let {
                 binding.tvMypageMainNickname.text = it.nickname // 닉네임 설정
                 binding.tvMypageMainTier.text = it.tier // 티어 설정
@@ -66,17 +66,17 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
             navigator.navigate(R.id.action_myPageFragment_to_myPageViewingPartyFragment)
         }
 
-        myPageViewModel.inquiryProfile()
+        viewModel.inquiryProfile()
     }
 
     private fun loadProfileImage(uri: String?) {
         uri?.let {
             Glide.with(this)
                 .load(it)
-                .placeholder(R.drawable.img_signup_profile) // 기본 이미지
+                .placeholder(R.drawable.img_about_lck_player) // 기본 이미지
                 .into(binding.ivMypageMainProfile) // 프로필 이미지 뷰에 로드
         } ?: run {
-            binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지 설정
+            binding.ivMypageMainProfile.setImageResource(R.drawable.img_about_lck_player) // 기본 이미지 설정
         }
     }
 }

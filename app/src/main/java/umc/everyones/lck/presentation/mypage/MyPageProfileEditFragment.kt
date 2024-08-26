@@ -56,6 +56,15 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
     override fun initView() {
         setInitialState() // 초기 상태 설정
 
+        // 기존 닉네임을 가져와 hint로 설정
+        myPageViewModel.nickName.observe(viewLifecycleOwner) { nickName ->
+            binding.etMypageProfileEditNicknameName.hint = if (nickName.isNullOrEmpty()) {
+                ""
+            } else {
+                nickName // 기존 닉네임을 hint로 설정
+            }
+        }
+
         // 뒤로가기 버튼 클릭 시 이동
         binding.ivMypageProfileEditBack.setOnClickListener {
             findNavController().navigateUp()
@@ -105,12 +114,13 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
         }
 
         binding.tvMypageProfileEditTopbarEdit.setOnClickListener {
-            val nickname = binding.etMypageProfileEditNicknameName.text.toString().trim()
-            val isDefaultImage = binding.ivMypageProfileEditProfile.drawable.constantState ==
-                    resources.getDrawable(R.drawable.img_signup_profile).constantState
+            val nicknameInput = binding.etMypageProfileEditNicknameName.text.toString().trim()
 
-            // 프로필 업데이트 메서드 호출 시 기본 이미지 여부를 함께 전달
-            myPageViewModel.updateProfile(nickname) // 기본 이미지 여부를 포함하도록 업데이트
+            // 현재 프로필 이미지 URI 가져오기
+            val currentProfileImageUri = myPageViewModel.profileUri.value
+
+            // 프로필 업데이트 메서드 호출
+            myPageViewModel.updateProfile(nicknameInput, currentProfileImageUri)
         }
     }
 

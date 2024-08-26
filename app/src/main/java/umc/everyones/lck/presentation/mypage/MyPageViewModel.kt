@@ -58,15 +58,23 @@ class MyPageViewModel @Inject constructor(
     private val _profileUri = MutableLiveData<Uri>()
     val profileUri: LiveData<Uri> get() = _profileUri
 
+    private val _existingNickname = MutableLiveData<String>()
+    val existingNickname: LiveData<String> get() = _existingNickname
+
     fun setProfileImageUri(uri: Uri) {
         _profileUri.value = uri
     }
 
+    // 기존 닉네임을 설정하는 메서드
+    fun setExistingNickname(nickname: String) {
+        _existingNickname.value = nickname
+    }
 
     fun inquiryProfile() {
         viewModelScope.launch {
             repository.inquiryProfiles().onSuccess { response ->
                 _profileData.value = response
+                _nickName.value = response.nickname // 닉네임을 LiveData에 저장
                 Log.d("inquiryProfile", response.toString())
             }.onFailure {
                 Log.d("inquiryProfile", it.stackTraceToString())
@@ -108,23 +116,14 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun updateProfile(nickName: String) {
-        // 닉네임 유효성 검사 (필요한 경우 추가)
-        if (nickName.isBlank()) {
-            Log.e("updateProfile", "닉네임이 비어 있습니다.")
-            return
-        }
-
+    fun updateProfile(nickName: String, profileImageUri: Uri?) {
         viewModelScope.launch {
-            // 현재 프로필 이미지 URI 가져오기
-            val profileImageUri = _profileUri.value // ViewModel에서 URI 가져옴
-
             // 프로필 이미지 부분 생성
             val profileImagePart = if (profileImageUri != null) {
                 createProfileImagePart(profileImageUri) // 선택한 이미지 URI를 사용
             } else {
                 // 기본 이미지 사용
-                val defaultImageUri = Uri.parse("android.resource://${context.packageName}/${R.drawable.img_signup_profile}")
+                val defaultImageUri = Uri.parse("android.resource://${getApplication<Application>().packageName}/${R.drawable.img_signup_profile}")
                 createProfileImagePart(defaultImageUri)
             }
 

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -18,6 +19,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import umc.everyones.lck.R
 import umc.everyones.lck.data.UpdateProfileRequest
+import umc.everyones.lck.data.dto.BaseResponse
+import umc.everyones.lck.data.dto.response.mypage.UpdateProfilesResponseDto
 import umc.everyones.lck.domain.model.response.mypage.InquiryProfilesModel
 import umc.everyones.lck.domain.model.response.mypage.UpdateProfilesModel
 import umc.everyones.lck.domain.repository.MypageRepository
@@ -51,6 +54,13 @@ class MyPageViewModel @Inject constructor(
 
     private val _isNicknameAvailable = MutableLiveData<Boolean>()
     val isNicknameAvailable: LiveData<Boolean> get() = _isNicknameAvailable
+
+    private val _profileUri = MutableLiveData<Uri>()
+    val profileUri: LiveData<Uri> get() = _profileUri
+
+    fun setProfileImageUri(uri: Uri) {
+        _profileUri.value = uri
+    }
 
 
     fun inquiryProfile() {
@@ -98,59 +108,67 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    // 닉네임 가용성 체크 및 프로필 업데이트 메소드
-    fun checkNicknameAndUpdateProfile(nickName: String, isDefaultImage: Boolean) {
+    fun updateProfile(nickName: String) {
+        // 닉네임 유효성 검사 (필요한 경우 추가)
+        if (nickName.isBlank()) {
+            Log.e("updateProfile", "닉네임이 비어 있습니다.")
+            return
+        }
+
         viewModelScope.launch {
-            // SharedPreferences에서 프로필 이미지 가져오기
-            val profileImageResId = spf.getInt("profileImageResId", R.drawable.img_signup_profile) // 기본 이미지
-            val profileImagePart = createProfileImagePart(profileImageResId) // 프로필 이미지 부분 생성
+            // 현재 프로필 이미지 URI 가져오기
+            val profileImageUri = _profileUri.value // ViewModel에서 URI 가져옴
+
+            // 프로필 이미지 부분 생성
+            val profileImagePart = if (profileImageUri != null) {
+                createProfileImagePart(profileImageUri) // 선택한 이미지 URI를 사용
+            } else {
+                // 기본 이미지 사용
+                val defaultImageUri = Uri.parse("android.resource://${context.packageName}/${R.drawable.img_signup_profile}")
+                createProfileImagePart(defaultImageUri)
+            }
 
             // UpdateProfileRequest 생성
-            val updateProfileRequest = UpdateProfileRequest(nickName, isDefaultImage)
+            val updateProfileRequest = UpdateProfileRequest(nickName, profileImageUri == null)
 
-            // Gson을 사용하여 UpdateProfileRequest를 JSON으로 변환
-            val gson = Gson()
-            val updateProfileJson = gson.toJson(updateProfileRequest)
-            val requestBody = updateProfileJson.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            // JSON 변환
+            val requestBody = Gson().toJson(updateProfileRequest)
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
             // 프로필 업데이트 호출
-            val result = runCatching {
-                repository.updateProfiles(profileImagePart, requestBody) // RequestBody를 전달
-            }
+            runCatching {
+                repository.updateProfiles(profileImagePart, requestBody)
+            }.onSuccess { response ->
+                // 응답을 BaseResponse로 캐스팅
+                val updatedProfile = (response as? BaseResponse<UpdateProfilesResponseDto>)?.data
+                    ?: throw IllegalArgumentException("Response data is null") // 데이터가 null인 경우 예외 발생
 
-            // 결과 처리
-            result.onSuccess { response ->
-                _isNicknameAvailable.value = true
-                _nickName.value = "Profile updated successfully"
+                // 업데이트된 프로필 정보 가져오기
+                _updateProfileResult.value = UpdateProfilesModel(
+                    updatedProfileImageUrl = updatedProfile.updatedProfileImageUrl,
+                    updatedNickname = updatedProfile.updatedNickname
+                )
             }.onFailure { error ->
-                _isNicknameAvailable.value = false
-                _nickName.value = "Failed to update profile: ${error.message}"
-                Log.e("YourViewModel", "Error updating profile: ${error.message}")
+                // 오류 처리
+                _updateProfileResult.value = null
+                Log.e("MyPageViewModel", "Error updating profile: ${error.message}")
             }
         }
     }
 
-    // Bitmap을 MultipartBody.Part로 변환하는 메소드
-    private fun createProfileImagePart(profileImageResId: Int): MultipartBody.Part {
-        return try {
-            val defaultImageBitmap: Bitmap = BitmapFactory.decodeResource(getApplication<Application>().resources, profileImageResId)
-            val defaultImageStream = ByteArrayOutputStream().apply {
-                defaultImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, this)
-            }
-            val defaultImageBytes = defaultImageStream.toByteArray()
-
-            val requestBody = defaultImageBytes.toRequestBody("image/png".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData(
-                "profileImage", "profile_image.png", requestBody
-            )
-        } catch (e: Exception) {
-            Log.e("YourViewModel", "Error creating MultipartBody.Part for profile image: ${e.message}")
-            val emptyImageRequestBody = ByteArray(0).toRequestBody("image/png".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData(
-                "profileImage", "profile_image.png", emptyImageRequestBody
-            )
+    private fun createProfileImagePart(uri: Uri): MultipartBody.Part {
+        val inputStream = getApplication<Application>().contentResolver.openInputStream(uri) // URI에서 입력 스트림 열기
+        val selectedImageBitmap = BitmapFactory.decodeStream(inputStream) // 비트맵으로 변환
+        val byteArrayOutputStream = ByteArrayOutputStream().apply {
+            selectedImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, this)
         }
+        val imageBytes = byteArrayOutputStream.toByteArray()
+
+        val requestBody = imageBytes.toRequestBody("image/png".toMediaTypeOrNull())
+        return MultipartBody.Part.createFormData("profileImage", "profile_image.png", requestBody)
     }
+
+
 
     private fun clearAppCache() {
         val cacheDir = context.cacheDir

@@ -42,36 +42,32 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
                 Log.d("TodayMatchLckPogFragment", "Match POG Data: $pogData")
             }
         }
-        // 탭 선택 시 세트별 POG 데이터를 불러오기
-        viewModel.selectedTabIndex.observe(viewLifecycleOwner) { tabIndex ->
-            val matchId = 94L
-            this.tabIndex = tabIndex
-            if (tabIndex < (viewModel.setCount.value?.setCount ?: 0)) {
-                viewModel.fetchTodayMatchSetPog(tabIndex + 1, matchId)
-            } else {
-                viewModel.fetchTodayMatchMatchPog(matchId)
-            }
-            Log.d("TodayMatchLckPogFragment", "Tab selected: $tabIndex")
-        }
-        // ViewModel의 matchData를 관찰하여 데이터 변경 시 UI를 업데이트
+        // ViewModel의 matchData를 관찰하여 matchId를 가져와서 사용
         todayViewModel.matchData.observe(viewLifecycleOwner) { matchData ->
-            if (matchData == null || matchData.matchResponses.isEmpty()) {
-                // 경기가 없을 때
-                binding.layoutTodayMatchPogNoMatch.visibility = View.VISIBLE
-                binding.rvTodayMatchLckPogContainer.visibility = View.GONE
-            } else {
-                // 경기가 있을 때
-                binding.layoutTodayMatchPogNoMatch.visibility = View.GONE
-                binding.rvTodayMatchLckPogContainer.visibility = View.VISIBLE
-//                updateMatchContent(matchData.matchResponses)
+            matchData?.let {
+                val matchId = it.matchResponses.firstOrNull()?.matchId ?: return@let
+
+                // 탭 선택 시 세트별 POG 데이터를 불러오기
+                viewModel.selectedTabIndex.observe(viewLifecycleOwner) { tabIndex ->
+                    this.tabIndex = tabIndex
+                    if (tabIndex < (viewModel.setCount.value?.setCount ?: 0)) {
+                        viewModel.fetchTodayMatchSetPog(tabIndex + 1, matchId)
+                    } else {
+                        viewModel.fetchTodayMatchMatchPog(matchId)
+                    }
+                    Log.d("TodayMatchLckPogFragment", "Tab selected: $tabIndex")
+                }
+
+                // 세트 수를 가져오기 위해 matchId를 사용
+                viewModel.fetchTodayMatchSetCount(matchId)
+                Log.d("TodayMatchLckPogFragment", "Match ID: $matchId")
+                viewModel.updateSelectedTab(0)
             }
         }
     }
 
     override fun initView() {
         setupRecyclerView()
-        viewModel.fetchTodayMatchSetCount(94)
-        viewModel.updateSelectedTab(0)
     }
     private fun setupRecyclerView() {
         // 어댑터 설정 (초기에는 기본 setCount로 설정)

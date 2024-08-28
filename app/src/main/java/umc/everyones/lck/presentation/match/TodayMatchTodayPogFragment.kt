@@ -3,7 +3,9 @@ package umc.everyones.lck.presentation.match
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -17,10 +19,12 @@ import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.match.adapter.TodayPogPlayerRVA
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.toOrdinal
 
 @AndroidEntryPoint
 class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBinding>(R.layout.fragment_today_match_today_pog) {
     private val viewModel: TodayMatchTodayPogViewModel by viewModels()
+    private val todayViewModel: TodayMatchPredictionViewModel by activityViewModels()
     private lateinit var todayPogPlayerRVA1: TodayPogPlayerRVA
     private lateinit var todayPogPlayerRVA2: TodayPogPlayerRVA
     private lateinit var todayPogPlayerRVA3: TodayPogPlayerRVA
@@ -51,6 +55,14 @@ class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBindin
         viewModel.voteResponse.observe(viewLifecycleOwner) { message ->
             showCustomSnackBar(binding.root, message)
         }
+        // todayViewModel의 matchData를 관찰하여 seasonInfo로 텍스트 업데이트
+        todayViewModel.matchData.observe(viewLifecycleOwner, Observer { matchData ->
+            matchData?.let {
+                // seasonName과 서수를 포함한 matchNumber 설정
+                binding.tvTodayMatchTodayPogDate.text = "${it.seasonName} ${it.matchNumber.toOrdinal()} Match"
+                Log.d("Season", it.seasonName)
+            }
+        })
     }
 
     override fun initView() {
@@ -61,9 +73,8 @@ class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBindin
 
         val matchId = arguments?.getLong("matchId") ?: return
         viewModel.fetchTodayMatchSetCount(matchId)
-
         Log.d("TodayMatchTodayPogFragment", "matchId: $matchId") // matchId 로그 출력
-
+        todayViewModel.fetchTodayMatchVoteMatch(matchId)
     }
 
     private fun goBackButton() {

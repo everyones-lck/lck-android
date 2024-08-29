@@ -79,7 +79,7 @@ class WriteViewingPartyActivity :
             is WriteViewingPartyViewModel.WriteViewingPartyEvent.Geocoding -> {
                 with(event.geoCodingResult) {
                     if (!latLng.isValid) {
-                        showCustomSnackBar(binding.root, "주소를 정확히 입력해주세요")
+                        showCustomSnackBar(binding.root, "네이버 지도에서 정확한 주소를 확인 후, 다시 입력해주세요")
                         return
                     }
 

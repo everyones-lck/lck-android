@@ -1,15 +1,15 @@
 package umc.everyones.lck.presentation.community.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import umc.everyones.lck.databinding.ItemCommunityPostBinding
 import umc.everyones.lck.domain.model.community.CommunityListModel
-import umc.everyones.lck.domain.model.community.PostListItem
 
 class PostListRVA(val readPost: (Long) -> Unit) : PagingDataAdapter<CommunityListModel.CommunityListElementModel, PostListRVA.PostViewHolder>(DiffCallback()) {
 
@@ -40,9 +40,19 @@ class PostListRVA(val readPost: (Long) -> Unit) : PagingDataAdapter<CommunityLis
                     tvPostFavoriteTeam.text = postListItem.supportTeamName
                     tvPostComment.text = postListItem.commentCounts.toString()
 
-                    Glide.with(ivPostImage.context)
-                        .load(postListItem.postPicture)
-                        .into(ivPostImage)
+                    Glide.with(ivProfileImage.context)
+                        .load(postListItem.userProfilePicture)
+                        .into(ivProfileImage)
+
+                    if (postListItem.thumbnailFileUrl.isNotEmpty()){
+                        cvPostImage.visibility = View.VISIBLE
+                        Glide.with(ivPostImage.context)
+                            .load(postListItem.thumbnailFileUrl)
+                            .into(ivPostImage)
+                    } else {
+                        cvPostImage.visibility = View.INVISIBLE
+                    }
+
                     // 게시글 postId 전달
                     root.setOnClickListener {
                         readPost(postListItem.postId)

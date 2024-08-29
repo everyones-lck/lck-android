@@ -12,8 +12,9 @@ data class CommunityListResponseDto(
         val postCreatedAt: String,
         val userNickname: String,
         val supportTeamName: String,
-        val postPicture: String,
-        val commentCounts: Int
+        val userProfilePicture: String,
+        val commentCounts: Int,
+        val thumbnailFileUrl: String
     ) {
         fun toCommunityListElementModel() =
             CommunityListModel.CommunityListElementModel(
@@ -22,8 +23,9 @@ data class CommunityListResponseDto(
                 postCreatedAt,
                 userNickname,
                 if (supportTeamName == "empty") "" else supportTeamName,
-                postPicture,
-                commentCounts
+                userProfilePicture,
+                commentCounts,
+                thumbnailFileUrl
             )
     }
 

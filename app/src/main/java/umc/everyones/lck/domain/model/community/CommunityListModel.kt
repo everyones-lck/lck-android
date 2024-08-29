@@ -1,7 +1,5 @@
 package umc.everyones.lck.domain.model.community
 
-import umc.everyones.lck.data.dto.response.community.CommunityListResponseDto
-
 data class CommunityListModel(
     val postDetailList: List<CommunityListElementModel>,
     val isLast: Boolean
@@ -12,7 +10,8 @@ data class CommunityListModel(
         val postCreatedAt: String,
         val userNickname: String,
         val supportTeamName: String,
-        val postPicture: String,
-        val commentCounts: Int
+        val userProfilePicture: String,
+        val commentCounts: Int,
+        val thumbnailFileUrl: String
     )
 }

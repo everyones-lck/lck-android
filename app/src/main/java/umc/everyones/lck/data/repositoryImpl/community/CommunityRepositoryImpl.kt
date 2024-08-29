@@ -60,7 +60,7 @@ class CommunityRepositoryImpl @Inject constructor(
         Pager(
             config = PagingConfig(
                 pageSize = 10,
-                enablePlaceholders = false,
+                enablePlaceholders = true,
             ),
             pagingSourceFactory = { CommunityListPagingSource(communityService, category) }
         ).flow

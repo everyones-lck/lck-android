@@ -54,6 +54,8 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
             }
         }
     }
+
+    private var isParticipated = false
     override fun initObserver() {
         viewLifecycleOwner.repeatOnStarted {
             viewModel.readViewingPartyEvent.collect{ state ->
@@ -105,6 +107,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                         .into(ivReadProfileImage)
 
                     viewModel.setTitle(event.viewingParty.name)
+                    isParticipated = event.viewingParty.isParticipated
                 }
             }
 
@@ -114,6 +117,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
             }
             ReadViewingPartyViewModel.ReadViewingPartyEvent.JoinViewingParty -> {
                 showCustomSnackBar(binding.root, "뷰잉파티에 참여되었습니다!")
+                isParticipated = true
             }
 
             is ReadViewingPartyViewModel.ReadViewingPartyEvent.WriteDoneViewingParty -> {
@@ -143,6 +147,10 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     private fun joinViewingParty(){
         binding.tvReadJoinViewingParty.setOnSingleClickListener {
+            if (isParticipated) {
+                showCustomSnackBar(binding.root, "이미 해당 뷰잉파티에 참여했습니다")
+                return@setOnSingleClickListener
+            }
             val dialog = JoinViewingPartyDialogFragment()
             dialog.setOnJoinViewingPartyClickListener(object : JoinViewingPartyDialogFragment.OnJoinViewingPartyClickListener{
                 override fun onConfirm() {

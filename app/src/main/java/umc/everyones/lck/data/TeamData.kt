@@ -17,6 +17,20 @@ object TeamData {
         R.id.iv_signup_myteam_ok_saving_bank_brion to 11,
     )
 
+    val teamNames = mapOf(
+        1 to "선택된 My Team이 없습니다",
+        2 to "GEN",
+        3 to "HLE",
+        4 to "DK",
+        5 to "T1",
+        6 to "KT",
+        7 to "KDF",
+        8 to "BNK",
+        9 to "NS",
+        10 to "DRX",
+        11 to "BRO"
+    )
+
     val myteamLogos = mapOf(
         R.id.iv_mypage_myteam_gen_g to 2,
         R.id.iv_mypage_myteam_hanhwa to 3,
@@ -55,6 +69,20 @@ object TeamData {
         9 to R.drawable.img_mypage_nongshim_red_force_background,
         10 to R.drawable.img_mypage_drx_background,
         11 to R.drawable.img_mypage_ok_saving_bank_biron_background
+    )
+
+    val mypageMyteam = mapOf(
+        1 to R.drawable.ic_mypage_myteam_empty,
+        2 to R.drawable.ic_mypage_myteam_gen_g,
+        3 to R.drawable.ic_mypage_myteam_hanhwa,
+        4 to R.drawable.ic_mypage_myteam_dplus_kia,
+        5 to R.drawable.ic_mypage_myteam_t1,
+        6 to R.drawable.ic_mypage_myteam_kt_rolster,
+        7 to R.drawable.ic_mypage_myteam_kwangdong_freecs,
+        8 to R.drawable.ic_mypage_myteam_bnk,
+        9 to R.drawable.ic_mypage_myteam_nongshim_red_force,
+        10 to R.drawable.ic_mypage_myteam_drx,
+        11 to R.drawable.ic_mypage_myteam_ok_saving_bank_brion
     )
 
     fun getSignupSuccessTeamLogo(teamId: Int): Int {

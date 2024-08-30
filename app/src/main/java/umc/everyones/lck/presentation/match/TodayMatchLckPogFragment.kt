@@ -44,8 +44,16 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
         }
         // ViewModel의 matchData를 관찰하여 matchId를 가져와서 사용
         todayViewModel.matchData.observe(viewLifecycleOwner) { matchData ->
-            matchData?.let {
-                val matchId = it.matchResponses.firstOrNull()?.matchId ?: return@let
+            if (matchData == null || matchData.matchResponses.isEmpty()) {
+                // 경기가 없을 때
+                binding.layoutTodayMatchPogNoMatch.visibility = View.VISIBLE
+                binding.rvTodayMatchLckPogContainer.visibility = View.GONE
+            } else {
+                // 경기가 있을 때
+                binding.layoutTodayMatchPogNoMatch.visibility = View.GONE
+                binding.rvTodayMatchLckPogContainer.visibility = View.VISIBLE
+
+                val matchId = matchData.matchResponses.firstOrNull()?.matchId ?: return@observe
 
                 // 탭 선택 시 세트별 POG 데이터를 불러오기
                 viewModel.selectedTabIndex.observe(viewLifecycleOwner) { tabIndex ->

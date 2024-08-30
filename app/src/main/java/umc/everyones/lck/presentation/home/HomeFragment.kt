@@ -57,7 +57,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun goMatchResult() {
         binding.layoutHomeMatchResult.setOnClickListener {
-            viewModel.setNavigateEvent(R.id.todayMatchTab)
+            viewModel.setNavigateEvent(R.id.about_lck_graph)
         }
     }
 

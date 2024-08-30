@@ -17,7 +17,7 @@
     <ImageView
         android:id="@+id/iv_home_result_logo1"
         android:layout_width="70dp"
-        android:layout_height="0dp"
+        android:layout_height="55dp"
         android:layout_marginStart="18dp"
         android:src="@drawable/ic_kt_blurred"
         app:layout_constraintStart_toStartOf="parent"

@@ -73,10 +73,10 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
         uri?.let {
             Glide.with(this)
                 .load(it)
-                .placeholder(R.drawable.img_about_lck_player) // 기본 이미지
+                .placeholder(R.drawable.img_signup_profile) // 기본 이미지
                 .into(binding.ivMypageMainProfile) // 프로필 이미지 뷰에 로드
         } ?: run {
-            binding.ivMypageMainProfile.setImageResource(R.drawable.img_about_lck_player) // 기본 이미지 설정
+            binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지 설정
         }
     }
 }

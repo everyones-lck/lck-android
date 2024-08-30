@@ -5,11 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -28,6 +32,7 @@ import umc.everyones.lck.util.extension.hideKeyboardOnOutsideTouch
 import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.showKeyboard
 import umc.everyones.lck.util.extension.textToString
 import umc.everyones.lck.util.network.UiState
 import javax.inject.Inject
@@ -92,6 +97,13 @@ class ViewingPartyChatActivity : AppCompatActivity() {
         binding.ivChatBackBtn.setOnSingleClickListener {
             finish()
         }
+        /*binding.svChat.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            Log.d("scrolly", scrollY.toString())
+            if ((!v.canScrollVertically(-1))) {
+                Log.d("end", "end")
+                viewModel.fetchViewingPartyChatLog()
+            }
+        }*/
     }
 
     private fun initChatRVAdapter() {
@@ -152,6 +164,8 @@ class ViewingPartyChatActivity : AppCompatActivity() {
         repeatOnStarted {
             viewModel.roomId.collect{
                 initWsClient()
+                viewModel.fetchViewingPartyChatLog()
+                collectChatLog(it)
             }
         }
 
@@ -160,6 +174,18 @@ class ViewingPartyChatActivity : AppCompatActivity() {
                 handleWebsocketEvent(event)
             }
         }
+    }
+
+    private fun collectChatLog(roomId: Long){
+        /*repeatOnStarted {
+            viewModel.test(roomId).collect{
+                chatRVA.submitData(it)
+                if (isFirst){
+                    binding.svChat.fullScroll(View.FOCUS_DOWN)
+                    isFirst = false
+                }
+            }
+        }*/
     }
 
     private fun handleWebsocketEvent(event: WebSocketResource){
@@ -176,14 +202,17 @@ class ViewingPartyChatActivity : AppCompatActivity() {
         when(event){
             is ViewingPartyChatViewModel.ViewingPartyChatEvent.CreateChatRoom -> {
                 with(event.result) {
-                    viewModel.fetchViewingPartyChatLog(roomId)
+                    viewModel.fetchViewingPartyChatLog()
                     binding.tvChatTitle.text = viewingPartyName
                 }
             }
             is ViewingPartyChatViewModel.ViewingPartyChatEvent.FetchChatLog -> {
                 binding.tvChatWriter.text = "${event.chatLog.receiverName} | ${event.chatLog.receiverTeam}"
                 chatRVA.submitList(event.chatLog.chatMessageList){
-                    binding.rvChat.scrollToPosition(0)
+                    if(isFirst) {
+                        binding.etChatInput.showKeyboard()
+                        isFirst = false
+                    }
                 }
             }
         }
@@ -195,11 +224,6 @@ class ViewingPartyChatActivity : AppCompatActivity() {
             connectWebSocket()
             enterChatRoom("되나")
         }
-    }
-
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        hideKeyboardOnOutsideTouch(ev, binding.etChatInput, binding.layoutChatSend)
-        return super.dispatchTouchEvent(ev)
     }
 
     companion object {

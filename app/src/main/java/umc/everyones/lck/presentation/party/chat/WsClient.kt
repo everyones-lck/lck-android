@@ -55,7 +55,7 @@ class WsClient @Inject constructor(
 
     override fun onMessage(webSocket: WebSocket, text: String) {
         Log.d("WebSocket", "Message received: $text")
-        viewModel.fetchViewingPartyChatLog(roomId.toLong())
+        viewModel.fetchViewingPartyChatLog()
     }
 
     override fun onMessage(webSocket: WebSocket, bytes: okio.ByteString) {

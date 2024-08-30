@@ -21,7 +21,7 @@ class ViewingPartyChatLogPagingSource @Inject constructor(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ViewingPartyChatLogModel.ChatLogModel> {
         val page = params.key ?: 0
-        if(page != 0) delay(100)
+        if(page != 0) delay(500)
         runCatching {
             viewingPartyService.fetchViewingPartyChatLog(roomId, page, 10).data.toViewingPartyChatLogModel(spf.getString("nickName", "")?:"")
         }.fold(

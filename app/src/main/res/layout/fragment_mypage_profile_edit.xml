@@ -155,7 +155,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="4dp"/>
 
-        <!-- 체크 표시와 메시지 1 -->
         <LinearLayout
             android:id="@+id/layout_mypage_profile_edit_warning1"
             android:layout_width="wrap_content"
@@ -300,7 +299,7 @@
             android:paddingHorizontal="8dp"
             app:layout_constraintStart_toStartOf="@id/view_mypage_profile_edit_nickname_bar"
             app:layout_constraintEnd_toEndOf="@id/view_mypage_profile_edit_nickname_bar"
-            app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_edit_nickname_bar"
+            app:layout_constraintTop_toBottomOf="@id/layout_mypage_profile_edit_warning4"
             android:layout_marginTop="30dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

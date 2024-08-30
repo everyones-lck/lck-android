@@ -17,7 +17,6 @@ import umc.everyones.lck.presentation.lck.util.OnPlayerItemClickListener
 class AboutLckCoachesFragment : BaseFragment<FragmentAboutLckCoachesBinding>(R.layout.fragment_about_lck_coaches) {
 
     private val viewModel: AboutLckTeamViewModel by viewModels({requireParentFragment()})
-    private var listener: OnPlayerItemClickListener? = null
 
     override fun initObserver() {
         lifecycleScope.launch {
@@ -34,9 +33,7 @@ class AboutLckCoachesFragment : BaseFragment<FragmentAboutLckCoachesBinding>(R.l
                             position = player.position
                         )
                     }
-                    listener?.let {
-                        binding.rvAboutLckCoaches.adapter = PlayerAdapter(playerDataList, it)
-                    }
+                    binding.rvAboutLckCoaches.adapter = PlayerAdapter(playerDataList, null)
                 }?.onFailure {
                 }
             }
@@ -44,13 +41,13 @@ class AboutLckCoachesFragment : BaseFragment<FragmentAboutLckCoachesBinding>(R.l
     }
 
     override fun initView() {
-        listener = findParentListener()
         initRecyclerView()
     }
 
     private fun initRecyclerView() {
         val recyclerView: RecyclerView = binding.rvAboutLckCoaches
         recyclerView.layoutManager = GridLayoutManager(context, 3)
+        recyclerView.isNestedScrollingEnabled = false
     }
 
 
@@ -86,17 +83,5 @@ class AboutLckCoachesFragment : BaseFragment<FragmentAboutLckCoachesBinding>(R.l
             else ->R.drawable.img_about_lck_player_team_logo_t1
         }
         return logoRes
-    }
-
-    //NavHostFragment의 호스팅으로 인해 발생하는 부모 프래그먼트 문제를 해결하기 위한 메서드
-    private fun findParentListener(): OnPlayerItemClickListener? {
-        var fragment = parentFragment
-        while (fragment != null) {
-            if (fragment is OnPlayerItemClickListener) {
-                return fragment
-            }
-            fragment = fragment.parentFragment
-        }
-        throw ClassCastException("No parent fragment implements OnPlayerItemClickListener")
     }
 }

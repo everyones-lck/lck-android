@@ -53,6 +53,7 @@ class AboutLckRoasterFragment : BaseFragment<FragmentAboutLckRoasterBinding>(R.l
     private fun initRecyclerView() {
         val recyclerView: RecyclerView = binding.rvAboutLckRoaster
         recyclerView.layoutManager = GridLayoutManager(context, 3)
+        recyclerView.isNestedScrollingEnabled = false
     }
 
     private fun getTeamColorResource(teamId: Int): Int {

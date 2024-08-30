@@ -110,7 +110,12 @@ class AboutLckTeamPlayerFragment : BaseFragment<FragmentAboutLckTeamPlayerBindin
 
         binding.tvAboutLckTeamPlayerNickName.text = player.nickName
         binding.tvAboutLckTeamPlayerBirth.text = player.birthDate.substring(0, 10).replace("-", ".")
-        binding.tvAboutLckTeamPlayerPosition.text = player.position.toString()
+        val positionText = when (player.position.toString()) {
+            "JUNGLE" -> "JGL"
+            "SUPPORT" -> "SPT"
+            else -> player.position.toString()
+        }
+        binding.tvAboutLckTeamPlayerPosition.text = positionText
         binding.tvAboutLckTeamPlayerRealName.text = player.realName
 
         val positionIcon = when (player.position.name) {

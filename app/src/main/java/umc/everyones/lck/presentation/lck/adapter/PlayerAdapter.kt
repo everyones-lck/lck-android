@@ -16,7 +16,7 @@ import umc.everyones.lck.presentation.lck.data.PlayerData
 
 class PlayerAdapter(
     private val playerList: List<PlayerData>,
-    private val listener: OnPlayerItemClickListener
+    private val listener: OnPlayerItemClickListener?
 ) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
 
     inner class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -30,7 +30,7 @@ class PlayerAdapter(
         init {
             itemView.setOnClickListener {
                 val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
+                if (position != RecyclerView.NO_POSITION && listener != null) {
                     listener.onPlayerItemClick(playerList[position])
                 }
             }

@@ -23,6 +23,7 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
 
 
     override fun initObserver() {
+        myPageViewModel.inquiryProfile()
         myPageViewModel.profileData.observe(viewLifecycleOwner) { profile ->
             profile?.let {
                 binding.tvMypageProfileNickname.text = it.nickname // 닉네임 설정

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +17,10 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentMypageProfileEditBinding
+import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.presentation.home.HomeFragment
+import umc.everyones.lck.presentation.login.LoginActivity
 import umc.everyones.lck.presentation.login.SignupViewModel
 
 @AndroidEntryPoint
@@ -26,8 +30,10 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
     private val signupViewModel: SignupViewModel by activityViewModels()
     private val navigator by lazy { findNavController() }
 
-
     override fun initObserver() {
+
+        setInitialState()
+
         signupViewModel.isNicknameAvailable.observe(viewLifecycleOwner) { isAvailable ->
             if (isAvailable) {
                 binding.viewMypageProfileEditNicknameBar.setBackgroundResource(R.drawable.shape_rect_4_green_line)
@@ -58,11 +64,7 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
 
         // 기존 닉네임을 가져와 hint로 설정
         myPageViewModel.nickName.observe(viewLifecycleOwner) { nickName ->
-            binding.etMypageProfileEditNicknameName.hint = if (nickName.isNullOrEmpty()) {
-                ""
-            } else {
-                nickName // 기존 닉네임을 hint로 설정
-            }
+            binding.etMypageProfileEditNicknameName.hint = nickName
         }
 
         // 뒤로가기 버튼 클릭 시 이동
@@ -79,11 +81,6 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
         // 갤러리에서 이미지 선택 클릭 시
         binding.ivMypageProfileEditProfile.setOnClickListener {
             openGallery() // 갤러리 열기
-        }
-
-        // 중복 확인 버튼 클릭 시
-        binding.tvMypageNicknameDuplication.setOnClickListener {
-            navigator.navigate(R.id.action_myPageProfileEditFragment_to_myPageProfileFragment)
         }
 
         binding.etMypageProfileEditNicknameName.doOnTextChanged { text, _, _, _ ->
@@ -118,10 +115,35 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
 
             // 현재 프로필 이미지 URI 가져오기
             val currentProfileImageUri = myPageViewModel.profileUri.value
+            val currentNickname = myPageViewModel.nickName.value
+
+            // 업데이트할 닉네임과 이미지 결정
+            val finalNickname = when {
+                nicknameInput.isNotEmpty() -> nicknameInput // 닉네임이 비어있지 않으면 입력값 사용
+                currentNickname != null -> currentNickname // 닉네임이 비어있으면 현재 닉네임 사용
+                else -> null // 둘 다 null인 경우
+            }
+
+            val finalProfileImageUri = when {
+                currentProfileImageUri != null -> currentProfileImageUri // 프로필 이미지가 null이 아닐 경우 현재 이미지 사용
+                else -> null // 이미지만 null인 경우
+            }
 
             // 프로필 업데이트 메서드 호출
-            myPageViewModel.updateProfile(nicknameInput, currentProfileImageUri)
+            if (finalNickname != null || finalProfileImageUri != null) {
+                myPageViewModel.updateProfile(finalNickname, finalProfileImageUri)
+
+                // 프로필 업데이트 결과를 관찰하여 성공 여부에 따라 화면 전환
+                myPageViewModel.updateProfileResult.observe(viewLifecycleOwner) { result ->
+                    navigator.navigate(R.id.action_myPageProfileEditFragment_to_myPageProfileFragment)
+                }
+            } else {
+                // 닉네임과 이미지가 모두 null인 경우 사용자에게 알림
+                Toast.makeText(requireContext(), "변경할 내용이 없습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
+
+
     }
 
     private fun setInitialState() {

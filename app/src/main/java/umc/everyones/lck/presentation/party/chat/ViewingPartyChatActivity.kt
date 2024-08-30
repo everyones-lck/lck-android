@@ -5,10 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -20,11 +25,14 @@ import umc.everyones.lck.domain.model.party.ChatItem
 import umc.everyones.lck.presentation.party.adapter.ChatRVA
 import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.RECEIVER
 import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.SENDER
+import umc.everyones.lck.util.KeyboardUtil
 import umc.everyones.lck.util.chat.WebSocketResource
 import umc.everyones.lck.util.extension.drawableOf
+import umc.everyones.lck.util.extension.hideKeyboardOnOutsideTouch
 import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.showKeyboard
 import umc.everyones.lck.util.extension.textToString
 import umc.everyones.lck.util.network.UiState
 import javax.inject.Inject
@@ -71,6 +79,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
         binding = ActivityViewingPartyChatBinding.inflate(layoutInflater).apply {
             setContentView(this.root)
         }
+        KeyboardUtil.registerKeyboardVisibilityListener(binding.root, binding.svChat, binding.etChatInput)
         initObserver()
         initView()
     }
@@ -88,6 +97,13 @@ class ViewingPartyChatActivity : AppCompatActivity() {
         binding.ivChatBackBtn.setOnSingleClickListener {
             finish()
         }
+        /*binding.svChat.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            Log.d("scrolly", scrollY.toString())
+            if ((!v.canScrollVertically(-1))) {
+                Log.d("end", "end")
+                viewModel.fetchViewingPartyChatLog()
+            }
+        }*/
     }
 
     private fun initChatRVAdapter() {
@@ -148,6 +164,8 @@ class ViewingPartyChatActivity : AppCompatActivity() {
         repeatOnStarted {
             viewModel.roomId.collect{
                 initWsClient()
+                viewModel.fetchViewingPartyChatLog()
+                collectChatLog(it)
             }
         }
 
@@ -156,6 +174,18 @@ class ViewingPartyChatActivity : AppCompatActivity() {
                 handleWebsocketEvent(event)
             }
         }
+    }
+
+    private fun collectChatLog(roomId: Long){
+        /*repeatOnStarted {
+            viewModel.test(roomId).collect{
+                chatRVA.submitData(it)
+                if (isFirst){
+                    binding.svChat.fullScroll(View.FOCUS_DOWN)
+                    isFirst = false
+                }
+            }
+        }*/
     }
 
     private fun handleWebsocketEvent(event: WebSocketResource){
@@ -172,14 +202,17 @@ class ViewingPartyChatActivity : AppCompatActivity() {
         when(event){
             is ViewingPartyChatViewModel.ViewingPartyChatEvent.CreateChatRoom -> {
                 with(event.result) {
-                    viewModel.fetchViewingPartyChatLog(roomId)
+                    viewModel.fetchViewingPartyChatLog()
                     binding.tvChatTitle.text = viewingPartyName
                 }
             }
             is ViewingPartyChatViewModel.ViewingPartyChatEvent.FetchChatLog -> {
                 binding.tvChatWriter.text = "${event.chatLog.receiverName} | ${event.chatLog.receiverTeam}"
                 chatRVA.submitList(event.chatLog.chatMessageList){
-                    binding.rvChat.scrollToPosition(0)
+                    if(isFirst) {
+                        binding.etChatInput.showKeyboard()
+                        isFirst = false
+                    }
                 }
             }
         }
@@ -205,6 +238,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         wsClient.closeSocket()
+        KeyboardUtil.unregisterKeyboardVisibilityListener(binding.root)
     }
 
 }

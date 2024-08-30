@@ -1,9 +1,15 @@
 package umc.everyones.lck.util.extension
 
 import android.app.Activity
+import android.content.Context
+import android.graphics.Rect
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
@@ -31,4 +37,16 @@ fun Activity.showCustomSnackBar(view: View, message: String){
     snackBar.setBackgroundTint(this.colorOf(R.color.white))
 
     snackBar.show()
+}
+
+fun Activity.hideKeyboardOnOutsideTouch(event: MotionEvent?, editText: EditText, inside: ConstraintLayout) {
+    if (event?.action == MotionEvent.ACTION_DOWN) {
+        val outRect = Rect()
+        inside.getGlobalVisibleRect(outRect)
+        if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+            editText.clearFocus()
+            val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(editText.windowToken, 0)
+        }
+    }
 }

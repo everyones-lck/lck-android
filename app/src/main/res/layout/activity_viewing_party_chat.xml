@@ -92,8 +92,8 @@
                         android:nestedScrollingEnabled="false"
                         android:orientation="vertical"
                         android:overScrollMode="never"
-                        app:reverseLayout="true"
                         app:stackFromEnd="true"
+                        app:reverseLayout="true"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintVertical_bias="0" />

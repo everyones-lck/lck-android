@@ -74,6 +74,7 @@
                 android:layout_height="match_parent"
                 android:fillViewport="true"
                 android:overScrollMode="never"
+                android:visibility="invisible"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 app:layout_constraintTop_toTopOf="parent">
 

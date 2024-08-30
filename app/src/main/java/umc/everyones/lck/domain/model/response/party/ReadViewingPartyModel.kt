@@ -11,5 +11,6 @@ data class ReadViewingPartyModel(
     val longitude: Double,
     val price: String,
     val participants: String,
-    val etc: String
+    val etc: String,
+    val isParticipated: Boolean
 )

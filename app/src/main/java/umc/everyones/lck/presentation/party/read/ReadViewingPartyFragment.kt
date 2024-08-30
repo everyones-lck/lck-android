@@ -6,11 +6,13 @@ import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentReadViewingPartyBinding
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
@@ -54,6 +56,8 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
             }
         }
     }
+
+    private var isParticipated = false
     override fun initObserver() {
         viewLifecycleOwner.repeatOnStarted {
             viewModel.readViewingPartyEvent.collect{ state ->
@@ -80,6 +84,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                         joinViewingParty()
                     }
                 } else {
+                    binding.groupReadWriterMenu.visibility = View.VISIBLE
                     inquireParticipantsList()
                     deleteViewingParty()
                 }
@@ -96,7 +101,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                     tvReadQualify.text = "To. ${event.viewingParty.qualify}"
                     tvReadDate.text = event.viewingParty.partyDate
                     tvReadPlace.text = event.viewingParty.place
-                    tvReadPrice.text = event.viewingParty.price
+                    tvReadPrice.text = "₩${event.viewingParty.price}"
                     tvReadParticipants.text = event.viewingParty.participants
                     tvReadEtc.text = event.viewingParty.etc
                     tvReadWriter.text = event.viewingParty.writerInfo
@@ -105,6 +110,12 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                         .into(ivReadProfileImage)
 
                     viewModel.setTitle(event.viewingParty.name)
+                    isParticipated = event.viewingParty.isParticipated
+                    layoutReadViewingPartyContent.isVisible = true
+                    /*svRead.postDelayed(
+                        {
+                            svRead.isVisible = true
+                        }, 200)*/
                 }
             }
 
@@ -114,6 +125,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
             }
             ReadViewingPartyViewModel.ReadViewingPartyEvent.JoinViewingParty -> {
                 showCustomSnackBar(binding.root, "뷰잉파티에 참여되었습니다!")
+                isParticipated = true
             }
 
             is ReadViewingPartyViewModel.ReadViewingPartyEvent.WriteDoneViewingParty -> {
@@ -143,6 +155,10 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     private fun joinViewingParty(){
         binding.tvReadJoinViewingParty.setOnSingleClickListener {
+            if (isParticipated) {
+                showCustomSnackBar(binding.root, "이미 해당 뷰잉파티에 참여했습니다")
+                return@setOnSingleClickListener
+            }
             val dialog = JoinViewingPartyDialogFragment()
             dialog.setOnJoinViewingPartyClickListener(object : JoinViewingPartyDialogFragment.OnJoinViewingPartyClickListener{
                 override fun onConfirm() {

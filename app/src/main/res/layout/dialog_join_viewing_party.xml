@@ -26,7 +26,7 @@
         <TextView
             android:id="@+id/tv_join_viewing_party_body"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:text="Viewing Party에 참여하시겠습니까?"
             android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
             android:textColor="@color/gray"
@@ -34,6 +34,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/btn_join_viewing_cancel"
+            app:layout_constraintVertical_bias="0"
             android:layout_marginTop="32dp"/>
 
         <androidx.appcompat.widget.AppCompatButton

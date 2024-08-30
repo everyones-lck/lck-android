@@ -3,13 +3,19 @@ package umc.everyones.lck.presentation.community.read
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityReadPostBinding
 import umc.everyones.lck.domain.model.community.Comment
@@ -24,6 +30,7 @@ import umc.everyones.lck.presentation.community.adapter.ReadMediaRVA
 import umc.everyones.lck.util.GridSpaceItemDecoration
 import umc.everyones.lck.util.KeyboardUtil
 import umc.everyones.lck.util.extension.drawableOf
+import umc.everyones.lck.util.extension.hideKeyboardOnOutsideTouch
 import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
@@ -51,7 +58,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         ReadMediaRVA { url, isImage ->
             // 미디어 원본 보기 기능
             viewModel.setImageUrl(url)
-            val dialog = if(isImage){
+            val dialog = if (isImage) {
                 ReadImageDialogFragment()
             } else {
                 ReadVideoDialogFragment()
@@ -65,25 +72,27 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         intent.getLongExtra("postId", 0)
     }
 
-    private var editResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-        if (result.resultCode == Activity.RESULT_OK){
-            if(result.data?.getBooleanExtra("isEditDone", false) == true){
-                setResult(
-                    RESULT_OK,
-                    MainActivity.readMenuDoneIntent(this, true)
-                )
-                finish()
+    private var editResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                if (result.data?.getBooleanExtra("isEditDone", false) == true) {
+                    setResult(
+                        RESULT_OK,
+                        MainActivity.readMenuDoneIntent(this, true)
+                    )
+                    finish()
+                }
             }
         }
-    }
 
     override fun initObserver() {
         repeatOnStarted {
             viewModel.readCommunityEvent.collect { state ->
-                when(state){
+                when (state) {
                     is UiState.Success -> {
                         handleReadCommunityEvent(state.data)
                     }
+
                     is UiState.Failure -> showCustomSnackBar(binding.root, state.msg)
                     else -> Unit
                 }
@@ -91,7 +100,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         }
 
         repeatOnStarted {
-            viewModel.isWriter.collect{ isWriter ->
+            viewModel.isWriter.collect { isWriter ->
                 with(binding) {
                     if (isWriter) {
                         layoutReadReportBtn.visibility = View.GONE
@@ -105,16 +114,19 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         }
     }
 
-    private fun handleReadCommunityEvent(event: ReadPostViewModel.ReadCommunityEvent){
-        when(event){
+    private fun handleReadCommunityEvent(event: ReadPostViewModel.ReadCommunityEvent) {
+        when (event) {
             ReadPostViewModel.ReadCommunityEvent.DeletePost -> {
-                setResult(RESULT_OK,
-                    MainActivity.readMenuDoneIntent(this, true))
+                setResult(
+                    RESULT_OK,
+                    MainActivity.readMenuDoneIntent(this, true)
+                )
                 finish()
             }
+
             ReadPostViewModel.ReadCommunityEvent.EditPost -> {}
             is ReadPostViewModel.ReadCommunityEvent.ReadPost -> {
-                with(event.post){
+                with(event.post) {
                     binding.tvReadPostTitle.text = postTitle
                     binding.tvReadPostBody.text = content
                     binding.tvReadWriter.text = writerInfo
@@ -124,14 +136,17 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
                         .load(writerProfileUrl)
                         .into(binding.ivReadProfileImage)
                     commentRVA.submitList(commentList)
-                    readMediaRVA.submitList(fileUrlList){
+                    readMediaRVA.submitList(fileUrlList) {
                         binding.rvReadMedia.visibility = View.VISIBLE
                     }
+                    binding.svRead.isVisible = true
                 }
             }
+
             ReadPostViewModel.ReadCommunityEvent.ReportComment -> {
                 showCustomSnackBar(binding.layoutReadReportBtn, "댓글이 신고 되었습니다")
             }
+
             ReadPostViewModel.ReadCommunityEvent.ReportPost -> {
                 showCustomSnackBar(binding.layoutReadReportBtn, "게시글이 신고 되었습니다")
             }
@@ -139,6 +154,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
             ReadPostViewModel.ReadCommunityEvent.CreateComment -> {
                 binding.etReadCommentInput.setText("")
             }
+
             ReadPostViewModel.ReadCommunityEvent.DeleteComment -> {
 
             }
@@ -148,7 +164,11 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
     override fun initView() {
         // 키보드 올라올 때 화면 맨 밑으로 자동스크롤을 위한 리스너 등록
         viewModel.setPostId(postId)
-        KeyboardUtil.registerKeyboardVisibilityListener(binding.root, binding.svRead)
+        KeyboardUtil.registerKeyboardVisibilityListener(
+            binding.root,
+            binding.svRead,
+            binding.etReadCommentInput
+        )
         initCommentRVAdapter()
         initReadMediaRVAdapter()
 
@@ -166,7 +186,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         Log.d("postId", postId.toString())
     }
 
-    private fun reportPost(){
+    private fun reportPost() {
         binding.layoutReadReportBtn.setOnSingleClickListener {
             viewModel.reportCommunityPost()
         }
@@ -179,15 +199,17 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
                 WritePostActivity.editIntent(
                     this,
                     EditPost(
-                        postId, binding.tvReadPostTitle.text.toString(),
-                        binding.tvReadPostBody.text.toString(), binding.tvReadCategory.textToString()
+                        postId,
+                        binding.tvReadPostTitle.text.toString(),
+                        binding.tvReadPostBody.text.toString(),
+                        binding.tvReadCategory.textToString()
                     )
                 )
             )
         }
     }
 
-    private fun deletePost(){
+    private fun deletePost() {
         binding.layoutReadDeleteBtn.setOnSingleClickListener {
             viewModel.deleteCommunityPost()
         }
@@ -216,7 +238,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
                 if (text != null) {
 
                     // 댓글 작성 여부에 따른 전송 버튼 활성화 제어
-                    if(text.isEmpty()){
+                    if (text.isEmpty()) {
                         binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send))
                     } else {
                         binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send_enabled))
@@ -233,12 +255,19 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         )
     }
 
-    private fun sendComment(){
-        with(binding){
+    private fun sendComment() {
+        with(binding) {
             ivReadSendCommentBtn.setOnSingleClickListener {
-                viewModel.createComment(etReadCommentInput.textToString())
+                if(etReadCommentInput.textToString().isNotEmpty()) {
+                    viewModel.createComment(etReadCommentInput.textToString())
+                }
             }
         }
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+        hideKeyboardOnOutsideTouch(event, binding.etReadCommentInput, binding.layoutReadSendComment)
+        return super.dispatchTouchEvent(event)
     }
 
     companion object {

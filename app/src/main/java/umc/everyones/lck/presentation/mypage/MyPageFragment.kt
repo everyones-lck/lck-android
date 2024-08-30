@@ -38,6 +38,8 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
                 binding.ivMypageMainTeamBackground.setImageResource(teamBackgroundResId)
 
                 loadProfileImage(it.profileImageUrl) // 프로필 이미지 로드
+
+                updateTierUI(it.tier)
             }
         }
     }
@@ -78,5 +80,20 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
         } ?: run {
             binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지 설정
         }
+    }
+
+    private fun updateTierUI(tier: String) {
+
+        val tierStyles = mapOf(
+            "bronze" to R.style.TextAppearance_Bronze,
+            "Silver" to R.style.TextAppearance_Silver,
+            "Gold" to R.style.TextAppearance_Gold,
+            "Master" to R.style.TextAppearance_Master,
+            "Challenger" to R.style.TextAppearance_Challenger
+        )
+
+        binding.tvMypageMainTier.setTextAppearance(requireContext(), tierStyles[tier]!!)
+
+        binding.tvMypageMainTier.text = tier
     }
 }

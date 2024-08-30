@@ -43,12 +43,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp"
-                    tools:text="240514 홍대 뷰파"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/tv_read_title"
                     app:layout_constraintStart_toStartOf="@id/tv_read_title"
-                    app:layout_constraintTop_toBottomOf="@id/tv_read_title" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_read_title"
+                    tools:text="240514 홍대 뷰파" />
 
                 <ImageView
                     android:id="@+id/iv_read_back_btn"
@@ -99,8 +99,8 @@
                         android:id="@+id/iv_read_profile_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        tools:src="@drawable/ic_t1"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerCrop"
+                        tools:src="@drawable/ic_t1" />
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -108,12 +108,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    tools:text="Perfect 조아 | KT"
                     android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="@id/cv_read_profile_background"
                     app:layout_constraintStart_toEndOf="@id/cv_read_profile_background"
-                    app:layout_constraintTop_toTopOf="@id/cv_read_profile_background" />
+                    app:layout_constraintTop_toTopOf="@id/cv_read_profile_background"
+                    tools:text="Perfect 조아 | KT" />
 
                 <ImageView
                     android:id="@+id/iv_read_delete_btn"
@@ -141,9 +141,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="40dp"
                     android:layout_marginTop="30dp"
+                    android:background="@drawable/shape_rect_4_gray_fill"
                     android:minHeight="500dp"
                     android:visibility="invisible"
-                    android:background="@drawable/shape_rect_4_gray_fill"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_read_writer"
@@ -179,12 +179,12 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="32dp"
                         android:gravity="center"
-                        tools:text="To. KT Rolster팬"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_read_viewing_party" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_read_viewing_party"
+                        tools:text="To. KT Rolster팬" />
 
                     <TextView
                         android:id="@+id/tv_read_date"
@@ -192,12 +192,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="36dp"
-                        tools:text="2024.05.14 16:30"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_read_qualify" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_read_qualify"
+                        tools:text="2024.05.14 16:30" />
 
                     <TextView
                         android:id="@+id/tv_read_place"
@@ -207,12 +207,25 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="12dp"
                         android:gravity="center"
-                        tools:text="부천시 역곡동 지봉로 24 @@카페"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_read_date" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_read_date"
+                        tools:text="부천시 역곡동 지봉로 24 @@카페" />
+
+                    <com.naver.maps.map.MapView
+                        android:id="@+id/map_fragment"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginBottom="52dp"
+                        app:layout_constraintBottom_toTopOf="@id/tv_read_divider"
+                        app:layout_constraintDimensionRatio="1.6:1"
+                        app:layout_constraintEnd_toEndOf="@id/line2"
+                        app:layout_constraintStart_toStartOf="@id/line2"
+                        app:layout_constraintTop_toBottomOf="@id/tv_read_place" />
 
                     <TextView
                         android:id="@+id/tv_read_divider"
@@ -225,7 +238,7 @@
                         android:textColor="@color/gray"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_read_place" />
+                        app:layout_constraintTop_toBottomOf="@id/map_fragment" />
 
                     <TextView
                         android:id="@+id/tv_read_price"
@@ -233,12 +246,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="12dp"
-                        tools:text="₩20,000"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintBaseline_toBaselineOf="@id/tv_read_divider"
                         app:layout_constraintEnd_toStartOf="@id/tv_read_divider"
-                        app:layout_constraintTop_toBottomOf="@id/tv_read_place" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_read_place"
+                        tools:text="₩20,000" />
 
                     <TextView
                         android:id="@+id/tv_read_participants"
@@ -246,12 +259,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        tools:text="10 - 20 명"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintBaseline_toBaselineOf="@id/tv_read_divider"
                         app:layout_constraintStart_toEndOf="@id/tv_read_divider"
-                        app:layout_constraintTop_toBottomOf="@id/tv_read_place" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_read_place"
+                        tools:text="10 - 20 명" />
 
                     <TextView
                         android:id="@+id/tv_read_dash"
@@ -274,15 +287,15 @@
                         android:layout_marginHorizontal="63dp"
                         android:layout_marginTop="12dp"
                         android:gravity="center"
-                        tools:text="기본적인 식사, 음료 제공
-음주 시 추가 금액 + 10000
-뷰파는 경기 끝날떄까지만 하고
-2차가고 싶으신 분은 자유롭게 !"
                         android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:textColor="@color/gray"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_read_dash" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_read_dash"
+                        tools:text="기본적인 식사, 음료 제공
+음주 시 추가 금액 + 10000
+뷰파는 경기 끝날떄까지만 하고
+2차가고 싶으신 분은 자유롭게 !" />
 
                     <View
                         android:id="@+id/line"

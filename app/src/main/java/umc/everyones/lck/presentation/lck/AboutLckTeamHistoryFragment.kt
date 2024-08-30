@@ -91,14 +91,11 @@ class AboutLckTeamHistoryFragment : BaseFragment<FragmentAboutLckTeamHistoryBind
     }
 
     private fun updateWinningHistory(seasonNameList: List<String>) {
-        // '2024 Summer'를 필터링하여 제외
-        val filteredSeasonNameList = seasonNameList.filterNot { it == "2024 Summer" }
-
         val items = adapter.getItems().toMutableList()
-        val winningHistoryIndex = items.indexOfFirst { it.title == "Winning History" }
 
+        val winningHistoryIndex = items.indexOfFirst { it.title == "Winning History" }
         if (winningHistoryIndex != -1) {
-            items[winningHistoryIndex] = items[winningHistoryIndex].copy(details = filteredSeasonNameList)
+            items[winningHistoryIndex] = items[winningHistoryIndex].copy(details = seasonNameList)
             adapter.updateItems(items)
         }
     }

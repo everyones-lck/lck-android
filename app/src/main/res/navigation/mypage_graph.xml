@@ -44,7 +44,7 @@
         tools:layout="@layout/fragment_mypage_profile_edit">
         <action
             android:id="@+id/action_myPageProfileEditFragment_to_myPageProfileFragment"
-            app:destination="@+id/myPageProfileFragment"/>
+            app:destination="@id/myPageProfileFragment"/>
     </fragment>
 
     <fragment
@@ -59,6 +59,10 @@
         android:name="umc.everyones.lck.presentation.mypage.MyPageMyteamFragment"
         android:label="MyPage Myteam Fragment"
         tools:layout="@layout/fragment_mypage_myteam">
+        <action
+            android:id="@+id/action_myPageMyteamFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment"/>
+
     </fragment>
 
     <fragment

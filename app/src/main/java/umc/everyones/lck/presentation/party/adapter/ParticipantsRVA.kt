@@ -2,6 +2,7 @@ package umc.everyones.lck.presentation.party.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -43,7 +44,11 @@ class ParticipantsRVA(val goToChat: (String) -> Unit) :
                     .into(ivParticipantProfileImage)
 
                 tvParticipantName.text = participantItem.name
-                tvParticipantFavoriteTeam.text = participantItem.team
+                if (participantItem.team == "empty"){
+                    tvParticipantDivider.isVisible = false
+                } else {
+                    tvParticipantFavoriteTeam.text = participantItem.team
+                }
                 ivParticipantChatBtn.setOnSingleClickListener {
                     goToChat(participantItem.kakaoUserId)
                 }

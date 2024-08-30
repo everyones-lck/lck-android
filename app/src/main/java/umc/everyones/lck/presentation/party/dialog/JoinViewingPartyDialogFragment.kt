@@ -1,6 +1,10 @@
 package umc.everyones.lck.presentation.party.dialog
 
+import android.content.Context
+import android.graphics.Point
 import android.util.Log
+import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import umc.everyones.lck.R
@@ -26,7 +30,7 @@ class JoinViewingPartyDialogFragment: BaseDialogFragment<DialogJoinViewingPartyB
     }
 
     override fun initView() {
-        requireContext().dialogFragmentResize(this, 0.8f, 0.2f)
+        requireContext().dialogFragmentResize(this, 0.8f)
 
         with(binding){
             btnJoinViewingCancel.setOnClickListener {

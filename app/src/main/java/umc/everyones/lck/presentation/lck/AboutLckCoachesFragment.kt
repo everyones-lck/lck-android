@@ -47,6 +47,7 @@ class AboutLckCoachesFragment : BaseFragment<FragmentAboutLckCoachesBinding>(R.l
     private fun initRecyclerView() {
         val recyclerView: RecyclerView = binding.rvAboutLckCoaches
         recyclerView.layoutManager = GridLayoutManager(context, 3)
+        recyclerView.isNestedScrollingEnabled = false
     }
 
 

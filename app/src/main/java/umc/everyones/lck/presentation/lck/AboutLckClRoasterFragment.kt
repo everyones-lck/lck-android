@@ -47,6 +47,7 @@ class AboutLckClRoasterFragment : BaseFragment<FragmentAboutLckClRoasterBinding>
     private fun initRecyclerView() {
         val recyclerView: RecyclerView = binding.rvAboutLckClRoaster
         recyclerView.layoutManager = GridLayoutManager(context, 3)
+        recyclerView.isNestedScrollingEnabled = false
     }
 
 

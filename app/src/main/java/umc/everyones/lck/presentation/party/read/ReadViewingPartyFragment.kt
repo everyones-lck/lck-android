@@ -6,11 +6,13 @@ import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentReadViewingPartyBinding
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
@@ -82,6 +84,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                         joinViewingParty()
                     }
                 } else {
+                    binding.groupReadWriterMenu.visibility = View.VISIBLE
                     inquireParticipantsList()
                     deleteViewingParty()
                 }
@@ -108,6 +111,11 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
                     viewModel.setTitle(event.viewingParty.name)
                     isParticipated = event.viewingParty.isParticipated
+                    layoutReadViewingPartyContent.isVisible = true
+                    /*svRead.postDelayed(
+                        {
+                            svRead.isVisible = true
+                        }, 200)*/
                 }
             }
 

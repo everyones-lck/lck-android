@@ -81,6 +81,7 @@
                     android:id="@+id/group_read_writer_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="invisible"
                     app:constraint_referenced_ids="iv_read_delete_btn, iv_read_edit_btn" />
 
                 <androidx.cardview.widget.CardView
@@ -141,6 +142,7 @@
                     android:layout_marginHorizontal="40dp"
                     android:layout_marginTop="30dp"
                     android:minHeight="500dp"
+                    android:visibility="invisible"
                     android:background="@drawable/shape_rect_4_gray_fill"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

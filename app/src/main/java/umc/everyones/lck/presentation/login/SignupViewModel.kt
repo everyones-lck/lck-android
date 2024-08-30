@@ -27,6 +27,7 @@ import umc.everyones.lck.data.service.LoginService
 import umc.everyones.lck.domain.model.request.login.CommonLoginRequestModel
 import umc.everyones.lck.domain.model.request.login.NicknameAuthUserRequestModel
 import umc.everyones.lck.domain.model.response.login.CommonLoginResponseModel
+import umc.everyones.lck.domain.model.response.login.LoginResponseModel
 import umc.everyones.lck.domain.repository.login.LoginRepository
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
@@ -61,8 +62,8 @@ class SignupViewModel @Inject constructor(
     private val _signupResponse = MutableLiveData<Result<CommonLoginResponseModel>?>()
     val signupResponse: LiveData<Result<CommonLoginResponseModel>?> get() = _signupResponse
 
-    private val _loginResult = MutableLiveData<CommonLoginResponseModel?>()
-    val loginResult: LiveData<CommonLoginResponseModel?> get() = _loginResult
+    private val _loginResult = MutableLiveData<LoginResponseModel?>()
+    val loginResult: LiveData<LoginResponseModel?> get() = _loginResult
 
     private val context: Context = application
 
@@ -115,9 +116,13 @@ class SignupViewModel @Inject constructor(
 
             repository.login(requestModel).onSuccess { response ->
                 Log.d("loginWithKakao", response.toString())
-                spf.edit().putString("jwt", response.accessToken).apply()
-                spf.edit().putString("refreshToken", response.refreshToken).apply()
-                spf.edit().putBoolean("isLoggedIn", true).apply()
+                spf.edit().apply {
+                    putString("jwt", response.accessToken)
+                    putString("refreshToken", response.refreshToken)
+                    putBoolean("isLoggedIn", true)
+                    putString("nickName", response.nickName)
+                    apply()
+                }
                 _loginResult.value = response // 로그인 결과를 LiveData에 저장
             }.onFailure { error ->
                 Log.d("loginWithKakao Error", error.message.toString())

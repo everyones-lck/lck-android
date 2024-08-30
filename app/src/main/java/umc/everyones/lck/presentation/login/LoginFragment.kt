@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentLoginBinding
 import umc.everyones.lck.domain.model.response.login.CommonLoginResponseModel
+import umc.everyones.lck.domain.model.response.login.LoginResponseModel
 import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseFragment
 
@@ -79,7 +80,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 viewModel.loginWithKakao(kakaoUserId)
 
                 // 로그인 결과 관찰
-                viewModel.loginResult.observe(viewLifecycleOwner) { userInfo ->
+                viewModel.loginResult.observe(viewLifecycleOwner) { loginResponse ->
+                    val userInfo = convertToCommonLoginResponseModel(loginResponse)
                     handleLoginResult(userInfo) // 로그인 결과에 따라 화면 전환
                 }
             } ?: run {
@@ -89,7 +91,21 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         }
     }
 
-    private fun handleLoginResult(userInfo: CommonLoginResponseModel?) {
+    // LoginResponseModel을 CommonLoginResponseModel으로 변환하는 메서드
+    private fun convertToCommonLoginResponseModel(response: LoginResponseModel?): LoginResponseModel? {
+        return response?.let {
+            LoginResponseModel(
+                accessToken = it.accessToken,
+                refreshToken = it.refreshToken,
+                accessTokenExpirationTime = it.accessTokenExpirationTime,
+                refreshTokenExpirationTime = it.refreshTokenExpirationTime,
+                nickName = it.nickName
+            )
+        }
+    }
+
+
+    private fun handleLoginResult(userInfo: LoginResponseModel?) {
         if (userInfo != null) {
             navigateToMainScreen()
         } else {

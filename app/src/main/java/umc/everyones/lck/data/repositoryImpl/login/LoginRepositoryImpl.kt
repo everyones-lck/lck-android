@@ -7,6 +7,7 @@ import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.domain.model.request.login.CommonLoginRequestModel
 import umc.everyones.lck.domain.model.request.login.NicknameAuthUserRequestModel
 import umc.everyones.lck.domain.model.response.login.CommonLoginResponseModel
+import umc.everyones.lck.domain.model.response.login.LoginResponseModel
 import umc.everyones.lck.domain.repository.login.LoginRepository
 import javax.inject.Inject
 
@@ -19,8 +20,8 @@ class LoginRepositoryImpl @Inject constructor(
     ): Result<CommonLoginResponseModel> =
         runCatching { loginDataSource.signup(signupUserData, profileImage).data.toCommonLoginResponseDto() }
 
-    override suspend fun login(request:CommonLoginRequestModel): Result<CommonLoginResponseModel> =
-        runCatching { loginDataSource.login(request.toCommonLoginRequestDto()).data.toCommonLoginResponseDto()}
+    override suspend fun login(request:CommonLoginRequestModel): Result<LoginResponseModel> =
+        runCatching { loginDataSource.login(request.toCommonLoginRequestDto()).data.toLoginResponseDto()}
 
     override suspend fun refresh(request: CommonLoginRequestModel): Result<CommonLoginResponseModel> =
         runCatching { loginDataSource.refresh(request.toCommonLoginRequestDto()).data.toCommonLoginResponseDto() }

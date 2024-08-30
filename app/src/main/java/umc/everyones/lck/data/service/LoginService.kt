@@ -14,6 +14,7 @@ import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.login.CommonLoginRequestDto
 import umc.everyones.lck.data.dto.request.login.NicknameAuthUserRequestDto
 import umc.everyones.lck.data.dto.response.login.CommonLoginResponseDto
+import umc.everyones.lck.data.dto.response.login.LoginResponseDto
 
 interface LoginService {
 
@@ -27,7 +28,7 @@ interface LoginService {
     @POST("/auth/login")
     suspend fun login(
         @Body request:CommonLoginRequestDto
-    ):BaseResponse<CommonLoginResponseDto>
+    ):BaseResponse<LoginResponseDto>
 
     @POST("/auth/refresh")
     suspend fun refresh(

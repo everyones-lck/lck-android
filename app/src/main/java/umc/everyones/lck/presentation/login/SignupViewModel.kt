@@ -45,10 +45,6 @@ class SignupViewModel @Inject constructor(
     private val _nickName = MutableLiveData<String>()
     val nickName: LiveData<String> get() = _nickName
 
-    private var signupUserData: SignupUserData? = null
-    private var userInfo: CommonLoginResponseModel? = null
-
-
     // 중복 체크 결과를 위한 LiveData 추가
     private val _isNicknameAvailable = MutableLiveData<Boolean>()
     val isNicknameAvailable: LiveData<Boolean> get() = _isNicknameAvailable

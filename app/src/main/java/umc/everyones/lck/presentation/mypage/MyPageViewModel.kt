@@ -21,9 +21,11 @@ import umc.everyones.lck.R
 import umc.everyones.lck.data.UpdateProfileRequest
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.response.mypage.UpdateProfilesResponseDto
+import umc.everyones.lck.domain.model.request.mypage.UpdateTeamModel
 import umc.everyones.lck.domain.model.response.mypage.InquiryProfilesModel
 import umc.everyones.lck.domain.model.response.mypage.UpdateProfilesModel
 import umc.everyones.lck.domain.repository.MypageRepository
+import umc.everyones.lck.util.TeamData
 import java.io.ByteArrayOutputStream
 import java.io.File
 import javax.inject.Inject
@@ -61,13 +63,11 @@ class MyPageViewModel @Inject constructor(
     private val _existingNickname = MutableLiveData<String>()
     val existingNickname: LiveData<String> get() = _existingNickname
 
+    private val _teamId = MutableLiveData<Int>()
+    val teamId: LiveData<Int> get() = _teamId
+
     fun setProfileImageUri(uri: Uri) {
         _profileUri.value = uri
-    }
-
-    // 기존 닉네임을 설정하는 메서드
-    fun setExistingNickname(nickname: String) {
-        _existingNickname.value = nickname
     }
 
     fun inquiryProfile() {
@@ -75,6 +75,7 @@ class MyPageViewModel @Inject constructor(
             repository.inquiryProfiles().onSuccess { response ->
                 _profileData.value = response
                 _nickName.value = response.nickname // 닉네임을 LiveData에 저장
+                _teamId.value = response.teamId
                 Log.d("inquiryProfile", response.toString())
             }.onFailure {
                 Log.d("inquiryProfile", it.stackTraceToString())
@@ -116,19 +117,26 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun updateProfile(nickName: String, profileImageUri: Uri?) {
+    fun updateProfile(nickName: String?, profileImageUri: Uri?) {
         viewModelScope.launch {
+            val currentProfileImageUri = _profileUri.value
+            val currentNickName = _nickName.value
+
+            // 입력값이 없으면 기존 값 사용
+            val effectiveNickName = nickName?.takeIf { it.isNotEmpty() } ?: currentNickName ?: ""
+            val effectiveProfileImageUri = profileImageUri ?: currentProfileImageUri
+
             // 프로필 이미지 부분 생성
-            val profileImagePart = if (profileImageUri != null) {
-                createProfileImagePart(profileImageUri) // 선택한 이미지 URI를 사용
+            val profileImagePart = if (effectiveProfileImageUri != null) {
+                createProfileImagePart(effectiveProfileImageUri) // 선택한 이미지 URI를 사용
             } else {
                 // 기본 이미지 사용
                 val defaultImageUri = Uri.parse("android.resource://${getApplication<Application>().packageName}/${R.drawable.img_signup_profile}")
                 createProfileImagePart(defaultImageUri)
             }
 
-            // UpdateProfileRequest 생성
-            val updateProfileRequest = UpdateProfileRequest(nickName, profileImageUri == null)
+            // UpdateProfileRequest 생성 (effectiveNickName 사용)
+            val updateProfileRequest = UpdateProfileRequest(effectiveNickName, effectiveProfileImageUri == null)
 
             // JSON 변환
             val requestBody = Gson().toJson(updateProfileRequest)
@@ -138,19 +146,43 @@ class MyPageViewModel @Inject constructor(
             runCatching {
                 repository.updateProfiles(profileImagePart, requestBody)
             }.onSuccess { response ->
-                // 응답을 BaseResponse로 캐스팅
-                val updatedProfile = (response as? BaseResponse<UpdateProfilesResponseDto>)?.data
-                    ?: throw IllegalArgumentException("Response data is null") // 데이터가 null인 경우 예외 발생
+                Log.d("MyPageViewModel", "Response: ${Gson().toJson(response)}") // 응답 전체 로그
 
-                // 업데이트된 프로필 정보 가져오기
-                _updateProfileResult.value = UpdateProfilesModel(
-                    updatedProfileImageUrl = updatedProfile.updatedProfileImageUrl,
-                    updatedNickname = updatedProfile.updatedNickname
-                )
+                // 응답을 BaseResponse로 캐스팅
+                val baseResponse = response as? BaseResponse<UpdateProfilesResponseDto>
+                if (baseResponse != null) {
+                    val updatedProfile = baseResponse.data // data 필드 접근
+
+                    if (updatedProfile != null) {
+                        _updateProfileResult.value = UpdateProfilesModel(
+                            updatedProfileImageUrl = updatedProfile.updatedProfileImageUrl,
+                            updatedNickname = updatedProfile.updatedNickname
+                        )
+                    } else {
+                        Log.e("MyPageViewModel", "Updated profile data is null.")
+                        _updateProfileResult.value = null // null 처리
+                    }
+                } else {
+                    Log.e("MyPageViewModel", "Response is not of type BaseResponse<UpdateProfilesResponseDto>.")
+                    _updateProfileResult.value = null // null 처리
+                }
             }.onFailure { error ->
-                // 오류 처리
                 _updateProfileResult.value = null
                 Log.e("MyPageViewModel", "Error updating profile: ${error.message}")
+            }
+        }
+    }
+
+    fun updateTeam(teamId: Int){
+        viewModelScope.launch {
+            val updateTeamModel = UpdateTeamModel(teamId)
+            runCatching {
+                repository.updateTeam(updateTeamModel).onSuccess {response ->
+                    Log.d("updateTeam", "팀 변경 성공: $response")
+                    _teamId.value = teamId
+                }.onFailure {error ->
+                    Log.d("updateTeam", "팀 변경 실패: $error")
+                }
             }
         }
     }

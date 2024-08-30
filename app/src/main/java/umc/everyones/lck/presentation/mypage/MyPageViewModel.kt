@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -120,18 +121,26 @@ class MyPageViewModel @Inject constructor(
     fun updateProfile(nickName: String?, profileImageUri: Uri?) {
         viewModelScope.launch {
             // 현재 프로필 이미지와 닉네임 가져오기
-            val currentProfileImageUri = _profileUri.value ?: Uri.parse("android.resource://${getApplication<Application>().packageName}/${R.drawable.img_signup_profile}") // 기본 이미지 URI
+            val currentProfileImageUri = _profileUri.value
+                ?: Uri.parse("android.resource://${getApplication<Application>().packageName}/${R.drawable.img_signup_profile}") // 기본 이미지 URI
             val currentNickName = _nickName.value ?: ""
 
             // 입력값이 없으면 기존 값 사용
             val effectiveNickName = nickName?.takeIf { it.isNotEmpty() } ?: currentNickName
-            val effectiveProfileImageUri = profileImageUri ?: currentProfileImageUri
+
+            // 프로필 이미지 URI를 조건에 따라 설정
+            val effectiveProfileImageUri = if (profileImageUri != null) {
+                profileImageUri // 새 이미지가 있을 경우 새 이미지 사용
+            } else {
+                currentProfileImageUri // 새 이미지가 없을 경우 기존 이미지 사용
+            }
 
             // 프로필 이미지 부분 생성
             val profileImagePart = createProfileImagePart(effectiveProfileImageUri)
 
             // UpdateProfileRequest 생성
-            val updateProfileRequest = UpdateProfileRequest(effectiveNickName, effectiveProfileImageUri == null)
+            val updateProfileRequest =
+                UpdateProfileRequest(effectiveNickName, effectiveProfileImageUri == null)
 
             // JSON 변환
             val requestBody = Gson().toJson(updateProfileRequest)
@@ -147,20 +156,18 @@ class MyPageViewModel @Inject constructor(
                 val jsonResponse = Gson().toJson(response)
                 Log.d("MyPageViewModel", "JSON Response: $jsonResponse") // JSON 문자열 로그
 
-                val baseResponse = Gson().fromJson(jsonResponse, BaseResponse::class.java)
+                // 제네릭 타입을 이용한 BaseResponse 파싱
+                val type = object : TypeToken<BaseResponse<UpdateProfilesResponseDto>>() {}.type
+                val baseResponse: BaseResponse<UpdateProfilesResponseDto> =
+                    Gson().fromJson(jsonResponse, type)
 
+                // baseResponse가 null이 아닌지 확인하고, data가 유효한지 확인
                 if (baseResponse.success) {
-                    val updatedProfile = Gson().fromJson(Gson().toJson(baseResponse.data), UpdateProfilesResponseDto::class.java)
-
-                    if (updatedProfile != null) {
-                        _updateProfileResult.value = UpdateProfilesModel(
-                            updatedProfileImageUrl = updatedProfile.updatedProfileImageUrl,
-                            updatedNickname = updatedProfile.updatedNickname
-                        )
-                    } else {
-                        Log.e("MyPageViewModel", "Updated profile data is null.")
-                        _updateProfileResult.value = null
-                    }
+                    val updatedProfile = baseResponse.data // 이 값은 null이 아니어야 함
+                    _updateProfileResult.value = UpdateProfilesModel(
+                        updatedProfileImageUrl = updatedProfile.updatedProfileImageUrl,
+                        updatedNickname = updatedProfile.updatedNickname
+                    )
                 } else {
                     Log.e("MyPageViewModel", "Error in base response: ${baseResponse.message}")
                     _updateProfileResult.value = null

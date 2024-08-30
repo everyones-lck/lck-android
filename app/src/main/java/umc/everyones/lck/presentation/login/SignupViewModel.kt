@@ -27,6 +27,7 @@ import umc.everyones.lck.data.service.LoginService
 import umc.everyones.lck.domain.model.request.login.CommonLoginRequestModel
 import umc.everyones.lck.domain.model.request.login.NicknameAuthUserRequestModel
 import umc.everyones.lck.domain.model.response.login.CommonLoginResponseModel
+import umc.everyones.lck.domain.model.response.login.LoginResponseModel
 import umc.everyones.lck.domain.repository.login.LoginRepository
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
@@ -44,10 +45,6 @@ class SignupViewModel @Inject constructor(
     private val _nickName = MutableLiveData<String>()
     val nickName: LiveData<String> get() = _nickName
 
-    private var signupUserData: SignupUserData? = null
-    private var userInfo: CommonLoginResponseModel? = null
-
-
     // 중복 체크 결과를 위한 LiveData 추가
     private val _isNicknameAvailable = MutableLiveData<Boolean>()
     val isNicknameAvailable: LiveData<Boolean> get() = _isNicknameAvailable
@@ -61,8 +58,8 @@ class SignupViewModel @Inject constructor(
     private val _signupResponse = MutableLiveData<Result<CommonLoginResponseModel>?>()
     val signupResponse: LiveData<Result<CommonLoginResponseModel>?> get() = _signupResponse
 
-    private val _loginResult = MutableLiveData<CommonLoginResponseModel?>()
-    val loginResult: LiveData<CommonLoginResponseModel?> get() = _loginResult
+    private val _loginResult = MutableLiveData<LoginResponseModel?>()
+    val loginResult: LiveData<LoginResponseModel?> get() = _loginResult
 
     private val context: Context = application
 
@@ -115,9 +112,13 @@ class SignupViewModel @Inject constructor(
 
             repository.login(requestModel).onSuccess { response ->
                 Log.d("loginWithKakao", response.toString())
-                spf.edit().putString("jwt", response.accessToken).apply()
-                spf.edit().putString("refreshToken", response.refreshToken).apply()
-                spf.edit().putBoolean("isLoggedIn", true).apply()
+                spf.edit().apply {
+                    putString("jwt", response.accessToken)
+                    putString("refreshToken", response.refreshToken)
+                    putBoolean("isLoggedIn", true)
+                    putString("nickName", response.nickName)
+                    apply()
+                }
                 _loginResult.value = response // 로그인 결과를 LiveData에 저장
             }.onFailure { error ->
                 Log.d("loginWithKakao Error", error.message.toString())
@@ -143,16 +144,23 @@ class SignupViewModel @Inject constructor(
                     signupRequest.profileImage
                 )
 
-                Log.d("SignupViewModel", "API call successful: $response")
-                _signupResponse.value = response // 응답 값을 LiveData에 저장
-                spf.edit().apply {
-                    putString("nickName", signupRequest.signupUserData.nickName)
-                    putString("profileImage", _profileUri.value?.toString()) //URI 형식을 문자열로 변환하여 저장
-                    putString("role", signupRequest.signupUserData.role)
-                    putInt("teamId", signupRequest.signupUserData.teamId)
-                    putString("tier", signupRequest.signupUserData.tier)
+                response?.let { responseBody ->
+                    Log.d("SignupViewModel", "API call successful: $responseBody")
+                    _signupResponse.value = responseBody // 응답 값을 LiveData에 저장
+
+                    // SharedPreferences에 데이터 저장
+                    spf.edit().apply {
+                        putString("nickName", signupRequest.signupUserData.nickName)
+                        putString("profileImage", _profileUri.value?.toString() ?: "") // URI가 null일 경우 빈 문자열로 저장
+                        putString("role", signupRequest.signupUserData.role)
+                        putInt("teamId", signupRequest.signupUserData.teamId)
+                        putString("tier", signupRequest.signupUserData.tier)
+                        putBoolean("isLoggedIn", true) // 로그인 상태 저장
+                    }
+                } ?: run {
+                    Log.e("SignupViewModel", "Response body is null")
+                    _signupResponse.value = null // 응답 본문이 null인 경우
                 }
-                spf.edit().putBoolean("isLoggedIn", true).apply()
             } catch (e: Exception) {
                 Log.e("SignupViewModel", "API call failed: ${e.message}")
                 _signupResponse.value = null // 실패 시 null 처리
@@ -164,27 +172,29 @@ class SignupViewModel @Inject constructor(
         // Mock data, replace with actual data
         val kakaoUserId = _kakaoUserId.value ?: throw IllegalArgumentException("Kakao User ID is required.")
         val nickName = _nickName.value ?: throw IllegalArgumentException("Nickname is required.")
-        val role = "ROLE_USER"
+        val role = "ROLE_USER" // 하드코딩된 역할
         val teamId = _teamId.value ?: 1 // 기본값 설정
-        val tier = "Bronze" // 실제 티어로 대체
+        val tier = "Silver" // 기본 티어, 실제 티어로 대체할 수 있음
 
-        // 리소스에서 Bitmap을 생성하여 MultipartBody.Part로 변환
+        // 프로필 이미지 URI를 사용하여 MultipartBody.Part로 변환
         val profileImagePart = try {
-            val defaultImageBitmap: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.img_signup_profile)
+            val profileImageUri = _profileUri.value ?: throw IllegalArgumentException("Profile image URI is required.")
+            val inputStream = context.contentResolver.openInputStream(profileImageUri) // URI에서 입력 스트림 열기
+            val selectedImageBitmap = BitmapFactory.decodeStream(inputStream) // 비트맵으로 변환
             val defaultImageStream = ByteArrayOutputStream().apply {
-                defaultImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, this)
+                selectedImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, this)
             }
             val defaultImageBytes = defaultImageStream.toByteArray()
 
-            val requestBody = defaultImageBytes.toRequestBody("image/*".toMediaTypeOrNull())
+            val requestBody = defaultImageBytes.toRequestBody("image/png".toMediaTypeOrNull()) // MIME 타입 구체화
             MultipartBody.Part.createFormData(
-                "profileImage", "img_signup_profile.png", requestBody
+                "profileImage", "profile_image.png", requestBody
             )
         } catch (e: Exception) {
             Log.e("SignupViewModel", "Error creating MultipartBody.Part for profile image: ${e.message}")
-            val emptyImageRequestBody = ByteArray(0).toRequestBody("image/*".toMediaTypeOrNull())
+            val emptyImageRequestBody = ByteArray(0).toRequestBody("image/png".toMediaTypeOrNull()) // 빈 이미지 요청
             MultipartBody.Part.createFormData(
-                "profileImage", "img_signup_profile.png", emptyImageRequestBody
+                "profileImage", "profile_image.png", emptyImageRequestBody
             )
         }
 
@@ -199,4 +209,5 @@ class SignupViewModel @Inject constructor(
             )
         )
     }
+
 }

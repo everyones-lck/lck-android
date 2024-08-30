@@ -23,12 +23,12 @@ import umc.everyones.lck.util.TeamData.teamLogos
 @AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment_mypage_main) {
 
-    private val myPageViewModel: MyPageViewModel by activityViewModels()
+    private val viewModel: MyPageViewModel by activityViewModels()
     private val teamLogos = TeamData.mypageTeamBackground
     private val navigator by lazy { findNavController() }
 
     override fun initObserver() {
-        myPageViewModel.profileData.observe(viewLifecycleOwner) { profile ->
+        viewModel.profileData.observe(viewLifecycleOwner) { profile ->
             profile?.let {
                 binding.tvMypageMainNickname.text = it.nickname // 닉네임 설정
                 binding.tvMypageMainTier.text = it.tier // 티어 설정
@@ -66,7 +66,7 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
             navigator.navigate(R.id.action_myPageFragment_to_myPageViewingPartyFragment)
         }
 
-        myPageViewModel.inquiryProfile()
+        viewModel.inquiryProfile()
     }
 
     private fun loadProfileImage(uri: String?) {

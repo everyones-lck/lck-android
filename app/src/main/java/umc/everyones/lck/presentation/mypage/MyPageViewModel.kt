@@ -173,19 +173,24 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun updateTeam(teamId: Int){
+    fun updateTeam(teamId: Int) {
         viewModelScope.launch {
-            val updateTeamModel = UpdateTeamModel(teamId)
+            // UpdateTeamModel 객체 생성
+            val updateTeamModel = UpdateTeamModel(teamId) // 필요한 경우 추가 필드 설정
+
             runCatching {
-                repository.updateTeam(updateTeamModel).onSuccess {response ->
+                repository.updateTeam(updateTeamModel).onSuccess { response ->
                     Log.d("updateTeam", "팀 변경 성공: $response")
                     _teamId.value = teamId
-                }.onFailure {error ->
+                }.onFailure { error ->
                     Log.d("updateTeam", "팀 변경 실패: $error")
                 }
+            }.onFailure { error ->
+                Log.e("updateTeam", "Error during update: ${error.message}")
             }
         }
     }
+
 
     private fun createProfileImagePart(uri: Uri): MultipartBody.Part {
         val inputStream = getApplication<Application>().contentResolver.openInputStream(uri) // URI에서 입력 스트림 열기

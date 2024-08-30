@@ -65,8 +65,10 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
 
             lifecycleScope.launch {
                 try {
+                    // 팀 업데이트 호출
                     myPageViewModel.updateTeam(teamIdToUpdate)
-                    myPageViewModel.inquiryProfile()
+
+                    // 팀 ID 관찰 (한 번만 등록)
                     myPageViewModel.teamId.observe(viewLifecycleOwner) { teamId ->
                         Log.d("MyPageMyteamFragment", "Observed teamId: $teamId") // teamId 로그 추가
 
@@ -84,6 +86,10 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
                         // 팀 이름 업데이트
                         binding.tvMypageMyteamTeamName.text = teamName ?: "선택된 My Team이 없습니다"
                     }
+
+                    // 프로필 조회 (팀 업데이트 후)
+                    myPageViewModel.inquiryProfile()
+
                     Log.d("MyPageMyteamFragment", "Navigated to next fragment with team ID: $teamIdToUpdate")
 
                 } catch (e: Exception) {
@@ -91,6 +97,7 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
                 }
             }
         }
+
 
         // ScrollView 및 버튼 초기화
         binding.layoutMypageMyteamList.visibility = View.GONE

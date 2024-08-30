@@ -27,6 +27,7 @@ import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.RECEIVER
 import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.SENDER
 import umc.everyones.lck.util.KeyboardUtil
 import umc.everyones.lck.util.chat.WebSocketResource
+import umc.everyones.lck.util.extension.combineNicknameAndTeam
 import umc.everyones.lck.util.extension.drawableOf
 import umc.everyones.lck.util.extension.hideKeyboardOnOutsideTouch
 import umc.everyones.lck.util.extension.repeatOnStarted
@@ -207,7 +208,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
                 }
             }
             is ViewingPartyChatViewModel.ViewingPartyChatEvent.FetchChatLog -> {
-                binding.tvChatWriter.text = "${event.chatLog.receiverName} | ${event.chatLog.receiverTeam}"
+                binding.tvChatWriter.text = event.chatLog.receiverName.combineNicknameAndTeam(event.chatLog.receiverTeam)
                 chatRVA.submitList(event.chatLog.chatMessageList){
                     if(isFirst) {
                         binding.etChatInput.showKeyboard()

@@ -87,12 +87,17 @@ class ViewingPartyChatViewModel @Inject constructor(
     fun fetchViewingPartyChatLog(roomId: Long){
         viewModelScope.launch{
             _viewingPartyChatEvent.value = UiState.Loading
-            repository.fetchViewingPartyChatLog(roomId, 0, 10).onSuccess { response ->
+            repository.fetchViewingPartyChatLog(roomId, 0, 40).onSuccess { response ->
                 Log.d("fetchViewingPartyChatLog", response.toString())
                 _viewingPartyChatEvent.value = UiState.Success(ViewingPartyChatEvent.FetchChatLog(response))
             }.onFailure {
                 Log.d("createViewingPartyChatRoom error", it.stackTraceToString())
             }
         }
+    }
+
+    enum class LoadingState{
+        READ,
+        OTHER
     }
 }

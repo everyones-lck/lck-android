@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.MotionEvent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
@@ -20,8 +21,10 @@ import umc.everyones.lck.domain.model.party.ChatItem
 import umc.everyones.lck.presentation.party.adapter.ChatRVA
 import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.RECEIVER
 import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.SENDER
+import umc.everyones.lck.util.KeyboardUtil
 import umc.everyones.lck.util.chat.WebSocketResource
 import umc.everyones.lck.util.extension.drawableOf
+import umc.everyones.lck.util.extension.hideKeyboardOnOutsideTouch
 import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
@@ -71,6 +74,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
         binding = ActivityViewingPartyChatBinding.inflate(layoutInflater).apply {
             setContentView(this.root)
         }
+        KeyboardUtil.registerKeyboardVisibilityListener(binding.root, binding.svChat, binding.etChatInput)
         initObserver()
         initView()
     }
@@ -193,6 +197,11 @@ class ViewingPartyChatActivity : AppCompatActivity() {
         }
     }
 
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        hideKeyboardOnOutsideTouch(ev, binding.etChatInput, binding.layoutChatSend)
+        return super.dispatchTouchEvent(ev)
+    }
+
     companion object {
         fun newIntent(context: Context, postId: Long, isParticipant: Boolean, participantsId: String): Intent =
             Intent(context, ViewingPartyChatActivity::class.java).apply {
@@ -205,6 +214,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         wsClient.closeSocket()
+        KeyboardUtil.unregisterKeyboardVisibilityListener(binding.root)
     }
 
 }

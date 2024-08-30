@@ -15,6 +15,7 @@ import umc.everyones.lck.domain.model.request.community.CreateCommentRequestMode
 import umc.everyones.lck.domain.model.request.community.EditCommunityRequestModel
 import umc.everyones.lck.domain.model.response.community.ReadCommunityResponseModel
 import umc.everyones.lck.domain.repository.community.CommunityRepository
+import umc.everyones.lck.presentation.party.chat.ViewingPartyChatViewModel
 import umc.everyones.lck.util.network.EventFlow
 import umc.everyones.lck.util.network.MutableEventFlow
 import umc.everyones.lck.util.network.UiState

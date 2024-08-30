@@ -300,8 +300,6 @@
                     app:layout_constraintTop_toBottomOf="@id/view_about_lck_line6" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.core.widget.NestedScrollView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

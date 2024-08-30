@@ -125,7 +125,7 @@ class WriteViewingPartyViewModel @Inject constructor(
     }
 
     companion object {
-        const val GEOCODING_FAIL = "주소를 정확히 입력해주세요"
+        const val GEOCODING_FAIL = "네이버 지도에서 정확한 주소를 확인 후, 다시 입력해주세요"
         const val HOST_FAIL = "뷰잉파티 개최에 실패했습니다"
         const val EDIT_FAIL = "뷰잉파티 수정에 실패했습니다"
     }

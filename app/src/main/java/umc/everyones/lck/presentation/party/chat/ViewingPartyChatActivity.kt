@@ -12,7 +12,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -80,7 +82,6 @@ class ViewingPartyChatActivity : AppCompatActivity() {
         binding = ActivityViewingPartyChatBinding.inflate(layoutInflater).apply {
             setContentView(this.root)
         }
-        KeyboardUtil.registerKeyboardVisibilityListener(binding.root, binding.svChat, binding.etChatInput)
         initObserver()
         initView()
     }
@@ -98,13 +99,32 @@ class ViewingPartyChatActivity : AppCompatActivity() {
         binding.ivChatBackBtn.setOnSingleClickListener {
             finish()
         }
-        /*binding.svChat.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            Log.d("scrolly", scrollY.toString())
-            if ((!v.canScrollVertically(-1))) {
-                Log.d("end", "end")
-                viewModel.fetchViewingPartyChatLog()
+
+        binding.rvChat.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE || newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val totalItemCount = layoutManager.itemCount
+                    val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+
+                    if (totalItemCount - lastVisibleItemPosition <= 2) {
+                        Log.d("ㅇㅇ", "ㅇㅇ")
+                        viewModel.fetchViewingPartyChatLog()
+                    }
+                }
             }
-        }*/
+        })
+
+        chatRVA.registerAdapterDataObserver(object : AdapterDataObserver(){
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                if(positionStart == 0){
+                    binding.rvChat.scrollToPosition(0)
+                }
+            }
+        })
+        KeyboardUtil.registerRecyclerViewKeyboardVisibilityListener(binding.root, binding.rvChat)
     }
 
     private fun initChatRVAdapter() {
@@ -138,11 +158,6 @@ class ViewingPartyChatActivity : AppCompatActivity() {
     private fun sendMessage() {
         with(binding) {
             ivChatSendBtn.setOnClickListener {
-                /*chatRVA.submitList(chatRVA.currentList.toMutableList().apply {
-                    add(ChatItem("ds", etChatInput.text.toString(), SENDER, 5))
-                })
-                etChatInput.setText("")*/
-
                 wsClient.sendMessage(etChatInput.textToString())
                 etChatInput.setText("")
             }
@@ -166,7 +181,6 @@ class ViewingPartyChatActivity : AppCompatActivity() {
             viewModel.roomId.collect{
                 initWsClient()
                 viewModel.fetchViewingPartyChatLog()
-                collectChatLog(it)
             }
         }
 
@@ -175,18 +189,6 @@ class ViewingPartyChatActivity : AppCompatActivity() {
                 handleWebsocketEvent(event)
             }
         }
-    }
-
-    private fun collectChatLog(roomId: Long){
-        /*repeatOnStarted {
-            viewModel.test(roomId).collect{
-                chatRVA.submitData(it)
-                if (isFirst){
-                    binding.svChat.fullScroll(View.FOCUS_DOWN)
-                    isFirst = false
-                }
-            }
-        }*/
     }
 
     private fun handleWebsocketEvent(event: WebSocketResource){
@@ -203,7 +205,6 @@ class ViewingPartyChatActivity : AppCompatActivity() {
         when(event){
             is ViewingPartyChatViewModel.ViewingPartyChatEvent.CreateChatRoom -> {
                 with(event.result) {
-                    viewModel.fetchViewingPartyChatLog()
                     binding.tvChatTitle.text = viewingPartyName
                 }
             }
@@ -211,10 +212,14 @@ class ViewingPartyChatActivity : AppCompatActivity() {
                 binding.tvChatWriter.text = event.chatLog.receiverName.combineNicknameAndTeam(event.chatLog.receiverTeam)
                 chatRVA.submitList(event.chatLog.chatMessageList){
                     if(isFirst) {
-                        binding.etChatInput.showKeyboard()
+                        binding.rvChat.scrollToPosition(0)
                         isFirst = false
                     }
                 }
+            }
+
+            is ViewingPartyChatViewModel.ViewingPartyChatEvent.RefreshChatLog -> {
+                chatRVA.submitList(event.chatLog.chatMessageList)
             }
         }
     }
@@ -239,7 +244,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         wsClient.closeSocket()
-        KeyboardUtil.unregisterKeyboardVisibilityListener(binding.root)
+        KeyboardUtil.unregisterRecyclerViewKeyboardVisibilityListener(binding.root)
     }
 
 }

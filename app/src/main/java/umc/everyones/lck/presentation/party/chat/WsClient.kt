@@ -7,6 +7,7 @@ import okhttp3.*
 import umc.everyones.lck.data.dto.request.party.ChatMessage
 import umc.everyones.lck.util.chat.WebSocketResource
 import javax.inject.Inject
+import kotlin.io.path.createTempDirectory
 
 class WsClient @Inject constructor(
     private val viewModel: ViewingPartyChatViewModel,
@@ -55,7 +56,9 @@ class WsClient @Inject constructor(
 
     override fun onMessage(webSocket: WebSocket, text: String) {
         Log.d("WebSocket", "Message received: $text")
-        viewModel.fetchViewingPartyChatLog()
+        if (!text.contains("님이 입장했습니다.")) {
+            viewModel.refreshViewingPartyChatLog()
+        }
     }
 
     override fun onMessage(webSocket: WebSocket, bytes: okio.ByteString) {

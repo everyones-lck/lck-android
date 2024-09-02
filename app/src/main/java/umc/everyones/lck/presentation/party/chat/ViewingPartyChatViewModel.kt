@@ -53,6 +53,8 @@ class ViewingPartyChatViewModel @Inject constructor(
     sealed class ViewingPartyChatEvent {
         data class CreateChatRoom(val result: ViewingPartyChatRoomModel) : ViewingPartyChatEvent()
         data class FetchChatLog(val chatLog: ViewingPartyChatLogModel) : ViewingPartyChatEvent()
+
+        data class RefreshChatLog(val chatLog: ViewingPartyChatLogModel) : ViewingPartyChatEvent()
     }
 
     fun eventWebsocket(event: WebSocketResource) {
@@ -97,17 +99,50 @@ class ViewingPartyChatViewModel @Inject constructor(
     }
 
     fun fetchViewingPartyChatLog() {
-        if(!isPageLast.value) {
+        if (!isPageLast.value) {
             viewModelScope.launch {
                 _viewingPartyChatEvent.value = UiState.Loading
                 delay(200)
-                repository.fetchViewingPartyChatLog(roomId.value, page.value, 60).onSuccess { response ->
-                    Log.d("fetchViewingPartyChatLog", response.toString())
-                    _viewingPartyChatEvent.value =
-                        UiState.Success(ViewingPartyChatEvent.FetchChatLog(response.copy(chatMessageList = response.chatMessageList.filter { !it.message.contains("입장했습니다.") })))
-                }.onFailure {
+                repository.fetchViewingPartyChatLog(roomId.value, page.value, 10)
+                    .onSuccess { response ->
+                        Log.d("fetchViewingPartyChatLog", response.toString())
+                        temp.value += response.chatMessageList
+                        isPageLast.value = response.isLast
+                        page.value += 1
+                        _viewingPartyChatEvent.value =
+                            UiState.Success(
+                                ViewingPartyChatEvent.FetchChatLog(
+                                    response.copy(
+                                        chatMessageList = temp.value.filter {
+                                            !it.message.contains("입장했습니다.")
+                                        })
+                                )
+                            )
+                    }.onFailure {
                     Log.d("createViewingPartyChatRoom error", it.stackTraceToString())
                 }
+            }
+        }
+    }
+
+    fun refreshViewingPartyChatLog() {
+        viewModelScope.launch {
+            _viewingPartyChatEvent.value = UiState.Loading
+            repository.fetchViewingPartyChatLog(roomId.value, 0, 1)
+                .onSuccess { response ->
+                    Log.d("fetchViewingPartyChatLog", response.toString())
+                    temp.value = response.chatMessageList + temp.value
+                    _viewingPartyChatEvent.value =
+                        UiState.Success(
+                            ViewingPartyChatEvent.FetchChatLog(
+                                response.copy(
+                                    chatMessageList = temp.value.filter {
+                                        !it.message.contains("입장했습니다.")
+                                    })
+                            )
+                        )
+                }.onFailure {
+                Log.d("createViewingPartyChatRoom error", it.stackTraceToString())
             }
         }
     }

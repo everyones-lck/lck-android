@@ -46,7 +46,6 @@ object WsModule {
     @Singleton
     fun provideWebSocketRequest(spf: SharedPreferences): Request {
         return Request.Builder()
-            .addHeader("Authorization", "Bearer ${spf.getString("jwt", "")}")
             .url(EveryonesLCKApplication.getString(R.string.ws_url))
             .build()
     }

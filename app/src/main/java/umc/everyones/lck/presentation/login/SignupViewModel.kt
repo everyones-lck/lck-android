@@ -144,6 +144,19 @@ class SignupViewModel @Inject constructor(
                     signupRequest.profileImage
                 )
 
+                response.onSuccess {
+                    spf.edit().putString("jwt", it.accessToken).apply()
+                    spf.edit().apply {
+                        putString("nickName", signupRequest.signupUserData.nickName)
+                        putString("profileImage", _profileUri.value?.toString() ?: "") // URI가 null일 경우 빈 문자열로 저장
+                        putString("role", signupRequest.signupUserData.role)
+                        putInt("teamId", signupRequest.signupUserData.teamId)
+                        putString("tier", signupRequest.signupUserData.tier)
+                        putBoolean("isLoggedIn", true) // 로그인 상태 저장
+                        apply()
+                    }
+                }
+
                 response?.let { responseBody ->
                     Log.d("SignupViewModel", "API call successful: $responseBody")
                     _signupResponse.value = responseBody // 응답 값을 LiveData에 저장

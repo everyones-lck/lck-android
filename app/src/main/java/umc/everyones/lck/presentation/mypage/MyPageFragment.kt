@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import umc.everyones.lck.R
@@ -66,6 +67,10 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
 
         binding.tvMypageMainViewingPartyText.setOnClickListener {
             navigator.navigate(R.id.action_myPageFragment_to_myPageViewingPartyFragment)
+        }
+
+        binding.tvMypageMainOss.setOnClickListener {
+            startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
         }
 
         viewModel.inquiryProfile()

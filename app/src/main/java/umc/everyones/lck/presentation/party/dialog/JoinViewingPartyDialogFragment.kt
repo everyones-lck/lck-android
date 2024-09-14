@@ -23,7 +23,6 @@ class JoinViewingPartyDialogFragment: BaseDialogFragment<DialogJoinViewingPartyB
     override fun initObserver() {
         viewLifecycleOwner.repeatOnStarted {
             viewModel.title.collect{ title ->
-                Log.d("title", title)
                 binding.tvJoinViewingPartyTitle.text = title
             }
         }

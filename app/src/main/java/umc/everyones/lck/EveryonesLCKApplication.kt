@@ -9,6 +9,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
 import umc.everyones.lck.util.network.NetworkConnectionChecker
 // @HiltAndroidApp : Hilt 사용시 반드시 선행 되어야 하는 부분, 모든 의존성 주입의 시작점
 @HiltAndroidApp
@@ -21,7 +22,9 @@ class EveryonesLCKApplication : Application(), DefaultLifecycleObserver {
 
         val kakaoAppKey = getString(R.string.kakao_app_key)
         KakaoSdk.init(context,kakaoAppKey)
-
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 
     override fun onStop(owner: LifecycleOwner) {

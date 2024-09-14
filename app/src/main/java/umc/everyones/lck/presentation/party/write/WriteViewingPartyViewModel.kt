@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import umc.everyones.lck.domain.model.naver.GeocodingModel
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
@@ -49,7 +50,7 @@ class WriteViewingPartyViewModel @Inject constructor(
         viewModelScope.launch {
             _writeViewingPartyEvent.value = UiState.Loading
             naverRepository.fetchGeocoding(query).onSuccess { response ->
-                Log.d("fetchGeocoding", response.toString())
+                Timber.d("fetchGeocoding", response.toString())
                 if (!response.adminAddress.contains("동")){
                     _writeViewingPartyEvent.value = UiState.Failure(GEOCODING_FAIL)
                     return@launch
@@ -60,7 +61,7 @@ class WriteViewingPartyViewModel @Inject constructor(
                 if (it is IndexOutOfBoundsException) {
                     _writeViewingPartyEvent.value = UiState.Failure(GEOCODING_FAIL)
                 }
-                Log.d("fetchGeocoding", it.stackTraceToString())
+                Timber.d("fetchGeocoding", it.stackTraceToString())
             }
         }
     }
@@ -93,8 +94,8 @@ class WriteViewingPartyViewModel @Inject constructor(
             qualify,
             etc
         )
-        Log.d("isEdit", isEdit.toString())
-        Log.d("writeViewingPartyModel", writeViewingPartyModel.toString())
+        Timber.d("isEdit", isEdit.toString())
+        Timber.d("writeViewingPartyModel", writeViewingPartyModel.toString())
         viewModelScope.launch {
             _writeViewingPartyEvent.value = UiState.Loading
             if (isEdit) {
@@ -102,22 +103,22 @@ class WriteViewingPartyViewModel @Inject constructor(
                     postId,
                     writeViewingPartyModel
                 ).onSuccess { response ->
-                    Log.d("editViewingParty", response.toString())
+                    Timber.d("editViewingParty", response.toString())
                     _writeViewingPartyEvent.value =
                         UiState.Success(WriteViewingPartyEvent.WriteDoneViewingParty(true))
                 }.onFailure {
-                    Log.d("editViewingParty", it.stackTraceToString())
+                    Timber.d("editViewingParty", it.stackTraceToString())
                     _writeViewingPartyEvent.value = UiState.Failure(EDIT_FAIL)
                 }
             } else {
                 repository.writeViewingParty(
                     writeViewingPartyModel
                 ).onSuccess { response ->
-                    Log.d("writeViewingParty", response.toString())
+                    Timber.d("writeViewingParty", response.toString())
                     _writeViewingPartyEvent.value =
                         UiState.Success(WriteViewingPartyEvent.WriteDoneViewingParty(true))
                 }.onFailure {
-                    Log.d("writeViewingParty", it.stackTraceToString())
+                    Timber.d("writeViewingParty", it.stackTraceToString())
                     _writeViewingPartyEvent.value = UiState.Failure(HOST_FAIL)
                 }
             }

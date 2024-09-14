@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import umc.everyones.lck.domain.model.response.party.ViewingPartyChatLogModel
 import umc.everyones.lck.domain.model.response.party.ViewingPartyChatRoomModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
@@ -75,11 +76,11 @@ class ViewingPartyChatViewModel @Inject constructor(
                 .onSuccess { response ->
                     _viewingPartyChatEvent.value =
                         UiState.Success(ViewingPartyChatEvent.CreateChatRoom(response))
-                    Log.d("createViewingPartyChatRoom", response.toString())
+                    Timber.d("createViewingPartyChatRoom", response.toString())
                     _roomId.value = response.roomId
                     _pagingSource = repository.fetchChatLogPagingSource(response.roomId)
                 }.onFailure {
-                    Log.d("createViewingPartyChatRoom error", it.stackTraceToString())
+                    Timber.d("createViewingPartyChatRoom error", it.stackTraceToString())
                 }
         }
     }
@@ -90,10 +91,10 @@ class ViewingPartyChatViewModel @Inject constructor(
             repository.createViewingPartyChatRoomAsParticipant(postId.value).onSuccess { response ->
                 _viewingPartyChatEvent.value =
                     UiState.Success(ViewingPartyChatEvent.CreateChatRoom(response))
-                Log.d("createViewingPartyChatRoomAsParticipant", response.toString())
+                Timber.d("createViewingPartyChatRoomAsParticipant", response.toString())
                 _roomId.value = response.roomId
             }.onFailure {
-                Log.d("createViewingPartyChatRoomAsParticipant error", it.stackTraceToString())
+                Timber.d("createViewingPartyChatRoomAsParticipant error", it.stackTraceToString())
             }
         }
     }
@@ -105,7 +106,7 @@ class ViewingPartyChatViewModel @Inject constructor(
                 delay(200)
                 repository.fetchViewingPartyChatLog(roomId.value, page.value, 10)
                     .onSuccess { response ->
-                        Log.d("fetchViewingPartyChatLog", response.toString())
+                        Timber.d("fetchViewingPartyChatLog", response.toString())
                         temp.value += response.chatMessageList
                         isPageLast.value = response.isLast
                         page.value += 1
@@ -119,7 +120,7 @@ class ViewingPartyChatViewModel @Inject constructor(
                                 )
                             )
                     }.onFailure {
-                    Log.d("createViewingPartyChatRoom error", it.stackTraceToString())
+                    Timber.d("createViewingPartyChatRoom error", it.stackTraceToString())
                 }
             }
         }
@@ -130,7 +131,7 @@ class ViewingPartyChatViewModel @Inject constructor(
             _viewingPartyChatEvent.value = UiState.Loading
             repository.fetchViewingPartyChatLog(roomId.value, 0, 1)
                 .onSuccess { response ->
-                    Log.d("fetchViewingPartyChatLog", response.toString())
+                    Timber.d("fetchViewingPartyChatLog", response.toString())
                     temp.value = response.chatMessageList + temp.value
                     _viewingPartyChatEvent.value =
                         UiState.Success(
@@ -142,7 +143,7 @@ class ViewingPartyChatViewModel @Inject constructor(
                             )
                         )
                 }.onFailure {
-                Log.d("createViewingPartyChatRoom error", it.stackTraceToString())
+                Timber.d("createViewingPartyChatRoom error", it.stackTraceToString())
             }
         }
     }

@@ -110,7 +110,6 @@ class ViewingPartyChatActivity : AppCompatActivity() {
                     val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
 
                     if (totalItemCount - lastVisibleItemPosition <= 2) {
-                        Log.d("ㅇㅇ", "ㅇㅇ")
                         viewModel.fetchViewingPartyChatLog()
                     }
                 }

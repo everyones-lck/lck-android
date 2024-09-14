@@ -11,6 +11,7 @@ import android.widget.EditText
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.window.layout.WindowMetricsCalculator
+import timber.log.Timber
 import umc.everyones.lck.util.extension.showKeyboard
 
 object KeyboardUtil {
@@ -22,10 +23,10 @@ object KeyboardUtil {
             rootView.getWindowVisibleDisplayFrame(rect)
             val screenHeight = rootView.rootView.height
             val keypadHeight = screenHeight - rect.bottom
-            Log.d("rect bottom", rect.bottom.toString())
-            Log.d("screenHeight", screenHeight.toString())
-            Log.d("scrollView", scrollView.bottom.toString())
-            Log.d("keypadHeight", keypadHeight.toString())
+            Timber.d("rect bottom", rect.bottom.toString())
+            Timber.d("screenHeight", screenHeight.toString())
+            Timber.d("scrollView", scrollView.bottom.toString())
+            Timber.d("keypadHeight", keypadHeight.toString())
 
             // 키보드가 화면의 20% 이상 차지할 경우
             if (keypadHeight > screenHeight * 0.2) {

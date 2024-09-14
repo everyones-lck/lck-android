@@ -11,7 +11,7 @@ import androidx.lifecycle.LifecycleOwner
 import java.text.DecimalFormat
 
 // EditText 길이에 따른 유효성 검사 확장 함수
-fun EditText.validateMaxLength(lifecycleOwner: LifecycleOwner, length: Int, onLengthExceeded: () -> Unit){
+inline fun EditText.validateMaxLength(lifecycleOwner: LifecycleOwner, length: Int, crossinline onLengthExceeded: () -> Unit){
     val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -74,7 +74,7 @@ fun EditText.showKeyboard(){
     inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }
 
-fun EditText.setOnEditorActionListener(action: Int, invoke: () -> Unit){
+inline fun EditText.setOnEditorActionListener(action: Int, crossinline invoke: () -> Unit){
     setOnEditorActionListener { _, actionId, _ ->
         if(actionId == action){
             invoke()

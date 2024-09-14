@@ -12,6 +12,7 @@ import umc.everyones.lck.databinding.DialogJoinViewingPartyBinding
 import umc.everyones.lck.presentation.base.BaseDialogFragment
 import umc.everyones.lck.presentation.party.read.ReadViewingPartyViewModel
 import umc.everyones.lck.util.extension.repeatOnStarted
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 class JoinViewingPartyDialogFragment: BaseDialogFragment<DialogJoinViewingPartyBinding>(R.layout.dialog_join_viewing_party) {
     private val viewModel: ReadViewingPartyViewModel by activityViewModels()
@@ -32,10 +33,10 @@ class JoinViewingPartyDialogFragment: BaseDialogFragment<DialogJoinViewingPartyB
         requireContext().dialogFragmentResize(this, 0.8f)
 
         with(binding){
-            btnJoinViewingCancel.setOnClickListener {
+            btnJoinViewingCancel.setOnSingleClickListener {
                 dismiss()
             }
-            btnJoinViewingConfirm.setOnClickListener {
+            btnJoinViewingConfirm.setOnSingleClickListener {
                 onJoinViewingPartyClickListener?.onConfirm()
                 dismiss()
             }

@@ -79,7 +79,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
 
     // 글 작성 화면으로 이동
     private fun goToWritePost(){
-        binding.fabCommunityWriteBtn.setOnClickListener {
+        binding.fabCommunityWriteBtn.setOnSingleClickListener {
             resultLauncher.launch(WritePostActivity.newIntent(requireContext()))
         }
     }

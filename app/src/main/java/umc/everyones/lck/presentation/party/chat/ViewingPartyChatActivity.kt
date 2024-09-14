@@ -156,7 +156,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
 
     private fun sendMessage() {
         with(binding) {
-            ivChatSendBtn.setOnClickListener {
+            ivChatSendBtn.setOnSingleClickListener {
                 wsClient.sendMessage(etChatInput.textToString())
                 etChatInput.setText("")
             }

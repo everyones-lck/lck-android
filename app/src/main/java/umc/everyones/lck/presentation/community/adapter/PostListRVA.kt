@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import umc.everyones.lck.databinding.ItemCommunityPostBinding
 import umc.everyones.lck.domain.model.community.CommunityListModel
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 class PostListRVA(val readPost: (Long) -> Unit) : PagingDataAdapter<CommunityListModel.CommunityListElementModel, PostListRVA.PostViewHolder>(DiffCallback()) {
 
@@ -54,7 +55,7 @@ class PostListRVA(val readPost: (Long) -> Unit) : PagingDataAdapter<CommunityLis
                     }
 
                     // 게시글 postId 전달
-                    root.setOnClickListener {
+                    root.setOnSingleClickListener {
                         readPost(postListItem.postId)
                     }
                 }

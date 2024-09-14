@@ -52,7 +52,7 @@ class WriteMediaRVA(val addMedia: () -> Unit) : ListAdapter<Uri, RecyclerView.Vi
     inner class MediaAddViewHolder(private val binding: ItemMediaAddBinding) :
         RecyclerView.ViewHolder(binding.root) {
             fun bind(){
-                binding.layoutMediaAddBtn.setOnClickListener {
+                binding.layoutMediaAddBtn.setOnSingleClickListener {
                     addMedia()
                 }
             }

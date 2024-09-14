@@ -3,7 +3,6 @@ package umc.everyones.lck.presentation.community.adapter
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import umc.everyones.lck.presentation.community.list.FreeAgentListFragment
-import umc.everyones.lck.presentation.community.list.PostListFragment
 import umc.everyones.lck.presentation.community.list.QuestionListFragment
 import umc.everyones.lck.presentation.community.list.ReviewListFragment
 import umc.everyones.lck.presentation.community.list.SmallTalkListFragment

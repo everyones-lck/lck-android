@@ -14,6 +14,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWritePostBinding
 import umc.everyones.lck.domain.model.community.EditPost
@@ -109,7 +110,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
         if (post != null) {
             isEdit = true
             writePostViewModel.setPostId(post.postId)
-            Log.d("post", post.toString())
+            Timber.d("post", post.toString())
             with(binding) {
                 spinnerWriteCategory.setSelection(post.category.toCategoryPosition())
                 etWriteTitle.setText(post.title)

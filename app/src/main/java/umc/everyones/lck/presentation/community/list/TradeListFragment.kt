@@ -7,6 +7,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.flow.collectLatest
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentPostListBinding
 import umc.everyones.lck.presentation.base.BaseFragment
@@ -16,9 +17,6 @@ import umc.everyones.lck.presentation.community.read.ReadPostActivity
 import umc.everyones.lck.util.extension.repeatOnStarted
 
 class TradeListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment_post_list) {
-    private val navigator by lazy {
-        findNavController()
-    }
     private val viewModel: CommunityViewModel by activityViewModels()
     private var _postListRVA: PostListRVA? = null
     private val postListRVA
@@ -44,7 +42,7 @@ class TradeListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragmen
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.categoryNeedsRefresh.collect { categoryNeedsRefresh ->
-                Log.d("trade", categoryNeedsRefresh)
+                Timber.d("trade", categoryNeedsRefresh)
                 if (categoryNeedsRefresh == CATEGORY) {
                     postListRVA?.refresh()
                 }

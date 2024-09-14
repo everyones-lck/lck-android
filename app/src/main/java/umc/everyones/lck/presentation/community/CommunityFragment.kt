@@ -25,12 +25,7 @@ import umc.everyones.lck.util.extension.toCategoryPosition
 
 @AndroidEntryPoint
 class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragment_community) {
-    private val readPostViewModel: ReadPostViewModel by viewModels()
-    private val writePostViewModel: WritePostViewModel by activityViewModels()
     private val communityViewModel: CommunityViewModel by activityViewModels()
-    private val navigator by lazy {
-        findNavController()
-    }
 
     private var _postListVPA: PostListVPA? = null
     private val postListVPA get() = _postListVPA
@@ -41,7 +36,6 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
             val category = result.data?.getStringExtra("category") ?: ""
             binding.vpCommunityPostList.currentItem = category.toCategoryPosition()
             val isWriteDone = result.data?.getBooleanExtra("isWriteDone", false) ?: false
-            Log.d("iwd", isWriteDone.toString())
             if (isWriteDone){
                 communityViewModel.refreshCategoryPage(category)
             }

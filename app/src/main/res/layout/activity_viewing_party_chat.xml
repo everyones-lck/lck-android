@@ -15,16 +15,16 @@
             android:id="@+id/layout_read_coordinator"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/layout_chat_send">
+            app:layout_constraintBottom_toTopOf="@id/layout_chat_send"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/end_gradient_color"
                 android:elevation="0dp"
                 android:stateListAnimator="@null"
-                app:liftOnScrollColor="@color/end_gradient_color"
-                android:background="@color/end_gradient_color">
+                app:liftOnScrollColor="@color/end_gradient_color">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -49,10 +49,10 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="16dp"
                         android:text="Perfect 조아 | KT"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/tv_chat_title"
                         app:layout_constraintStart_toStartOf="@id/tv_chat_title"
-                        app:layout_constraintTop_toBottomOf="@id/tv_chat_title"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintTop_toBottomOf="@id/tv_chat_title" />
 
                     <ImageView
                         android:id="@+id/iv_chat_back_btn"
@@ -68,39 +68,23 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/sv_chat"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_chat"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="13dp"
+                android:layout_marginBottom="20dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
                 android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_chat"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="18dp"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginEnd="13dp"
-                        android:layout_marginBottom="20dp"
-                        android:nestedScrollingEnabled="false"
-                        android:orientation="vertical"
-                        android:overScrollMode="never"
-                        app:stackFromEnd="true"
-                        app:reverseLayout="true"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintVertical_bias="0" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.core.widget.NestedScrollView>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0"
+                app:reverseLayout="true"
+                app:stackFromEnd="true" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -115,18 +99,18 @@
             <EditText
                 android:id="@+id/et_chat_input"
                 style="@style/Widget.AppCompat.EditText.LCK"
-                android:textAppearance="@style/TextAppearance.LCK.Light.Detail_10sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:paddingVertical="12dp"
                 android:background="@drawable/shape_rect_8_gray_fill"
                 android:hint="채팅을 입력하세요"
-                android:paddingStart="10dp"
-                android:maxLength="1000"
-                android:maxHeight="300dp"
                 android:inputType="textMultiLine"
+                android:maxHeight="300dp"
+                android:maxLength="1000"
+                android:paddingVertical="12dp"
+                android:paddingStart="10dp"
                 android:text=""
+                android:textAppearance="@style/TextAppearance.LCK.Light.Detail_10sp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/iv_chat_send_btn"

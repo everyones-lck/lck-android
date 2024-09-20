@@ -21,6 +21,7 @@ import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentReadViewingPartyBinding
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
@@ -83,7 +84,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.isWriter.collect{ isWriter ->
-                Log.d("iSwrite", isWriter.toString())
+                Timber.d("iSwrite", isWriter.toString())
                 if(!isWriter) {
                     with(binding){
                         groupReadWriterMenu.visibility = View.GONE
@@ -128,10 +129,6 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                         map = naverMap
                     }
                     naverMap?.moveCamera(CameraUpdate.scrollTo(viewingPartyMarker.position))
-                    /*svRead.postDelayed(
-                        {
-                            svRead.isVisible = true
-                        }, 200)*/
                 }
             }
 
@@ -155,7 +152,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
     }
 
     override fun initView() {
-        Log.d("postId", postId.toString())
+        Timber.d("postId", postId.toString())
         viewModel.setPostId(postId)
         initNaverMap()
         goToEditViewingParty()

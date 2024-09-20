@@ -48,12 +48,6 @@ class SpinnerAdapter(context: Context, private val list: List<String>?) :
     // 클릭 후 나타나는 텍스트뷰 설정
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         var convertView = convertView
-        /*val params = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        params.setMargins(0, 0, 12, 0)
-        convertView?.layoutParams = params*/
         val binding = SpinnerInnerViewBinding.inflate(inflater, parent, false)
         if (convertView == null) convertView = binding.root
         if (list != null) {
@@ -61,9 +55,5 @@ class SpinnerAdapter(context: Context, private val list: List<String>?) :
             binding.spinnerInnerTv.text = item
         }
         return convertView
-    }
-
-    interface GetSpinnerTextListener{
-        fun getText(text: String)
     }
 }

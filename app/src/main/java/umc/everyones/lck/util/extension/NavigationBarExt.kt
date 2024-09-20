@@ -6,9 +6,9 @@ import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationBarView
 
-fun NavigationBarView.setupWithNavControllerCustom(
+inline fun NavigationBarView.setupWithNavControllerCustom(
     navController: NavController,
-    viewingPartySelected: (MenuItem) -> Boolean
+    crossinline viewingPartySelected: (MenuItem) -> Boolean
 ){
     setupWithNavController(navController)  // 기본 설정 유지
 

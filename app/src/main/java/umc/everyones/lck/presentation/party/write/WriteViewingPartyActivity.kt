@@ -14,6 +14,7 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWriteViewingPartyBinding
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
@@ -295,7 +296,7 @@ class WriteViewingPartyActivity :
     // 뷰잉파티 개최 장소 설정
     private fun setViewingPartyPlace() {
         binding.etWriteViewingPartyAddress.setOnEditorActionListener(EditorInfo.IME_ACTION_DONE) {
-            Log.d("geoCoding", binding.etWriteViewingPartyAddress.text.toString())
+            Timber.d("geoCoding", binding.etWriteViewingPartyAddress.text.toString())
             viewModel.fetchGeocoding(binding.etWriteViewingPartyAddress.text.toString())
         }
     }

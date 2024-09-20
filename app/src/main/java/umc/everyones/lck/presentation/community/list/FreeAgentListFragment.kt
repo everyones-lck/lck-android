@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentPostListBinding
 import umc.everyones.lck.presentation.base.BaseFragment
@@ -18,9 +19,6 @@ import umc.everyones.lck.presentation.party.adapter.ViewingPartyRVA
 import umc.everyones.lck.util.extension.repeatOnStarted
 
 class FreeAgentListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment_post_list) {
-    private val navigator by lazy {
-        findNavController()
-    }
     private val viewModel: CommunityViewModel by activityViewModels()
     private var _postListRVA: PostListRVA? = null
     private val postListRVA
@@ -44,7 +42,7 @@ class FreeAgentListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fra
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.categoryNeedsRefresh.collect { categoryNeedsRefresh ->
-                Log.d("FreeAgent", categoryNeedsRefresh)
+                Timber.d("FreeAgent", categoryNeedsRefresh)
                 if (categoryNeedsRefresh == CATEGORY) {
                     postListRVA?.refresh()
                     binding.rvPostList.scrollToPosition(0)

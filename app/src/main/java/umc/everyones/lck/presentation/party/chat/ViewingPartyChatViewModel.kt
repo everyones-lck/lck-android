@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import umc.everyones.lck.domain.model.response.party.ViewingPartyChatLogModel
 import umc.everyones.lck.domain.model.response.party.ViewingPartyChatRoomModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
@@ -53,6 +54,8 @@ class ViewingPartyChatViewModel @Inject constructor(
     sealed class ViewingPartyChatEvent {
         data class CreateChatRoom(val result: ViewingPartyChatRoomModel) : ViewingPartyChatEvent()
         data class FetchChatLog(val chatLog: ViewingPartyChatLogModel) : ViewingPartyChatEvent()
+
+        data class RefreshChatLog(val chatLog: ViewingPartyChatLogModel) : ViewingPartyChatEvent()
     }
 
     fun eventWebsocket(event: WebSocketResource) {
@@ -73,11 +76,11 @@ class ViewingPartyChatViewModel @Inject constructor(
                 .onSuccess { response ->
                     _viewingPartyChatEvent.value =
                         UiState.Success(ViewingPartyChatEvent.CreateChatRoom(response))
-                    Log.d("createViewingPartyChatRoom", response.toString())
+                    Timber.d("createViewingPartyChatRoom", response.toString())
                     _roomId.value = response.roomId
                     _pagingSource = repository.fetchChatLogPagingSource(response.roomId)
                 }.onFailure {
-                    Log.d("createViewingPartyChatRoom error", it.stackTraceToString())
+                    Timber.d("createViewingPartyChatRoom error", it.stackTraceToString())
                 }
         }
     }
@@ -88,26 +91,59 @@ class ViewingPartyChatViewModel @Inject constructor(
             repository.createViewingPartyChatRoomAsParticipant(postId.value).onSuccess { response ->
                 _viewingPartyChatEvent.value =
                     UiState.Success(ViewingPartyChatEvent.CreateChatRoom(response))
-                Log.d("createViewingPartyChatRoomAsParticipant", response.toString())
+                Timber.d("createViewingPartyChatRoomAsParticipant", response.toString())
                 _roomId.value = response.roomId
             }.onFailure {
-                Log.d("createViewingPartyChatRoomAsParticipant error", it.stackTraceToString())
+                Timber.d("createViewingPartyChatRoomAsParticipant error", it.stackTraceToString())
             }
         }
     }
 
     fun fetchViewingPartyChatLog() {
-        if(!isPageLast.value) {
+        if (!isPageLast.value) {
             viewModelScope.launch {
                 _viewingPartyChatEvent.value = UiState.Loading
                 delay(200)
-                repository.fetchViewingPartyChatLog(roomId.value, page.value, 60).onSuccess { response ->
-                    Log.d("fetchViewingPartyChatLog", response.toString())
-                    _viewingPartyChatEvent.value =
-                        UiState.Success(ViewingPartyChatEvent.FetchChatLog(response.copy(chatMessageList = response.chatMessageList.filter { !it.message.contains("입장했습니다.") })))
-                }.onFailure {
-                    Log.d("createViewingPartyChatRoom error", it.stackTraceToString())
+                repository.fetchViewingPartyChatLog(roomId.value, page.value, 10)
+                    .onSuccess { response ->
+                        Timber.d("fetchViewingPartyChatLog", response.toString())
+                        temp.value += response.chatMessageList
+                        isPageLast.value = response.isLast
+                        page.value += 1
+                        _viewingPartyChatEvent.value =
+                            UiState.Success(
+                                ViewingPartyChatEvent.FetchChatLog(
+                                    response.copy(
+                                        chatMessageList = temp.value.filter {
+                                            !it.message.contains("입장했습니다.")
+                                        })
+                                )
+                            )
+                    }.onFailure {
+                    Timber.d("createViewingPartyChatRoom error", it.stackTraceToString())
                 }
+            }
+        }
+    }
+
+    fun refreshViewingPartyChatLog() {
+        viewModelScope.launch {
+            _viewingPartyChatEvent.value = UiState.Loading
+            repository.fetchViewingPartyChatLog(roomId.value, 0, 1)
+                .onSuccess { response ->
+                    Timber.d("fetchViewingPartyChatLog", response.toString())
+                    temp.value = response.chatMessageList + temp.value
+                    _viewingPartyChatEvent.value =
+                        UiState.Success(
+                            ViewingPartyChatEvent.FetchChatLog(
+                                response.copy(
+                                    chatMessageList = temp.value.filter {
+                                        !it.message.contains("입장했습니다.")
+                                    })
+                            )
+                        )
+                }.onFailure {
+                Timber.d("createViewingPartyChatRoom error", it.stackTraceToString())
             }
         }
     }

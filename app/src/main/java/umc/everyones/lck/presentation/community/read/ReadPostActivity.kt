@@ -16,6 +16,7 @@ import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityReadPostBinding
 import umc.everyones.lck.domain.model.community.Comment
@@ -183,7 +184,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         binding.ivReadBackBtn.setOnSingleClickListener {
             finish()
         }
-        Log.d("postId", postId.toString())
+        Timber.d("postId", postId.toString())
     }
 
     private fun reportPost() {

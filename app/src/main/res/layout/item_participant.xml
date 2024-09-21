@@ -46,7 +46,7 @@
             android:id="@+id/tv_participant_divider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="|"
+            android:text="|"
             style="@style/Widget.AppCompat.TextView.LCK"
             android:layout_marginStart="12dp"
             android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"

@@ -1,6 +1,10 @@
 package umc.everyones.lck.presentation.party.dialog
 
+import android.content.Context
+import android.graphics.Point
 import android.util.Log
+import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import umc.everyones.lck.R
@@ -8,6 +12,7 @@ import umc.everyones.lck.databinding.DialogJoinViewingPartyBinding
 import umc.everyones.lck.presentation.base.BaseDialogFragment
 import umc.everyones.lck.presentation.party.read.ReadViewingPartyViewModel
 import umc.everyones.lck.util.extension.repeatOnStarted
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 class JoinViewingPartyDialogFragment: BaseDialogFragment<DialogJoinViewingPartyBinding>(R.layout.dialog_join_viewing_party) {
     private val viewModel: ReadViewingPartyViewModel by activityViewModels()
@@ -19,20 +24,19 @@ class JoinViewingPartyDialogFragment: BaseDialogFragment<DialogJoinViewingPartyB
     override fun initObserver() {
         viewLifecycleOwner.repeatOnStarted {
             viewModel.title.collect{ title ->
-                Log.d("title", title)
                 binding.tvJoinViewingPartyTitle.text = title
             }
         }
     }
 
     override fun initView() {
-        requireContext().dialogFragmentResize(this, 0.8f, 0.2f)
+        requireContext().dialogFragmentResize(this, 0.8f)
 
         with(binding){
-            btnJoinViewingCancel.setOnClickListener {
+            btnJoinViewingCancel.setOnSingleClickListener {
                 dismiss()
             }
-            btnJoinViewingConfirm.setOnClickListener {
+            btnJoinViewingConfirm.setOnSingleClickListener {
                 onJoinViewingPartyClickListener?.onConfirm()
                 dismiss()
             }

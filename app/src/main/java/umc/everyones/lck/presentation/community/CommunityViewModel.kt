@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import umc.everyones.lck.domain.repository.community.CommunityRepository
 import umc.everyones.lck.util.network.EventFlow
 import umc.everyones.lck.util.network.MutableEventFlow
@@ -32,9 +33,9 @@ class CommunityViewModel @Inject constructor(
     fun fetchCommunityList(postType: String, page: Int, size: Int){
         viewModelScope.launch {
             repository.fetchCommunityList(postType, page, size).onSuccess {  response ->
-                Log.d("fetchCommunityList", response.toString())
+                Timber.d("fetchCommunityList", response.toString())
             }.onFailure {
-                Log.d("fetchCommunityList error", it.stackTraceToString())
+                Timber.d("fetchCommunityList error", it.stackTraceToString())
             }
         }
     }

@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
+import timber.log.Timber
 import umc.everyones.lck.domain.model.request.community.EditCommunityRequestModel
 import umc.everyones.lck.domain.model.request.community.WriteCommunityRequestModel
 import umc.everyones.lck.domain.repository.community.CommunityRepository
@@ -42,10 +43,10 @@ class WritePostViewModel @Inject constructor(
                     WriteCommunityRequestModel.WriteRequestModel(postType, postTitle, postContent)
                 )
             ).onSuccess { response ->
-                Log.d("writeCommunity", response.toString())
+                Timber.d("writeCommunity", response.toString())
                 _writeDoneEvent.value = UiState.Success(true)
             }.onFailure {
-                Log.d("writeCommunity error", it.stackTraceToString())
+                Timber.d("writeCommunity error", it.stackTraceToString())
                 _writeDoneEvent.value = UiState.Failure("커뮤니티 게시글 작성에 실패했습니다")
             }
         }
@@ -58,10 +59,10 @@ class WritePostViewModel @Inject constructor(
                 postType, postTitle, postContent
             )
             ).onSuccess { response ->
-                Log.d("editCommunityPost", response.toString())
+                Timber.d("editCommunityPost", response.toString())
                 _writeDoneEvent.value = UiState.Success(true)
             }.onFailure {
-                Log.d("editCommunityPost error", it.stackTraceToString())
+                Timber.d("editCommunityPost error", it.stackTraceToString())
                 _writeDoneEvent.value = UiState.Failure("커뮤니티 게시글 수정에 실패했습니다")
             }
         }

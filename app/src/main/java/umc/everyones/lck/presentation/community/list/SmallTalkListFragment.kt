@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentPostListBinding
 import umc.everyones.lck.domain.model.community.CommunityListModel
@@ -19,9 +20,6 @@ import umc.everyones.lck.presentation.community.read.ReadPostViewModel
 import umc.everyones.lck.util.extension.repeatOnStarted
 
 class SmallTalkListFragment  : BaseFragment<FragmentPostListBinding>(R.layout.fragment_post_list) {
-    private val navigator by lazy {
-        findNavController()
-    }
     private val viewModel: CommunityViewModel by activityViewModels()
     private var _postListRVA: PostListRVA? = null
     private val postListRVA
@@ -45,7 +43,7 @@ class SmallTalkListFragment  : BaseFragment<FragmentPostListBinding>(R.layout.fr
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.categoryNeedsRefresh.collect { categoryNeedsRefresh ->
-                Log.d("smallTalk", categoryNeedsRefresh)
+                Timber.d("smallTalk", categoryNeedsRefresh)
                 if (categoryNeedsRefresh == CATEGORY) {
                     postListRVA?.refresh()
                     binding.rvPostList.scrollToPosition(0)

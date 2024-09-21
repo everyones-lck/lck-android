@@ -130,40 +130,27 @@ class SignupViewModel @Inject constructor(
 
     fun sendSignupData() {
         viewModelScope.launch {
-            try {
-                val signupRequest = prepareSignupRequest()
+            val signupRequest = prepareSignupRequest()
 
-                Log.d("SignupViewModel", "Sending API request with data: ${signupRequest.signupUserData}")
+            Log.d("SignupViewModel", "Sending API request with data: ${signupRequest.signupUserData}")
 
-                val gson = Gson()
-                val signupUserDataJson = gson.toJson(signupRequest.signupUserData)
-
-                // API 호출
-                val response = repository.signup(
-                    signupUserDataJson.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull()),
-                    signupRequest.profileImage
-                )
-
-                response?.let { responseBody ->
-                    Log.d("SignupViewModel", "API call successful: $responseBody")
-                    _signupResponse.value = responseBody // 응답 값을 LiveData에 저장
-
-                    // SharedPreferences에 데이터 저장
-                    spf.edit().apply {
-                        putString("nickName", signupRequest.signupUserData.nickName)
-                        putString("profileImage", _profileUri.value?.toString() ?: "") // URI가 null일 경우 빈 문자열로 저장
-                        putString("role", signupRequest.signupUserData.role)
-                        putInt("teamId", signupRequest.signupUserData.teamId)
-                        putString("tier", signupRequest.signupUserData.tier)
-                        putBoolean("isLoggedIn", true) // 로그인 상태 저장
-                    }
-                } ?: run {
-                    Log.e("SignupViewModel", "Response body is null")
-                    _signupResponse.value = null // 응답 본문이 null인 경우
+            val gson = Gson()
+            val signupUserDataJson = gson.toJson(signupRequest.signupUserData)
+            repository.signup(
+                signupUserDataJson.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull()),
+                signupRequest.profileImage
+            ).onSuccess {
+                spf.edit().apply {
+                    putString("nickName", signupRequest.signupUserData.nickName)
+                    putString("profileImage", _profileUri.value?.toString() ?: "") // URI가 null일 경우 빈 문자열로 저장
+                    putString("role", signupRequest.signupUserData.role)
+                    putInt("teamId", signupRequest.signupUserData.teamId)
+                    putString("tier", signupRequest.signupUserData.tier)
+                    putBoolean("isLoggedIn", true) // 로그인 상태 저장
+                    apply()
                 }
-            } catch (e: Exception) {
-                Log.e("SignupViewModel", "API call failed: ${e.message}")
-                _signupResponse.value = null // 실패 시 null 처리
+            }.onFailure {
+                Log.e("SignupViewModel", "API call failed: ${it.message}")
             }
         }
     }

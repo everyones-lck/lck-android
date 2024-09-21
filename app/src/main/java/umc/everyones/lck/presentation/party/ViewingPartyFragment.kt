@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentViewingPartyBinding
 import umc.everyones.lck.presentation.base.BaseFragment
@@ -38,7 +39,7 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
 
     private var writeResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if (result.resultCode == Activity.RESULT_OK){
-            Log.d("isWriteDone", result.data?.getBooleanExtra("isWriteDone", false).toString())
+            Timber.d("isWriteDone", result.data?.getBooleanExtra("isWriteDone", false).toString())
             if(result.data?.getBooleanExtra("isWriteDone", false) == true){
                 viewModel.setIsRefreshNeeded(true)
             }

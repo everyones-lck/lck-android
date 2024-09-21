@@ -14,6 +14,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityWritePostBinding
 import umc.everyones.lck.domain.model.community.EditPost
@@ -24,6 +25,7 @@ import umc.everyones.lck.presentation.community.adapter.WriteMediaRVA
 import umc.everyones.lck.presentation.community.read.ReadPostActivity
 import umc.everyones.lck.util.GridSpaceItemDecoration
 import umc.everyones.lck.util.extension.repeatOnStarted
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
 import umc.everyones.lck.util.extension.textToString
 import umc.everyones.lck.util.extension.toCategoryPosition
@@ -92,7 +94,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
         validatePostBody()
         writeDone()
 
-        binding.ivWriteClose.setOnClickListener {
+        binding.ivWriteClose.setOnSingleClickListener {
             finish()
         }
     }
@@ -109,7 +111,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
         if (post != null) {
             isEdit = true
             writePostViewModel.setPostId(post.postId)
-            Log.d("post", post.toString())
+            Timber.d("post", post.toString())
             with(binding) {
                 spinnerWriteCategory.setSelection(post.category.toCategoryPosition())
                 etWriteTitle.setText(post.title)
@@ -185,11 +187,11 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
 
     private fun writeDone() {
         with(binding) {
-            ivWriteDone.setOnClickListener {
+            ivWriteDone.setOnSingleClickListener {
                 // 제목이나 본문 입력하지 않을 시 예외처리
                 if (etWriteTitle.text.isEmpty() || etWriteBody.text.isEmpty()) {
                     showCustomSnackBar(binding.tvWriteGuide, "필수 항목을 입력하지 않았습니다")
-                    return@setOnClickListener
+                    return@setOnSingleClickListener
                 }
 
                 if (isEdit) {

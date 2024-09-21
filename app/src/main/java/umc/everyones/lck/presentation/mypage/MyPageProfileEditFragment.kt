@@ -30,6 +30,11 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
     private val signupViewModel: SignupViewModel by activityViewModels()
     private val navigator by lazy { findNavController() }
 
+    override fun onResume() {
+        super.onResume()
+        setInitialState() // Fragment가 다시 보일 때 초기 상태 설정
+    }
+
     override fun initObserver() {
 
         setInitialState()
@@ -39,6 +44,7 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
                 binding.viewMypageProfileEditNicknameBar.setBackgroundResource(R.drawable.shape_rect_4_green_line)
                 binding.tvMypageNicknameDuplication.setTextColor(requireContext().getColor(R.color.success))
                 binding.tvMypageNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_green_line)
+                binding.layoutMypageProfileEditValid.visibility = View.VISIBLE
             } else {
                 binding.layoutMypageProfileEditWarning4.visibility = View.VISIBLE // 중복
                 binding.viewMypageProfileEditNicknameBar.setBackgroundResource(R.drawable.shape_rect_4_red_line) // 실패 색상
@@ -96,11 +102,11 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
                     binding.tvMypageNicknameDuplication.setOnClickListener {
                         signupViewModel.checkNicknameAvailability(nickname) // 중복 확인 로직 호출
                     }
-                    binding.layoutMypageProfileEditWarning4.visibility = View.GONE // 중복 아님
                     binding.tvMypageNicknameDuplication.isEnabled = true // 버튼 활성화
                 } else {
                     // 중복된 경우
                     setNicknameUnavailableState() // 중복 상태 설정
+                    binding.layoutMypageProfileEditWarning4.visibility = View.GONE // 중복 아님
                     binding.tvMypageNicknameDuplication.isEnabled = false // 버튼 비활성화
                 }
             } else {
@@ -118,31 +124,29 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
             val currentNickname = myPageViewModel.nickName.value
 
             // 업데이트할 닉네임과 이미지 결정
-            val finalNickname = when {
-                nicknameInput.isNotEmpty() -> nicknameInput // 닉네임이 비어있지 않으면 입력값 사용
-                currentNickname != null -> currentNickname // 닉네임이 비어있으면 현재 닉네임 사용
-                else -> null // 둘 다 null인 경우
+            val finalNickname = if (nicknameInput.isNotEmpty()) {
+                nicknameInput // 닉네임이 비어있지 않으면 입력값 사용
+            } else {
+                currentNickname // 닉네임이 비어있으면 현재 닉네임 사용
             }
 
-            val finalProfileImageUri = when {
-                currentProfileImageUri != null -> currentProfileImageUri // 프로필 이미지가 null이 아닐 경우 현재 이미지 사용
-                else -> null // 이미지만 null인 경우
+            val finalProfileImageUri = if (nicknameInput.isNotEmpty()) {
+                // 닉네임이 변경된 경우, 현재 프로필 이미지를 사용
+                currentProfileImageUri
+            } else {
+                // 닉네임이 변경되지 않은 경우, 프로필 이미지가 변경된 경우에만 새 이미지 사용
+                currentProfileImageUri // 현재 프로필 이미지를 유지
             }
 
-            // 프로필 업데이트 메서드 호출
-            if (finalNickname != null || finalProfileImageUri != null) {
-                myPageViewModel.updateProfile(finalNickname, finalProfileImageUri)
+
+                // 업데이트할 데이터가 유효할 경우 ViewModel 호출
+            myPageViewModel.updateProfile(finalNickname, finalProfileImageUri)
 
                 // 프로필 업데이트 결과를 관찰하여 성공 여부에 따라 화면 전환
-                myPageViewModel.updateProfileResult.observe(viewLifecycleOwner) { result ->
-                    navigator.navigate(R.id.action_myPageProfileEditFragment_to_myPageProfileFragment)
-                }
-            } else {
-                // 닉네임과 이미지가 모두 null인 경우 사용자에게 알림
-                Toast.makeText(requireContext(), "변경할 내용이 없습니다.", Toast.LENGTH_SHORT).show()
+            myPageViewModel.updateProfileResult.observe(viewLifecycleOwner) { result ->
+                navigator.navigate(R.id.action_myPageProfileEditFragment_to_myPageProfileFragment)
             }
         }
-
 
     }
 

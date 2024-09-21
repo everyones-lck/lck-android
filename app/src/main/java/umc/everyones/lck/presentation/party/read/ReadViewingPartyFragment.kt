@@ -11,8 +11,17 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.MapFragment
+import com.naver.maps.map.NaverMap
+import com.naver.maps.map.NaverMapOptions
+import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentReadViewingPartyBinding
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
@@ -30,7 +39,7 @@ import umc.everyones.lck.util.network.UiState
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R.layout.fragment_read_viewing_party) {
+class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R.layout.fragment_read_viewing_party), OnMapReadyCallback {
     private val viewModel: ReadViewingPartyViewModel by activityViewModels()
     private val viewingPartyViewModel: ViewingPartyViewModel by activityViewModels()
     private val navigator by lazy {
@@ -58,6 +67,8 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
     }
 
     private var isParticipated = false
+    private var naverMap: NaverMap? = null
+    private val viewingPartyMarker = Marker()
     override fun initObserver() {
         viewLifecycleOwner.repeatOnStarted {
             viewModel.readViewingPartyEvent.collect{ state ->
@@ -73,7 +84,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.isWriter.collect{ isWriter ->
-                Log.d("iSwrite", isWriter.toString())
+                Timber.d("iSwrite", isWriter.toString())
                 if(!isWriter) {
                     with(binding){
                         groupReadWriterMenu.visibility = View.GONE
@@ -112,10 +123,12 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                     viewModel.setTitle(event.viewingParty.name)
                     isParticipated = event.viewingParty.isParticipated
                     layoutReadViewingPartyContent.isVisible = true
-                    /*svRead.postDelayed(
-                        {
-                            svRead.isVisible = true
-                        }, 200)*/
+                    viewingPartyMarker.apply {
+                        position = LatLng(event.viewingParty.latitude, event.viewingParty.longitude)
+                        icon = OverlayImage.fromResource(R.drawable.img_marker)
+                        map = naverMap
+                    }
+                    naverMap?.moveCamera(CameraUpdate.scrollTo(viewingPartyMarker.position))
                 }
             }
 
@@ -139,9 +152,9 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
     }
 
     override fun initView() {
-        Log.d("postId", postId.toString())
+        Timber.d("postId", postId.toString())
         viewModel.setPostId(postId)
-        viewModel.fetchViewingParty()
+        initNaverMap()
         goToEditViewingParty()
         binding.ivReadBackBtn.setOnSingleClickListener {
             navigator.navigateUp()
@@ -202,5 +215,22 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                 ))
             }
         }
+    }
+
+    private fun initNaverMap() {
+        val fm = childFragmentManager
+        val mapFragment = fm.findFragmentById(R.id.map_fragment) as MapFragment?
+            ?: MapFragment.newInstance(NaverMapOptions().locationButtonEnabled(false)).also {
+                fm.beginTransaction().add(R.id.map_fragment, it).commit()
+            }
+        mapFragment.getMapAsync { map ->
+            naverMap = map
+            naverMap?.moveCamera(CameraUpdate.zoomTo(16.0))
+            viewModel.fetchViewingParty()
+        }
+    }
+
+    override fun onMapReady(p0: NaverMap) {
+
     }
 }

@@ -8,6 +8,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.android.gms.oss-licenses-plugin")
 }
 
 val properties = Properties().apply{
@@ -22,7 +23,7 @@ android {
         applicationId = "umc.everyones.lck"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
+        versionCode = 4
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -39,6 +40,7 @@ android {
         }
 
         release {
+            manifestPlaceholders += mapOf()
             isMinifyEnabled = false
             manifestPlaceholders["NAVER_CLIENT_ID"] = properties["NAVER_CLIENT_ID"] as String
             manifestPlaceholders["KAKAO_APP_KEY"] = properties["KAKAO_APP_KEY"] as String
@@ -46,6 +48,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -136,4 +139,7 @@ dependencies {
 
     //kakao Login
     implementation ("com.kakao.sdk:v2-user:2.20.3") // 카카오 로그인 API 모듈
+    implementation("com.google.android.gms:play-services-oss-licenses:17.1.0")
+
+    implementation ("com.jakewharton.timber:timber:5.0.1")
 }

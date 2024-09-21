@@ -4,9 +4,11 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.google.gson.Gson
 import okhttp3.*
+import timber.log.Timber
 import umc.everyones.lck.data.dto.request.party.ChatMessage
 import umc.everyones.lck.util.chat.WebSocketResource
 import javax.inject.Inject
+import kotlin.io.path.createTempDirectory
 
 class WsClient @Inject constructor(
     private val viewModel: ViewingPartyChatViewModel,
@@ -50,29 +52,31 @@ class WsClient @Inject constructor(
     }
 
     override fun onOpen(webSocket: WebSocket, response: Response) {
-        Log.d("WebSocket", "Connection opened: $response")
+        Timber.d("WebSocket", "Connection opened: $response")
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
-        Log.d("WebSocket", "Message received: $text")
-        viewModel.fetchViewingPartyChatLog()
+        Timber.d("WebSocket", "Message received: $text")
+        if (!text.contains("님이 입장했습니다.")) {
+            viewModel.refreshViewingPartyChatLog()
+        }
     }
 
     override fun onMessage(webSocket: WebSocket, bytes: okio.ByteString) {
-        Log.d("WebSocket", "Message received (binary): ${bytes.hex()}")
+        Timber.d("WebSocket", "Message received (binary): ${bytes.hex()}")
     }
 
     override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-        Log.d("WebSocket", "Connection closing: $code / $reason")
+        Timber.d("WebSocket", "Connection closing: $code / $reason")
         webSocket.close(code, reason)
     }
 
     override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-        Log.d("WebSocket", "Connection closed: $code / $reason")
+        Timber.d("WebSocket", "Connection closed: $code / $reason")
     }
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-        Log.e("WebSocket", "Error: ${t.message}", t)
+        Timber.e("WebSocket", "Error: ${t.message}", t)
             connectWebSocket()
             enterChatRoom("") // 필요시 다시 입장 시도
     }

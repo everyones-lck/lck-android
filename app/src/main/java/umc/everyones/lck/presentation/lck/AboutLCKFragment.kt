@@ -1,18 +1,15 @@
 package umc.everyones.lck.presentation.lck
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import org.threeten.bp.LocalDate
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentAboutLckBinding
 import umc.everyones.lck.domain.model.about_lck.AboutLckMatchDetailsModel
@@ -51,14 +48,18 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
     @SuppressLint("SimpleDateFormat")
     override fun initObserver() {
         viewLifecycleOwner.repeatOnStarted {
-            viewModel.matchDetails.collect { result ->
-                Log.d("AboutLCKFragment", "Collect")
-                handleMatchDetailsResult(result)
+            viewModel.matchDetails.collect { matchDetails ->
+                Timber.d("Collecting match details")
+                handleMatchDetailsResult(matchDetails)
             }
         }
         viewLifecycleOwner.repeatOnStarted {
-            viewModel.rankingDetails.collect { result ->
-                handleRankingDetailsResult(result)
+            viewModel.rankingDetails.collect { rankingDetails ->
+                if (rankingDetails != null) {
+                    updateRankingDetails(rankingDetails)
+                } else {
+                    Timber.e("Failed to fetch ranking details")
+                }
             }
         }
 
@@ -67,7 +68,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
                 val temp = it.matchDetailList.groupBy { it.matchDate }
                 val temp1 = temp.map {Test(it.key, it.value)
                 }.sortedBy { it.date }
-                Log.d("temp1", temp1.toString())
+                Timber.d("temp1: %s", temp1.toString())
                 matchVPAdapter.submitList(temp1)
                 scrollWithDate("")
             }
@@ -85,7 +86,6 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
     @SuppressLint("SimpleDateFormat")
     private fun scrollWithDate(inputDate: String){
-        Log.d("inputDate", inputDate)
         if(matchVPAdapter.currentList.isEmpty()){
             return
         }
@@ -103,18 +103,15 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         }
     }
 
-    private fun handleMatchDetailsResult(result: Result<AboutLckMatchDetailsModel>?) {
-        result?.onSuccess { data ->
+    private fun handleMatchDetailsResult(matchDetails: AboutLckMatchDetailsModel?) {
+        if (matchDetails != null) {
             val matchDataList = matchVPAdapter.getMatchDataList().toMutableList()
-
-            val mappedMatches = data.matchDetailList.map { match ->
-                val matchData = createMatchData(match)
-                matchData
+            val mappedMatches = matchDetails.matchDetailList.map { match ->
+                createMatchData(match)
             }
             matchDataList.addAll(mappedMatches)
-            //updateMatchViewPager(matchDataList)
-        }?.onFailure { throwable ->
-            Log.e("AboutLCKFragment", "Failed to fetch match details: ${throwable.message}", throwable)
+        } else {
+            Timber.e("AboutLCKFragment", "Failed to fetch match details")
         }
     }
 
@@ -125,9 +122,6 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         } else {
             match.matchTime.substring(0, 5)
         }
-
-        Log.d("AboutLCKFragment", "Team1 Logo URL: ${match.team1.teamLogoUrl}")
-        Log.d("AboutLCKFragment", "Team2 Logo URL: ${match.team2.teamLogoUrl}")
 
         return MatchData(
             matchDate = matchDate,
@@ -150,7 +144,6 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         binding.vpAboutLckMatch.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 binding.tvAboutLckDate.text = matchVPAdapter.currentList[position].date.replace("-",".")
-                Log.d("selected dates vp", matchVPAdapter.currentList[position].date)
             }
         })
 
@@ -167,33 +160,31 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         recyclerViewMatches.setPadding(pageMarginPx, 0, pageMarginPx, 0)
         recyclerViewMatches.clipToPadding = false
     }
-    private fun handleRankingDetailsResult(result: Result<AboutLckRankingDetailsModel>?) {
-        result?.onSuccess { rankingDetails ->
-            val teamDetails = rankingDetails.teamDetailList
 
-            if (teamDetails.isNotEmpty()) {
-                topTeams.clear()
-                topTeams.addAll(teamDetails.take(3).map { teamDetail ->
-                    RankingData(
-                        teamId = teamDetail.teamId,
-                        ranking = teamDetail.rating,
-                        teamLogoUrl = teamDetail.teamLogoUrl,
-                        teamName = teamDetail.teamName
-                    )
-                })
-                displayTopTeams(topTeams)
-                val remainingTeams = teamDetails.drop(3).map { teamDetail ->
-                    RankingData(
-                        teamId = teamDetail.teamId,
-                        ranking = teamDetail.rating,
-                        teamLogoUrl = teamDetail.teamLogoUrl,
-                        teamName = teamDetail.teamName
-                    )
-                }
-                rankingAdapter.updateTeams(remainingTeams)
+    private fun updateRankingDetails(rankingDetails: AboutLckRankingDetailsModel) {
+        val teamDetails = rankingDetails.teamDetailList
+
+        if (teamDetails.isNotEmpty()) {
+            topTeams.clear()
+            topTeams.addAll(teamDetails.take(3).map { teamDetail ->
+                RankingData(
+                    teamId = teamDetail.teamId,
+                    ranking = teamDetail.rating,
+                    teamLogoUrl = teamDetail.teamLogoUrl,
+                    teamName = teamDetail.teamName
+                )
+            })
+            displayTopTeams(topTeams)
+
+            val remainingTeams = teamDetails.drop(3).map { teamDetail ->
+                RankingData(
+                    teamId = teamDetail.teamId,
+                    ranking = teamDetail.rating,
+                    teamLogoUrl = teamDetail.teamLogoUrl,
+                    teamName = teamDetail.teamName
+                )
             }
-        }?.onFailure {
-            Log.e("AboutLCKFragment", "Failed to fetch ranking details")
+            rankingAdapter.updateTeams(remainingTeams)
         }
     }
 
@@ -230,7 +221,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
 
     private fun initBackButton() {
-        binding.viewAboutLckRect1.setOnClickListener {
+        binding.viewAboutLckRect1.setOnSingleClickListener {
             topTeams.getOrNull(0)?.let { team ->
                 val action = AboutLCKFragmentDirections.actionAboutLCKFragmentToAboutLckTeamFragment(
                     team.teamId,
@@ -241,7 +232,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
             }
         }
 
-        binding.viewAboutLckRect2.setOnClickListener {
+        binding.viewAboutLckRect2.setOnSingleClickListener {
             topTeams.getOrNull(1)?.let { team ->
                 val action = AboutLCKFragmentDirections.actionAboutLCKFragmentToAboutLckTeamFragment(
                     team.teamId,
@@ -252,7 +243,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
             }
         }
 
-        binding.viewAboutLckRect3.setOnClickListener {
+        binding.viewAboutLckRect3.setOnSingleClickListener {
             topTeams.getOrNull(2)?.let { team ->
                 val action = AboutLCKFragmentDirections.actionAboutLCKFragmentToAboutLckTeamFragment(
                     team.teamId,
@@ -265,7 +256,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
     }
 
     private fun initCalendarButton() {
-        binding.ivAboutLckCalendar.setOnClickListener {
+        binding.ivAboutLckCalendar.setOnSingleClickListener {
             toggleDatePickerDialog()
         }
 

@@ -141,6 +141,7 @@
                     android:gravity="end"
                     android:hint="제목을 입력하세요"
                     android:inputType="text"
+                    android:maxLength="20"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintStart_toEndOf="@id/tv_write_post_title"
                     app:layout_constraintEnd_toEndOf="@id/line2"

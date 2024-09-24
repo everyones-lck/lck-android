@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentTodayMatchTodayPogBinding
 import umc.everyones.lck.domain.model.response.match.PogPlayerTodayMatchModel
@@ -60,7 +61,7 @@ class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBindin
             matchData?.let {
                 // seasonName과 서수를 포함한 matchNumber 설정
                 binding.tvTodayMatchTodayPogDate.text = "${it.seasonName} ${it.matchNumber.toOrdinal()} Match"
-                Log.d("Season", it.seasonName)
+                Timber.d("Season", it.seasonName)
             }
         })
     }
@@ -73,7 +74,7 @@ class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBindin
 
         val matchId = arguments?.getLong("matchId") ?: return
         viewModel.fetchTodayMatchSetCount(matchId)
-        Log.d("TodayMatchTodayPogFragment", "matchId: $matchId") // matchId 로그 출력
+        Timber.d("TodayMatchTodayPogFragment", "matchId: $matchId") // matchId 로그 출력
         todayViewModel.fetchTodayMatchVoteMatch(matchId)
     }
 

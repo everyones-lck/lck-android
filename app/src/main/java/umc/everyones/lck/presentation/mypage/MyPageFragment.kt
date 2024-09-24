@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import umc.everyones.lck.R
@@ -20,6 +19,7 @@ import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.login.SignupViewModel
 import umc.everyones.lck.util.TeamData
 import umc.everyones.lck.util.TeamData.teamLogos
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment_mypage_main) {
@@ -47,30 +47,30 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
 
     override fun initView() {
 
-        binding.ivMypageMainBack.setOnClickListener {
+        binding.ivMypageMainBack.setOnSingleClickListener {
             val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
             navigator.navigateUp()
         }
 
-        binding.tvMypageMainMyprofileText.setOnClickListener {
+        binding.tvMypageMainMyprofileText.setOnSingleClickListener {
             navigator.navigate(R.id.action_myPageFragment_to_myPageProfileFragment)
         }
 
-        binding.tvMypageMainMyteamText.setOnClickListener {
+        binding.tvMypageMainMyteamText.setOnSingleClickListener {
             navigator.navigate(R.id.action_myPageFragment_to_myPageMyteamFragment)
         }
 
-        binding.tvMypageMainCommunityText.setOnClickListener {
+        binding.tvMypageMainCommunityText.setOnSingleClickListener {
             navigator.navigate(R.id.action_myPageFragment_to_myPageCommunityFragment)
         }
 
-        binding.tvMypageMainViewingPartyText.setOnClickListener {
+        binding.tvMypageMainViewingPartyText.setOnSingleClickListener {
             navigator.navigate(R.id.action_myPageFragment_to_myPageViewingPartyFragment)
         }
 
         binding.tvMypageMainOss.setOnClickListener {
-            startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
+            startActivity(Intent(requireContext(), MainActivity::class.java))
         }
 
         viewModel.inquiryProfile()

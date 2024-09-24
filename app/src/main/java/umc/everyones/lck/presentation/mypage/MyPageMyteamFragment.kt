@@ -22,6 +22,7 @@ import umc.everyones.lck.databinding.FragmentMypageMyteamBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.util.TeamData
 import umc.everyones.lck.util.TeamData.mypageMyteam
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.fragment_mypage_myteam) {
@@ -59,7 +60,7 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
             }
         }
 
-        binding.tvMypageMyteamTopbarEdit.setOnClickListener {
+        binding.tvMypageMyteamTopbarEdit.setOnSingleClickListener {
             // 선택된 팀이 없을 경우 기본 팀 ID(1)로 설정
             val teamIdToUpdate = selectedTeamId ?: 1
 
@@ -103,11 +104,11 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
         binding.layoutMypageMyteamList.visibility = View.GONE
         binding.btnMypageMyteamArrow.setImageResource(R.drawable.ic_arrow_down)
 
-        binding.btnMypageMyteamArrow.setOnClickListener {
+        binding.btnMypageMyteamArrow.setOnSingleClickListener {
             toggleScrollView()
         }
 
-        binding.ivMypageMyteamBack.setOnClickListener {
+        binding.ivMypageMyteamBack.setOnSingleClickListener {
             findNavController().navigateUp()
         }
     }
@@ -118,7 +119,7 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
             val imageView = binding.root.findViewById<ImageView>(imageViewId)
 
             if (imageView != null) { // null 체크
-                imageView.setOnClickListener {
+                imageView.setOnSingleClickListener {
                     // 선택한 팀 ID가 이미 선택된 ID와 같으면 기본 팀 ID로 설정
                     selectedTeamId = if (selectedTeamId == teamId) {
                         1 // 기본 팀 ID

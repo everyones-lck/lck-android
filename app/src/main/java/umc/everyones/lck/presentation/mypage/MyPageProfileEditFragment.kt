@@ -22,6 +22,7 @@ import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.home.HomeFragment
 import umc.everyones.lck.presentation.login.LoginActivity
 import umc.everyones.lck.presentation.login.SignupViewModel
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>(R.layout.fragment_mypage_profile_edit){
@@ -74,18 +75,18 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
         }
 
         // 뒤로가기 버튼 클릭 시 이동
-        binding.ivMypageProfileEditBack.setOnClickListener {
+        binding.ivMypageProfileEditBack.setOnSingleClickListener {
             findNavController().navigateUp()
         }
 
         // 기본 이미지 사용 클릭 시
-        binding.tvMypageProfileEditBasic.setOnClickListener {
+        binding.tvMypageProfileEditBasic.setOnSingleClickListener {
             binding.ivMypageProfileEditProfile.setImageResource(R.drawable.img_signup_profile)
             myPageViewModel.setProfileImageUri(Uri.parse("android.resource://${requireContext().packageName}/${R.drawable.img_signup_profile}")) // 기본 이미지 URI 설정
         }
 
         // 갤러리에서 이미지 선택 클릭 시
-        binding.ivMypageProfileEditProfile.setOnClickListener {
+        binding.ivMypageProfileEditProfile.setOnSingleClickListener {
             openGallery() // 갤러리 열기
         }
 
@@ -116,7 +117,7 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
             }
         }
 
-        binding.tvMypageProfileEditTopbarEdit.setOnClickListener {
+        binding.tvMypageProfileEditTopbarEdit.setOnSingleClickListener {
             val nicknameInput = binding.etMypageProfileEditNicknameName.text.toString().trim()
 
             // 현재 프로필 이미지 URI 가져오기

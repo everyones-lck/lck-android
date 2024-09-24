@@ -12,6 +12,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentMypageProfileWithdrawBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.login.LoginActivity
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
 
 @AndroidEntryPoint
@@ -47,11 +48,11 @@ class MyPageProfileWithdrawFragment : BaseFragment<FragmentMypageProfileWithdraw
         binding.tvMypageProfileWithdrawText1.text = text
 
         // 뒤로가기 버튼 클릭 시 이동
-        binding.ivMypageProfileWithdrawBack.setOnClickListener {
+        binding.ivMypageProfileWithdrawBack.setOnSingleClickListener {
             findNavController().navigateUp()
         }
 
-        binding.tvMypageProfileWithdraw.setOnClickListener {
+        binding.tvMypageProfileWithdraw.setOnSingleClickListener {
             myPageViewModel.withdraw()
         }
     }

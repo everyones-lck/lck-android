@@ -78,7 +78,7 @@ class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBindin
     }
 
     private fun goBackButton() {
-        binding.ivTodayMatchTodayPogBack.setOnClickListener {
+        binding.ivTodayMatchTodayPogBack.setOnSingleClickListener {
             findNavController().navigateUp()
         }
     }
@@ -154,27 +154,27 @@ class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBindin
         viewModel.fetchTodayMatchVoteMatchPog(matchId)
     }
     private fun setupVoteImageViewClick() {
-        binding.ivTodayMatchTodayPog1stVote.setOnClickListener {
+        binding.ivTodayMatchTodayPog1stVote.setOnSingleClickListener {
             binding.ivTodayMatchTodayPog1stVote.visibility = View.GONE
             binding.rvTodayMatchTodayPog1stVote.visibility = View.VISIBLE
         }
-        binding.ivTodayMatchTodayPog2ndVote.setOnClickListener {
+        binding.ivTodayMatchTodayPog2ndVote.setOnSingleClickListener {
             binding.ivTodayMatchTodayPog2ndVote.visibility = View.GONE
             binding.rvTodayMatchTodayPog2ndVote.visibility = View.VISIBLE
         }
-        binding.ivTodayMatchTodayPog3rdVote.setOnClickListener {
+        binding.ivTodayMatchTodayPog3rdVote.setOnSingleClickListener {
             binding.ivTodayMatchTodayPog3rdVote.visibility = View.GONE
             binding.rvTodayMatchTodayPog3rdVote.visibility = View.VISIBLE
         }
-        binding.ivTodayMatchTodayPog4thVote.setOnClickListener {
+        binding.ivTodayMatchTodayPog4thVote.setOnSingleClickListener {
             binding.ivTodayMatchTodayPog4thVote.visibility = View.GONE
             binding.rvTodayMatchTodayPog4thVote.visibility = View.VISIBLE
         }
-        binding.ivTodayMatchTodayPog5thVote.setOnClickListener {
+        binding.ivTodayMatchTodayPog5thVote.setOnSingleClickListener {
             binding.ivTodayMatchTodayPog5thVote.visibility = View.GONE
             binding.rvTodayMatchTodayPog5thVote.visibility = View.VISIBLE
         }
-        binding.ivTodayMatchTodayPogMatchVote.setOnClickListener {
+        binding.ivTodayMatchTodayPogMatchVote.setOnSingleClickListener {
             binding.ivTodayMatchTodayPogMatchVote.visibility = View.GONE
             binding.rvTodayMatchTodayPogMatchVote.visibility = View.VISIBLE
         }

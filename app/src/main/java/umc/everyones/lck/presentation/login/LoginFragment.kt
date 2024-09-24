@@ -15,6 +15,7 @@ import umc.everyones.lck.domain.model.response.login.CommonLoginResponseModel
 import umc.everyones.lck.domain.model.response.login.LoginResponseModel
 import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
@@ -28,7 +29,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     override fun initView() {
         with(binding) {
-            ivLoginKakao.setOnClickListener {
+            ivLoginKakao.setOnSingleClickListener {
                 val context: Context = requireContext()
                 if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
                     loginWithKakaoTalk()

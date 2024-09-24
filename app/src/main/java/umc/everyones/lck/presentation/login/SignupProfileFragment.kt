@@ -27,6 +27,7 @@ import umc.everyones.lck.databinding.DialogMyteamConfirmBinding
 import umc.everyones.lck.databinding.DialogProfileConfirmBinding
 import umc.everyones.lck.databinding.FragmentSignupProfileBinding
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layout.fragment_signup_profile) {
@@ -67,7 +68,7 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
         }
 
         // 프로필 이미지 추가 버튼 클릭 리스너
-        binding.ivSignupProfilePlus.setOnClickListener {
+        binding.ivSignupProfilePlus.setOnSingleClickListener {
             // 외부 저장소 읽기 권한 확인
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 openGallery() // 갤러리 열기
@@ -78,7 +79,7 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
         }
 
         // 다음 버튼 클릭 리스너
-        binding.ivSignupProfileNext.setOnClickListener {
+        binding.ivSignupProfileNext.setOnSingleClickListener {
             if (profileImageUri != null) {
                 navigateToSignupMyTeam() // 다음 화면으로 이동
             } else {
@@ -87,7 +88,7 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
         }
 
         // 프로필 이미지 클릭 리스너 (이미지 변경)
-        binding.ivSignupProfilePicture.setOnClickListener {
+        binding.ivSignupProfilePicture.setOnSingleClickListener {
             openGallery() // 갤러리 열기
         }
     }
@@ -116,11 +117,11 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
         layoutParams?.dimAmount = 0.8f
         dialog.window?.attributes = layoutParams
 
-        dialogBinding.btnChange.setOnClickListener {
+        dialogBinding.btnChange.setOnSingleClickListener {
             dialog.dismiss()
         }
 
-        dialogBinding.btnConfirm.setOnClickListener {
+        dialogBinding.btnConfirm.setOnSingleClickListener {
             dialog.dismiss()
             navigateToSignupMyTeam()
         }

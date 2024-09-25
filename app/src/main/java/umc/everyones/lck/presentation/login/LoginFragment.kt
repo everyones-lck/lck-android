@@ -9,6 +9,7 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentLoginBinding
 import umc.everyones.lck.domain.model.response.login.CommonLoginResponseModel
@@ -43,7 +44,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private fun loginWithKakaoTalk() {
         UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
             if (error != null) {
-                Log.e(TAG, "카카오톡으로 로그인 실패", error)
+                Timber.e("카카오톡으로 로그인 실패", error)
                 if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
                     // 사용자가 로그인 과정을 취소한 경우
                     return@loginWithKakaoTalk
@@ -51,7 +52,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 // 카카오 계정으로 로그인 시도
                 loginWithKakaoAccount()
             } else if (token != null) {
-                Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
+                Timber.i("카카오톡으로 로그인 성공 ${token.accessToken}")
                 handleLoginSuccess()
             }
         }
@@ -60,9 +61,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private fun loginWithKakaoAccount() {
         UserApiClient.instance.loginWithKakaoAccount(requireContext()) {token, error ->
             if (error != null) {
-                Log.e(TAG, "카카오 계정으로 로그인 실패", error)
+                Timber.e("카카오 계정으로 로그인 실패", error)
             } else if (token != null) {
-                Log.i(TAG, "카카오 계정으로 로그인 성공 ${token.accessToken}")
+                Timber.i("카카오 계정으로 로그인 성공 ${token.accessToken}")
                 handleLoginSuccess()
             }
         }
@@ -72,7 +73,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         UserApiClient.instance.me { user, error ->
             user?.let {
                 val kakaoUserId = it.id.toString()
-                Log.d(TAG, "로그인 결과: $kakaoUserId") // 결과 로깅
+                Timber.d("로그인 결과: $kakaoUserId") // 결과 로깅
 
                 // ViewModel에 사용자 ID 설정
                 viewModel.setKakaoUserId(kakaoUserId)
@@ -86,7 +87,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     handleLoginResult(userInfo) // 로그인 결과에 따라 화면 전환
                 }
             } ?: run {
-                Log.e(TAG, "사용자 정보가 null입니다.")
+                Timber.e("사용자 정보가 null입니다.")
                 navigateToSignupNicknameScreen() // 회원가입 화면으로 이동
             }
         }

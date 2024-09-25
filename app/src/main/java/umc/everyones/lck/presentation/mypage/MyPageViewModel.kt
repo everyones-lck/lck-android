@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.data.UpdateProfileRequest
 import umc.everyones.lck.data.dto.BaseResponse
@@ -77,9 +78,9 @@ class MyPageViewModel @Inject constructor(
                 _profileData.value = response
                 _nickName.value = response.nickname // 닉네임을 LiveData에 저장
                 _teamId.value = response.teamId
-                Log.d("inquiryProfile", response.toString())
+                Timber.d(response.toString())
             }.onFailure {
-                Log.d("inquiryProfile", it.stackTraceToString())
+                Timber.d(it.stackTraceToString())
             }
         }
     }
@@ -88,11 +89,11 @@ class MyPageViewModel @Inject constructor(
         viewModelScope.launch {
             repository.withdraw().onSuccess {response ->
                 _withdrawResult.value = true
-                Log.d("withdraw", "회원 탈퇴 성공: $response")
+                Timber.d("회원 탈퇴 성공: $response")
                 spf.edit().putBoolean("isLoggedIn", false).apply()
                 clearAppCache()
             }.onFailure { error ->
-                Log.e("withdraw", "회원 탈퇴 실패: ${error.message}")
+                Timber.e("회원 탈퇴 실패: ${error.message}")
                 _withdrawResult.value = false
             }
         }
@@ -104,16 +105,16 @@ class MyPageViewModel @Inject constructor(
             viewModelScope.launch {
                 repository.logout(refreshToken).onSuccess { response ->
                     _logoutResult.value = true
-                    Log.d("logout", "로그아웃 성공: $response")
+                    Timber.d("로그아웃 성공: $response")
                     spf.edit().putBoolean("isLoggedIn", false).apply()
                     clearAppCache()
                 }.onFailure { error ->
                     _logoutResult.value = false
-                    Log.e("logout", "로그아웃 실패: ${error.message}")
+                    Timber.e("로그아웃 실패: ${error.message}")
                 }
             }
         } else {
-            Log.e("logout", "refreshToken이 없습니다.")
+            Timber.e("refreshToken이 없습니다.")
             _logoutResult.value = false
         }
     }
@@ -150,11 +151,11 @@ class MyPageViewModel @Inject constructor(
             runCatching {
                 repository.updateProfiles(profileImagePart, requestBody)
             }.onSuccess { response ->
-                Log.d("MyPageViewModel", "Response: ${Gson().toJson(response)}") // 응답 전체 로그
+                Timber.d("Response: ${Gson().toJson(response)}") // 응답 전체 로그
 
                 // JSON 응답을 BaseResponse로 파싱
                 val jsonResponse = Gson().toJson(response)
-                Log.d("MyPageViewModel", "JSON Response: $jsonResponse") // JSON 문자열 로그
+                Timber.d("JSON Response: $jsonResponse") // JSON 문자열 로그
 
                 // 제네릭 타입을 이용한 BaseResponse 파싱
                 val type = object : TypeToken<BaseResponse<UpdateProfilesResponseDto>>() {}.type
@@ -169,12 +170,12 @@ class MyPageViewModel @Inject constructor(
                         updatedNickname = updatedProfile.updatedNickname
                     )
                 } else {
-                    Log.e("MyPageViewModel", "Error in base response: ${baseResponse.message}")
+                    Timber.e("Error in base response: ${baseResponse.message}")
                     _updateProfileResult.value = null
                 }
             }.onFailure { error ->
                 _updateProfileResult.value = null
-                Log.e("MyPageViewModel", "Error updating profile: ${error.message}")
+                Timber.e("Error updating profile: ${error.message}")
             }
         }
     }

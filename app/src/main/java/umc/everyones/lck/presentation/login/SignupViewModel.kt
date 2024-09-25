@@ -20,6 +20,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.data.SignupUserData
 import umc.everyones.lck.data.dto.request.login.SignupAuthUserRequestDto
@@ -85,7 +86,7 @@ class SignupViewModel @Inject constructor(
             val result = try {
                 repository.nickname(NicknameAuthUserRequestModel(nickName))
             } catch (e: Exception) {
-                Log.e("SignupViewModel", "Error checking nickname availability: ${e.message}")
+                Timber.e("Error checking nickname availability: ${e.message}")
                 Result.failure(e) // 예외 발생 시
             }
 
@@ -111,7 +112,7 @@ class SignupViewModel @Inject constructor(
             val requestModel = CommonLoginRequestModel(kakaoUserId)
 
             repository.login(requestModel).onSuccess { response ->
-                Log.d("loginWithKakao", response.toString())
+                Timber.d(response.toString())
                 spf.edit().apply {
                     putString("jwt", response.accessToken)
                     putString("refreshToken", response.refreshToken)
@@ -121,8 +122,8 @@ class SignupViewModel @Inject constructor(
                 }
                 _loginResult.value = response // 로그인 결과를 LiveData에 저장
             }.onFailure { error ->
-                Log.d("loginWithKakao Error", error.message.toString())
-                Log.d("LoginWithKakao", "$requestModel")
+                Timber.d(error.message.toString())
+                Timber.d("$requestModel")
                 _loginResult.value = null // 실패 시 null 설정
             }
         }
@@ -132,7 +133,7 @@ class SignupViewModel @Inject constructor(
         viewModelScope.launch {
             val signupRequest = prepareSignupRequest()
 
-            Log.d("SignupViewModel", "Sending API request with data: ${signupRequest.signupUserData}")
+            Timber.d("Sending API request with data: ${signupRequest.signupUserData}")
 
             val gson = Gson()
             val signupUserDataJson = gson.toJson(signupRequest.signupUserData)
@@ -150,7 +151,7 @@ class SignupViewModel @Inject constructor(
                     apply()
                 }
             }.onFailure {
-                Log.e("SignupViewModel", "API call failed: ${it.message}")
+                Timber.e("API call failed: ${it.message}")
             }
         }
     }
@@ -178,7 +179,7 @@ class SignupViewModel @Inject constructor(
                 "profileImage", "profile_image.png", requestBody
             )
         } catch (e: Exception) {
-            Log.e("SignupViewModel", "Error creating MultipartBody.Part for profile image: ${e.message}")
+            Timber.e("Error creating MultipartBody.Part for profile image: ${e.message}")
             val emptyImageRequestBody = ByteArray(0).toRequestBody("image/png".toMediaTypeOrNull()) // 빈 이미지 요청
             MultipartBody.Part.createFormData(
                 "profileImage", "profile_image.png", emptyImageRequestBody

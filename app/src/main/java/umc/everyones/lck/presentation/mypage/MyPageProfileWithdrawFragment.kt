@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentMypageProfileWithdrawBinding
 import umc.everyones.lck.presentation.base.BaseFragment
@@ -23,10 +24,10 @@ class MyPageProfileWithdrawFragment : BaseFragment<FragmentMypageProfileWithdraw
     override fun initObserver() {
         myPageViewModel.withdrawResult.observe(viewLifecycleOwner) { success ->
             if (success) {
-                Log.d("MyActivity", "회원 탈퇴 후 로그인 화면으로 이동")
+                Timber.d("회원 탈퇴 후 로그인 화면으로 이동")
                 navigateToLoginScreen()
             } else {
-                Log.e("MyActivity", "회원 탈퇴 실패, 오류 처리 필요")
+                Timber.e("회원 탈퇴 실패, 오류 처리 필요")
                 Toast.makeText(requireContext(), "계정 탈퇴에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
             }
         }

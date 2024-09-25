@@ -22,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.DialogMyteamConfirmBinding
 import umc.everyones.lck.databinding.DialogProfileConfirmBinding
@@ -42,14 +43,14 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
 
     override fun initObserver() {
         viewModel.profileUri.observe(viewLifecycleOwner) { uri ->
-            Log.d("SignupProfileFragment", "Observed Profile Image URI: $uri")
+            Timber.d("Observed Profile Image URI: $uri")
             uri?.let {
                 binding.ivSignupProfilePicture.setImageURI(it)
             }
         }
 
         viewModel.nickName.observe(viewLifecycleOwner) { nickname ->
-            Log.d("SignupProfileFragment", "닉네임: $nickname")
+            Timber.d("닉네임: $nickname")
         }
     }
     override fun initView() {

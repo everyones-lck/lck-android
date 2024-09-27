@@ -27,20 +27,20 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
         // 세트 수를 받아와서 탭 레이아웃 설정
         viewModel.setCount.observe(viewLifecycleOwner) { setCountModel ->
             lckPogMatchRVA.updateSetCount(setCountModel.setCount)
-            Timber.d("TodayMatchLckPogFragment", "Set Count: ${setCountModel.setCount}")
+            Timber.d("Set Count: ${setCountModel.setCount}")
         }
         // 각 세트의 POG 데이터를 관찰하여 리사이클러뷰 업데이트
         viewModel.setPogData.observe(viewLifecycleOwner) { pogData ->
             pogData?.let {
                 lckPogMatchRVA.updatePlayers(listOf(CommonTodayMatchPogModel(it.id, it.name, it.profileImageUrl, it.seasonInfo, it.matchNumber, it.matchDate, tabIndex)))
-                Timber.d("TodayMatchLckPogFragment", "Set POG Data: $pogData")
+                Timber.d("Set POG Data: $pogData")
             }
         }
         // 매치 POG 데이터를 관찰하여 리사이클러뷰 업데이트
         viewModel.matchPogData.observe(viewLifecycleOwner) { pogData ->
             pogData?.let {
                 lckPogMatchRVA.updatePlayers(listOf(CommonTodayMatchPogModel(it.id, it.name, it.profileImageUrl, it.seasonInfo, it.matchNumber, it.matchDate, tabIndex)))
-                Timber.d("TodayMatchLckPogFragment", "Match POG Data: $pogData")
+                Timber.d("Match POG Data: $pogData")
             }
         }
         // ViewModel의 matchData를 관찰하여 matchId를 가져와서 사용
@@ -64,12 +64,12 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
                     } else {
                         viewModel.fetchTodayMatchMatchPog(matchId)
                     }
-                    Timber.d("TodayMatchLckPogFragment", "Tab selected: $tabIndex")
+                    Timber.d("Tab selected: $tabIndex")
                 }
 
                 // 세트 수를 가져오기 위해 matchId를 사용
                 viewModel.fetchTodayMatchSetCount(matchId)
-                Timber.d("TodayMatchLckPogFragment", "Match ID: $matchId")
+                Timber.d("Match ID: $matchId")
                 viewModel.updateSelectedTab(0)
             }
         }

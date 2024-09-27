@@ -39,10 +39,10 @@ class TodayMatchLckPogViewModel @Inject constructor(
     fun fetchTodayMatchSetPog(setIndex: Int, matchId: Long) {
         viewModelScope.launch {
             repository.fetchTodayMatchSetPog(setIndex, CommonPogModel(matchId)).onSuccess { response ->
-                Timber.d("fetchTodayMatchSetPog", response.toString())
+                Timber.d("fetchTodayMatchSetPog %s", response.toString())
                 _setPogData.value = response // 데이터를 LiveData에 저장
             }.onFailure {
-                Timber.d("fetchTodayMatchSetPog", it.stackTraceToString())
+                Timber.d("fetchTodayMatchSetPog %s", it.stackTraceToString())
             }
         }
     }
@@ -51,10 +51,10 @@ class TodayMatchLckPogViewModel @Inject constructor(
     fun fetchTodayMatchMatchPog(matchId: Long) {
         viewModelScope.launch {
             repository.fetchTodayMatchMatchPog(CommonPogModel(matchId)).onSuccess { response ->
-                Timber.d("fetchTodayMatchMatchPog", response.toString())
+                Timber.d("fetchTodayMatchMatchPog %s", response.toString())
                 _matchPogData.value = response // 데이터를 LiveData에 저장
             }.onFailure {
-                Timber.d("fetchTodayMatchMatchPog", it.stackTraceToString())
+                Timber.d("fetchTodayMatchMatchPog %s", it.stackTraceToString())
             }
         }
     }
@@ -63,10 +63,10 @@ class TodayMatchLckPogViewModel @Inject constructor(
     fun fetchTodayMatchSetCount(matchId: Long) {
         viewModelScope.launch {
             repository.fetchTodayMatchSetCount(matchId).onSuccess { response ->
-                Timber.d("fetchTodayMatchSetCount", response.toString())
+                Timber.d("fetchTodayMatchSetCount %s", response.toString())
                 _setCount.value = response
             }.onFailure {
-                Timber.d("fetchTodayMatchSetCount", it.stackTraceToString())
+                Timber.d("fetchTodayMatchSetCount %s", it.stackTraceToString())
             }
         }
     }

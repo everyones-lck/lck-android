@@ -34,10 +34,10 @@ class HomeViewModel @Inject constructor( // @Inject : 의존성 주입을 받겠
     fun fetchHomeTodayMatchInformation(){
         viewModelScope.launch {
             repository.fetchHomeTodayMatchInformation().onSuccess {response ->
-                Timber.d("fetchHomeTodayMatchInformation", response.toString())
+                Timber.d("fetchHomeTodayMatchInformation %s", response.toString())
                 _matchData.value = response
             }.onFailure {
-                Timber.d("fetchHomeTodayMatchInformation", it.stackTraceToString())
+                Timber.d("fetchHomeTodayMatchInformation %s", it.stackTraceToString())
                 _matchData.value = null // 실패시 null 처리
             }
         }

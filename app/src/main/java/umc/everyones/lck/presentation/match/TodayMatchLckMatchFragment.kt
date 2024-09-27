@@ -38,7 +38,7 @@ class TodayMatchLckMatchFragment : BaseFragment<FragmentTodayMatchLckMatchBindin
     }
 
     override fun initView() {
-        Timber.d("TodayMatchLckMatchFragment", "initView called")
+        Timber.d("TodayMatchLckMatchFragment initView called")
         viewModel.fetchTodayMatchInformation()
     }
     private fun updateMatchContent(matchResponses: List<TodayMatchInformationModel.MatchResponsesModel>) {

@@ -109,7 +109,7 @@ class TodayMatchTodayPogViewModel @Inject constructor(
                 // Map을 LiveData로 업데이트
                 _pogDataMapLiveData.value = pogDataMap.toMap()
             }.onFailure {
-                Timber.d("fetchTodayMatchVoteSetPog", it.stackTraceToString())
+                Timber.d("fetchTodayMatchVoteSetPog %s", it.stackTraceToString())
             }
         }
     }
@@ -117,10 +117,10 @@ class TodayMatchTodayPogViewModel @Inject constructor(
     fun fetchTodayMatchVoteMatchPog(matchId: Long) {
         viewModelScope.launch {
             repository.fetchTodayMatchVoteMatchPog(matchId).onSuccess { response ->
-                Timber.d("fetchTodayMatchVoteMatchPog", response.toString())
+                Timber.d("fetchTodayMatchVoteMatchPog %s", response.toString())
                 _matchPogData.value = response
             }.onFailure {
-                Timber.d("fetchTodayMatchVoteMatchPog", it.stackTraceToString())
+                Timber.d("fetchTodayMatchVoteMatchPog %s", it.stackTraceToString())
             }
         }
     }
@@ -128,10 +128,10 @@ class TodayMatchTodayPogViewModel @Inject constructor(
     fun voteSetPog(matchId: Long, setIndex: Int, playerId: Int) {
         viewModelScope.launch {
             repository.voteSetPog(VoteSetPogModel(matchId, setIndex, playerId)).onSuccess { response ->
-                Timber.d("voteSetPog", response.toString())
+                Timber.d("voteSetPog %s", response.toString())
                 _voteResponse.value = "투표 되었습니다!"
             }.onFailure { exception ->
-                Timber.d("voteSetPog", exception.stackTraceToString())
+                Timber.d("voteSetPog %s", exception.stackTraceToString())
                 _voteResponse.value = getErrorMessageFromException(exception)
             }
         }
@@ -140,10 +140,10 @@ class TodayMatchTodayPogViewModel @Inject constructor(
     fun voteMatchPog(matchId: Long, playerId: Int) {
         viewModelScope.launch {
             repository.voteMatchPog(VoteMatchPogModel(matchId, playerId)).onSuccess { response ->
-                Timber.d("voteMatchPog", response.toString())
+                Timber.d("voteMatchPog %s", response.toString())
                 _voteResponse.value = "투표 되었습니다!"
             }.onFailure { exception ->
-                Timber.d("voteMatchPog", exception.stackTraceToString())
+                Timber.d("voteMatchPog %s", exception.stackTraceToString())
                 _voteResponse.value = getErrorMessageFromException(exception)
             }
         }
@@ -152,10 +152,10 @@ class TodayMatchTodayPogViewModel @Inject constructor(
     fun fetchTodayMatchSetCount(matchId: Long) {
         viewModelScope.launch {
             repository.fetchTodayMatchSetCount(matchId).onSuccess { response ->
-                Timber.d("fetchTodayMatchSetCount", response.toString())
+                Timber.d("fetchTodayMatchSetCount %s", response.toString())
                 _setCount.value = response
             }.onFailure {
-                Timber.d("fetchTodayMatchSetCount", it.stackTraceToString())
+                Timber.d("fetchTodayMatchSetCount %s", it.stackTraceToString())
             }
         }
     }

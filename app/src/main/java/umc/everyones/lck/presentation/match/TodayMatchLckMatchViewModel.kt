@@ -22,7 +22,7 @@ class TodayMatchLckMatchViewModel @Inject constructor(
     fun fetchTodayMatchInformation(){
         viewModelScope.launch {
             repository.fetchTodayMatchInformation().onSuccess {response ->
-                Timber.d("fetchTodayMatchInformation", response.toString())
+                Timber.d("fetchTodayMatchInformation: %s", response.toString())
                 _matchData.value = response
             }.onFailure {
                 Timber.d("fetchTodayMatchInformation", it.stackTraceToString())

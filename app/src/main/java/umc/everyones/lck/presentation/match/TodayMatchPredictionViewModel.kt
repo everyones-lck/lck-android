@@ -33,10 +33,10 @@ class TodayMatchPredictionViewModel @Inject constructor(
     fun fetchTodayMatchVoteMatch(matchId: Long) {
         viewModelScope.launch {
             repository.fetchTodayMatchVoteMatch(matchId).onSuccess { response ->
-                Timber.d("fetchTodayMatchVoteMatch", response.toString())
+                Timber.d("fetchTodayMatchVoteMatch %s", response.toString())
                 _matchData.value = response
             }.onFailure {
-                Timber.d("fetchTodayMatchVoteMatch", it.stackTraceToString())
+                Timber.d("fetchTodayMatchVoteMatch %s", it.stackTraceToString())
             }
         }
     }
@@ -44,10 +44,10 @@ class TodayMatchPredictionViewModel @Inject constructor(
     fun voteMatch(matchId: Long, teamId: Int) {
         viewModelScope.launch {
             repository.voteMatch(VoteMatchModel(matchId, teamId)).onSuccess { response ->
-                Timber.d("voteMatch", response.toString())
+                Timber.d("voteMatch %s", response.toString())
                 _voteResponse.value = response.message // API에서 전달된 메시지를 ViewModel에 저장
             }.onFailure { exception ->
-                Timber.d("voteMatch", exception.stackTraceToString())
+                Timber.d("voteMatch %s", exception.stackTraceToString())
                 _voteResponse.value = getErrorMessageFromException(exception) // 예외 메시지 처리
             }
         }

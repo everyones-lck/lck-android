@@ -101,29 +101,42 @@ class TodayMatchTodayPogViewModel @Inject constructor(
         }
     }
 
-    // 세트별 POG 데이터를 불러오는 함수
-    fun fetchTodayMatchVoteSetPog(matchId: Long, setIndex: Int) {
+//    // 세트별 POG 데이터를 불러오는 함수
+//    fun fetchTodayMatchVoteSetPog(matchId: Long, setIndex: Int) {
+//        viewModelScope.launch {
+//            repository.fetchTodayMatchVoteSetPog(matchId, setIndex).onSuccess { response ->
+//                pogDataMap[setIndex] = response
+//                // Map을 LiveData로 업데이트
+//                _pogDataMapLiveData.value = pogDataMap.toMap()
+//            }.onFailure {
+//                Timber.d("fetchTodayMatchVoteSetPog %s", it.stackTraceToString())
+//            }
+//        }
+//    }
+//    // 매치별 POG 데이터를 불러오는 함수
+//    fun fetchTodayMatchVoteMatchPog(matchId: Long) {
+//        viewModelScope.launch {
+//            repository.fetchTodayMatchVoteMatchPog(matchId).onSuccess { response ->
+//                Timber.d("fetchTodayMatchVoteMatchPog %s", response.toString())
+//                _matchPogData.value = response
+//            }.onFailure {
+//                Timber.d("fetchTodayMatchVoteMatchPog %s", it.stackTraceToString())
+//            }
+//        }
+//    }
+
+    // POG Player 데이터를 불러오는 함수
+    fun fetchTodayMatchPogPlayer(matchId: Long) {
         viewModelScope.launch {
-            repository.fetchTodayMatchVoteSetPog(matchId, setIndex).onSuccess { response ->
-                pogDataMap[setIndex] = response
-                // Map을 LiveData로 업데이트
-                _pogDataMapLiveData.value = pogDataMap.toMap()
-            }.onFailure {
-                Timber.d("fetchTodayMatchVoteSetPog %s", it.stackTraceToString())
-            }
-        }
-    }
-    // 매치별 POG 데이터를 불러오는 함수
-    fun fetchTodayMatchVoteMatchPog(matchId: Long) {
-        viewModelScope.launch {
-            repository.fetchTodayMatchVoteMatchPog(matchId).onSuccess { response ->
-                Timber.d("fetchTodayMatchVoteMatchPog %s", response.toString())
+            repository.fetchTodayMatchPogPlayer(matchId).onSuccess { response ->
+                Timber.d("fetchTodayMatchPogPlayer %s", response.toString())
                 _matchPogData.value = response
             }.onFailure {
-                Timber.d("fetchTodayMatchVoteMatchPog %s", it.stackTraceToString())
+                Timber.d("fetchTodayMatchPogPlayer %s", it.stackTraceToString())
             }
         }
     }
+
     // 세트 POG에 투표하는 함수
     fun voteSetPog(matchId: Long, setIndex: Int, playerId: Int) {
         viewModelScope.launch {

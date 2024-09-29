@@ -36,18 +36,32 @@ class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBindin
         // 세트 수에 따라 레이아웃의 visibility를 조정
         viewModel.setCount.observe(viewLifecycleOwner) { setCountModel ->
             adjustLayoutVisibility(setCountModel.setCount)
-            loadPogDataForAllSets(setCountModel.setCount)
+//            loadPogDataForAllSets(setCountModel.setCount)
         }
+//        // POG 데이터가 변경될 때마다 각 setIndex에 맞게 업데이트
+//        viewModel.pogDataMapLiveData.observe(viewLifecycleOwner) { pogDataMap ->
+//            pogDataMap.forEach { (setIndex, pogData) ->
+//                updateRecyclerView(setIndex, pogData.information)
+//            }
+//        }
+//        // 매치 POG 데이터가 변경될 때 RecyclerView 업데이트
+//        viewModel.matchPogData.observe(viewLifecycleOwner) { matchPogData ->
+//            updateMatchRecyclerView(matchPogData.information)
+//        }
         // POG 데이터가 변경될 때마다 각 setIndex에 맞게 업데이트
-        viewModel.pogDataMapLiveData.observe(viewLifecycleOwner) { pogDataMap ->
-            pogDataMap.forEach { (setIndex, pogData) ->
-                updateRecyclerView(setIndex, pogData.information)
+        viewModel.matchPogData.observe(viewLifecycleOwner) { pogPlayerData ->
+            // Match POG 데이터 업데이트
+            val matchPogData = pogPlayerData.matchPogVoteCandidate.information
+            updateMatchRecyclerView(matchPogData)
+
+            // Set POG 데이터 업데이트
+            pogPlayerData.setPogVoteCandidates.forEach { setPogVoteCandidate ->
+                val setIndex = setPogVoteCandidate.setIndex
+                val setPogData = setPogVoteCandidate.information
+                updateRecyclerView(setIndex, setPogData)
             }
         }
-        // 매치 POG 데이터가 변경될 때 RecyclerView 업데이트
-        viewModel.matchPogData.observe(viewLifecycleOwner) { matchPogData ->
-            updateMatchRecyclerView(matchPogData.information)
-        }
+
         // 모든 항목이 선택되었을 때 투표 버튼 활성화
         viewModel.allItemsSelected.observe(viewLifecycleOwner) { allSelected ->
             binding.tvTodayMatchTodayPogVote.isEnabled = allSelected
@@ -76,6 +90,7 @@ class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBindin
         viewModel.fetchTodayMatchSetCount(matchId)
         Timber.d("TodayMatchTodayPogFragment matchId: $matchId") // matchId 로그 출력
         todayViewModel.fetchTodayMatchVoteMatch(matchId)
+        viewModel.fetchTodayMatchPogPlayer(matchId)
     }
 
     private fun goBackButton() {
@@ -143,16 +158,23 @@ class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBindin
         binding.layoutTodayMatch5thVote.visibility = if (setCount >= 5) View.VISIBLE else View.GONE
         binding.layoutTodayMatchMatchVote.visibility = View.VISIBLE // 매치 POG는 항상 visible
     }
+//    // 모든 세트와 매치 POG 데이터를 불러오는 함수
+//    private fun loadPogDataForAllSets(setCount: Int) {
+//        val matchId = arguments?.getLong("matchId") ?: return
+//
+//        for (setIndex in 1..setCount) {
+//            viewModel.fetchTodayMatchVoteSetPog(matchId, setIndex)
+//        }
+//
+//        // 매치 POG 데이터도 가져옴
+//        viewModel.fetchTodayMatchVoteMatchPog(matchId)
+//    }
     // 모든 세트와 매치 POG 데이터를 불러오는 함수
-    private fun loadPogDataForAllSets(setCount: Int) {
+    private fun loadPogDataForAllSets() {
         val matchId = arguments?.getLong("matchId") ?: return
 
-        for (setIndex in 1..setCount) {
-            viewModel.fetchTodayMatchVoteSetPog(matchId, setIndex)
-        }
-
-        // 매치 POG 데이터도 가져옴
-        viewModel.fetchTodayMatchVoteMatchPog(matchId)
+        // 하나의 API 호출로 모든 POG 데이터를 가져옴
+        viewModel.fetchTodayMatchPogPlayer(matchId)
     }
     private fun setupVoteImageViewClick() {
         binding.ivTodayMatchTodayPog1stVote.setOnSingleClickListener {

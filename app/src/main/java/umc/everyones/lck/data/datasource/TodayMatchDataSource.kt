@@ -14,9 +14,10 @@ import umc.everyones.lck.data.dto.response.match.TodayMatchSetCountResponseDto
 
 interface TodayMatchDataSource{
     suspend fun fetchTodayMatchInformation(): BaseResponse<TodayMatchInformationResponseDto>
-    suspend fun fetchTodayMatchVoteSetPog(matchId: Long, setIndex: Int): BaseResponse<PogPlayerTodayMatchResponseDto>
     suspend fun fetchTodayMatchVoteMatch(matchId: Long): BaseResponse<MatchTodayMatchResponseDto>
-    suspend fun fetchTodayMatchVoteMatchPog(matchId: Long): BaseResponse<PogPlayerTodayMatchResponseDto>
+    suspend fun fetchTodayMatchPogPlayer(matchId: Long): BaseResponse<PogPlayerTodayMatchResponseDto>
+//    suspend fun fetchTodayMatchVoteSetPog(matchId: Long, setIndex: Int): BaseResponse<PogPlayerTodayMatchResponseDto>
+//    suspend fun fetchTodayMatchVoteMatchPog(matchId: Long): BaseResponse<PogPlayerTodayMatchResponseDto>
     suspend fun fetchTodayMatchSetPog(setIndex: Int, request: CommonPogRequestDto): BaseResponse<CommonTodayMatchPogResponseDto>
     suspend fun fetchTodayMatchMatchPog(request: CommonPogRequestDto): BaseResponse<CommonTodayMatchPogResponseDto>
     suspend fun voteSetPog(request: VoteSetPogRequestDto): BaseResponse<CommonVotePogResponseDto>

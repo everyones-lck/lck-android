@@ -44,6 +44,18 @@
             android:layout_marginTop="39dp"
             android:textColor="@color/white"/>
 
+        <ImageView
+            android:id="@+id/iv_mypage_main_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_mypage_setting"
+            app:layout_constraintTop_toTopOf="@id/tv_mypage_main_topbar_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_mypage_main_topbar_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="20dp"/>
+
+
+
         <androidx.cardview.widget.CardView
             android:id="@+id/iv_mypage_main_rect"
             android:layout_width="120dp"

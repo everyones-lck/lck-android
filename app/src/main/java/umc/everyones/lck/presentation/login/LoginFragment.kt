@@ -123,7 +123,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     private fun navigateToSignupNicknameScreen() {
-        navigator.navigate(R.id.action_loginFragment_to_signupNicknameFragment)
+        navigator.navigate(R.id.action_loginFragment_to_signupTosFragment)
     }
 
     companion object {

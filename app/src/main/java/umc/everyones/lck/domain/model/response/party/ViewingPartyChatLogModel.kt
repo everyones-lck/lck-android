@@ -6,12 +6,14 @@ data class ViewingPartyChatLogModel(
     val viewingPartyName: String,
     val receiverName: String,
     val receiverTeam: String,
+    val receiverProfileImage: String,
     val chatMessageList: List<ChatLogModel>
 ){
     data class ChatLogModel(
         val senderName: String,
         val message: String,
         val viewType: Int,
-        val createdAt: String
+        val createdAt: String,
+        val receiverProfileImage: String
     )
 }

@@ -10,6 +10,7 @@ data class ViewingPartyChatLogResponseDto(
     val viewingPartyName: String,
     val receiverName: String,
     val receiverTeam: String,
+    val receiverProfileImage: String,
     val chatMessageList: List<ChatLogResponseDto>
 ){
     data class ChatLogResponseDto(
@@ -17,11 +18,11 @@ data class ViewingPartyChatLogResponseDto(
         val message: String,
         val createdAt: String
     ){
-        fun toChatLogModel(nickname: String): ViewingPartyChatLogModel.ChatLogModel{
-            return ViewingPartyChatLogModel.ChatLogModel(senderName, message, if (nickname == senderName) SENDER else RECEIVER, createdAt)
+        fun toChatLogModel(nickname: String, receiverProfileImage: String): ViewingPartyChatLogModel.ChatLogModel{
+            return ViewingPartyChatLogModel.ChatLogModel(senderName, message, if (nickname == senderName) SENDER else RECEIVER, createdAt, receiverProfileImage)
         }
     }
 
     fun toViewingPartyChatLogModel(nickname: String) =
-        ViewingPartyChatLogModel(isLast, totalPage, viewingPartyName, receiverName, receiverTeam, chatMessageList.map { it.toChatLogModel(nickname) })
+        ViewingPartyChatLogModel(isLast, totalPage, viewingPartyName, receiverName, receiverTeam, receiverProfileImage, chatMessageList.map { it.toChatLogModel(nickname, receiverProfileImage) })
 }

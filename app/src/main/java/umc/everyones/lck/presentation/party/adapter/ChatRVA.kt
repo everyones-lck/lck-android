@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import umc.everyones.lck.databinding.ItemReceiverChatBinding
 import umc.everyones.lck.databinding.ItemSenderChatBinding
 import umc.everyones.lck.domain.model.response.party.ViewingPartyChatLogModel
@@ -37,12 +38,7 @@ class ChatRVA :
         fun bind(chatItem: ViewingPartyChatLogModel.ChatLogModel) {
             with(binding){
                 tvSendererChat.text = chatItem.message
-                /*Glide.with(ivParticipantProfileImage.context)
-                    .load(participantItem.profileImage)
-                    .into(ivParticipantProfileImage)
-
-                tvParticipantName.text = participantItem.name
-                tvParticipantFavoriteTeam.text = participantItem.favoriteTeam*/
+                tvTimeStamp.text = chatItem.createdAt
             }
         }
     }
@@ -52,12 +48,12 @@ class ChatRVA :
         fun bind(chatItem: ViewingPartyChatLogModel.ChatLogModel) {
             with(binding){
                 tvReceiverChat.text = chatItem.message
-                /*Glide.with(ivParticipantProfileImage.context)
-                    .load(participantItem.profileImage)
-                    .into(ivParticipantProfileImage)
+                Glide.with(ivReceiverProfile.context)
+                    .load(chatItem.receiverProfileImage)
+                    .into(ivReceiverProfile)
 
-                tvParticipantName.text = participantItem.name
-                tvParticipantFavoriteTeam.text = participantItem.favoriteTeam*/
+                tvReceiverNickname.text = chatItem.senderName
+                tvTimeStamp.text = chatItem.createdAt
             }
         }
     }

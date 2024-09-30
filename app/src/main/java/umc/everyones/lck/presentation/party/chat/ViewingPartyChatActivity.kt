@@ -178,6 +178,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
 
         repeatOnStarted {
             viewModel.roomId.collect{
+                it.ifEmpty { return@collect }
                 initWsClient()
                 viewModel.fetchViewingPartyChatLog()
             }

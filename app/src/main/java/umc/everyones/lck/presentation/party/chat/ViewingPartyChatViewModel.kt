@@ -27,7 +27,7 @@ import umc.everyones.lck.util.network.UiState
 class ViewingPartyChatViewModel @Inject constructor(
     private val repository: ViewingPartyRepository,
 ) : ViewModel() {
-    private var _pagingSource = repository.fetchChatLogPagingSource(0L)
+    private var _pagingSource = repository.fetchChatLogPagingSource("")
     val pagingSource get() = _pagingSource
 
     private val _postId = MutableStateFlow<Long>(-1)
@@ -36,8 +36,8 @@ class ViewingPartyChatViewModel @Inject constructor(
     private val _participantsId = MutableStateFlow<String>("")
     val participantsId: StateFlow<String> get() = _participantsId
 
-    private val _roomId = MutableStateFlow<Long>(0L)
-    val roomId: StateFlow<Long> get() = _roomId
+    private val _roomId = MutableStateFlow<String>("")
+    val roomId: StateFlow<String> get() = _roomId
 
     private val _viewingPartyChatEvent =
         MutableStateFlow<UiState<ViewingPartyChatEvent>>(UiState.Empty)
@@ -78,7 +78,6 @@ class ViewingPartyChatViewModel @Inject constructor(
                         UiState.Success(ViewingPartyChatEvent.CreateChatRoom(response))
                     Timber.d("createViewingPartyChatRoom", response.toString())
                     _roomId.value = response.roomId
-                    _pagingSource = repository.fetchChatLogPagingSource(response.roomId)
                 }.onFailure {
                     Timber.d("createViewingPartyChatRoom error", it.stackTraceToString())
                 }

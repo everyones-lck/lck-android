@@ -14,6 +14,7 @@ data class ViewingPartyChatLogModel(
         val message: String,
         val viewType: Int,
         val createdAt: String,
-        val receiverProfileImage: String
+        val receiverProfileImage: String,
+        var isLastIndex: Boolean = false
     )
 }

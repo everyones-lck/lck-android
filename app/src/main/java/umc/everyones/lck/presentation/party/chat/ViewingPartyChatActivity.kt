@@ -212,11 +212,13 @@ class ViewingPartyChatActivity : AppCompatActivity() {
             is ViewingPartyChatViewModel.ViewingPartyChatEvent.FetchChatLog -> {
                 Timber.tag("chat_log").d(event.chatLog.chatMessageList.toString())
                 binding.tvChatWriter.text = event.chatLog.receiverName.combineNicknameAndTeam(event.chatLog.receiverTeam)
+                val prevLastIndex = chatRVA.currentList.lastIndex
                 chatRVA.submitList(event.chatLog.chatMessageList){
                     if(isFirst) {
                         binding.rvChat.scrollToPosition(0)
                         isFirst = false
                     }
+                    chatRVA.notifyItemChanged(prevLastIndex)
                 }
             }
 

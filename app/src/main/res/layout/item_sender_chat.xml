@@ -6,13 +6,25 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp">
 
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.LCK.Bold.Detail_10sp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
+
     <ImageView
         android:id="@+id/iv_sender_profile"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:scaleType="centerCrop"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_date"
         tools:src="@drawable/ic_t1" />
 
     <TextView

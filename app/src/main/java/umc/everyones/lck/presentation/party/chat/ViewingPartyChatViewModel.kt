@@ -105,24 +105,30 @@ class ViewingPartyChatViewModel @Inject constructor(
             viewModelScope.launch {
                 _viewingPartyChatEvent.value = UiState.Loading
                 delay(200)
-                repository.fetchViewingPartyChatLog(roomId.value, page.value, 10)
+                repository.fetchViewingPartyChatLog(roomId.value, page.value, 20)
                     .onSuccess { response ->
                         Timber.d("fetchViewingPartyChatLog", response.toString())
-                        temp.value += response.chatMessageList
+                        temp.value += response.chatMessageList.filter { !it.message.contains("입장했습니다.") }
                         isPageLast.value = response.isLast
                         page.value += 1
+
+                        val list = if (response.isLast) {
+                            temp.value.toMutableList().apply {
+                                this[lastIndex].isLastIndex = true
+                            }
+                        } else {
+                            temp.value
+                        }
+
                         _viewingPartyChatEvent.value =
                             UiState.Success(
                                 ViewingPartyChatEvent.FetchChatLog(
-                                    response.copy(
-                                        chatMessageList = temp.value.filter {
-                                            !it.message.contains("입장했습니다.")
-                                        })
+                                    response.copy(chatMessageList = list)
                                 )
                             )
                     }.onFailure {
-                    Timber.d("createViewingPartyChatRoom error", it.stackTraceToString())
-                }
+                        Timber.d("createViewingPartyChatRoom error", it.stackTraceToString())
+                    }
             }
         }
     }
@@ -144,8 +150,8 @@ class ViewingPartyChatViewModel @Inject constructor(
                             )
                         )
                 }.onFailure {
-                Timber.d("createViewingPartyChatRoom error", it.stackTraceToString())
-            }
+                    Timber.d("createViewingPartyChatRoom error", it.stackTraceToString())
+                }
         }
     }
 }

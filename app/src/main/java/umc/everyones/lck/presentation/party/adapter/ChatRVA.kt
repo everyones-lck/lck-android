@@ -1,17 +1,21 @@
 package umc.everyones.lck.presentation.party.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import timber.log.Timber
 import umc.everyones.lck.databinding.ItemChatTimeStampBinding
 import umc.everyones.lck.databinding.ItemReceiverChatBinding
 import umc.everyones.lck.databinding.ItemSenderChatBinding
 import umc.everyones.lck.domain.model.response.party.ViewingPartyChatLogModel
+import umc.everyones.lck.util.extension.toListViewingPartyDateFormat
 import umc.everyones.lck.util.extension.toTimeFormat
+import java.security.Timestamp
 
 class ChatRVA :
     ListAdapter<ViewingPartyChatLogModel.ChatLogModel, RecyclerView.ViewHolder>(DiffCallback()) {
@@ -45,6 +49,23 @@ class ChatRVA :
             with(binding){
                 tvSendererChat.text = chatItem.message
                 tvTimeStamp.text = chatItem.createdAt.toTimeFormat()
+
+                if(chatItem.isLastIndex){
+                    tvDate.visibility = View.VISIBLE
+                    tvDate.text = chatItem.createdAt.toListViewingPartyDateFormat()
+                }
+
+                runCatching {
+                    currentList[bindingAdapterPosition + 1]
+                }.onSuccess {
+                    if (chatItem.createdAt.toListViewingPartyDateFormat() != currentList[bindingAdapterPosition + 1].createdAt.toListViewingPartyDateFormat()) {
+                        tvDate.visibility = View.VISIBLE
+                        tvDate.text = chatItem.createdAt.toListViewingPartyDateFormat()
+                        Timber.d("seceer $bindingAdapterPosition ${chatItem.createdAt}")
+                    }
+                }.onFailure {
+                    Timber.d("seceer $it")
+                }
             }
         }
     }
@@ -60,6 +81,23 @@ class ChatRVA :
 
                 tvReceiverNickname.text = chatItem.senderName
                 tvTimeStamp.text = chatItem.createdAt.toTimeFormat()
+
+                if(chatItem.isLastIndex){
+                    tvDate.visibility = View.VISIBLE
+                    tvDate.text = chatItem.createdAt.toListViewingPartyDateFormat()
+                }
+
+                runCatching {
+                    currentList[bindingAdapterPosition + 1]
+                }.onSuccess {
+                    if (chatItem.createdAt.toListViewingPartyDateFormat() != currentList[bindingAdapterPosition + 1].createdAt.toListViewingPartyDateFormat()) {
+                        tvDate.visibility = View.VISIBLE
+                        tvDate.text = chatItem.createdAt.toListViewingPartyDateFormat()
+                        Timber.d("receer $bindingAdapterPosition ${chatItem.createdAt}")
+                    }
+                }.onFailure {
+                    Timber.d("receer $it")
+                }
             }
         }
     }

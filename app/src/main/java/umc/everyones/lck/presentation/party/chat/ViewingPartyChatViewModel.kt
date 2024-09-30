@@ -18,6 +18,7 @@ import timber.log.Timber
 import umc.everyones.lck.domain.model.response.party.ViewingPartyChatLogModel
 import umc.everyones.lck.domain.model.response.party.ViewingPartyChatRoomModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
+import umc.everyones.lck.presentation.party.adapter.ChatRVA.Companion.TIME_STAMP
 import umc.everyones.lck.util.chat.WebSocketResource
 import umc.everyones.lck.util.network.EventFlow
 import umc.everyones.lck.util.network.MutableEventFlow
@@ -49,6 +50,7 @@ class ViewingPartyChatViewModel @Inject constructor(
     private val isPageLast = MutableStateFlow<Boolean>(false)
     private val page = MutableStateFlow<Int>(0)
     private val temp = MutableStateFlow<List<ViewingPartyChatLogModel.ChatLogModel>>(emptyList())
+    private val previousDate = MutableStateFlow("")
 
 
     sealed class ViewingPartyChatEvent {

@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import umc.everyones.lck.databinding.ItemChatTimeStampBinding
 import umc.everyones.lck.databinding.ItemReceiverChatBinding
 import umc.everyones.lck.databinding.ItemSenderChatBinding
 import umc.everyones.lck.domain.model.response.party.ViewingPartyChatLogModel
+import umc.everyones.lck.util.extension.toTimeFormat
 
 class ChatRVA :
     ListAdapter<ViewingPartyChatLogModel.ChatLogModel, RecyclerView.ViewHolder>(DiffCallback()) {
@@ -18,6 +20,7 @@ class ChatRVA :
         return when(viewType){
             SENDER -> SenderChatViewHolder(ItemSenderChatBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             RECEIVER -> ReceiverChatViewHolder(ItemReceiverChatBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            TIME_STAMP -> TimeStampViewHolder(ItemChatTimeStampBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             else -> throw IllegalStateException("Invalid position")
         }
     }
@@ -30,6 +33,9 @@ class ChatRVA :
             is ReceiverChatViewHolder -> {
                 holder.bind(currentList[position])
             }
+            is TimeStampViewHolder -> {
+                holder.bind(currentList[position])
+            }
         }
     }
 
@@ -38,7 +44,7 @@ class ChatRVA :
         fun bind(chatItem: ViewingPartyChatLogModel.ChatLogModel) {
             with(binding){
                 tvSendererChat.text = chatItem.message
-                tvTimeStamp.text = chatItem.createdAt
+                tvTimeStamp.text = chatItem.createdAt.toTimeFormat()
             }
         }
     }
@@ -53,7 +59,16 @@ class ChatRVA :
                     .into(ivReceiverProfile)
 
                 tvReceiverNickname.text = chatItem.senderName
-                tvTimeStamp.text = chatItem.createdAt
+                tvTimeStamp.text = chatItem.createdAt.toTimeFormat()
+            }
+        }
+    }
+
+    inner class TimeStampViewHolder(private val binding: ItemChatTimeStampBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(chatItem: ViewingPartyChatLogModel.ChatLogModel) {
+            with(binding){
+                tv.text = chatItem.message
             }
         }
     }
@@ -72,5 +87,6 @@ class ChatRVA :
     companion object {
         const val SENDER = 0
         const val RECEIVER = 1
+        const val TIME_STAMP = 2
     }
 }

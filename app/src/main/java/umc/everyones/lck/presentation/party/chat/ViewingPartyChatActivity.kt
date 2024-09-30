@@ -21,6 +21,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ActivityViewingPartyChatBinding
 import umc.everyones.lck.domain.model.party.ChatItem
@@ -209,6 +210,7 @@ class ViewingPartyChatActivity : AppCompatActivity() {
                 }
             }
             is ViewingPartyChatViewModel.ViewingPartyChatEvent.FetchChatLog -> {
+                Timber.tag("chat_log").d(event.chatLog.chatMessageList.toString())
                 binding.tvChatWriter.text = event.chatLog.receiverName.combineNicknameAndTeam(event.chatLog.receiverTeam)
                 chatRVA.submitList(event.chatLog.chatMessageList){
                     if(isFirst) {

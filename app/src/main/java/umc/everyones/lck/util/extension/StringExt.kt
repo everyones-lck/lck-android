@@ -55,3 +55,12 @@ fun formatMatchTitle(season: String, matchNumber: Int): String {
     }
     return "$season LCK ${matchNumber}${suffix} Match"
 }
+
+fun String.toTimeFormat(): String{
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
+
+    val partyDateFormatter = DateTimeFormatter.ofPattern("HH:mm")
+
+    return LocalDateTime.parse(this, formatter).format(partyDateFormatter).toString()
+}
+

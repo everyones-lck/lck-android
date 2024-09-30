@@ -20,16 +20,6 @@ interface TodayMatchService {
     @GET("match/today/information")
     suspend fun fetchTodayMatchInformation(): BaseResponse<TodayMatchInformationResponseDto>
 
-//    @GET("votes/set-pog/candidates")
-//    suspend fun fetchTodayMatchVoteSetPog(
-//        @Query("match-id") matchId: Long,
-//        @Query("set-index") setIndex: Int
-//    ): BaseResponse<PogPlayerTodayMatchResponseDto>
-//
-//    @GET("votes/match-pog/candidates")
-//    suspend fun fetchTodayMatchVoteMatchPog(
-//        @Query("match-id") matchId: Long
-//    ): BaseResponse<PogPlayerTodayMatchResponseDto>
     @GET("votes/pog/candidates")
     suspend fun fetchTodayMatchPogPlayer(
         @Query("match-id") matchId: Long

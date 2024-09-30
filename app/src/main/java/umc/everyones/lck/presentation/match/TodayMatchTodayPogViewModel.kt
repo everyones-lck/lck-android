@@ -22,11 +22,6 @@ import javax.inject.Inject
 class TodayMatchTodayPogViewModel @Inject constructor(
     private val repository: TodayMatchRepository
 ): ViewModel() {
-    // 특정 setIndex에 해당하는 POG 데이터를 저장하고, Fragment에 알림
-    private val _pogDataMapLiveData = MutableLiveData<Map<Int, PogPlayerTodayMatchModel>>()
-    private val pogDataMap = mutableMapOf<Int, PogPlayerTodayMatchModel>()
-    val pogDataMapLiveData: LiveData<Map<Int, PogPlayerTodayMatchModel>> get() = _pogDataMapLiveData
-
     // Match POG 데이터를 저장하는 LiveData
     private val _matchPogData = MutableLiveData<PogPlayerTodayMatchModel>()
     val matchPogData: LiveData<PogPlayerTodayMatchModel> get() = _matchPogData
@@ -49,14 +44,6 @@ class TodayMatchTodayPogViewModel @Inject constructor(
     // 모든 아이템이 선택되었는지 여부를 저장하는 LiveData
     private val _allItemsSelected = MutableLiveData<Boolean>()
     val allItemsSelected: LiveData<Boolean> get() = _allItemsSelected
-
-    // 에러 메시지를 저장하는 LiveData
-    private val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?> get() = _errorMessage
-    fun clearErrorMessage() {
-        _errorMessage.value = null
-    }
-
 
     // 세트 POG의 플레이어를 선택하는 함수
     fun selectSetPlayer(setIndex: Int, playerId: Int) {
@@ -100,30 +87,6 @@ class TodayMatchTodayPogViewModel @Inject constructor(
             }
         }
     }
-
-//    // 세트별 POG 데이터를 불러오는 함수
-//    fun fetchTodayMatchVoteSetPog(matchId: Long, setIndex: Int) {
-//        viewModelScope.launch {
-//            repository.fetchTodayMatchVoteSetPog(matchId, setIndex).onSuccess { response ->
-//                pogDataMap[setIndex] = response
-//                // Map을 LiveData로 업데이트
-//                _pogDataMapLiveData.value = pogDataMap.toMap()
-//            }.onFailure {
-//                Timber.d("fetchTodayMatchVoteSetPog %s", it.stackTraceToString())
-//            }
-//        }
-//    }
-//    // 매치별 POG 데이터를 불러오는 함수
-//    fun fetchTodayMatchVoteMatchPog(matchId: Long) {
-//        viewModelScope.launch {
-//            repository.fetchTodayMatchVoteMatchPog(matchId).onSuccess { response ->
-//                Timber.d("fetchTodayMatchVoteMatchPog %s", response.toString())
-//                _matchPogData.value = response
-//            }.onFailure {
-//                Timber.d("fetchTodayMatchVoteMatchPog %s", it.stackTraceToString())
-//            }
-//        }
-//    }
 
     // POG Player 데이터를 불러오는 함수
     fun fetchTodayMatchPogPlayer(matchId: Long) {

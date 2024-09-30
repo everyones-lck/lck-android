@@ -18,7 +18,7 @@
                 android:id="@+id/tv_dialog_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서비스 이용약관 ( 필수 )"
+                android:text="개인정보 처리방침 ( 필수 )"
                 style="@style/TextAppearance.LCK.Bold.List_14sp"
                 android:textColor="@color/gray"
                 android:layout_centerHorizontal="true"

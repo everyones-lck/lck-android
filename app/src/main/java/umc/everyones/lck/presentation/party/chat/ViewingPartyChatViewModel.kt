@@ -114,7 +114,9 @@ class ViewingPartyChatViewModel @Inject constructor(
 
                         val list = if (response.isLast) {
                             temp.value.toMutableList().apply {
-                                this[lastIndex].isLastIndex = true
+                                if(this.isNotEmpty()) {
+                                    this[lastIndex].isLastIndex = true
+                                }
                             }
                         } else {
                             temp.value
@@ -140,15 +142,24 @@ class ViewingPartyChatViewModel @Inject constructor(
                 .onSuccess { response ->
                     Timber.d("fetchViewingPartyChatLog", response.toString())
                     temp.value = response.chatMessageList + temp.value
+
+                    val list = if (response.isLast) {
+                        temp.value.toMutableList().apply {
+                            if(this.isNotEmpty()) {
+                                this[lastIndex].isLastIndex = true
+                            }
+                        }
+                    } else {
+                        temp.value
+                    }
+
                     _viewingPartyChatEvent.value =
                         UiState.Success(
                             ViewingPartyChatEvent.FetchChatLog(
-                                response.copy(
-                                    chatMessageList = temp.value.filter {
-                                        !it.message.contains("입장했습니다.")
-                                    })
+                                response.copy(chatMessageList = list)
                             )
                         )
+
                 }.onFailure {
                     Timber.d("createViewingPartyChatRoom error", it.stackTraceToString())
                 }

@@ -223,17 +223,17 @@ class ViewingPartyChatActivity : AppCompatActivity() {
             }
 
             is ViewingPartyChatViewModel.ViewingPartyChatEvent.RefreshChatLog -> {
-                chatRVA.submitList(event.chatLog.chatMessageList)
+                val prevLastIndex = chatRVA.currentList.lastIndex
+                chatRVA.submitList(event.chatLog.chatMessageList){
+                    chatRVA.notifyItemChanged(prevLastIndex)
+                }
             }
         }
     }
 
     private fun initWsClient() {
         wsClient = WsClient(viewModel, okHttpClient, request, spf)
-        wsClient.apply {
-            connectWebSocket()
-            enterChatRoom("되나")
-        }
+        wsClient.connectWebSocket()
     }
 
     companion object {

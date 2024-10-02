@@ -3,21 +3,15 @@ package umc.everyones.lck.presentation.login
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
-import umc.everyones.lck.databinding.ActivitiyTestBinding
 import umc.everyones.lck.databinding.DialogNicknameConfirmBinding
-import umc.everyones.lck.databinding.FragmentSignupSuccessBinding
 import umc.everyones.lck.databinding.FragmentSignupTosBinding
-import umc.everyones.lck.presentation.base.BaseActivity
 import umc.everyones.lck.presentation.base.BaseFragment
-import umc.everyones.lck.presentation.test.TestViewModel
-import umc.everyones.lck.util.extension.repeatOnStarted
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
@@ -34,6 +28,7 @@ class SignupTosFragment : BaseFragment<FragmentSignupTosBinding>(R.layout.fragme
     }
 
     override fun initView() {
+
         binding.tvSignupTosDetailsAgree1.setOnClickListener {
             // 세부 정보 보기 클릭 시 다이얼로그 표시
             showDetailsDialog1()
@@ -63,7 +58,7 @@ class SignupTosFragment : BaseFragment<FragmentSignupTosBinding>(R.layout.fragme
 
     private fun showDetailsDialog1() {
         val dialogView =
-            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_signup_tos_details_agree_1, null)
+            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_signup_tos_details_agree_2, null)
 
         val dialogBinding = DialogNicknameConfirmBinding.bind(dialogView)
 
@@ -87,7 +82,7 @@ class SignupTosFragment : BaseFragment<FragmentSignupTosBinding>(R.layout.fragme
 
     private fun showDetailsDialog2() {
         val dialogView =
-            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_signup_tos_details_agree_2, null)
+            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_signup_tos_details_agree_1, null)
 
         val dialogBinding = DialogNicknameConfirmBinding.bind(dialogView)
 

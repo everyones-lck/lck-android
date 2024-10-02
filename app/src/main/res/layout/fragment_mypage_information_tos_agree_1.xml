@@ -50,17 +50,24 @@
             app:layout_constraintTop_toBottomOf="@id/tv_mypage_information_tos_agree_1_topbar_title"
             android:layout_marginTop="50dp"/>
 
-        <TextView
-            android:id="@+id/tv_mypage_information_tos_agree_1_detail"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            style="@style/TextAppearance.LCK.Light.Detail_10sp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
             android:layout_marginHorizontal="30dp"
             app:layout_constraintTop_toBottomOf="@id/tv_mypage_information_tos_agree_1_title"
-            android:layout_marginTop="35dp"/>
+            android:layout_marginTop="160dp"
+            android:layout_marginBottom="30dp">
 
-
+            <TextView
+                android:id="@+id/tv_mypage_information_tos_agree_1_detail"
+                style="@style/TextAppearance.LCK.Light.Detail_10sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/tos_details_agree_1"
+                android:textColor="@color/white" />
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

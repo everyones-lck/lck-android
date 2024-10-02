@@ -69,8 +69,8 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
             navigator.navigate(R.id.action_myPageFragment_to_myPageViewingPartyFragment)
         }
 
-        binding.tvMypageMainOss.setOnClickListener {
-            startActivity(Intent(requireContext(), MainActivity::class.java))
+        binding.ivMypageMainSetting.setOnSingleClickListener {
+            navigator.navigate(R.id.action_myPageFragment_to_myPageInformationFragment)
         }
 
         viewModel.inquiryProfile()

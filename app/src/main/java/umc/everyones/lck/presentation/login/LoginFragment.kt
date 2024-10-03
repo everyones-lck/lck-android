@@ -2,7 +2,6 @@ package umc.everyones.lck.presentation.login
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.kakao.sdk.common.model.ClientError
@@ -12,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentLoginBinding
-import umc.everyones.lck.domain.model.response.login.CommonLoginResponseModel
 import umc.everyones.lck.domain.model.response.login.LoginResponseModel
 import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseFragment

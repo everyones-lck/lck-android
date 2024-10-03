@@ -10,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.DialogNicknameConfirmBinding
+import umc.everyones.lck.databinding.DialogSignupTosDetailsAgree1Binding
+import umc.everyones.lck.databinding.DialogSignupTosDetailsAgree2Binding
 import umc.everyones.lck.databinding.FragmentSignupTosBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.util.extension.setOnSingleClickListener
@@ -17,9 +19,9 @@ import umc.everyones.lck.util.extension.setOnSingleClickListener
 @AndroidEntryPoint
 class SignupTosFragment : BaseFragment<FragmentSignupTosBinding>(R.layout.fragment_signup_tos) {
     //
-    private val viewModel: SignupViewModel by activityViewModels()
     private val navigator by lazy { findNavController() }
 
+    private var isAgree0Checked = false
     private var isAgree1Checked = false
     private var isAgree2Checked = false
 
@@ -29,17 +31,15 @@ class SignupTosFragment : BaseFragment<FragmentSignupTosBinding>(R.layout.fragme
 
     override fun initView() {
 
-        binding.tvSignupTosDetailsAgree1.setOnClickListener {
-            // 세부 정보 보기 클릭 시 다이얼로그 표시
+        binding.tvSignupTosDetailsAgree1.setOnSingleClickListener {
             showDetailsDialog1()
         }
 
-        binding.tvSignupTosDetailsAgree2.setOnClickListener {
-            // 세부 정보 보기 클릭 시 다이얼로그 표시
+        binding.tvSignupTosDetailsAgree2.setOnSingleClickListener {
             showDetailsDialog2()
         }
 
-        binding.ivSignupTosNext.setOnClickListener {
+        binding.ivSignupTosNext.setOnSingleClickListener {
             if (!isAgree1Checked || !isAgree2Checked) {
                 Toast.makeText(requireContext(), "모든 동의 항목을 체크해주세요.", Toast.LENGTH_SHORT).show()
             } else {
@@ -47,20 +47,24 @@ class SignupTosFragment : BaseFragment<FragmentSignupTosBinding>(R.layout.fragme
             }
         }
 
-        binding.viewSignupTosAgreeCircle.setOnClickListener {
+        binding.viewSignupTosAgreeAllCircle.setOnSingleClickListener {
+            toggleAgreement(0)
+        }
+
+        binding.viewSignupTosAgree1Circle.setOnSingleClickListener {
             toggleAgreement(1)
         }
 
-        binding.viewSignupTosAgree1Circle.setOnClickListener {
+        binding.viewSignupTosAgree2Circle.setOnSingleClickListener {
             toggleAgreement(2)
         }
     }
 
     private fun showDetailsDialog1() {
         val dialogView =
-            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_signup_tos_details_agree_2, null)
+            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_signup_tos_details_agree_1, null)
 
-        val dialogBinding = DialogNicknameConfirmBinding.bind(dialogView)
+        val dialogBinding = DialogSignupTosDetailsAgree1Binding.bind(dialogView)
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
@@ -76,15 +80,16 @@ class SignupTosFragment : BaseFragment<FragmentSignupTosBinding>(R.layout.fragme
 
         dialogBinding.btnConfirm.setOnSingleClickListener {
             dialog.dismiss()
+            isAgree1Checked = false
             toggleAgreement(1)
         }
     }
 
     private fun showDetailsDialog2() {
         val dialogView =
-            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_signup_tos_details_agree_1, null)
+            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_signup_tos_details_agree_2, null)
 
-        val dialogBinding = DialogNicknameConfirmBinding.bind(dialogView)
+        val dialogBinding = DialogSignupTosDetailsAgree2Binding.bind(dialogView)
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
@@ -100,6 +105,7 @@ class SignupTosFragment : BaseFragment<FragmentSignupTosBinding>(R.layout.fragme
 
         dialogBinding.btnConfirm.setOnSingleClickListener {
             dialog.dismiss()
+            isAgree2Checked = false
             toggleAgreement(2)
         }
     }
@@ -109,13 +115,21 @@ class SignupTosFragment : BaseFragment<FragmentSignupTosBinding>(R.layout.fragme
     }
 
     private fun toggleAgreement(agreementNumber: Int) {
-        if (agreementNumber == 1) {
+        if (agreementNumber == 0) {
+            val newState = !isAgree0Checked
+            isAgree0Checked = newState
+            isAgree1Checked = newState
+            isAgree2Checked = newState
+        } else if (agreementNumber == 1) {
             isAgree1Checked = !isAgree1Checked
-            updateCircleView(binding.viewSignupTosAgreeCircle, isAgree1Checked)
         } else if (agreementNumber == 2) {
             isAgree2Checked = !isAgree2Checked
-            updateCircleView(binding.viewSignupTosAgree1Circle, isAgree2Checked)
         }
+        isAgree0Checked = isAgree1Checked && isAgree2Checked
+
+        updateCircleView(binding.viewSignupTosAgreeAllCircle, isAgree0Checked)
+        updateCircleView(binding.viewSignupTosAgree1Circle, isAgree1Checked)
+        updateCircleView(binding.viewSignupTosAgree2Circle, isAgree2Checked)
     }
 
     private fun updateCircleView(view: View, isChecked: Boolean) {

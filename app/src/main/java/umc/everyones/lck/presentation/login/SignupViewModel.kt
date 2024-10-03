@@ -6,8 +6,6 @@ import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.net.http.HttpException
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,19 +13,14 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
-import umc.everyones.lck.R
-import umc.everyones.lck.data.SignupUserData
+import umc.everyones.lck.data.dto.request.login.RefreshAuthUserRequestDto
 import umc.everyones.lck.data.dto.request.login.SignupAuthUserRequestDto
-import umc.everyones.lck.data.service.LoginService
 import umc.everyones.lck.domain.model.request.login.CommonLoginRequestModel
 import umc.everyones.lck.domain.model.request.login.NicknameAuthUserRequestModel
-import umc.everyones.lck.domain.model.response.login.CommonLoginResponseModel
 import umc.everyones.lck.domain.model.response.login.LoginResponseModel
 import umc.everyones.lck.domain.repository.login.LoginRepository
 import java.io.ByteArrayOutputStream
@@ -56,8 +49,8 @@ class SignupViewModel @Inject constructor(
     private val _teamId = MutableLiveData<Int>()
     val teamId: LiveData<Int> get() = _teamId
 
-    private val _signupResponse = MutableLiveData<Result<CommonLoginResponseModel>?>()
-    val signupResponse: LiveData<Result<CommonLoginResponseModel>?> get() = _signupResponse
+    private val _signupResponse = MutableLiveData<Result<LoginResponseModel>?>()
+    val signupResponse: LiveData<Result<LoginResponseModel>?> get() = _signupResponse
 
     private val _loginResult = MutableLiveData<LoginResponseModel?>()
     val loginResult: LiveData<LoginResponseModel?> get() = _loginResult
@@ -82,35 +75,27 @@ class SignupViewModel @Inject constructor(
 
     fun checkNicknameAvailability(nickName: String) {
         viewModelScope.launch {
-            // API 호출
-            val result = try {
-                repository.nickname(NicknameAuthUserRequestModel(nickName))
-            } catch (e: Exception) {
-                Timber.e("Error checking nickname availability: ${e.message}")
-                Result.failure(e) // 예외 발생 시
-            }
-
-            // 결과를 _isNicknameAvailable에 저장
-            _isNicknameAvailable.value = result.getOrDefault(false) // 기본값 false 설정
-
-            // 성공 여부에 따라 처리
-            result.onSuccess { isAvailable ->
-                _nickName.value = if (isAvailable) {
-                    "Nickname is available"
-                } else {
-                    "Nickname is already taken"
+            _isNicknameAvailable.value = false
+            repository.nickname(NicknameAuthUserRequestModel(nickName))
+                .onSuccess { isAvailable ->
+                    _isNicknameAvailable.value = isAvailable // 가용성 결과 업데이트
+                    _nickName.value = if (isAvailable) {
+                        "Nickname is available"
+                    } else {
+                        "Nickname is already taken"
+                    }
+                }.onFailure { error ->
+                    Timber.e(error) // 오류 로그
+                    _nickName.value = "Failed to check nickname availability"
                 }
-            }.onFailure {
-                _nickName.value = "Failed to check nickname availability"
-            }
         }
     }
+
 
     fun loginWithKakao(kakaoUserId: String) {
         viewModelScope.launch {
             _kakaoUserId.value = kakaoUserId
             val requestModel = CommonLoginRequestModel(kakaoUserId)
-
             repository.login(requestModel).onSuccess { response ->
                 Timber.d(response.toString())
                 spf.edit().apply {

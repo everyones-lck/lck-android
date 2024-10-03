@@ -113,7 +113,7 @@
             app:layout_constraintStart_toStartOf="@id/tv_signup_tos_agree_2"/>
 
         <View
-            android:id="@+id/view_signup_tos_agree_circle"
+            android:id="@+id/view_signup_tos_agree_all_circle"
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:background="@drawable/shape_oval"
@@ -129,7 +129,7 @@
             android:background="@drawable/shape_oval"
             app:layout_constraintTop_toTopOf="@id/tv_signup_tos_agree_1"
             app:layout_constraintBottom_toBottomOf="@id/tv_signup_tos_agree_1"
-            app:layout_constraintEnd_toEndOf="@id/view_signup_tos_agree_circle"/>
+            app:layout_constraintEnd_toEndOf="@id/view_signup_tos_agree_all_circle"/>
 
         <View
             android:id="@+id/view_signup_tos_agree_2_circle"
@@ -138,7 +138,7 @@
             android:background="@drawable/shape_oval"
             app:layout_constraintTop_toTopOf="@id/tv_signup_tos_agree_2"
             app:layout_constraintBottom_toBottomOf="@id/tv_signup_tos_agree_2"
-            app:layout_constraintEnd_toEndOf="@id/view_signup_tos_agree_circle"/>
+            app:layout_constraintEnd_toEndOf="@id/view_signup_tos_agree_all_circle"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

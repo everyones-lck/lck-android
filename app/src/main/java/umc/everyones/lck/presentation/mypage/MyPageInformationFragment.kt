@@ -2,6 +2,7 @@ package umc.everyones.lck.presentation.mypage
 
 import android.content.Intent
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentMypageInformationBinding
@@ -32,8 +33,8 @@ class MyPageInformationFragment : BaseFragment<FragmentMypageInformationBinding>
             navigator.navigate(R.id.action_myPageInformationFragment_to_MypageInformationTosAgree2Fragment)
         }
 
-        binding.tvMypageInformationOss.setOnClickListener {
-            startActivity(Intent(requireContext(), MainActivity::class.java))
+        binding.tvMypageInformationOss.setOnSingleClickListener {
+            startActivity(Intent(requireContext(),OssLicensesMenuActivity::class.java))
         }
     }
 }

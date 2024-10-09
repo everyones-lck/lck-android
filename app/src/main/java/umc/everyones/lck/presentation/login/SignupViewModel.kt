@@ -94,6 +94,12 @@ class SignupViewModel @Inject constructor(
 
     fun loginWithKakao(kakaoUserId: String) {
         viewModelScope.launch {
+            if (kakaoUserId.isNullOrEmpty()) {
+                Timber.d("Kakao User ID is missing, proceeding to signup.")
+                sendSignupData() // 회원가입 로직으로 진행
+                return@launch
+            }
+
             _kakaoUserId.value = kakaoUserId
             val requestModel = CommonLoginRequestModel(kakaoUserId)
             repository.login(requestModel).onSuccess { response ->
@@ -105,7 +111,7 @@ class SignupViewModel @Inject constructor(
                     putString("nickName", response.nickName)
                     apply()
                 }
-                _loginResult.value = response // 로그인 결과를 LiveData에 저장
+                _loginResult.value = response
             }.onFailure { error ->
                 Timber.d(error.message.toString())
                 Timber.d("$requestModel")
@@ -113,6 +119,7 @@ class SignupViewModel @Inject constructor(
             }
         }
     }
+
 
     fun sendSignupData() {
         viewModelScope.launch {
@@ -182,5 +189,4 @@ class SignupViewModel @Inject constructor(
             )
         )
     }
-
 }

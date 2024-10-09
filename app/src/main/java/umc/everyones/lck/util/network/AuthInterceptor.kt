@@ -16,7 +16,6 @@ class AuthInterceptor @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val retrofitProvider: () -> Retrofit // Retrofit을 함수로 주입받습니다.
 ) : Interceptor {
-
     override fun intercept(chain: Interceptor.Chain): Response {
         // 현재 저장된 액세스 토큰을 가져옵니다.
         val accessToken = sharedPreferences.getString("jwt", "") ?: ""
@@ -48,9 +47,15 @@ class AuthInterceptor @Inject constructor(
 
         // 401 Unauthorized 에러가 발생했을 경우
         if (response.code == 401) {
-            // 리프레시 토큰과 사용자 ID를 가져옵니다.
+            // kakaoUserId를 SharedPreferences에서 가져옵니다.
+            val kakaoUserId = sharedPreferences.getString("kakaoUserId", null)
             val refreshToken = sharedPreferences.getString("refreshToken", "") ?: ""
-            val kakaoUserId = sharedPreferences.getString("kakaoUserId", "") ?: ""
+
+            // kakaoUserId가 없으면 refresh 요청을 하지 않습니다.
+            if (kakaoUserId.isNullOrEmpty()) {
+                Timber.e("Kakao User ID가 없습니다. 리프레시 요청을 수행하지 않습니다.")
+                return response // 원래의 응답을 그대로 반환
+            }
 
             // 리프레시 요청을 위한 DTO를 생성합니다.
             val refreshRequest = RefreshAuthUserRequestDto(kakaoUserId, refreshToken)
@@ -75,7 +80,6 @@ class AuthInterceptor @Inject constructor(
                 Timber.e("리프레시 토큰 요청 실패")
             }
         }
-
         return response
     }
 

@@ -12,7 +12,7 @@ import umc.everyones.lck.domain.model.response.match.CommonTodayMatchPogModel
 import umc.everyones.lck.domain.model.todayMatch.Player
 
 class LckPogPlayerRVA() :
-    ListAdapter<CommonTodayMatchPogModel, LckPogPlayerRVA.ViewHolder>(DiffCallback()) {
+    ListAdapter<CommonTodayMatchPogModel.SetPogResponseModel, LckPogPlayerRVA.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemLckPogPlayerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -29,18 +29,18 @@ class LckPogPlayerRVA() :
     inner class ViewHolder(private val binding: ItemLckPogPlayerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: CommonTodayMatchPogModel) {
+        fun bind(item: CommonTodayMatchPogModel.SetPogResponseModel) {
             binding.tvLckPogPlayerName.text = item.name
             Glide.with(binding.ivLckPogPlayerProfile.context)
                 .load(item.profileImageUrl)
                 .into(binding.ivLckPogPlayerProfile)
         }
     }
-    class DiffCallback : DiffUtil.ItemCallback<CommonTodayMatchPogModel>() {
-        override fun areItemsTheSame(oldItem: CommonTodayMatchPogModel, newItem: CommonTodayMatchPogModel) =
+    class DiffCallback : DiffUtil.ItemCallback<CommonTodayMatchPogModel.SetPogResponseModel>() {
+        override fun areItemsTheSame(oldItem: CommonTodayMatchPogModel.SetPogResponseModel, newItem: CommonTodayMatchPogModel.SetPogResponseModel) =
             oldItem.name == newItem.name
 
-        override fun areContentsTheSame(oldItem: CommonTodayMatchPogModel, newItem: CommonTodayMatchPogModel) =
+        override fun areContentsTheSame(oldItem: CommonTodayMatchPogModel.SetPogResponseModel, newItem: CommonTodayMatchPogModel.SetPogResponseModel) =
             oldItem == newItem
     }
 }

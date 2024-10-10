@@ -1,6 +1,7 @@
 package umc.everyones.lck.presentation.match.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.view.get
@@ -75,7 +76,16 @@ class LckPogMatchRVA(
             binding.tabTodayMatchLckPog.getTabAt(item.tabIndex)?.select()
             binding.tvTodayMatchLckPogMatchTitle.text = "${item.seasonInfo} ${item.matchNumber.toOrdinal()} Match"
             binding.tvTodayMatchLckPogMatchDate.text = item.matchDate
-            playerAdapter.submitList(listOf(item))
+//            playerAdapter.submitList(listOf(item))
+            // setPogResponses와 matchPogResponse를 체크하여 visibility 설정
+            if (item.setPogResponse.isEmpty() && item.matchPogResponse == null) {
+                binding.tvTodayMatchLckPogPlaying.visibility = View.VISIBLE
+                binding.rvTodayMatchLckPogPlayer.visibility = View.GONE
+            } else {
+                binding.tvTodayMatchLckPogPlaying.visibility = View.GONE
+                binding.rvTodayMatchLckPogPlayer.visibility = View.VISIBLE
+                playerAdapter.submitList(item.setPogResponse)
+            }
         }
     }
     fun updatePlayers(players: List<CommonTodayMatchPogModel>) {
@@ -84,7 +94,7 @@ class LckPogMatchRVA(
 
     class DiffCallback : DiffUtil.ItemCallback<CommonTodayMatchPogModel>() {
         override fun areItemsTheSame(oldItem: CommonTodayMatchPogModel, newItem: CommonTodayMatchPogModel): Boolean {
-            return oldItem.id == newItem.id // 각 항목의 고유 ID로 비교
+            return oldItem.matchNumber == newItem.matchNumber // 각 항목의 고유 ID로 비교
         }
 
         override fun areContentsTheSame(oldItem: CommonTodayMatchPogModel, newItem: CommonTodayMatchPogModel): Boolean {

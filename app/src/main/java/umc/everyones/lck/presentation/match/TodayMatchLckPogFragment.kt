@@ -29,20 +29,28 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
             lckPogMatchRVA.updateSetCount(setCountModel.setCount)
             Timber.d("Set Count: ${setCountModel.setCount}")
         }
-        // 각 세트의 POG 데이터를 관찰하여 리사이클러뷰 업데이트
-        viewModel.setPogData.observe(viewLifecycleOwner) { pogData ->
-            pogData?.let {
-                lckPogMatchRVA.updatePlayers(listOf(CommonTodayMatchPogModel(it.id, it.name, it.profileImageUrl, it.seasonInfo, it.matchNumber, it.matchDate, tabIndex)))
-                Timber.d("Set POG Data: $pogData")
+//        // 각 세트의 POG 데이터를 관찰하여 리사이클러뷰 업데이트
+//        viewModel.setPogData.observe(viewLifecycleOwner) { pogData ->
+//            pogData?.let {
+//                lckPogMatchRVA.updatePlayers(listOf(CommonTodayMatchPogModel(it.id, it.name, it.profileImageUrl, it.seasonInfo, it.matchNumber, it.matchDate, tabIndex)))
+//                Timber.d("Set POG Data: $pogData")
+//            }
+//        }
+//        // 매치 POG 데이터를 관찰하여 리사이클러뷰 업데이트
+//        viewModel.matchPogData.observe(viewLifecycleOwner) { pogData ->
+//            pogData?.let {
+//                lckPogMatchRVA.updatePlayers(listOf(CommonTodayMatchPogModel(it.id, it.name, it.profileImageUrl, it.seasonInfo, it.matchNumber, it.matchDate, tabIndex)))
+//                Timber.d("Match POG Data: $pogData")
+//            }
+//        }
+
+        viewModel.pogData.observe(viewLifecycleOwner) { response ->
+            response?.let {
+                lckPogMatchRVA.updatePlayers(listOf(CommonTodayMatchPogModel(it.seasonInfo, it.matchNumber, it.matchDate, it.setPogResponse, it.matchPogResponse)))
             }
         }
-        // 매치 POG 데이터를 관찰하여 리사이클러뷰 업데이트
-        viewModel.matchPogData.observe(viewLifecycleOwner) { pogData ->
-            pogData?.let {
-                lckPogMatchRVA.updatePlayers(listOf(CommonTodayMatchPogModel(it.id, it.name, it.profileImageUrl, it.seasonInfo, it.matchNumber, it.matchDate, tabIndex)))
-                Timber.d("Match POG Data: $pogData")
-            }
-        }
+
+
         // ViewModel의 matchData를 관찰하여 matchId를 가져와서 사용
         todayViewModel.matchData.observe(viewLifecycleOwner) { matchData ->
             if (matchData == null || matchData.matchResponses.isEmpty()) {
@@ -60,9 +68,9 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
                 viewModel.selectedTabIndex.observe(viewLifecycleOwner) { tabIndex ->
                     this.tabIndex = tabIndex
                     if (tabIndex < (viewModel.setCount.value?.setCount ?: 0)) {
-                        viewModel.fetchTodayMatchSetPog(tabIndex + 1, matchId)
+                        viewModel.fetchTodayMatchPog(matchId)
                     } else {
-                        viewModel.fetchTodayMatchMatchPog(matchId)
+                        viewModel.fetchTodayMatchPog(matchId)
                     }
                     Timber.d("Tab selected: $tabIndex")
                 }

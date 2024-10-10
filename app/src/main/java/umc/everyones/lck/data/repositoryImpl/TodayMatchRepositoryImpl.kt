@@ -29,18 +29,22 @@ class TodayMatchRepositoryImpl @Inject constructor(
         todayMatchDataSource.fetchTodayMatchPogPlayer(matchId).data.toPogPlayerTodayMatchModel()
     }
 
-    override suspend fun fetchTodayMatchSetPog(
-        setIndex: Int,
-        request: CommonPogModel,
-    ): Result<CommonTodayMatchPogModel> = runCatching {
-        todayMatchDataSource.fetchTodayMatchSetPog(
-            setIndex,
-            request.toCommonPogRequestDto()
-        ).data.toCommonTodayMatchPogModel()
-    }
+//    override suspend fun fetchTodayMatchSetPog(
+//        setIndex: Int,
+//        request: CommonPogModel,
+//    ): Result<CommonTodayMatchPogModel> = runCatching {
+//        todayMatchDataSource.fetchTodayMatchSetPog(
+//            setIndex,
+//            request.toCommonPogRequestDto()
+//        ).data.toCommonTodayMatchPogModel()
+//    }
+//
+//    override suspend fun fetchTodayMatchMatchPog(request: CommonPogModel): Result<CommonTodayMatchPogModel> = runCatching {
+//        todayMatchDataSource.fetchTodayMatchMatchPog(request.toCommonPogRequestDto()).data.toCommonTodayMatchPogModel()
+//    }
 
-    override suspend fun fetchTodayMatchMatchPog(request: CommonPogModel): Result<CommonTodayMatchPogModel> = runCatching {
-        todayMatchDataSource.fetchTodayMatchMatchPog(request.toCommonPogRequestDto()).data.toCommonTodayMatchPogModel()
+    override suspend fun fetchTodayMatchPog(request: CommonPogModel): Result<CommonTodayMatchPogModel> = runCatching {
+        todayMatchDataSource.fetchTodayMatchPog(request.toCommonPogRequestDto()).data.toCommonTodayMatchPogModel()
     }
 
     override suspend fun voteSetPog(request: VoteSetPogModel): Result<CommonVotePogModel> = runCatching {

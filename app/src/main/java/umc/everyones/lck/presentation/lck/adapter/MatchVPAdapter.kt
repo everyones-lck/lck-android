@@ -36,29 +36,21 @@ class MatchVPAdapter : ListAdapter<AboutLCKFragment.Test, MatchVPAdapter.MatchVi
         holder.bind(currentList[position])
     }
 
-
-    fun addMatchDetails(details: List<MatchData>) {
-        matchDetailsList.add(details)
-        notifyDataSetChanged()
-    }
-
-    fun getMatchDataList(): List<MatchData> {
-        return matchDetailsList.flatten() // 모든 데이터를 리스트로 반환
-    }
-
-    fun clearMatchDetails() {
-        matchDetailsList.clear()
-        notifyDataSetChanged()  // 데이터가 변경되었음을 어댑터에 알림
-    }
-
     inner class MatchViewHolder(private val binding: ItemAboutLckMatchesBinding) : RecyclerView.ViewHolder(binding.root) {
         private val recyclerView: RecyclerView = itemView.findViewById(R.id.rv_about_lck_match_details)
 
         fun bind(matchDetails: AboutLCKFragment.Test) {
             binding.rvAboutLckMatchDetails.layoutManager = LinearLayoutManager(itemView.context)
+
             val adapter = MatchDetailsAdapter()
             binding.rvAboutLckMatchDetails.adapter = adapter
-            adapter.submitList(matchDetails.list)
+
+            if (matchDetails.list.isNullOrEmpty()) {
+                adapter.submitList(listOf(null))
+            } else {
+                adapter.submitList(matchDetails.list)
+            }
+
             binding.rvAboutLckMatchDetails.isNestedScrollingEnabled = false // 스크롤 비활성화
         }
     }

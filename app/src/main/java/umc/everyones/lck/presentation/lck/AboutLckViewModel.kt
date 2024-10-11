@@ -26,8 +26,6 @@ class AboutLckViewModel @Inject constructor(
 
     private val _matchDetails = MutableStateFlow<AboutLckMatchDetailsModel?>(null)
     val matchDetails: StateFlow<AboutLckMatchDetailsModel?> get() = _matchDetails
-    private val _title = MutableStateFlow<String>("")
-    val title: StateFlow<String> get() = _title
 
     private val _rankingDetails = MutableStateFlow<AboutLckRankingDetailsModel?>(null)
     val rankingDetails: StateFlow<AboutLckRankingDetailsModel?> get() = _rankingDetails
@@ -35,12 +33,23 @@ class AboutLckViewModel @Inject constructor(
 
     val temp = MutableSharedFlow<AboutLckMatchDetailsModel>()
 
-    fun fetch(){
+    /*fun fetch(){
         viewModelScope.launch {
             repository.fetchLckMatchDetails("2024-08-21").onSuccess {
                 temp.emit(it)
             }.onFailure {
 
+            }
+        }
+    }*/
+    fun fetchLckMatchDetails(searchDate: String){
+        viewModelScope.launch{
+            val result = repository.fetchLckMatchDetails(searchDate)
+
+            result.onSuccess { response ->
+                _matchDetails.value = response
+            }.onFailure { exception ->
+                Timber.e(exception, "fetchLckMatchDetails API 호출 실패")
             }
         }
     }
@@ -55,24 +64,6 @@ class AboutLckViewModel @Inject constructor(
                 _rankingDetails.value = null
                 Timber.e(exception, "fetchLckRanking API 호출 실패")
             }
-        }
-    }
-
-    fun formatMatchTitle(season: String, matchNumber: Int): String {
-        val suffix = when (matchNumber % 10) {
-            1 -> "st"
-            2 -> "nd"
-            3 -> "rd"
-            else -> "th"
-        }
-        return "$season LCK ${matchNumber}${suffix} Match"
-    }
-
-    fun getWinningTeamName(match: AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel): String {
-        return if (match.team1.winner) {
-            match.team1.teamName
-        } else {
-            match.team2.teamName
         }
     }
 }

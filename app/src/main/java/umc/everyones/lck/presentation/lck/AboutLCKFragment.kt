@@ -29,6 +29,7 @@ import umc.everyones.lck.util.extension.showCustomSnackBar
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 @AndroidEntryPoint
 class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment_about_lck),
@@ -45,14 +46,20 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
     private val viewModel: AboutLckViewModel by viewModels()
 
     private var selectedDate: Calendar = Calendar.getInstance()
+
     @SuppressLint("SimpleDateFormat")
     override fun initObserver() {
+
         viewLifecycleOwner.repeatOnStarted {
             viewModel.matchDetails.collect { matchDetails ->
-                Timber.d("Collecting match details")
-                handleMatchDetailsResult(matchDetails)
+                if (matchDetails != null) {
+                    updateMatchDetails(matchDetails)
+                } else {
+                    Timber.e("Failed to fetch match details")
+                }
             }
         }
+
         viewLifecycleOwner.repeatOnStarted {
             viewModel.rankingDetails.collect { rankingDetails ->
                 if (rankingDetails != null) {
@@ -62,77 +69,89 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
                 }
             }
         }
-
-        viewLifecycleOwner.repeatOnStarted {
-            viewModel.temp.collect{
-                val temp = it.matchDetailList.groupBy { it.matchDate }
-                val temp1 = temp.map {Test(it.key, it.value)
-                }.sortedBy { it.date }
-                Timber.d("temp1: %s", temp1.toString())
-                matchVPAdapter.submitList(temp1)
-                scrollWithDate("")
-            }
-        }
     }
 
     override fun initView() {
-        viewModel.fetch()
+        fetchMatchDetails(getFormattedDate(selectedDate))
         initMatchViewPager()
         initRankingRecyclerView()
         initBackButton()
         initCalendarButton()
         goMyPage()
     }
+    private fun fetchMatchDetails(date: String) {
+        Timber.d("API 호출 - 요청 날짜: $date")
+        viewModel.fetchLckMatchDetails(date)
+    }
+    @SuppressLint("SimpleDateFormat")
+    private fun updateMatchDetails(matchDetailsModel: AboutLckMatchDetailsModel) {
+        val matchDataGroupedByDate = matchDetailsModel.matchByDateList.map { dateModel ->
+            AboutLCKFragment.Test(dateModel.matchDate, dateModel.matchDetailList)
+        }.sortedBy { it.date }
+
+        val filteredList = filterDuplicateData(matchDataGroupedByDate, getFormattedDate(selectedDate))
+
+        Timber.d("현재 selectedDate: ${getFormattedDate(selectedDate)}")
+        Timber.d("매치 데이터 날짜: %s", matchDataGroupedByDate.map { it.date })
+
+        if (filteredList != matchVPAdapter.currentList) {
+            matchVPAdapter.submitList(filteredList.toList()) {
+                scrollWithDate(getFormattedDate(selectedDate))
+            }
+        } else {
+            Timber.d("리스트가 동일하여 갱신하지 않음")
+        }
+    }
+
+    private fun filterDuplicateData(newData: List<Test>, selectedDate: String): List<Test> {
+        val currentList = matchVPAdapter.currentList
+
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val selectedCalendar = Calendar.getInstance()
+        selectedCalendar.time = dateFormat.parse(selectedDate)!!
+
+        val previousDay = Calendar.getInstance().apply { time = selectedCalendar.time; add(Calendar.DATE, -1) }
+        val nextDay = Calendar.getInstance().apply { time = selectedCalendar.time; add(Calendar.DATE, 1) }
+
+        val mustIncludeDates = listOf(
+            dateFormat.format(previousDay.time),
+            selectedDate,
+            dateFormat.format(nextDay.time)
+        )
+        val filteredData = newData.filter { newItem ->
+            val isDuplicate = currentList.any { currentItem -> currentItem.date == newItem.date }
+
+            if (isDuplicate && mustIncludeDates.contains(newItem.date)) {
+                true
+            } else if (!isDuplicate) {
+                true
+            } else {
+                false
+            }
+        }
+        return filteredData
+    }
 
     @SuppressLint("SimpleDateFormat")
-    private fun scrollWithDate(inputDate: String){
-        if(matchVPAdapter.currentList.isEmpty()){
-            return
-        }
-        val date = inputDate.replace(".","-").ifEmpty {
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-            val currentDate = Date(System.currentTimeMillis())
-            dateFormat.format(currentDate)
-        }
-        val index = matchVPAdapter.currentList.indexOfFirst { it.date == date }
-        if(index == -1){
-            showCustomSnackBar(binding.root, "해당 날짜에 예정된 경기가 없습니다")
+    private fun scrollWithDate(inputDate: String) {
+        Timber.d("ViewPager 스크롤 - 입력된 날짜: $inputDate")
+
+        val currentIndex = matchVPAdapter.currentList.indexOfFirst { it.date == inputDate }
+        Timber.d("찾은 인덱스: $currentIndex")
+        Timber.d("현재 ViewPager의 currentItem: ${binding.vpAboutLckMatch.currentItem}")
+
+        if (currentIndex != binding.vpAboutLckMatch.currentItem) {
+            binding.vpAboutLckMatch.setCurrentItem(currentIndex, false)
+            binding.tvAboutLckDate.text = inputDate.replace("-", ".")
+            Timber.d("ViewPager가 포지션 %s로 스크롤됨", currentIndex)
         } else {
-            binding.vpAboutLckMatch.setCurrentItem(matchVPAdapter.currentList.indexOfFirst { it.date == date }, false)
-            binding.tvAboutLckDate.text = date.replace("-",".")
+            Timber.d("해당 날짜의 매치 데이터를 찾을 수 없습니다: $inputDate")
         }
     }
 
-    private fun handleMatchDetailsResult(matchDetails: AboutLckMatchDetailsModel?) {
-        if (matchDetails != null) {
-            val matchDataList = matchVPAdapter.getMatchDataList().toMutableList()
-            val mappedMatches = matchDetails.matchDetailList.map { match ->
-                createMatchData(match)
-            }
-            matchDataList.addAll(mappedMatches)
-        } else {
-            Timber.e("AboutLCKFragment", "Failed to fetch match details")
-        }
-    }
-
-    private fun createMatchData(match: AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel): MatchData {
-        val matchDate = match.matchDate
-        val matchTime = if (match.matchFinished) {
-            "Win | ${viewModel.getWinningTeamName(match)}"
-        } else {
-            match.matchTime.substring(0, 5)
-        }
-
-        return MatchData(
-            matchDate = matchDate,
-            matchTitle = viewModel.formatMatchTitle(match.season, match.matchNumber),
-            matchTime = matchTime,
-            teamLogoUrl1 = match.team1.teamLogoUrl,
-            teamLogoUrl2 = match.team2.teamLogoUrl,
-            isTeam1Winner = match.team1.winner,
-            isTeam2Winner = match.team2.winner,
-            isMatchFinished = match.matchFinished
-        )
+    private fun getFormattedDate(calendar: Calendar): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        return dateFormat.format(calendar.time)
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -141,11 +160,23 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         matchVPAdapter = MatchVPAdapter()
         viewPager.adapter = matchVPAdapter
 
-        binding.vpAboutLckMatch.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        binding.vpAboutLckMatch.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                binding.tvAboutLckDate.text = matchVPAdapter.currentList[position].date.replace("-",".")
+                Timber.d("ViewPager 페이지 선택 - 포지션: $position")
+
+                val selectedPageDate = matchVPAdapter.currentList[position].date
+                Timber.d("선택된 페이지 날짜: $selectedPageDate")
+
+                if (getFormattedDate(selectedDate) != selectedPageDate) {
+                    Timber.d("selectedDate 업데이트 전: ${getFormattedDate(selectedDate)}")
+                    updateSelectedPageDate(selectedPageDate)
+                    Timber.d("selectedDate 업데이트 후: ${getFormattedDate(selectedDate)}")
+                } else {
+                    Timber.d("동일한 날짜에 대한 API 호출 방지")
+                }
             }
         })
+        viewPager.offscreenPageLimit = 2
 
         val pageMarginPx = 16 * resources.displayMetrics.densityDpi / 160
         val offsetPx = 40 * resources.displayMetrics.densityDpi / 160
@@ -154,11 +185,17 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
             page.translationX = -offsetPx * position
         }
 
-        viewPager.offscreenPageLimit = 3
-
         val recyclerViewMatches = viewPager.getChildAt(0) as RecyclerView
         recyclerViewMatches.setPadding(pageMarginPx, 0, pageMarginPx, 0)
         recyclerViewMatches.clipToPadding = false
+
+
+    }
+    private fun updateSelectedPageDate(selectedPageDate: String) {
+        val dateParts = selectedPageDate.split("-")
+        selectedDate.set(dateParts[0].toInt(), dateParts[1].toInt() - 1, dateParts[2].toInt())
+        binding.tvAboutLckDate.text = selectedPageDate.replace("-", ".")
+        fetchMatchDetails(selectedPageDate)
     }
 
     private fun updateRankingDetails(rankingDetails: AboutLckRankingDetailsModel) {
@@ -296,8 +333,8 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
     private fun updateSelectedDate(year: Int, month: Int, day: Int) {
         selectedDate.set(year, month, day)
-        val formattedDate = String.format("%d.%02d.%02d", selectedDate.get(Calendar.YEAR), selectedDate.get(Calendar.MONTH) + 1, selectedDate.get(Calendar.DAY_OF_MONTH))
-        scrollWithDate(formattedDate)
+        val formattedDate = getFormattedDate(selectedDate)
+        fetchMatchDetails(formattedDate)
     }
 
     override fun onTeamClick(team: RankingData) {

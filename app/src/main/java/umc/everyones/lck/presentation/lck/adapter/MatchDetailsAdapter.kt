@@ -54,15 +54,23 @@ class MatchDetailsAdapter() :
         private val tvMatchTime: TextView = itemView.findViewById(R.id.tv_match_time)
 
         @SuppressLint("SetTextI18n")
-        fun bind(detail: AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel) {
-            Log.d("detail", detail.toString())
+        fun bind(detail: AboutLckMatchDetailsModel.AboutLckMatchDetailsElementModel?) {
+            if (detail == null) {
+                tvMatchTitle.text = "-"
+                tvMatchTime.text = "No Match"
+                ivTeam1.visibility = View.GONE
+                ivTeam2.visibility = View.GONE
+                return
+            }
+
             tvMatchTitle.text = formatMatchTitle(detail.season, detail.matchNumber)
 
             if (detail.matchFinished) {
                 val winningTeamName = if (detail.team1.winner) {
                     detail.team1.teamName
                 } else {
-                    detail.team2.teamName }
+                    detail.team2.teamName
+                }
                 tvMatchTime.text = "WIN | $winningTeamName"
             } else {
                 tvMatchTime.text = detail.matchTime.dropLast(3)

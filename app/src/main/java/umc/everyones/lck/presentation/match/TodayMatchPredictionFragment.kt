@@ -44,7 +44,7 @@ class TodayMatchPredictionFragment : BaseFragment<FragmentTodayMatchPredictionBi
     }
 
     private fun goBackButton() {
-        binding.ivTodayMatchPredictionBack.setOnClickListener {
+        binding.ivTodayMatchPredictionBack.setOnSingleClickListener {
             findNavController().navigateUp()
         }
     }

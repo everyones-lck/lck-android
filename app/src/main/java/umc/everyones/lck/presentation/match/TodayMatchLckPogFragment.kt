@@ -46,7 +46,8 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
 
         viewModel.pogData.observe(viewLifecycleOwner) { response ->
             response?.let {
-                lckPogMatchRVA.updatePlayers(listOf(CommonTodayMatchPogModel(it.seasonInfo, it.matchNumber, it.matchDate, it.setPogResponse, it.matchPogResponse)))
+                lckPogMatchRVA.updatePlayers(listOf(CommonTodayMatchPogModel(it.seasonInfo, it.matchNumber, it.matchDate, it.setPogResponses, it.matchPogResponse, tabIndex)))
+                Timber.d("POG Data: $response")
             }
         }
 
@@ -64,21 +65,18 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
 
                 val matchId = matchData.matchResponses.firstOrNull()?.matchId ?: return@observe
 
-                // 탭 선택 시 세트별 POG 데이터를 불러오기
-                viewModel.selectedTabIndex.observe(viewLifecycleOwner) { tabIndex ->
-                    this.tabIndex = tabIndex
-                    if (tabIndex < (viewModel.setCount.value?.setCount ?: 0)) {
-                        viewModel.fetchTodayMatchPog(matchId)
-                    } else {
-                        viewModel.fetchTodayMatchPog(matchId)
-                    }
-                    Timber.d("Tab selected: $tabIndex")
-                }
-
                 // 세트 수를 가져오기 위해 matchId를 사용
                 viewModel.fetchTodayMatchSetCount(matchId)
                 Timber.d("Match ID: $matchId")
-                viewModel.updateSelectedTab(0)
+
+                // 초기 데이터 로드
+                viewModel.fetchTodayMatchPog(matchId)
+
+                // 탭 선택 리스너 설정
+                viewModel.selectedTabIndex.observe(viewLifecycleOwner) { tabIndex ->
+                    this.tabIndex = tabIndex
+                    Timber.d("Tab selected: $tabIndex")
+                }
             }
         }
     }
@@ -92,7 +90,7 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
             setCount = 1,  // 초기값
             onTabSelected = { tabIndex ->
                 viewModel.updateSelectedTab(tabIndex)
-                Timber.d("frtabIndex", tabIndex.toString())
+                Timber.d("frtabIndex %s", tabIndex.toString())
             }
         )
         binding.rvTodayMatchLckPogContainer.layoutManager = LinearLayoutManager(context)

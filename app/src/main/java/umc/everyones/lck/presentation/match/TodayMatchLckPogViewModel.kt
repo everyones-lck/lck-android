@@ -32,7 +32,7 @@ class TodayMatchLckPogViewModel @Inject constructor(
 
     fun updateSelectedTab(tabIndex: Int) {
         _selectedTabIndex.value = tabIndex
-        Timber.d("tabIndex", tabIndex.toString())
+        Timber.d("tabIndex %s", tabIndex.toString())
     }
     // 세트 수를 저장하는 LiveData
     private val _setCount = MutableLiveData<TodayMatchSetCountModel>()

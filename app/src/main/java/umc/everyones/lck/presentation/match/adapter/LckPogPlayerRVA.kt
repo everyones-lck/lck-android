@@ -12,7 +12,7 @@ import umc.everyones.lck.domain.model.response.match.CommonTodayMatchPogModel
 import umc.everyones.lck.domain.model.todayMatch.Player
 
 class LckPogPlayerRVA() :
-    ListAdapter<CommonTodayMatchPogModel.SetPogResponseModel, LckPogPlayerRVA.ViewHolder>(DiffCallback()) {
+    ListAdapter<CommonTodayMatchPogModel.PogPlayerModel, LckPogPlayerRVA.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemLckPogPlayerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -29,18 +29,42 @@ class LckPogPlayerRVA() :
     inner class ViewHolder(private val binding: ItemLckPogPlayerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: CommonTodayMatchPogModel.SetPogResponseModel) {
-            binding.tvLckPogPlayerName.text = item.name
-            Glide.with(binding.ivLckPogPlayerProfile.context)
-                .load(item.profileImageUrl)
-                .into(binding.ivLckPogPlayerProfile)
+        fun bind(item: CommonTodayMatchPogModel.PogPlayerModel) {
+//            binding.tvLckPogPlayerName.text = item.name
+//            Glide.with(binding.ivLckPogPlayerProfile.context)
+//                .load(item.profileImageUrl)
+//                .into(binding.ivLckPogPlayerProfile)
+            when (item) {
+                is CommonTodayMatchPogModel.PogPlayerModel.SetPogResponsesModel -> {
+                    binding.tvLckPogPlayerName.text = item.name
+                    Glide.with(binding.ivLckPogPlayerProfile.context)
+                        .load(item.profileImageUrl)
+                        .into(binding.ivLckPogPlayerProfile)
+                }
+                is CommonTodayMatchPogModel.PogPlayerModel.MatchPogResponseModel -> {
+                    binding.tvLckPogPlayerName.text = item.name
+                    Glide.with(binding.ivLckPogPlayerProfile.context)
+                        .load(item.profileImageUrl)
+                        .into(binding.ivLckPogPlayerProfile)
+                }
+            }
         }
     }
-    class DiffCallback : DiffUtil.ItemCallback<CommonTodayMatchPogModel.SetPogResponseModel>() {
-        override fun areItemsTheSame(oldItem: CommonTodayMatchPogModel.SetPogResponseModel, newItem: CommonTodayMatchPogModel.SetPogResponseModel) =
-            oldItem.name == newItem.name
+    class DiffCallback : DiffUtil.ItemCallback<CommonTodayMatchPogModel.PogPlayerModel>() {
+//        override fun areItemsTheSame(oldItem: CommonTodayMatchPogModel.PogPlayerModel, newItem: CommonTodayMatchPogModel.PogPlayerModel) =
+//            oldItem.name == newItem.name
+    override fun areItemsTheSame(oldItem: CommonTodayMatchPogModel.PogPlayerModel, newItem: CommonTodayMatchPogModel.PogPlayerModel): Boolean {
+        return when {
+            oldItem is CommonTodayMatchPogModel.PogPlayerModel.SetPogResponsesModel && newItem is CommonTodayMatchPogModel.PogPlayerModel.SetPogResponsesModel ->
+                oldItem.playerId == newItem.playerId
+            oldItem is CommonTodayMatchPogModel.PogPlayerModel.MatchPogResponseModel && newItem is CommonTodayMatchPogModel.PogPlayerModel.MatchPogResponseModel ->
+                oldItem.playerId == newItem.playerId
+            else -> false
+        }
+    }
 
-        override fun areContentsTheSame(oldItem: CommonTodayMatchPogModel.SetPogResponseModel, newItem: CommonTodayMatchPogModel.SetPogResponseModel) =
+
+        override fun areContentsTheSame(oldItem: CommonTodayMatchPogModel.PogPlayerModel, newItem: CommonTodayMatchPogModel.PogPlayerModel) =
             oldItem == newItem
     }
 }

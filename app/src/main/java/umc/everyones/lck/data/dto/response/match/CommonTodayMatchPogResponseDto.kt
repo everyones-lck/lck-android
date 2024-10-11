@@ -17,17 +17,17 @@ data class CommonTodayMatchPogResponseDto(
     val seasonInfo: String,
     val matchNumber: Int,
     val matchDate: String,
-    val setPogResponses: List<SetPogResponseDto>,
+    val setPogResponses: List<SetPogResponsesDto>,
     val matchPogResponse: MatchPogResponseDto
 ) {
-    data class SetPogResponseDto(
+    data class SetPogResponsesDto(
         val name: String,
         val profileImageUrl: String,
         val playerId: Int,
         val setIndex: Int
     ) {
-        fun toSetPogResponseModel() =
-            CommonTodayMatchPogModel.SetPogResponseModel(
+        fun toSetPogResponsesModel() =
+            CommonTodayMatchPogModel.PogPlayerModel.SetPogResponsesModel(
                 name, profileImageUrl, playerId, setIndex
             )
     }
@@ -38,7 +38,7 @@ data class CommonTodayMatchPogResponseDto(
         val playerId: Int
     ) {
         fun toMatchPogResponseModel() =
-            CommonTodayMatchPogModel.MatchPogResponseModel(
+            CommonTodayMatchPogModel.PogPlayerModel.MatchPogResponseModel(
                 name, profileImageUrl, playerId
             )
     }
@@ -48,7 +48,7 @@ data class CommonTodayMatchPogResponseDto(
             seasonInfo,
             matchNumber,
             matchDate.replace("T", " ").dropLast(3),
-            setPogResponses.map { it.toSetPogResponseModel() },
+            setPogResponses.map { it.toSetPogResponsesModel() },
             matchPogResponse?.toMatchPogResponseModel()
         )
 }

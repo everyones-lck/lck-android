@@ -13,20 +13,22 @@ data class CommonTodayMatchPogModel(
     val seasonInfo: String,
     val matchNumber: Int,
     val matchDate: String,
-    val setPogResponse: List<SetPogResponseModel>,
-    val matchPogResponse: MatchPogResponseModel?,
+    val setPogResponses: List<PogPlayerModel.SetPogResponsesModel>,
+    val matchPogResponse: PogPlayerModel.MatchPogResponseModel?,
     val tabIndex: Int = 0
 ) {
-    data class SetPogResponseModel(
-        val name: String,
-        val profileImageUrl: String,
-        val playerId: Int,
-        val setIndex: Int
-    )
+    sealed class PogPlayerModel {
+        data class SetPogResponsesModel(
+            val name: String,
+            val profileImageUrl: String,
+            val playerId: Int,
+            val setIndex: Int
+        ) : PogPlayerModel()
 
-    data class MatchPogResponseModel(
-        val name: String,
-        val profileImageUrl: String,
-        val playerId: Int
-    )
+        data class MatchPogResponseModel(
+            val name: String,
+            val profileImageUrl: String,
+            val playerId: Int
+        ) : PogPlayerModel()
+    }
 }

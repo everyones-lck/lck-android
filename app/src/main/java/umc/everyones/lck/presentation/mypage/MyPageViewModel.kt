@@ -187,13 +187,13 @@ class MyPageViewModel @Inject constructor(
 
             runCatching {
                 repository.updateTeam(updateTeamModel).onSuccess { response ->
-                    Log.d("updateTeam", "팀 변경 성공: $response")
+                    Timber.d("팀 변경 성공: $response")
                     _teamId.value = teamId
                 }.onFailure { error ->
-                    Log.d("updateTeam", "팀 변경 실패: $error")
+                    Timber.d("팀 변경 실패: $error")
                 }
             }.onFailure { error ->
-                Log.e("updateTeam", "Error during update: ${error.message}")
+                Timber.e("Error during update: ${error.message}")
             }
         }
     }

@@ -36,7 +36,6 @@ object NetworkModule {
     const val NETWORK_EXCEPTION_OFFLINE_CASE = "network status is offline"
     const val NETWORK_EXCEPTION_BODY_IS_NULL = "result.json body is null"
 
-    // @Provides : 모듈 클래스 내에 해당 객체 생성
     @Provides
     @Singleton
     fun providesConverterFactory(): GsonConverterFactory {
@@ -49,19 +48,45 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun providesRetrofit(
+        client: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(EveryonesLCKApplication.getString(R.string.base_url))
+            .addConverterFactory(gsonConverterFactory)
+            .client(client)
+            .build()
+    }
+
+    @Provides
+    @Singleton
     fun providesOkHttpClient(
-        authInterceptor: AuthInterceptor
+        sharedPreferences: SharedPreferences,
+        gsonConverterFactory: GsonConverterFactory // GsonConverterFactory를 주입받습니다.
     ): OkHttpClient {
-        val interceptor = HttpLoggingInterceptor().apply {
+        val authInterceptor = AuthInterceptor(sharedPreferences) {
+            providesRetrofit(providesOkHttpClient(sharedPreferences, gsonConverterFactory), gsonConverterFactory)
+        }
+        val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+
         return OkHttpClient.Builder().apply {
             addInterceptor(authInterceptor)
-            addInterceptor(interceptor)
+            addInterceptor(loggingInterceptor)
             connectTimeout(5, TimeUnit.SECONDS)
             readTimeout(5, TimeUnit.SECONDS)
             writeTimeout(5, TimeUnit.SECONDS)
         }.build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthInterceptor(
+        sharedPreferences: SharedPreferences
+    ): AuthInterceptor {
+        return AuthInterceptor(sharedPreferences) { providesRetrofit(providesOkHttpClient(sharedPreferences, providesConverterFactory()), providesConverterFactory()) }
     }
 
     @Provides
@@ -84,19 +109,6 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesRetrofit(
-        client: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
-    ): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(EveryonesLCKApplication.getString(R.string.base_url))
-            .addConverterFactory(gsonConverterFactory)
-            .client(client)
-            .build()
-    }
-
-    @Provides
-    @Singleton
     fun provideMypageService(
         retrofit: Retrofit
     ): MypageService {
@@ -108,19 +120,14 @@ object NetworkModule {
     @Named("naver")
     fun providesNaverRetrofit(
         @Named("NaverClient") client: OkHttpClient,
-    ): Retrofit{
+    ): Retrofit {
         return Retrofit.Builder()
             .client(client)
-            .baseUrl(EveryonesLCKApplication.getString(R.string. naver_url))
+            .baseUrl(EveryonesLCKApplication.getString(R.string.naver_url))
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
-    @Provides
-    @Singleton
-    fun provideAuthInterceptor(sharedPreferences: SharedPreferences): AuthInterceptor =
-        AuthInterceptor(sharedPreferences)
 
     @Provides
     @Singleton

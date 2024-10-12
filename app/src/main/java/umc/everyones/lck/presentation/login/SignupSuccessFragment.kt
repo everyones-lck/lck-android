@@ -24,6 +24,7 @@ import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.util.TeamData
 import umc.everyones.lck.util.TeamData.signupSuccessTeamBackground
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 import java.io.ByteArrayOutputStream
 import java.io.File
 
@@ -60,7 +61,7 @@ class SignupSuccessFragment : BaseFragment<FragmentSignupSuccessBinding>(R.layou
 
     override fun initView() {
         // Next 버튼 클릭 처리
-        binding.ivSignupSuccessNext.setOnClickListener {
+        binding.ivSignupSuccessNext.setOnSingleClickListener {
             // 회원 가입 데이터 전송
             viewModel.sendSignupData() // 로그인 서비스 전달
 

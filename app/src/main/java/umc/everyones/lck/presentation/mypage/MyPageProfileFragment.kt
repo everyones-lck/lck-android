@@ -56,7 +56,7 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
             showProfileDialog()
         }
         binding.ivMypageProfileBack.setOnSingleClickListener {
-            navigator.navigateUp()
+            navigator.navigate(R.id.action_myPageProfileFramgnet_to_myPageFragment)
         }
     }
 

@@ -7,18 +7,24 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import umc.everyones.lck.R
+import umc.everyones.lck.databinding.DialogMypageProfileLogoutBinding
+import umc.everyones.lck.databinding.DialogNicknameConfirmBinding
+import umc.everyones.lck.databinding.DialogProfileEditConfirmBinding
 import umc.everyones.lck.databinding.FragmentMypageProfileEditBinding
 import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseFragment
@@ -49,9 +55,12 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
                 binding.tvMypageNicknameDuplication.setTextColor(requireContext().getColor(R.color.success))
                 binding.tvMypageNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_green_line)
                 binding.layoutMypageProfileEditValid.visibility = View.VISIBLE
+                binding.layoutMypageProfileEditWarning4.visibility = View.GONE
             } else {
                 binding.layoutMypageProfileEditWarning4.visibility = View.VISIBLE // 중복
-                binding.viewMypageProfileEditNicknameBar.setBackgroundResource(R.drawable.shape_rect_4_red_line) // 실패 색상
+                binding.viewMypageProfileEditNicknameBar.setBackgroundResource(R.drawable.shape_rect_4_red_line)
+                binding.tvMypageNicknameDuplication.setTextColor(requireContext().getColor(R.color.warning))
+                binding.tvMypageNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_red_line)
             }
         }
 
@@ -147,10 +156,33 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
             // 업데이트할 데이터가 유효할 경우 ViewModel 호출
             myPageViewModel.updateProfile(finalNickname, finalProfileImageUri)
 
-            // 프로필 업데이트 후 화면 전환
+            showConfirmDialog()
+        }
+    }
+
+    private fun showConfirmDialog() {
+        val dialogView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_profile_edit_confirm, null)
+        val dialogBinding = DialogProfileEditConfirmBinding.bind(dialogView)
+
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+
+        val layoutParams = dialog.window?.attributes
+        layoutParams?.dimAmount = 0.8f
+        dialog.window?.attributes = layoutParams
+
+        dialogBinding.btnConfirm.setOnClickListener {
+            dialog.dismiss()
             navigator.navigate(R.id.action_myPageProfileEditFragment_to_myPageProfileFragment)
         }
     }
+
 
     private fun setInitialState() {
         binding.tvMypageNicknameDuplication.setTextColor(requireContext().getColor(R.color.nickname_gray)) // 회색

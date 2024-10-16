@@ -10,7 +10,7 @@
         <!-- 중앙에 위치할 사각형 레이아웃 -->
         <RelativeLayout
             android:layout_width="350dp"
-            android:layout_height="640dp"
+            android:layout_height="200dp"
             android:layout_centerInParent="true"
             android:background="@drawable/shape_rect_12_white_fill">
 
@@ -18,28 +18,22 @@
                 android:id="@+id/tv_dialog_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="개인정보 처리방침 ( 필수 )"
+                android:text="프로필 수정"
                 style="@style/TextAppearance.LCK.Bold.List_14sp"
                 android:textColor="@color/gray"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="37dp"/>
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="80dp"
-                android:layout_marginBottom="80dp"
-                android:layout_marginHorizontal="20dp">
-
-                <TextView
-                    android:id="@+id/tv_dialog_text"
-                    style="@style/TextAppearance.LCK.Light.Detail_10sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:text="@string/tos_details_agree_1"
-                    android:textColor="@color/black" />
-            </ScrollView>
+            <TextView
+                android:id="@+id/tv_dialog_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="프로필 수정 완료되었습니다"
+                style="@style/TextAppearance.LCK.Light.Body_14sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/tv_dialog_title"
+                android:textColor="@color/gray"
+                android:layout_marginTop="35dp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

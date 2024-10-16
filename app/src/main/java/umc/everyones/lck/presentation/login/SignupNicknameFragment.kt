@@ -28,10 +28,14 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
                 binding.viewSignupNicknameBar.setBackgroundResource(R.drawable.shape_rect_4_green_line)
                 binding.tvSignupNicknameDuplication.setTextColor(requireContext().getColor(R.color.success))
                 binding.tvSignupNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_green_line)
+                binding.layoutSignupNicknameWarning4.visibility = View.GONE
+                binding.layoutSignupNicknameValid.visibility = View.VISIBLE
                 showNicknameConfirmDialog()
             } else {
                 binding.layoutSignupNicknameWarning4.visibility = View.VISIBLE // 중복
-                binding.viewSignupNicknameBar.setBackgroundResource(R.drawable.shape_rect_4_red_line) // 실패 색상
+                binding.viewSignupNicknameBar.setBackgroundResource(R.drawable.shape_rect_4_red_line)
+                binding.tvSignupNicknameDuplication.setTextColor(requireContext().getColor(R.color.warning))
+                binding.tvSignupNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_red_line)
             }
         }
     }
@@ -49,13 +53,12 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
                 if (!isDuplicated) {
                     binding.tvSignupNicknameDuplication.setTextColor(requireContext().getColor(R.color.white)) // 기본 색상
                     binding.tvSignupNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_white_line) // 기본 배경
-                    binding.tvSignupNicknameDuplication.setOnSingleClickListener {
+                    binding.tvSignupNicknameDuplication.setOnClickListener {
                         viewModel.checkNicknameAvailability(nickname) // 중복 확인 로직 호출
                     }
                     binding.layoutSignupNicknameWarning4.visibility = View.GONE // 중복 아님
                     binding.tvSignupNicknameDuplication.isEnabled = true // 버튼 활성화
                 } else {
-                    // 중복된 경우
                     setNicknameUnavailableState() // 중복 상태 설정
                     binding.tvSignupNicknameDuplication.isEnabled = false // 버튼 비활성화
                 }
@@ -84,10 +87,10 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
         layoutParams?.dimAmount = 0.8f
         dialog.window?.attributes = layoutParams
 
-        dialogBinding.btnConfirm.setOnSingleClickListener {
+        dialogBinding.btnConfirm.setOnClickListener {
             val nickname = binding.etSignupNicknameName.text.toString() // 닉네임 가져오기
             if (nickname.isNotEmpty()) {
-                viewModel.setNickName(nickname) // 닉네임 저장
+                viewModel.setNickName(nickname)
             }
             dialog.dismiss()
             navigateToSignupProfile()
@@ -107,7 +110,7 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
 
     private fun validateNickname(nickname: String): Boolean {
         var isValid = true
-            // 닉네임 유효성 검사
+        // 닉네임 유효성 검사
         if (nickname.isEmpty()) {
             binding.layoutSignupNicknameWarning1.visibility = View.VISIBLE
             isValid = false
@@ -131,6 +134,5 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
 
     private fun navigateToSignupProfile() {
         navigator.navigate(R.id.action_signupNicknameFragment_to_signupProfileFragment)
-        //여기서 viewmodel에 nickname값 저장
     }
 }

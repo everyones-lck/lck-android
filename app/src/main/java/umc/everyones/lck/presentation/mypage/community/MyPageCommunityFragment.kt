@@ -43,8 +43,8 @@ class MyPageCommunityFragment : BaseFragment<FragmentMypageCommunityBinding>(R.l
         }.attach()
 
         viewModel.posts.observe(viewLifecycleOwner) { posts ->
-            if (!posts.isEmpty()) {
-                binding.ivMypageCommunityStar.visibility = View.GONE
+            if (posts.isEmpty()) {
+                binding.ivMypageCommunityStar.visibility = View.VISIBLE
             }
         }
     }

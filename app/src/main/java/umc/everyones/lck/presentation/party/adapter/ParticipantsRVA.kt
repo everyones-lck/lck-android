@@ -1,6 +1,7 @@
 package umc.everyones.lck.presentation.party.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
@@ -39,6 +40,14 @@ class ParticipantsRVA(val goToChat: (String) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(participantItem: ViewingPartyParticipantsModel.ParticipantsModel) {
             with(binding){
+                if(participantItem.isParticipating){
+                    ivParticipantsViewingPartyMark.visibility = View.VISIBLE
+                }
+
+                if(participantItem.isChatting){
+                    ivParticipantsChatMark.visibility = View.VISIBLE
+                }
+
                 Glide.with(ivParticipantProfileImage.context)
                     .load(participantItem.image)
                     .into(ivParticipantProfileImage)
@@ -46,6 +55,7 @@ class ParticipantsRVA(val goToChat: (String) -> Unit) :
                 tvParticipantName.text = participantItem.name
                 if (participantItem.team == "empty"){
                     tvParticipantDivider.isVisible = false
+                    tvParticipantFavoriteTeam.isVisible = false
                 } else {
                     tvParticipantFavoriteTeam.text = participantItem.team
                 }

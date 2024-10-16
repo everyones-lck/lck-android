@@ -3,7 +3,9 @@ package umc.everyones.lck.presentation.mypage
 import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -15,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentMypageProfileEditBinding
 import umc.everyones.lck.presentation.MainActivity
@@ -54,9 +57,9 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
 
         myPageViewModel.updateProfileResult.observe(viewLifecycleOwner) { result ->
             if (result != null) {
-                Log.d(TAG,"프로필 수정 성공")
+                Timber.d("프로필 수정 성공")
             } else {
-                Log.e(TAG, "프로필 수정 실패")
+                Timber.e("프로필 수정 실패")
             }
         }
         myPageViewModel.profileData.observe(viewLifecycleOwner) { profile ->
@@ -122,33 +125,31 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
 
             // 현재 프로필 이미지 URI 가져오기
             val currentProfileImageUri = myPageViewModel.profileUri.value
-            val currentNickname = myPageViewModel.nickName.value
 
-            // 업데이트할 닉네임과 이미지 결정
+            // 업데이트할 닉네임 결정 (닉네임이 비어있으면 null로 설정)
             val finalNickname = if (nicknameInput.isNotEmpty()) {
                 nicknameInput // 닉네임이 비어있지 않으면 입력값 사용
             } else {
-                currentNickname // 닉네임이 비어있으면 현재 닉네임 사용
+                null // 닉네임이 비어있으면 null로 설정
             }
 
-            val finalProfileImageUri = if (nicknameInput.isNotEmpty()) {
-                // 닉네임이 변경된 경우, 현재 프로필 이미지를 사용
-                currentProfileImageUri
+            // 프로필 이미지 결정
+            val finalProfileImageUri = if (binding.ivMypageProfileEditProfile.drawable != null) {
+                // 프로필 이미지가 변경된 경우
+                val bitmap = (binding.ivMypageProfileEditProfile.drawable as BitmapDrawable).bitmap // Bitmap으로 변환
+                val path = MediaStore.Images.Media.insertImage(requireContext().contentResolver, bitmap, "ProfileImage", null) // URI로 변환
+                Uri.parse(path) // URI로 변환하여 반환
             } else {
-                // 닉네임이 변경되지 않은 경우, 프로필 이미지가 변경된 경우에만 새 이미지 사용
-                currentProfileImageUri // 현재 프로필 이미지를 유지
+                // 프로필 이미지가 변경되지 않은 경우 현재 프로필 이미지를 유지
+                currentProfileImageUri
             }
 
-
-                // 업데이트할 데이터가 유효할 경우 ViewModel 호출
+            // 업데이트할 데이터가 유효할 경우 ViewModel 호출
             myPageViewModel.updateProfile(finalNickname, finalProfileImageUri)
 
-                // 프로필 업데이트 결과를 관찰하여 성공 여부에 따라 화면 전환
-            myPageViewModel.updateProfileResult.observe(viewLifecycleOwner) { result ->
-                navigator.navigate(R.id.action_myPageProfileEditFragment_to_myPageProfileFragment)
-            }
+            // 프로필 업데이트 후 화면 전환
+            navigator.navigate(R.id.action_myPageProfileEditFragment_to_myPageProfileFragment)
         }
-
     }
 
     private fun setInitialState() {

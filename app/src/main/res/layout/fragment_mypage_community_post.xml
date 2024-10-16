@@ -18,16 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="16dp"
-            android:visibility="gone"/> <!-- 기본적으로 숨김 -->
+            android:visibility="visible"/>
 
-        <LinearLayout
-            android:id="@+id/noPostsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:src="@drawable/ic_no_mypage_star"
-            android:visibility="gone"> <!-- 기본적으로 숨김 -->
-        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

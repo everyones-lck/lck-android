@@ -1,5 +1,7 @@
 package umc.everyones.lck.presentation.mypage.community
 
+import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -10,6 +12,7 @@ import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class MyPageCommunityFragment : BaseFragment<FragmentMypageCommunityBinding>(R.layout.fragment_mypage_community) {
+    private val viewModel: MyPageCommunityViewModel by activityViewModels()
 
     override fun initObserver() {
         // 관찰자가 필요 없으면 여전히 비워둘 수 있습니다.
@@ -38,5 +41,11 @@ class MyPageCommunityFragment : BaseFragment<FragmentMypageCommunityBinding>(R.l
                 else -> throw IllegalStateException("Invalid position: $position")
             }
         }.attach()
+
+        viewModel.posts.observe(viewLifecycleOwner) { posts ->
+            if (!posts.isEmpty()) {
+                binding.ivMypageCommunityStar.visibility = View.GONE
+            }
+        }
     }
 }

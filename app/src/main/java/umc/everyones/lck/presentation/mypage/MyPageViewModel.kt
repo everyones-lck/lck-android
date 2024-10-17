@@ -27,7 +27,6 @@ import umc.everyones.lck.domain.model.request.mypage.UpdateTeamModel
 import umc.everyones.lck.domain.model.response.mypage.InquiryProfilesModel
 import umc.everyones.lck.domain.model.response.mypage.UpdateProfilesModel
 import umc.everyones.lck.domain.repository.MypageRepository
-import umc.everyones.lck.util.TeamData
 import java.io.ByteArrayOutputStream
 import java.io.File
 import javax.inject.Inject

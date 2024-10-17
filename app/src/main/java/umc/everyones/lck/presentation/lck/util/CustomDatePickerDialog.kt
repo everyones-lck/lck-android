@@ -18,7 +18,7 @@ class CustomDatePickerDialog(
     private val month: Int,
     private val dayOfMonth: Int,
     private val dateSelectedCallback: (Int, Int, Int) -> Unit // 콜백 함수 추가
-) : DatePickerDialog(context, null, year, month, dayOfMonth) {
+) : DatePickerDialog(context, R.style.Widget_LCK_DatePicker, null, year, month, dayOfMonth) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -72,7 +73,7 @@
                     android:id="@+id/tv_about_lck_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2024.05.13"
+                    tools:text="2024.05.13"
                     android:textSize="12sp"
                     android:textColor="@color/white"
                     android:fontFamily="@font/cafe_ohsquare"

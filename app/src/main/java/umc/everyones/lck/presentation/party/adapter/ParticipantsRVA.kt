@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import timber.log.Timber
 import umc.everyones.lck.databinding.ItemParticipantBinding
 import umc.everyones.lck.databinding.ItemViewingPartyBinding
 import umc.everyones.lck.domain.model.party.ParticipantItem
@@ -40,11 +41,10 @@ class ParticipantsRVA(val goToChat: (String) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(participantItem: ViewingPartyParticipantsModel.ParticipantsModel) {
             with(binding){
+                Timber.d("participant $participantItem")
                 if(participantItem.isParticipating){
                     ivParticipantsViewingPartyMark.visibility = View.VISIBLE
-                }
-
-                if(participantItem.isChatting){
+                } else {
                     ivParticipantsChatMark.visibility = View.VISIBLE
                 }
 

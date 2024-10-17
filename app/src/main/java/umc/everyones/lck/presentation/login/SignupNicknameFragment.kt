@@ -14,6 +14,7 @@ import umc.everyones.lck.databinding.DialogMyteamConfirmBinding
 import umc.everyones.lck.databinding.DialogNicknameConfirmBinding
 import umc.everyones.lck.databinding.FragmentSignupNicknameBinding
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.layout.fragment_signup_nickname) {
@@ -48,7 +49,7 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
                 if (!isDuplicated) {
                     binding.tvSignupNicknameDuplication.setTextColor(requireContext().getColor(R.color.white)) // 기본 색상
                     binding.tvSignupNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_white_line) // 기본 배경
-                    binding.tvSignupNicknameDuplication.setOnClickListener {
+                    binding.tvSignupNicknameDuplication.setOnSingleClickListener {
                         viewModel.checkNicknameAvailability(nickname) // 중복 확인 로직 호출
                     }
                     binding.layoutSignupNicknameWarning4.visibility = View.GONE // 중복 아님
@@ -83,7 +84,7 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
         layoutParams?.dimAmount = 0.8f
         dialog.window?.attributes = layoutParams
 
-        dialogBinding.btnConfirm.setOnClickListener {
+        dialogBinding.btnConfirm.setOnSingleClickListener {
             val nickname = binding.etSignupNicknameName.text.toString() // 닉네임 가져오기
             if (nickname.isNotEmpty()) {
                 viewModel.setNickName(nickname) // 닉네임 저장

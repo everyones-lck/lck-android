@@ -6,6 +6,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentMypageCommunityBinding
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class MyPageCommunityFragment : BaseFragment<FragmentMypageCommunityBinding>(R.layout.fragment_mypage_community) {
@@ -16,7 +17,7 @@ class MyPageCommunityFragment : BaseFragment<FragmentMypageCommunityBinding>(R.l
 
     override fun initView() {
         // 뒤로가기 버튼 클릭 리스너 설정
-        binding.ivMypageCommunityBack.setOnClickListener {
+        binding.ivMypageCommunityBack.setOnSingleClickListener {
             findNavController().navigateUp()
         }
 

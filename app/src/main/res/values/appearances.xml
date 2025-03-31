@@ -95,6 +95,10 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <style name="TextAppearance.LCK.Light.10sp">
+        <item name="android:textSize">10sp</item>
+    </style>
+
     <style name="TextAppearance.LCK.Light.Comment_8sp">
         <item name="android:textSize">8sp</item>
     </style>
@@ -107,7 +111,7 @@
 
     <style name="TextAppearance.LCK.Light.Warning">
         <item name="fontFamily">@font/cafe_ohsquare_air</item>
-        <item name="android:textSize">12sp</item>3
+        <item name="android:textSize">10sp</item>3
         <item name="android:textColor">@color/warning</item>
     </style>
 

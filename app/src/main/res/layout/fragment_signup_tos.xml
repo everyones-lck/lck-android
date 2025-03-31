@@ -142,6 +142,7 @@
             app:layout_constraintEnd_toEndOf="@id/view_signup_tos_agree_all_circle"/>
 
         <TextView
+            android:id="@+id/tv_signup_tos_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rect_4_gray_line_black_fill"

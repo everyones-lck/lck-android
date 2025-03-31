@@ -33,6 +33,7 @@
     <color name="gray_detail">#9F9F9F</color>
     <color name="gray_dayOfWeek">#767A81</color>
     <color name="gray_line">#BBBBBB</color>
+    <color name="grayscale_300">#8E8E8E</color>
     <color name="gray_spinner_bg">#D9D9D9</color>
     <color name="gray_comment_et_bg">#33D9D9D9</color>
     <color name="bronze">#966C00</color>

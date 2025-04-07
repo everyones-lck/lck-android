@@ -10,32 +10,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_gradient_color">
-
-        <ImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_logo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="36dp" />
-
-        <ImageView
-            android:id="@+id/iv_my_page"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_my_page"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="36dp"
-            app:layout_constraintTop_toTopOf="@id/iv_logo"
-            app:layout_constraintBottom_toBottomOf="@id/iv_logo" />
+        android:background="@color/new_bg">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/iv_logo"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:overScrollMode="never">
 
@@ -47,10 +27,10 @@
                     android:id="@+id/tv_about_lck_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ABOUT LCK"
+                    android:text="About LCK"
                     android:textColor="@color/white"
                     android:textSize="24sp"
-                    android:fontFamily="@font/cafe_ohsquare"
+                    android:fontFamily="@font/esamanru_medium"
                     android:layout_marginTop="52dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -62,9 +42,9 @@
                     android:layout_height="wrap_content"
                     android:text="LCK Matches &amp; Results"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/cafe_ohsquare_air"
-                    android:layout_marginTop="8dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/esamanru_light"
+                    android:layout_marginTop="11dp"
                     app:layout_constraintTop_toBottomOf="@id/tv_about_lck_title"
                     app:layout_constraintStart_toStartOf="@id/tv_about_lck_title"
                     app:layout_constraintEnd_toEndOf="@id/tv_about_lck_title" />
@@ -74,154 +54,126 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="2024.05.13"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/cafe_ohsquare"
+                    android:fontFamily="@font/esamanru_light"
                     android:layout_marginTop="25dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="30dp"
+                    app:layout_constraintStart_toStartOf="@id/iv_about_lck_calendar"
                     app:layout_constraintTop_toBottomOf="@id/tv_about_lck_matches" />
 
                 <ImageView
                     android:id="@+id/iv_about_lck_calendar"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_calendar"
-                    android:layout_marginEnd="40dp"
-                    app:layout_constraintTop_toTopOf="@id/tv_about_lck_date"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_aboutlck_calendar"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_about_lck_date"/>
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vp_about_lck_match"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="25dp"
                     app:layout_constraintTop_toBottomOf="@id/tv_about_lck_date" />
+
+                <ImageView
+                    android:id="@+id/iv_about_lck_ranking"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_aboutlck_ranking"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/vp_about_lck_match"/>
 
                 <TextView
                     android:id="@+id/tv_about_lck_ranking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="LCK Ranking"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/cafe_ohsquare"
-                    android:layout_marginTop="25dp"
-                    app:layout_constraintTop_toBottomOf="@id/vp_about_lck_match"
+                    android:fontFamily="@font/esamanru_light"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toEndOf="@id/iv_about_lck_ranking"
+                    app:layout_constraintTop_toTopOf="@id/iv_about_lck_ranking"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_about_lck_ranking" />
+
+                <ImageView
+                    android:id="@+id/iv_about_lck_ranking_1st"
+                    android:layout_width="100dp"
+                    android:layout_height="66dp"
+                    android:src="@drawable/ic_aboutlck_ranking_1st"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_about_lck_ranking"/>
 
-                <View
-                    android:id="@+id/view_about_lck_rect1"
-                    android:layout_width="96dp"
-                    android:layout_height="108dp"
-                    android:background="@drawable/shape_rect_8_gray_line"
-                    android:layout_marginTop="25dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_about_lck_ranking"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <View
-                    android:id="@+id/view_about_lck_rect2"
-                    android:layout_width="96dp"
-                    android:layout_height="108dp"
-                    android:background="@drawable/shape_rect_8_gray_line"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="5dp"
-                    app:layout_goneMarginTop="27dp"
-                    app:layout_constraintTop_toTopOf="@id/view_about_lck_rect1"
-                    app:layout_constraintEnd_toStartOf="@id/view_about_lck_rect1" />
-
-                <View
-                    android:id="@+id/view_about_lck_rect3"
-                    android:layout_width="96dp"
-                    android:layout_height="108dp"
-                    android:background="@drawable/shape_rect_8_gray_line"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginStart="5dp"
-                    app:layout_constraintTop_toTopOf="@id/view_about_lck_rect1"
-                    app:layout_constraintStart_toEndOf="@id/view_about_lck_rect1" />
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv_about_lck_ranking_1st"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintTop_toTopOf="@id/view_about_lck_rect1"
-                    app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect1"
-                    app:layout_constraintStart_toStartOf="@id/view_about_lck_rect1"
-                    app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect1">
-                    <ImageView
-                        android:id="@+id/iv_about_lck_ranking_1st"
-                        android:layout_width="43dp"
-                        android:layout_height="37dp"
-                        android:src="@drawable/ic_gen_g" />
-                    <TextView
-                        android:id="@+id/tv_about_lck_ranking_1st"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Gen"
-                        android:textSize="12sp"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="15dp" />
-                </LinearLayout>
-                <LinearLayout
+                    android:text="T1"
+                    android:textColor="#797979"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/esamanru_medium"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="7dp"
+                    app:layout_constraintStart_toStartOf="@id/iv_about_lck_ranking_1st"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_about_lck_ranking_1st"/>
+
+                <ImageView
+                    android:id="@+id/iv_about_lck_ranking_2nd"
+                    android:layout_width="100dp"
+                    android:layout_height="51dp"
+                    android:src="@drawable/ic_aboutlck_ranking_2nd"
+                    android:layout_marginEnd="14dp"
+                    app:layout_constraintEnd_toStartOf="@id/iv_about_lck_ranking_1st"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_about_lck_ranking_1st"/>
+
+                <TextView
+                    android:id="@+id/tv_about_lck_ranking_2nd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintTop_toTopOf="@id/view_about_lck_rect3"
-                    app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect3"
-                    app:layout_constraintStart_toStartOf="@id/view_about_lck_rect3"
-                    app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect3">
-                    <ImageView
-                        android:id="@+id/iv_about_lck_ranking_3rd"
-                        android:layout_width="48dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/ic_kwangdong_freecs" />
-                    <TextView
-                        android:id="@+id/tv_about_lck_ranking_3rd"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="KDF"
-                        android:textSize="12sp"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="15dp" />
-                </LinearLayout>
+                    android:text="DK"
+                    android:textColor="#797979"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/esamanru_medium"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="7dp"
+                    app:layout_constraintStart_toStartOf="@id/iv_about_lck_ranking_2nd"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_about_lck_ranking_2nd"/>
 
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/iv_about_lck_ranking_3rd"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_aboutlck_ranking_3rd"
+                    android:layout_marginStart="14dp"
+                    app:layout_constraintStart_toEndOf="@id/iv_about_lck_ranking_1st"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_about_lck_ranking_1st"/>
+
+                <TextView
+                    android:id="@+id/tv_about_lck_ranking_3rd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintTop_toTopOf="@id/view_about_lck_rect2"
-                    app:layout_constraintBottom_toBottomOf="@id/view_about_lck_rect2"
-                    app:layout_constraintStart_toStartOf="@id/view_about_lck_rect2"
-                    app:layout_constraintEnd_toEndOf="@id/view_about_lck_rect2">
-
-                    <ImageView
-                        android:id="@+id/iv_about_lck_ranking_2nd"
-                        android:layout_width="75dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_t1" />
-                    <TextView
-                        android:id="@+id/tv_about_lck_ranking_2nd"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="T1"
-                        android:textSize="12sp"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="15dp" />
-                </LinearLayout>
+                    android:text="Gen.G"
+                    android:textColor="#797979"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/esamanru_medium"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="7dp"
+                    app:layout_constraintStart_toStartOf="@id/iv_about_lck_ranking_3rd"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_about_lck_ranking_3rd"/>
 
                 <View
                     android:id="@+id/view_about_lck_line1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#656565"
-                    android:layout_marginTop="75dp"
-                    android:layout_marginHorizontal="55dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
+                    android:layout_marginTop="65dp"
+                    android:layout_marginHorizontal="30dp"
+                    app:layout_constraintTop_toBottomOf="@id/iv_about_lck_ranking_3rd"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -230,9 +182,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#656565"
-                    android:layout_marginTop="125dp"
-                    android:layout_marginHorizontal="55dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
+                    android:layout_marginTop="115dp"
+                    android:layout_marginHorizontal="30dp"
+                    app:layout_constraintTop_toBottomOf="@id/iv_about_lck_ranking_3rd"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -241,9 +193,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#656565"
-                    android:layout_marginTop="175dp"
-                    android:layout_marginHorizontal="55dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
+                    android:layout_marginTop="165dp"
+                    android:layout_marginHorizontal="30dp"
+                    app:layout_constraintTop_toBottomOf="@id/iv_about_lck_ranking_3rd"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -252,9 +204,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#656565"
-                    android:layout_marginTop="225dp"
-                    android:layout_marginHorizontal="55dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
+                    android:layout_marginTop="215dp"
+                    android:layout_marginHorizontal="30dp"
+                    app:layout_constraintTop_toBottomOf="@id/iv_about_lck_ranking_3rd"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -263,9 +215,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#656565"
-                    android:layout_marginTop="275dp"
-                    android:layout_marginHorizontal="55dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
+                    android:layout_marginTop="265dp"
+                    android:layout_marginHorizontal="30dp"
+                    app:layout_constraintTop_toBottomOf="@id/iv_about_lck_ranking_3rd"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -274,9 +226,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#656565"
-                    android:layout_marginTop="325dp"
-                    android:layout_marginHorizontal="55dp"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect2"
+                    android:layout_marginTop="315dp"
+                    android:layout_marginHorizontal="30dp"
+                    app:layout_constraintTop_toBottomOf="@id/iv_about_lck_ranking_3rd"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -286,12 +238,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginTop="63dp"
+                    android:layout_marginTop="40dp"
                     android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_about_lck_rect1" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_about_lck_ranking_3rd" />
 
                 <View
                     android:id="@+id/view_about_lck_transparent"

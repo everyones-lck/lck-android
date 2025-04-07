@@ -1,10 +1,13 @@
 package umc.everyones.lck.presentation.lck
 
+import android.graphics.Color
+import android.graphics.drawable.VectorDrawable
 import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -74,7 +77,6 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         initRankingRecyclerView()
         initBackButton()
         initCalendarButton()
-        goMyPage()
     }
 
     private fun updateMatchDetails(matchDetailsModel: AboutLckMatchDetailsModel) {
@@ -202,26 +204,49 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
 
     }
 
+    private fun getTeamColor(teamId: Int): Int {
+        return when (teamId) {
+            2 -> Color.parseColor("#AA8B30")     // Gen.G
+            3 -> Color.parseColor("#F3741B")     // hanwha
+            4 -> Color.parseColor("#FFFFFF")     // dk
+            5 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
+            6 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
+            7 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
+            8 -> Color.parseColor("#F8E52F")     // bnk
+            9 -> Color.parseColor("#0017E7")     // drx
+            10 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
+            11 -> Color.parseColor("#003202")     // ok
+            else -> Color.parseColor("#E91B3B")
+        }
+    }
+
+    private fun applyTeamColorToVectorBackground(imageView: ImageView, color: Int) {
+        val drawable = imageView.drawable
+
+        if (drawable is VectorDrawable) {
+            drawable.mutate().setTint(color)
+            imageView.setImageDrawable(drawable)
+        } else {
+            val compatDrawable = imageView.drawable as? VectorDrawableCompat
+            compatDrawable?.mutate()?.setTint(color)
+            imageView.setImageDrawable(compatDrawable)
+        }
+    }
+
     private fun displayTopTeams(topTeams: List<RankingData>) {
-        binding.ivAboutLckRanking1st.loadImage(topTeams[0].teamLogoUrl)
+        // 팀 이름 세팅
         binding.tvAboutLckRanking1st.text = topTeams[0].teamName
-
-        binding.ivAboutLckRanking2nd.loadImage(topTeams[1].teamLogoUrl)
         binding.tvAboutLckRanking2nd.text = topTeams[1].teamName
-
-        binding.ivAboutLckRanking3rd.loadImage(topTeams[2].teamLogoUrl)
         binding.tvAboutLckRanking3rd.text = topTeams[2].teamName
-    }
 
-    private fun ImageView.loadImage(url: String) {
-        Glide.with(this.context)
-            .load(url)
-            .into(this)
+        // 배경색 세팅
+        applyTeamColorToVectorBackground(binding.ivAboutLckRanking1st, getTeamColor(topTeams[0].teamId))
+        applyTeamColorToVectorBackground(binding.ivAboutLckRanking2nd, getTeamColor(topTeams[1].teamId))
+        applyTeamColorToVectorBackground(binding.ivAboutLckRanking3rd, getTeamColor(topTeams[2].teamId))
     }
-
 
     private fun initBackButton() {
-        binding.viewAboutLckRect1.setOnSingleClickListener {
+        binding.ivAboutLckRanking1st.setOnSingleClickListener {
             topTeams.getOrNull(0)?.let { team ->
                 val action =
                     AboutLCKFragmentDirections.actionAboutLCKFragmentToAboutLckTeamFragment(
@@ -233,7 +258,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
             }
         }
 
-        binding.viewAboutLckRect2.setOnSingleClickListener {
+        binding.ivAboutLckRanking2nd.setOnSingleClickListener {
             topTeams.getOrNull(1)?.let { team ->
                 val action =
                     AboutLCKFragmentDirections.actionAboutLCKFragmentToAboutLckTeamFragment(
@@ -245,7 +270,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
             }
         }
 
-        binding.viewAboutLckRect3.setOnSingleClickListener {
+        binding.ivAboutLckRanking3rd.setOnSingleClickListener {
             topTeams.getOrNull(2)?.let { team ->
                 val action =
                     AboutLCKFragmentDirections.actionAboutLCKFragmentToAboutLckTeamFragment(
@@ -314,9 +339,4 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         navigator.navigate(action)
     }
 
-    private fun goMyPage() {
-        binding.ivMyPage.setOnSingleClickListener {
-            startActivity(MyPageActivity.newIntent(requireContext()))
-        }
-    }
 }

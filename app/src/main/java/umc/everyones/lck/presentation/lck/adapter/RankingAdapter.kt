@@ -1,11 +1,14 @@
 package umc.everyones.lck.presentation.lck.adapter
 
+import android.graphics.Color
+import android.graphics.drawable.VectorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.bumptech.glide.Glide
 import umc.everyones.lck.R
 import umc.everyones.lck.presentation.lck.util.OnTeamClickListener
@@ -36,18 +39,46 @@ class RankingAdapter(
         notifyDataSetChanged()
     }
 
+    private fun getTeamColor(teamId: Int): Int {
+        return when (teamId) {
+            2 -> Color.parseColor("#AA8B30")     // Gen.G
+            3 -> Color.parseColor("#F3741B")     // hanwha
+            4 -> Color.parseColor("#FFFFFF")     // dk
+            5 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
+            6 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
+            7 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
+            8 -> Color.parseColor("#F8E52F")     // bnk
+            9 -> Color.parseColor("#0017E7")     // drx
+            10 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
+            11 -> Color.parseColor("#003202")     // ok
+            else -> Color.parseColor("#E91B3B")
+        }
+    }
+
+    private fun applyTeamColorToVectorBackground(imageView: ImageView, color: Int) {
+        val drawable = imageView.drawable
+
+        if (drawable is VectorDrawable) {
+            drawable.mutate().setTint(color)
+            imageView.setImageDrawable(drawable)
+        } else {
+            val compatDrawable = imageView.drawable as? VectorDrawableCompat
+            compatDrawable?.mutate()?.setTint(color)
+            imageView.setImageDrawable(compatDrawable)
+        }
+    }
+
     inner class RankingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imageViewTeamLogo: ImageView = itemView.findViewById(R.id.iv_about_lck_ranking)
         private val textViewTeamName: TextView = itemView.findViewById(R.id.tv_about_lck_team_name)
+        private val teamColorIv:ImageView = itemView.findViewById(R.id.iv_about_lck_ranking)
         private val rankingTv: TextView = itemView.findViewById(R.id.tv_about_lck_ranking)
 
         fun bind(team: RankingData, listener: OnTeamClickListener) {
-            Glide.with(itemView.context)
-                .load(team.teamLogoUrl)
-                .into(imageViewTeamLogo)
 
             textViewTeamName.text = team.teamName
             rankingTv.text = team.ranking.toString()
+
+            applyTeamColorToVectorBackground(teamColorIv, getTeamColor(team.teamId))
 
             itemView.setOnClickListener {
                 listener.onTeamClick(team)

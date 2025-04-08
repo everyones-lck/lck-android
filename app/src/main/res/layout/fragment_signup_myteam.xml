@@ -88,6 +88,7 @@
                     android:layout_marginVertical="9dp">
 
                     <View
+                        android:id="@+id/iv_signup_myteam_hanhwa"
                         android:layout_width="8dp"
                         android:layout_height="8dp"
                         android:background="@drawable/shape_oval_red"
@@ -116,6 +117,7 @@
                     android:layout_marginHorizontal="8dp">
 
                     <View
+                        android:id="@+id/iv_signup_myteam_gen_g"
                         android:layout_width="8dp"
                         android:layout_height="8dp"
                         android:background="@drawable/shape_oval_red"
@@ -143,6 +145,7 @@
                     android:paddingHorizontal="10dp">
 
                     <View
+                        android:id="@+id/iv_signup_myteam_t1"
                         android:layout_width="8dp"
                         android:layout_height="8dp"
                         android:background="@drawable/shape_oval_red"
@@ -174,6 +177,7 @@
                     android:layout_marginVertical="9dp">
 
                     <View
+                        android:id="@+id/iv_signup_myteam_kwangdong_freecs"
                         android:layout_width="8dp"
                         android:layout_height="8dp"
                         android:background="@drawable/shape_oval_red"
@@ -202,6 +206,7 @@
                     android:layout_marginHorizontal="8dp">
 
                     <View
+                        android:id="@+id/iv_signup_myteam_bnk"
                         android:layout_width="8dp"
                         android:layout_height="8dp"
                         android:background="@drawable/shape_oval_red"
@@ -229,6 +234,7 @@
                     android:paddingHorizontal="10dp">
 
                     <View
+                        android:id="@+id/iv_signup_myteam_nongshim_red_force"
                         android:layout_width="8dp"
                         android:layout_height="8dp"
                         android:background="@drawable/shape_oval_red"
@@ -259,6 +265,7 @@
                     android:layout_marginVertical="9dp">
 
                     <View
+                        android:id="@+id/iv_signup_myteam_drx"
                         android:layout_width="8dp"
                         android:layout_height="8dp"
                         android:background="@drawable/shape_oval_red"
@@ -287,6 +294,7 @@
                     android:layout_marginHorizontal="8dp">
 
                     <View
+                        android:id="@+id/iv_signup_myteam_ok_saving_bank_brion"
                         android:layout_width="8dp"
                         android:layout_height="8dp"
                         android:background="@drawable/shape_oval_red"
@@ -314,6 +322,7 @@
                     android:paddingHorizontal="10dp">
 
                     <View
+                        android:id="@+id/iv_signup_myteam_dplus_kia"
                         android:layout_width="8dp"
                         android:layout_height="8dp"
                         android:background="@drawable/shape_oval_red"
@@ -345,6 +354,7 @@
                     android:layout_marginVertical="9dp">
 
                     <View
+                        android:id="@+id/iv_signup_myteam_kt_rolster"
                         android:layout_width="8dp"
                         android:layout_height="8dp"
                         android:background="@drawable/shape_oval_red"

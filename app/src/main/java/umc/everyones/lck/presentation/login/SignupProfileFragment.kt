@@ -60,6 +60,10 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
     }
 
     override fun initView() {
+        binding.ivSignupProfileBack.setOnSingleClickListener {
+            navigator.navigateUp()
+        }
+
         // UI 초기화 및 클릭 리스너 설정
         binding.ivSignupProfilePicture.setImageResource(android.R.color.transparent)
 
@@ -69,7 +73,7 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
         }
 
         // 다음 버튼 클릭 리스너
-        binding.ivSignupProfileNext.setOnSingleClickListener {
+        binding.tvSignupProfileNext.setOnSingleClickListener {
             if (profileImageUri != null) {
                 navigateToSignupMyTeam() // 다음 화면으로 이동
             } else {

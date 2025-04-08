@@ -31,7 +31,7 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
 
         setupTeamSelection()
 
-        binding.ivSignupMyteamNext.setOnSingleClickListener {
+        binding.tvSignupMyteamNext.setOnSingleClickListener {
             if (selectedTeamId == null) {
                 showTeamConfirmDialog()
             } else {
@@ -86,10 +86,6 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
         val layoutParams = dialog.window?.attributes
         layoutParams?.dimAmount = 0.8f
         dialog.window?.attributes = layoutParams
-
-        dialogBinding.btnChange.setOnSingleClickListener {
-            dialog.dismiss()
-        }
 
         dialogBinding.btnConfirm.setOnSingleClickListener {
             dialog.dismiss()

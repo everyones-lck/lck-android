@@ -33,12 +33,7 @@ class PlayerAdapter(
             }
             binding.ivAboutLckTeamPlayerPosition.setImageResource(positionIcon)
 
-            // 캡틴 여부에 따른 텍스트 및 백그라운드 처리
-            if (player.isCaptain == true) {
-                binding.tvAboutLckTeamIsCaptain.text = "Leader"
-            } else {
-                binding.tvAboutLckTeamIsCaptain.text = "Member"
-            }
+            binding.tvAboutLckTeamIsCaptain.text = player.displayRole
             // 클릭 이벤트 처리
             binding.root.setOnClickListener {
                 listener?.onPlayerItemClick(player)

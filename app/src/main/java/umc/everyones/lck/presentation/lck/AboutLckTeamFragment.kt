@@ -183,6 +183,7 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
     override fun onPlayerItemClick(player: PlayerData) {
         val action = AboutLckTeamFragmentDirections.actionAboutLCKTeamFragmentToAboutLckTeamPlayerFragment(
             player.playerId,
+            teamName = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it).teamName } ?: "",
             teamLogoUrl ?: " "
         )
         navigator.navigate(action)

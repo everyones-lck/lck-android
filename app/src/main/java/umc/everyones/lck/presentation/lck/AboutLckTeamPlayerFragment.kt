@@ -1,5 +1,7 @@
 package umc.everyones.lck.presentation.lck
 
+import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +13,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentAboutLckTeamPlayerBinding
 import umc.everyones.lck.domain.model.about_lck.AboutLckPlayerModel
 import umc.everyones.lck.presentation.base.BaseFragment
+import umc.everyones.lck.presentation.lck.adapter.HistoryAdapter
 import umc.everyones.lck.presentation.lck.adapter.PlayerCareerAdapter
 import umc.everyones.lck.presentation.lck.data.PlayerCareerData
 import umc.everyones.lck.presentation.mypage.MyPageActivity
@@ -21,6 +24,10 @@ import umc.everyones.lck.util.extension.setOnSingleClickListener
 class AboutLckTeamPlayerFragment : BaseFragment<FragmentAboutLckTeamPlayerBinding>(R.layout.fragment_about_lck_team_player) {
     private val viewModel: AboutLckPlayerCareerViewModel by viewModels()
     private lateinit var adapter: PlayerCareerAdapter
+
+    private var isWinningCareerOpen = false
+    private var isHistoryOpen = false
+
     override fun initObserver() {
         viewLifecycleOwner.repeatOnStarted {
             viewModel.winningCareer.collect { seasonNames ->
@@ -44,9 +51,10 @@ class AboutLckTeamPlayerFragment : BaseFragment<FragmentAboutLckTeamPlayerBindin
     }
 
     override fun initView() {
-        initRecyclerView()
+        setupTeamInfo()
         initBackButton()
-        goMyPage()
+        setupInitialArrowIcons()
+        setupSectionClickListeners()
         val playerId = arguments?.let { AboutLckTeamPlayerFragmentArgs.fromBundle(it).playerId }
 
         val page = 0
@@ -60,52 +68,75 @@ class AboutLckTeamPlayerFragment : BaseFragment<FragmentAboutLckTeamPlayerBindin
             Timber.e("Error: teamId is null")
         }
     }
-    private fun initRecyclerView() {
-        val recyclerView: RecyclerView = binding.rvAboutLckTeamPlayer
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.isNestedScrollingEnabled = false
 
-        val items = mutableListOf(
-            PlayerCareerData("Winning Career", emptyList()),
-            PlayerCareerData("History", emptyList())
-        )
-
-        adapter = PlayerCareerAdapter(items)
-        recyclerView.adapter = adapter
+    private fun setupTeamInfo() {
+        val args = arguments?.let { AboutLckTeamPlayerFragmentArgs.fromBundle(it) }
+        binding.tvAboutLckTeamPlayerTitle.text = args?.teamName
     }
 
-    private fun updateWinningCareer(seasonNames: List<String>) {
-        val items = adapter.getItems().toMutableList()
+    private fun setupInitialArrowIcons() {
+        binding.ivAboutLckTeamPlayerWinningCareerDown.setImageResource(R.drawable.ic_aboutlck_arrow_down)
+        binding.ivAboutLckTeamPlayerHistoryDown.setImageResource(R.drawable.ic_aboutlck_arrow_down)
+    }
 
-        val winningCareerIndex = items.indexOfFirst { it.title == "Winning Career" }
-        if ( winningCareerIndex!= -1) {
-            items[ winningCareerIndex] = items [winningCareerIndex].copy(details = seasonNames)
-            adapter.updateItems(items)
+    private fun setupSectionClickListeners() {
+        binding.ivAboutLckTeamPlayerWinningCareerDown.setOnClickListener {
+            toggleSection(
+                binding.rvAboutLckTeamPlayerWinningCareer,
+                binding.ivAboutLckTeamPlayerWinningCareerDown,
+                isWinningCareerOpen,
+                {isWinningCareerOpen = it },
+                viewModel.winningCareer.value,
+                "Winning History"
+            )
+        }
+
+        binding.ivAboutLckTeamPlayerHistoryDown.setOnClickListener {
+            toggleSection(
+                binding.rvAboutLckTeamPlayerHistory,
+                binding.ivAboutLckTeamPlayerHistoryDown,
+                isHistoryOpen ,
+                {isHistoryOpen = it },
+                viewModel.history.value,
+                "Recent Performance"
+            )
         }
     }
 
-    private fun updateHistory(seasonTeamDetails: List<String>) {
-        val items = adapter.getItems().toMutableList()
+    private fun toggleSection(
+        recyclerView: RecyclerView,
+        arrowImageView: ImageView,
+        isOpenFlag: Boolean,
+        onFlagToggle: (Boolean) -> Unit,
+        detailList: List<String>,
+        title: String
+    ) {
+        if (isOpenFlag) {
+            recyclerView.visibility = View.GONE
+            arrowImageView.setImageResource(R.drawable.ic_aboutlck_arrow_down)
+            onFlagToggle(false)
+        } else {
+            recyclerView.visibility = View.VISIBLE
+            arrowImageView.setImageResource(R.drawable.ic_aboutlck_arrow_up)
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = HistoryAdapter(detailList, title)
+            onFlagToggle(true)
+        }
+    }
 
-        val historyIndex = items.indexOfFirst { it.title == "History" }
-        if ( historyIndex != -1) {
-            items[historyIndex] = items [historyIndex].copy(details = seasonTeamDetails)
-            adapter.updateItems(items)
+    private fun updateWinningCareer(seasonNameList: List<String>) {
+        binding.rvAboutLckTeamPlayerWinningCareer.adapter = PlayerCareerAdapter().apply {
+            setData("Winning Career", seasonNameList)
+        }
+    }
+
+    private fun updateHistory(seasonNameList: List<String>) {
+        binding.rvAboutLckTeamPlayerHistory.adapter = PlayerCareerAdapter().apply {
+            setData("History", seasonNameList)
         }
     }
 
     private fun updatePlayerUI(player: AboutLckPlayerModel) {
-
-        val teamLogoUrl = arguments?.let { AboutLckTeamPlayerFragmentArgs.fromBundle(it).teamLogoUrl }
-        teamLogoUrl?.let {
-            Glide.with(this)
-                .load(it)
-                .into(binding.ivAboutLckTeamPlayerLogo)
-        }
-
-        Glide.with(this)
-            .load(player.playerProfileImageUrl)
-            .into(binding.ivAboutLckTeamPlayerImg)
 
         binding.tvAboutLckTeamPlayerNickName.text = player.nickName
         binding.tvAboutLckTeamPlayerBirth.text = player.birthDate.substring(0, 10).replace("-", ".")
@@ -133,12 +164,6 @@ class AboutLckTeamPlayerFragment : BaseFragment<FragmentAboutLckTeamPlayerBindin
         val backButton = binding.ivAboutLckTeamPlayerPre
         backButton.setOnSingleClickListener {
             findNavController().popBackStack()
-        }
-    }
-
-    private fun goMyPage(){
-        binding.ivMyPage.setOnSingleClickListener {
-            startActivity(MyPageActivity.newIntent(requireContext()))
         }
     }
 }

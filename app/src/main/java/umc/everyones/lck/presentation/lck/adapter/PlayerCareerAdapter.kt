@@ -8,16 +8,23 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.R
+import umc.everyones.lck.presentation.lck.adapter.HistoryAdapter.HistoryViewHolder
 import umc.everyones.lck.presentation.lck.data.HistoryData
 import umc.everyones.lck.presentation.lck.data.PlayerCareerData
 
-class PlayerCareerAdapter(private val items: MutableList<PlayerCareerData>) :
-    RecyclerView.Adapter<PlayerCareerAdapter.PlayerCareerViewHolder>() {
+class PlayerCareerAdapter() : RecyclerView.Adapter<PlayerCareerAdapter.PlayerCareerViewHolder>() {
 
-    inner class PlayerCareerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val titleTextView: TextView = view.findViewById(R.id.tv_about_lck_winning_career)
-        val expandIcon: ImageView = view.findViewById(R.id.iv_about_lck_team_player_down1)
-        val detailsRecyclerView: RecyclerView = view.findViewById(R.id.rv_about_lck_player_detail)
+    private var title: String = ""
+    private var items: List<String> = emptyList()
+
+    constructor(items: List<String>, title: String) : this() {
+        setData(title, items)
+    }
+
+    fun setData(title: String, items: List<String>) {
+        this.title = title
+        this.items = items
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerCareerViewHolder {
@@ -27,33 +34,19 @@ class PlayerCareerAdapter(private val items: MutableList<PlayerCareerData>) :
     }
 
     override fun onBindViewHolder(holder: PlayerCareerViewHolder, position: Int) {
-        val item = items[position]
+        val detail = items[position]
+        val parts = detail.split(" ", limit = 2)
+        val year = parts.getOrNull(0) ?: ""
+        val content = parts.getOrNull(1) ?: ""
 
-        holder.titleTextView.text = item.title
-        holder.detailsRecyclerView.visibility = if (item.isExpanded) View.VISIBLE else View.GONE
-        holder.expandIcon.setImageResource(if (item.isExpanded) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down)
-
-        // 세부 항목 어댑터 설정
-        holder.detailsRecyclerView.layoutManager = LinearLayoutManager(holder.detailsRecyclerView.context)
-        holder.detailsRecyclerView.adapter = PlayerCareerDetailAdapter(item.details)
-        holder.detailsRecyclerView.setHasFixedSize(true)
-        holder.detailsRecyclerView.isNestedScrollingEnabled = true
-
-        holder.itemView.setOnClickListener {
-            item.isExpanded = !item.isExpanded
-            notifyItemChanged(position)
-        }
+        holder.yearTextView.text = year
+        holder.contentTextView.text = content
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = items.size
 
-    fun getItems(): List<PlayerCareerData> = items
-
-    fun updateItems(newItems: List<PlayerCareerData>) {
-        items.clear()
-        items.addAll(newItems)
-        notifyDataSetChanged()
+    inner class PlayerCareerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val yearTextView: TextView = view.findViewById(R.id.tv_about_lck_team_player_year)
+        val contentTextView: TextView = view.findViewById(R.id.tv_about_lck_team_player_detail)
     }
 }

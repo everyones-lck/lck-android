@@ -9,18 +9,18 @@
 
         <!-- 중앙에 위치할 사각형 레이아웃 -->
         <RelativeLayout
-            android:layout_width="350dp"
-            android:layout_height="200dp"
+            android:layout_width="280dp"
+            android:layout_height="165dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/shape_rect_12_white_fill">
+            android:background="@drawable/shape_rect_4_popover">
 
             <TextView
                 android:id="@+id/tv_dialog_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회원가입"
-                style="@style/TextAppearance.LCK.Bold.List_14sp"
-                android:textColor="@color/gray"
+                style="@style/TextAppearance.LCK.Medium.12sp"
+                android:textColor="@color/new_bg"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="37dp"/>
 
@@ -29,38 +29,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="프로필 사진이 기본 이미지로 설정됩니다"
-                style="@style/TextAppearance.LCK.Light.Body_14sp"
+                style="@style/TextAppearance.LCK.Light.12sp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/tv_dialog_title"
-                android:textColor="@color/gray"
-                android:layout_marginTop="35dp"/>
+                android:textColor="@color/grayscale_600"
+                android:layout_marginTop="23dp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginVertical="20dp"
                 android:layout_alignParentBottom="true">
 
                 <android.widget.Button
                     android:id="@+id/btn_change"
-                    android:layout_width="175dp"
-                    android:layout_height="50dp"
+                    android:layout_width="110dp"
+                    android:layout_height="44dp"
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape_dialog_button_change_background"
                     android:text="변경"
-                    style="@style/TextAppearance.LCK.Light.Body_14sp"
-                    android:textColor="@color/gray"/>
+                    style="@style/TextAppearance.LCK.Medium.12sp"
+                    android:textColor="#ECECEC"/>
 
                 <android.widget.Button
                     android:id="@+id/btn_confirm"
-                    android:layout_width="175dp"
-                    android:layout_height="50dp"
+                    android:layout_width="110dp"
+                    android:layout_height="44dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="8dp"
                     android:background="@drawable/shape_dialog_button_confirm_background"
                     android:text="확인"
-                    style="@style/TextAppearance.LCK.Light.Body_14sp"
-                    android:textColor="@color/gray"/>
+                    style="@style/TextAppearance.LCK.Medium.12sp"
+                    android:textColor="#ECECEC"/>
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>

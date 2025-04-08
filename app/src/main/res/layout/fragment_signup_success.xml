@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_gradient_color">
+        android:background="@color/new_bg">
 
 
         <!--선택 팀에 따라 뒤에 이미지 변경-->
@@ -21,6 +21,16 @@
             android:scaleType="centerCrop"
             tools:src="@drawable/img_signup_success_hanhwa_logo"/>
 
+        <ImageView
+            android:id="@+id/iv_signup_success_back"
+            android:layout_width="9dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_back_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/layout_signup_success_topbar"
+            app:layout_constraintBottom_toBottomOf="@id/layout_signup_success_topbar"
+            android:layout_marginStart="30dp"
+            android:onClick="onNextButtonClick"/>
         <LinearLayout
             android:id="@+id/layout_signup_success_topbar"
             android:layout_width="match_parent"
@@ -38,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회원가입"
-                style="@style/TextAppearance.LCK.Bold.Title1_22sp"
+                style="@style/TextAppearance.LCK.Medium.16sp"
                 android:textColor="@color/white"
                 android:gravity="center_horizontal"/>
 
@@ -47,23 +57,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회원가입 완료"
-                style="@style/TextAppearance.LCK.Light.Body_14sp"
+                style="@style/TextAppearance.LCK.Light.12sp"
                 android:textColor="@color/white"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="8dp"/>
 
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/iv_signup_success_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_next_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/layout_signup_success_topbar"
-            app:layout_constraintBottom_toBottomOf="@id/layout_signup_success_topbar"
-            android:layout_marginEnd="30dp"
-            android:onClick="onNextButtonClick"/>
 
         <!--사용자 프로필이 들어가도록 적용. 없으면 기본 프로필 적용-->
         <ImageView

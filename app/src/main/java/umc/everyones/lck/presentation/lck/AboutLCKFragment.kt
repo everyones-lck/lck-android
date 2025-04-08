@@ -209,13 +209,13 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
             2 -> Color.parseColor("#AA8B30")     // Gen.G
             3 -> Color.parseColor("#F3741B")     // hanwha
             4 -> Color.parseColor("#FFFFFF")     // dk
-            5 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
-            6 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
-            7 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
+            5 -> Color.parseColor("#E91B3B")     // t1
+            6 -> Color.parseColor("#E91B3B")     // kt
+            7 -> Color.parseColor("#E91B3B")     // dnf
             8 -> Color.parseColor("#F8E52F")     // bnk
-            9 -> Color.parseColor("#0017E7")     // drx
-            10 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
-            11 -> Color.parseColor("#003202")     // ok
+            9 -> Color.parseColor("#E91B3B")     // ns
+            10 -> Color.parseColor("#0017E7")     // drx
+            11 -> Color.parseColor("#003202")     // bro
             else -> Color.parseColor("#E91B3B")
         }
     }

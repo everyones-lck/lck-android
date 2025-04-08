@@ -48,8 +48,8 @@ class RankingAdapter(
             6 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
             7 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
             8 -> Color.parseColor("#F8E52F")     // bnk
-            9 -> Color.parseColor("#0017E7")     // drx
-            10 -> Color.parseColor("#E91B3B")     // t1_kt_kdf_ns
+            9 -> Color.parseColor("#E91B3B")     // ns
+            10 -> Color.parseColor("#0017E7")     // drx
             11 -> Color.parseColor("#003202")     // ok
             else -> Color.parseColor("#E91B3B")
         }

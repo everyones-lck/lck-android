@@ -140,7 +140,7 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <TableLayout
-                android:id="@+id/layout_signup_myteam_select"
+                android:id="@+id/layout_mypage_myteam_select"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_mypage_myteam_warning"
@@ -151,7 +151,7 @@
                 <TableRow>
 
                     <LinearLayout
-                        android:id="@+id/layout_signup_myteam_hanwha"
+                        android:id="@+id/layout_mypage_myteam_hanwha"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -179,7 +179,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/layout_signup_myteam_gen_g"
+                        android:id="@+id/layout_mypage_myteam_gen_g"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -207,7 +207,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/layout_signup_myteam_t1"
+                        android:id="@+id/layout_mypage_myteam_t1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -237,7 +237,7 @@
                 <TableRow>
 
                     <LinearLayout
-                        android:id="@+id/layout_signup_myteam_dn"
+                        android:id="@+id/layout_mypage_myteam_dn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -265,7 +265,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/layout_signup_myteam_bnk"
+                        android:id="@+id/layout_mypage_myteam_bnk"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -293,7 +293,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/layout_signup_myteam_red"
+                        android:id="@+id/layout_mypage_myteam_red"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -322,7 +322,7 @@
                 <TableRow>
 
                     <LinearLayout
-                        android:id="@+id/layout_signup_myteam_drx"
+                        android:id="@+id/layout_mypage_myteam_drx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -350,7 +350,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/layout_signup_myteam_brion"
+                        android:id="@+id/layout_mypage_myteam_brion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -378,7 +378,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/layout_signup_myteam_dk"
+                        android:id="@+id/layout_mypage_myteam_dk"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -408,7 +408,7 @@
                 <TableRow>
 
                     <LinearLayout
-                        android:id="@+id/layout_signup_myteam_kt"
+                        android:id="@+id/layout_mypage_myteam_kt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

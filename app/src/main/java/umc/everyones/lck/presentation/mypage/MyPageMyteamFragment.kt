@@ -32,8 +32,8 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
             val teamName = TeamData.teamNames[teamId] // 팀 ID로 팀 이름 가져오기
 
             // 팀 로고와 이름 업데이트
-            binding.ivMypageMyteamTeamLogo.setImageResource(teamLogoResId)
-            binding.tvMypageMyteamTeamName.text = teamName
+            binding.tvMypageMyteamTeam.setBackgroundResource(teamLogoResId)
+            binding.tvMypageMyteamMyTier.text = teamName
 
             // 선택된 팀 ID 초기화 및 UI 업데이트
             selectedTeamId = teamId // 현재 팀 ID로 선택된 팀 ID 설정
@@ -45,10 +45,10 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
     override fun initView() {
         setupTeamSelection { teamName, teamId ->
             // 팀 로고 업데이트
-            val teamLogoResId = TeamData.myteamLogos[teamId] // TeamData에서 로고 리소스 가져오기
+/*            val teamLogoResId = TeamData.myteamLogos[teamId] // TeamData에서 로고 리소스 가져오기
             if (teamLogoResId != null) {
                 binding.ivMypageMyteamTeamLogo.setImageResource(teamLogoResId) // 로고 설정
-            }
+            }*/
         }
 
         binding.tvMypageMyteamTopbarEdit.setOnSingleClickListener {
@@ -69,14 +69,15 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
                         val teamName = TeamData.teamNames[teamId] // 팀 ID로 팀 이름 가져오기
 
                         if (teamLogoResId != null) {
-                            binding.ivMypageMyteamTeamLogo.setImageResource(teamLogoResId)
+                            binding.tvMypageMyteamTeam.setBackgroundResource(teamLogoResId)
+                            binding.tvMypageMyteamTeam.text = teamName
                         } else {
                             // 기본 로고 설정 (예: 선택된 팀이 없을 경우)
-                            binding.ivMypageMyteamTeamLogo.setImageResource(R.drawable.ic_mypage_myteam_empty)
+                            binding.tvMypageMyteamTeam.setBackgroundResource(R.drawable.ic_mypage_myteam_empty)
                         }
 
                         // 팀 이름 업데이트
-                        binding.tvMypageMyteamTeamName.text = teamName ?: "선택된 My Team이 없습니다"
+                        binding.tvMypageMyteamTeam.text = teamName ?: "선택된 My Team이 없습니다"
                     }
 
                     // 프로필 조회 (팀 업데이트 후)
@@ -88,15 +89,6 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
                     Timber.e("Error navigating", e)
                 }
             }
-        }
-
-
-        // ScrollView 및 버튼 초기화
-        binding.layoutMypageMyteamList.visibility = View.GONE
-        binding.btnMypageMyteamArrow.setImageResource(R.drawable.ic_arrow_down)
-
-        binding.btnMypageMyteamArrow.setOnSingleClickListener {
-            toggleScrollView()
         }
 
         binding.ivMypageMyteamBack.setOnSingleClickListener {
@@ -144,18 +136,6 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
                 R.drawable.shape_team_background
             }
             imageView.background = ContextCompat.getDrawable(requireContext(), drawableRes)
-        }
-    }
-
-    // 화살표 클릭시 팀 열림
-    private fun toggleScrollView() {
-        // ScrollView의 상태를 전환하는 메서드
-        if (binding.layoutMypageMyteamList.visibility == View.GONE) {
-            binding.layoutMypageMyteamList.visibility = View.VISIBLE
-            binding.btnMypageMyteamArrow.setImageResource(R.drawable.ic_arrow_up)
-        } else {
-            binding.layoutMypageMyteamList.visibility = View.GONE
-            binding.btnMypageMyteamArrow.setImageResource(R.drawable.ic_arrow_down)
         }
     }
 }

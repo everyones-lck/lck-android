@@ -28,12 +28,11 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         myPageViewModel.profileData.observe(viewLifecycleOwner) { profile ->
             profile?.let {
                 binding.tvMypageProfileNickname.text = it.nickname // 닉네임 설정
-                binding.tvMypageProfileTier.text = it.tier // 티어 설정
+                binding.tvMypageProfileMyTier.text = it.tier // 티어 설정
 
-                // 팀 로고 설정
-                val teamBackgroundResId =
-                    teamLogos[it.teamId] ?: R.drawable.img_mypage_empty_background
-                binding.ivMypageMainTeamBackground.setImageResource(teamBackgroundResId)
+                // 팀 로고 설정 -> 수정 필요
+                val teamBackgroundResId = teamLogos[it.teamId] ?: R.drawable.img_mypage_empty_background
+                binding.tvMypageProfileTeam.setBackgroundResource(teamBackgroundResId)
 
                 loadProfileImage(it.profileImageUrl) // 프로필 이미지 로드
 
@@ -80,10 +79,10 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         // 사용자 티어에 해당하는 요소만 업데이트
         binding.viewMypageProfileCircleBronze.setBackgroundResource(tierBackgrounds[tier]!!)
         binding.tvMypageProfileBronzeText.setTextAppearance(requireContext(), tierStyles[tier]!!)
-        binding.tvMypageProfileTier.setTextAppearance(requireContext(), tierStyles[tier]!!)
+        binding.tvMypageProfileMyTier.setTextAppearance(requireContext(), tierStyles[tier]!!)
 
         // 티어 텍스트 업데이트
-        binding.tvMypageProfileTier.text = tier
+        binding.tvMypageProfileMyTier.text = tier
     }
 
     private fun showProfileDialog() {
@@ -124,9 +123,9 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
             Glide. with(this)
                 .load(it)
                 .placeholder(R.drawable.img_signup_profile) // 기본 이미지
-                .into(binding.ivMypageMainProfile) // 프로필 이미지 뷰에 로드
+                .into(binding.ivMypageProfileProfile) // 프로필 이미지 뷰에 로드
         } ?: run {
-            binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지 설정
+            binding.ivMypageProfileProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지 설정
         }
     }
 }

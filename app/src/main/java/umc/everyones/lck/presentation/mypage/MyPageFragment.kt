@@ -24,11 +24,11 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
         viewModel.profileData.observe(viewLifecycleOwner) { profile ->
             profile?.let {
                 binding.tvMypageMainNickname.text = it.nickname // 닉네임 설정
-                binding.tvMypageMainTier.text = it.tier // 티어 설정
+                binding.tvMypageMainMyTier.text = it.tier // 티어 설정
 
-                // 팀 로고 설정
+                // 팀 로고 설정 -> 수정 필요
                 val teamBackgroundResId = teamLogos[it.teamId] ?: R.drawable.img_mypage_empty_background
-                binding.ivMypageMainTeamBackground.setImageResource(teamBackgroundResId)
+                binding.tvMypageMainTeam.setBackgroundResource(teamBackgroundResId)
 
                 loadProfileImage(it.profileImageUrl) // 프로필 이미지 로드
 
@@ -82,15 +82,14 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
     private fun updateTierUI(tier: String) {
 
         val tierStyles = mapOf(
-            "bronze" to R.style.TextAppearance_Bronze,
+            "Bronze" to R.style.TextAppearance_Bronze,
             "Silver" to R.style.TextAppearance_Silver,
             "Gold" to R.style.TextAppearance_Gold,
             "Master" to R.style.TextAppearance_Master,
             "Challenger" to R.style.TextAppearance_Challenger
         )
 
-        binding.tvMypageMainTier.setTextAppearance(requireContext(), tierStyles[tier]!!)
-
-        binding.tvMypageMainTier.text = tier
+        binding.tvMypageMainMyTier.setTextAppearance(requireContext(), tierStyles[tier]!!)
+        binding.tvMypageMainMyTier.text = tier
     }
 }

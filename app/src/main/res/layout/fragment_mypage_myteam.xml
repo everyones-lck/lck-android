@@ -70,13 +70,13 @@
                 android:paddingVertical="24dp">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/iv_mypage_main_rect"
+                    android:id="@+id/iv_mypage_myteam_rect"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="0dp">
                     <ImageView
-                        android:id="@+id/iv_mypage_main_profile"
+                        android:id="@+id/iv_mypage_myteam_profile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/img_signup_profile"
@@ -89,7 +89,7 @@
                     android:layout_marginTop="16dp">
 
                     <TextView
-                        android:id="@+id/tv_mypage_main_nickname"
+                        android:id="@+id/tv_mypage_myteam_nickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="닉네임"
@@ -97,7 +97,7 @@
                         android:textColor="@color/text_white"/>
 
                     <TextView
-                        android:id="@+id/tv_mypage_main_team"
+                        android:id="@+id/tv_mypage_myteam_team"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Kt"
@@ -110,7 +110,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_mypage_main_my_tier"
+                    android:id="@+id/tv_mypage_myteam_my_tier"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tier"
@@ -162,6 +162,7 @@
                         android:layout_marginVertical="9dp">
 
                         <View
+                            android:id="@+id/iv_mypage_myteam_hanhwa"
                             android:layout_width="8dp"
                             android:layout_height="8dp"
                             android:background="@drawable/shape_oval_red"
@@ -190,6 +191,7 @@
                         android:layout_marginHorizontal="8dp">
 
                         <View
+                            android:id="@+id/iv_mypage_myteam_gen_g"
                             android:layout_width="8dp"
                             android:layout_height="8dp"
                             android:background="@drawable/shape_oval_red"
@@ -217,6 +219,7 @@
                         android:paddingHorizontal="10dp">
 
                         <View
+                            android:id="@+id/iv_mypage_myteam_t1"
                             android:layout_width="8dp"
                             android:layout_height="8dp"
                             android:background="@drawable/shape_oval_red"
@@ -248,6 +251,7 @@
                         android:layout_marginVertical="9dp">
 
                         <View
+                            android:id="@+id/iv_mypage_myteam_kwangdong_freecs"
                             android:layout_width="8dp"
                             android:layout_height="8dp"
                             android:background="@drawable/shape_oval_red"
@@ -276,6 +280,7 @@
                         android:layout_marginHorizontal="8dp">
 
                         <View
+                            android:id="@+id/iv_mypage_myteam_bnk"
                             android:layout_width="8dp"
                             android:layout_height="8dp"
                             android:background="@drawable/shape_oval_red"
@@ -303,6 +308,7 @@
                         android:paddingHorizontal="10dp">
 
                         <View
+                            android:id="@+id/iv_mypage_myteam_nongshim_red_force"
                             android:layout_width="8dp"
                             android:layout_height="8dp"
                             android:background="@drawable/shape_oval_red"
@@ -333,6 +339,7 @@
                         android:layout_marginVertical="9dp">
 
                         <View
+                            android:id="@+id/iv_mypage_myteam_drx"
                             android:layout_width="8dp"
                             android:layout_height="8dp"
                             android:background="@drawable/shape_oval_red"
@@ -361,6 +368,7 @@
                         android:layout_marginHorizontal="8dp">
 
                         <View
+                            android:id="@+id/iv_mypage_myteam_ok_saving_bank_brion"
                             android:layout_width="8dp"
                             android:layout_height="8dp"
                             android:background="@drawable/shape_oval_red"
@@ -388,6 +396,7 @@
                         android:paddingHorizontal="10dp">
 
                         <View
+                            android:id="@+id/iv_mypage_myteam_dplus_kia"
                             android:layout_width="8dp"
                             android:layout_height="8dp"
                             android:background="@drawable/shape_oval_red"
@@ -419,6 +428,7 @@
                         android:layout_marginVertical="9dp">
 
                         <View
+                            android:id="@+id/iv_mypage_myteam_kt_rolster"
                             android:layout_width="8dp"
                             android:layout_height="8dp"
                             android:background="@drawable/shape_oval_red"

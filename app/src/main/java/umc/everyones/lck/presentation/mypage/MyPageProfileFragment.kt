@@ -29,10 +29,9 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
             profile?.let {
                 binding.tvMypageProfileNickname.text = it.nickname // 닉네임 설정
                 binding.tvMypageProfileMyTier.text = it.tier // 티어 설정
-
-                // 팀 로고 설정 -> 수정 필요
+/*                // 팀 로고 설정 -> 수정 필요
                 val teamBackgroundResId = teamLogos[it.teamId] ?: R.drawable.img_mypage_empty_background
-                binding.tvMypageProfileTeam.setBackgroundResource(teamBackgroundResId)
+                binding.tvMypageProfileTeam.setBackgroundResource(teamBackgroundResId)*/
 
                 loadProfileImage(it.profileImageUrl) // 프로필 이미지 로드
 
@@ -61,7 +60,7 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
 
     private fun updateTierUI(tier: String) {
         val tierBackgrounds = mapOf(
-            "bronze" to R.drawable.shape_oval_bronze,
+            "Bronze" to R.drawable.shape_oval_bronze,
             "Silver" to R.drawable.shape_oval_silver,
             "Gold" to R.drawable.shape_oval_gold,
             "Master" to R.drawable.shape_oval_master,
@@ -69,7 +68,7 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         )
 
         val tierStyles = mapOf(
-            "bronze" to R.style.TextAppearance_Bronze,
+            "Bronze" to R.style.TextAppearance_Bronze,
             "Silver" to R.style.TextAppearance_Silver,
             "Gold" to R.style.TextAppearance_Gold,
             "Master" to R.style.TextAppearance_Master,

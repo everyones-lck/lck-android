@@ -2,6 +2,7 @@ package umc.everyones.lck.presentation.mypage
 
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -26,9 +27,9 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
                 binding.tvMypageMainNickname.text = it.nickname // 닉네임 설정
                 binding.tvMypageMainMyTier.text = it.tier // 티어 설정
 
-                // 팀 로고 설정 -> 수정 필요
+/*                // 팀 로고 설정 -> 수정 필요
                 val teamBackgroundResId = teamLogos[it.teamId] ?: R.drawable.img_mypage_empty_background
-                binding.tvMypageMainTeam.setBackgroundResource(teamBackgroundResId)
+                binding.tvMypageMainTeam.setBackgroundResource(teamBackgroundResId)*/
 
                 loadProfileImage(it.profileImageUrl) // 프로필 이미지 로드
 
@@ -50,7 +51,8 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
         }
 
         binding.tvMypageMainMyteamText.setOnSingleClickListener {
-            navigator.navigate(R.id.action_myPageFragment_to_myPageMyteamFragment)
+            //navigator.navigate(R.id.action_myPageFragment_to_myPageMyteamFragment)
+            Toast.makeText(requireContext(), "미구현 기능입니다.", Toast.LENGTH_SHORT).show()
         }
 
         binding.tvMypageMainCommunityText.setOnSingleClickListener {

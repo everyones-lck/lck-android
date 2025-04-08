@@ -123,6 +123,7 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
 
     private fun navigateToSignupMyTeam() {
         navigator.navigate(R.id.action_signupProfileFragment_to_signupMyteamFragment)
+        navigator.navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment)
     }
 
 }

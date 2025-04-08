@@ -28,11 +28,11 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
             Timber.d("Observed teamId: $teamId") // teamId 로그 추가
 
             // 기존 팀 로고와 이름을 반영 (처음 로딩 시)
-            val teamLogoResId = TeamData.mypageMyteam[teamId] ?: R.drawable.ic_mypage_myteam_empty // 기본 로고 설정
+            // val teamLogoResId = TeamData.mypageMyteam[teamId] ?: R.drawable.ic_mypage_myteam_empty // 기본 로고 설정
             val teamName = TeamData.teamNames[teamId] // 팀 ID로 팀 이름 가져오기
 
             // 팀 로고와 이름 업데이트
-            binding.tvMypageMyteamTeam.setBackgroundResource(teamLogoResId)
+            // binding.tvMypageMyteamTeam.setBackgroundResource(teamLogoResId)
             binding.tvMypageMyteamMyTier.text = teamName
 
             // 선택된 팀 ID 초기화 및 UI 업데이트
@@ -43,13 +43,7 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
 
 
     override fun initView() {
-        setupTeamSelection { teamName, teamId ->
-            // 팀 로고 업데이트
-/*            val teamLogoResId = TeamData.myteamLogos[teamId] // TeamData에서 로고 리소스 가져오기
-            if (teamLogoResId != null) {
-                binding.ivMypageMyteamTeamLogo.setImageResource(teamLogoResId) // 로고 설정
-            }*/
-        }
+        setupTeamSelection()
 
         binding.tvMypageMyteamTopbarEdit.setOnSingleClickListener {
             // 선택된 팀이 없을 경우 기본 팀 ID(1)로 설정
@@ -69,15 +63,15 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
                         val teamName = TeamData.teamNames[teamId] // 팀 ID로 팀 이름 가져오기
 
                         if (teamLogoResId != null) {
-                            binding.tvMypageMyteamTeam.setBackgroundResource(teamLogoResId)
+                            // binding.tvMypageMyteamTeam.setBackgroundResource(teamLogoResId)
                             binding.tvMypageMyteamTeam.text = teamName
                         } else {
                             // 기본 로고 설정 (예: 선택된 팀이 없을 경우)
-                            binding.tvMypageMyteamTeam.setBackgroundResource(R.drawable.ic_mypage_myteam_empty)
+                            // binding.tvMypageMyteamTeam.setBackgroundResource(R.drawable.ic_mypage_myteam_empty)
                         }
 
                         // 팀 이름 업데이트
-                        binding.tvMypageMyteamTeam.text = teamName ?: "선택된 My Team이 없습니다"
+                        binding.tvMypageMyteamTeam.text = teamName ?: "-"
                     }
 
                     // 프로필 조회 (팀 업데이트 후)
@@ -97,33 +91,30 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
     }
 
 
-    private fun setupTeamSelection(onTeamSelected: (String?, Int) -> Unit) {
+    private fun setupTeamSelection() {
         TeamData.myteamLogos.forEach { (imageViewId, teamId) ->
             val imageView = binding.root.findViewById<ImageView>(imageViewId)
-
-            if (imageView != null) { // null 체크
+            if (imageView != null) {
                 imageView.setOnSingleClickListener {
-                    // 선택한 팀 ID가 이미 선택된 ID와 같으면 기본 팀 ID로 설정
-                    selectedTeamId = if (selectedTeamId == teamId) {
-                        1 // 기본 팀 ID
-                    } else {
-                        teamId // 선택한 팀 ID
-                    }
-
-                    // 선택된 팀의 UI 업데이트
+                    selectedTeamId = teamId
+                    Timber.d("Selected team ID: $selectedTeamId")
                     updateTeamSelectionUI()
-
-                    // 로그 찍기: 현재 선택된 팀 ID와 보낼 팀 ID 확인
-                    Timber.d("보내고자 하는 팀 ID: $teamId, 현재 선택된 팀 ID: $selectedTeamId")
-
-                    // 팀 이름과 ID를 전달
-                    val teamName = TeamData.teamNames[selectedTeamId]
-                    onTeamSelected(teamName, selectedTeamId!!)
+                    updateTeamInfoUI(selectedTeamId)
                 }
             } else {
-                Timber.e("ImageView with ID $imageViewId not found.")
+                Timber.e("ImageView with ID $imageViewId not found in layout.")
             }
         }
+    }
+
+    private fun updateTeamInfoUI(teamId: Int) {
+        val teamName = TeamData.teamNames[teamId]
+        binding.tvMypageMyteamMyTier.text = teamName ?: "-"
+        // 필요하다면 팀 로고 업데이트 로직 추가
+        val teamLogoResId = TeamData.mypageMyteam[teamId]
+        // if (teamLogoResId != null) {
+        //     binding.ivMypageMyteamTeamLogo.setImageResource(teamLogoResId)
+        // }
     }
 
     //팀 선택 시 색상 변경

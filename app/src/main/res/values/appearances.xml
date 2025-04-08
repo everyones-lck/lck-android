@@ -70,6 +70,10 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="TextAppearance.LCK.Light.8sp">
+        <item name="android:textSize">8sp</item>
+    </style>
+
     <style name="TextAppearance.LCK.Light.12sp">
         <item name="android:textSize">12sp</item>
     </style>

@@ -37,6 +37,7 @@
     <color name="gray_line">#BBBBBB</color>
     <color name="grayscale_100">#D9D9D9</color>
     <color name="grayscale_300">#8E8E8E</color>
+    <color name="grayscale_500">#424242</color>
     <color name="grayscale_600">#353535</color>
     <color name="grayscale_900">#0D0D0D</color>
     <color name="gray_spinner_bg">#D9D9D9</color>

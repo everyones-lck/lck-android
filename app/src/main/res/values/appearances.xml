@@ -26,6 +26,10 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="TextAppearance.LCK.Medium.10sp">
+        <item name="android:textSize">10sp</item>
+    </style>
+
     <style name="TextAppearance.LCK.Medium.12sp">
         <item name="android:textSize">12sp</item>
     </style>
@@ -68,6 +72,14 @@
 
     <style name="TextAppearance.LCK.Light.12sp">
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.LCK.Light.14sp">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.LCK.Light.20sp">
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="TextAppearance.LCK.Light.PrimaryName_40sp">

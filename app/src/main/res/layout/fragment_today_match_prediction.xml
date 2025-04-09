@@ -119,7 +119,7 @@
             android:id="@+id/tv_today_match_prediction_vote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.LCK.Light"
+            style="@style/TextAppearance.LCK.Medium"
             android:text="투표하기"
             android:textColor="@color/LCK_purple"
             android:textSize="12sp"

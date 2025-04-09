@@ -19,6 +19,7 @@
         android:id="@+id/tv_today_pog_player_name"
         android:layout_width="90dp"
         android:layout_height="90dp"
+        style="@style/TextAppearance.LCK.Light"
         android:textSize="14sp"
         android:text="player"
         android:lineSpacingExtra="10dp"

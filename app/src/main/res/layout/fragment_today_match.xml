@@ -13,7 +13,7 @@
 
         <TextView
             android:id="@+id/tv_today_match_title"
-            style="@style/TextAppearance.LCK.Bold"
+            style="@style/TextAppearance.LCK.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"

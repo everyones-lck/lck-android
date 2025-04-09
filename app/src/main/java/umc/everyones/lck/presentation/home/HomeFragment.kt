@@ -31,12 +31,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun initView() {
         viewModel.fetchHomeTodayMatchInformation()
-
-        // 초기 UI 설정
-        goMatchResult()
-        goAboutLck()
-        goCommunity()
-        goViewingParty()
         goMyPage()
     }
 
@@ -50,34 +44,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun updateMatchResults(recentMatchResults: List<HomeTodayMatchModel.RecentMatchResultModel>) {
         val homeMatchResultRVA = HomeMatchResultRVA(recentMatchResults)
-        binding.rvHomeMatchResult.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvHomeMatchResult.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rvHomeMatchResult.setHasFixedSize(true)
         binding.rvHomeMatchResult.adapter = homeMatchResultRVA
     }
 
-    private fun goMatchResult() {
-        binding.layoutHomeMatchResult.setOnSingleClickListener {
-            viewModel.setNavigateEvent(R.id.about_lck_graph)
-        }
-    }
-
-    private fun goAboutLck() {
-        binding.ivHomeAboutLckBox.setOnSingleClickListener {
-            viewModel.setNavigateEvent(R.id.about_lck_graph)
-        }
-    }
-
-    private fun goCommunity() {
-        binding.ivHomeCommunityBox.setOnSingleClickListener {
-            viewModel.setNavigateEvent(R.id.communityFragment)
-        }
-    }
-
-    private fun goViewingParty() {
-        binding.ivHomeViewingPartyBox.setOnSingleClickListener {
-            viewModel.setNavigateEvent(R.id.viewingPartyTab)
-        }
-    }
     private fun goMyPage(){
         binding.ivHomeMyPage.setOnSingleClickListener {
             startActivity(MyPageActivity.newIntent(requireContext()))

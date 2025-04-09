@@ -106,10 +106,7 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
     }
     private fun setupRecyclerView(newSetCount: Int) {
         // 어댑터가 초기화되지 않았을 때만 생성
-        lckPogMatchRVA = LckPogMatchRVA(
-            setCount = newSetCount,
-            onTabSelected = tabIndex
-        )
+        lckPogMatchRVA = LckPogMatchRVA()
         binding.rvTodayMatchLckPogContainer.layoutManager = LinearLayoutManager(context)
         binding.rvTodayMatchLckPogContainer.adapter = lckPogMatchRVA
         binding.rvTodayMatchLckPogContainer.itemAnimator = null

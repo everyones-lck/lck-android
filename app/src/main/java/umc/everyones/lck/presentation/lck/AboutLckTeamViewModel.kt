@@ -29,21 +29,14 @@ class AboutLckTeamViewModel @Inject constructor(
             val result = repository.fetchLckPlayerDetails(teamId, seasonName, player_role)
 
             result.onSuccess { response ->
-                Timber.d("fetchLckPlayerDetails API 호출 성공")
-
-                val filteredPlayerDetails = response.copy(
-                    playerDetails = response.playerDetails.map { playerDetail ->
-                        playerDetail.copy(playerRole = null)
-                    }
-                )
-                _playerDetails.value = filteredPlayerDetails
+                Timber.d("✅ fetchLckPlayerDetails API 호출 성공")
+                _playerDetails.value = response
             }.onFailure {
-                Timber.e(it, "fetchLckPlayerDetails API 호출 실패")
+                Timber.e(it, " fetchLckPlayerDetails API 호출 실패")
                 _playerDetails.value = null
             }
         }
     }
-
     fun setTeamId(id: Int) {
         _teamId.value = id
     }

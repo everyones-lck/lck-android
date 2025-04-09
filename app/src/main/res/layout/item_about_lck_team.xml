@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_about_lck_team_is_captain"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_aboutlck_team_iscaptain"
+            android:layout_marginTop="9dp"
+            android:layout_marginStart="35dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_about_lck_team_is_captain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Leader"
+            android:textColor="@color/black"
+            android:fontFamily="@font/esamanru_medium"
+           app:layout_constraintStart_toStartOf="@id/iv_about_lck_team_is_captain"
+            app:layout_constraintEnd_toEndOf="@id/iv_about_lck_team_is_captain"
+            app:layout_constraintTop_toTopOf="@id/iv_about_lck_team_is_captain"
+            app:layout_constraintBottom_toBottomOf="@id/iv_about_lck_team_is_captain"/>
+
+        <TextView
+            android:id="@+id/tv_about_lck_team_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FAKER"
+            android:textSize="14sp"
+            android:fontFamily="@font/esamanru_light"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/iv_about_lck_team_is_captain"
+            app:layout_constraintTop_toTopOf="@id/iv_about_lck_team_is_captain"
+            app:layout_constraintBottom_toBottomOf="@id/iv_about_lck_team_is_captain"/>
+
+        <ImageView
+            android:id="@+id/iv_about_lck_team_player_position"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/img_about_lck_player_position"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@id/tv_about_lck_team_name"
+            app:layout_constraintTop_toTopOf="@id/tv_about_lck_team_name"
+            app:layout_constraintBottom_toBottomOf="@id/tv_about_lck_team_name"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

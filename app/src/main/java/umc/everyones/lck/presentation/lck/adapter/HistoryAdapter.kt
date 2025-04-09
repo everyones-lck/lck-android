@@ -3,20 +3,23 @@ package umc.everyones.lck.presentation.lck.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import umc.everyones.lck.R
-import umc.everyones.lck.presentation.lck.data.HistoryData
 
-class HistoryAdapter(private val items: MutableList<HistoryData>) :
-    RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
+class HistoryAdapter() : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
-    inner class HistoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val titleTextView: TextView = view.findViewById(R.id.tv_about_lck_winning_history)
-        val expandIcon: ImageView = view.findViewById(R.id.iv_about_lck_team_history_down1)
-        val detailsRecyclerView: RecyclerView = view.findViewById(R.id.rv_about_lck_history_details)
+    private var title: String = ""
+    private var items: List<String> = emptyList()
+
+    constructor(items: List<String>, title: String) : this() {
+        setData(title, items)
+    }
+
+    fun setData(title: String, items: List<String>) {
+        this.title = title
+        this.items = items
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
@@ -26,33 +29,19 @@ class HistoryAdapter(private val items: MutableList<HistoryData>) :
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        val item = items[position]
+        val detail = items[position]
+        val parts = detail.split(" ", limit = 2)
+        val year = parts.getOrNull(0) ?: ""
+        val content = parts.getOrNull(1) ?: ""
 
-        holder.titleTextView.text = item.title
-        holder.detailsRecyclerView.visibility = if (item.isExpanded) View.VISIBLE else View.GONE
-        holder.expandIcon.setImageResource(if (item.isExpanded) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down)
-
-        // 세부 항목 어댑터 설정
-        holder.detailsRecyclerView.layoutManager = LinearLayoutManager(holder.detailsRecyclerView.context)
-        holder.detailsRecyclerView.adapter = HistoryDetailAdapter(item.details)
-        holder.detailsRecyclerView.setHasFixedSize(true)
-        holder.detailsRecyclerView.isNestedScrollingEnabled = true
-
-        holder.itemView.setOnClickListener {
-            item.isExpanded = !item.isExpanded
-            notifyItemChanged(position)
-        }
+        holder.yearTextView.text = year
+        holder.contentTextView.text = content
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = items.size
 
-    fun getItems(): List<HistoryData> = items
-
-    fun updateItems(newItems: List<HistoryData>) {
-        items.clear()
-        items.addAll(newItems)
-        notifyDataSetChanged()
+    inner class HistoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val yearTextView: TextView = view.findViewById(R.id.tv_about_lck_team_history_year)
+        val contentTextView: TextView = view.findViewById(R.id.tv_about_lck_team_history_detail)
     }
 }

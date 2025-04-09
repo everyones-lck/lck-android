@@ -1,5 +1,7 @@
 package umc.everyones.lck.presentation.lck
 
+import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,6 +10,7 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import umc.everyones.lck.R
+import umc.everyones.lck.data.dto.response.about_lck.LckPlayerDetailsResponseDto
 import umc.everyones.lck.databinding.FragmentAboutLckTeamHistoryBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.lck.adapter.HistoryAdapter
@@ -20,7 +23,12 @@ import umc.everyones.lck.util.extension.setOnSingleClickListener
 class AboutLckTeamHistoryFragment : BaseFragment<FragmentAboutLckTeamHistoryBinding>(R.layout.fragment_about_lck_team_history) {
 
     private val viewModel: AboutLckTeamHistoryViewModel by viewModels()
-    private lateinit var adapter: HistoryAdapter
+    private var teamId: Int? = null
+
+    private var isWinningHistoryOpen = false
+    private var isRecentPerformanceOpen = false
+    private var isHistoryOfRoasterOpen = false
+
     override fun initObserver() {
         viewLifecycleOwner.repeatOnStarted {
             viewModel.winningHistory.collect { seasonNameList ->
@@ -41,42 +49,83 @@ class AboutLckTeamHistoryFragment : BaseFragment<FragmentAboutLckTeamHistoryBind
     }
 
     override fun initView() {
-        initRecyclerView()
+        setupInitialArrowIcons()
+        setupSectionClickListeners()
         initBackButton()
-        setupTeamInfo()
         fetchTeamData()
-        goMyPage()
+        setupTeamInfo()
     }
 
-    private fun initRecyclerView() {
-        val recyclerView: RecyclerView = binding.rvAboutLckHistory
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.isNestedScrollingEnabled = false
-
-        val items = mutableListOf(
-            HistoryData("Winning History", emptyList()),
-            HistoryData("Recent Performance", emptyList()),
-            HistoryData("History Of Roaster", emptyList())
-        )
-
-        adapter = HistoryAdapter(items)
-        recyclerView.adapter = adapter
+    private fun setupInitialArrowIcons() {
+        binding.ivAboutLckTeamWinningHistoryDown.setImageResource(R.drawable.ic_aboutlck_arrow_down)
+        binding.ivAboutLckTeamRecentPerformanceDown.setImageResource(R.drawable.ic_aboutlck_arrow_down)
+        binding.ivAboutLckTeamHistoryOfRosterDown.setImageResource(R.drawable.ic_aboutlck_arrow_down)
     }
 
-    private fun setupTeamInfo() {
-        val teamName = arguments?.let { AboutLckTeamHistoryFragmentArgs.fromBundle(it).teamName }
-        val teamLogoUrl = arguments?.let { AboutLckTeamHistoryFragmentArgs.fromBundle(it).teamLogoUrl }
+    private fun setupSectionClickListeners() {
+        binding.ivAboutLckTeamWinningHistoryDown.setOnClickListener {
+            toggleSection(
+                binding.rvAboutLckTeamWinningHistory,
+                binding.ivAboutLckTeamWinningHistoryDown,
+                isWinningHistoryOpen,
+                {isWinningHistoryOpen = it },
+                viewModel.winningHistory.value,
+                "Winning History"
+            )
+        }
 
-        teamName?.let { binding.ivAboutLckTeamHistoryTeamName.text = it }
-        teamLogoUrl?.let {
-            Glide.with(this)
-                .load(it)
-                .into(binding.ivAboutLckTeamHistoryLogo)
+        binding.ivAboutLckTeamRecentPerformanceDown.setOnClickListener {
+            toggleSection(
+                binding.rvAboutLckTeamRecentPerformance,
+                binding.ivAboutLckTeamRecentPerformanceDown,
+                isRecentPerformanceOpen ,
+                {isRecentPerformanceOpen = it },
+                viewModel.recentPerformances.value,
+                "Recent Performance"
+            )
+        }
+
+        binding.ivAboutLckTeamHistoryOfRosterDown.setOnClickListener {
+            toggleSection(
+                binding.rvAboutLckTeamHistoryOfRoster,
+                binding.ivAboutLckTeamHistoryOfRosterDown,
+                isHistoryOfRoasterOpen,
+                {isHistoryOfRoasterOpen = it},
+                viewModel.historyOfRoaster.value,
+                "History Of Roaster"
+            )
         }
     }
 
+    private fun toggleSection(
+        recyclerView: RecyclerView,
+        arrowImageView: ImageView,
+        isOpenFlag: Boolean,
+        onFlagToggle: (Boolean) -> Unit,
+        detailList: List<String>,
+        title: String
+    ) {
+        if (isOpenFlag) {
+            recyclerView.visibility = View.GONE
+            arrowImageView.setImageResource(R.drawable.ic_aboutlck_arrow_down)
+            onFlagToggle(false)
+        } else {
+            recyclerView.visibility = View.VISIBLE
+            arrowImageView.setImageResource(R.drawable.ic_aboutlck_arrow_up)
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = HistoryAdapter(detailList, title)
+            onFlagToggle(true)
+        }
+    }
+
+    private fun setupTeamInfo() {
+        val args = arguments?.let { AboutLckTeamFragmentArgs.fromBundle(it) }
+        binding.tvAboutLckTeamHistoryTitle.text = args?.teamName
+        binding.ivAboutLckTeamHistoryUniform.setImageResource(getTeamResource(teamId))
+    }
+
     private fun fetchTeamData() {
-        val teamId = arguments?.let { AboutLckTeamHistoryFragmentArgs.fromBundle(it).teamId }
+        teamId = arguments?.let { AboutLckTeamHistoryFragmentArgs.fromBundle(it).teamId  }
         val page = 0
         val size = 10
 
@@ -90,30 +139,20 @@ class AboutLckTeamHistoryFragment : BaseFragment<FragmentAboutLckTeamHistoryBind
     }
 
     private fun updateWinningHistory(seasonNameList: List<String>) {
-        val items = adapter.getItems().toMutableList()
-
-        val winningHistoryIndex = items.indexOfFirst { it.title == "Winning History" }
-        if (winningHistoryIndex != -1) {
-            items[winningHistoryIndex] = items[winningHistoryIndex].copy(details = seasonNameList)
-            adapter.updateItems(items)
+        binding.rvAboutLckTeamWinningHistory.adapter = HistoryAdapter().apply {
+            setData("Winning History", seasonNameList)
         }
     }
 
     private fun updateRecentPerformances(recentPerformances: List<String>) {
-        val items = adapter.getItems().toMutableList()
-        val recentPerformanceIndex = items.indexOfFirst { it.title == "Recent Performance" }
-        if (recentPerformanceIndex != -1) {
-            items[recentPerformanceIndex] = items[recentPerformanceIndex].copy(details = recentPerformances)
-            adapter.updateItems(items)
+        binding.rvAboutLckTeamRecentPerformance.adapter = HistoryAdapter().apply {
+            setData("Recent Performance", recentPerformances)
         }
     }
 
     private fun updateHistoryOfRoaster(historyOfRoaster: List<String>) {
-        val items = adapter.getItems().toMutableList()
-        val historyOfRoasterIndex = items.indexOfFirst { it.title == "History Of Roaster" }
-        if (historyOfRoasterIndex != -1) {
-            items[historyOfRoasterIndex] = items[historyOfRoasterIndex].copy(details = historyOfRoaster)
-            adapter.updateItems(items)
+        binding.rvAboutLckTeamHistoryOfRoster.adapter = HistoryAdapter().apply {
+            setData("History Of Roaster", historyOfRoaster)
         }
     }
 
@@ -123,9 +162,19 @@ class AboutLckTeamHistoryFragment : BaseFragment<FragmentAboutLckTeamHistoryBind
             findNavController().popBackStack()
         }
     }
-    private fun goMyPage(){
-        binding.ivMyPage.setOnSingleClickListener {
-            startActivity(MyPageActivity.newIntent(requireContext()))
+    private fun getTeamResource(teamId: Int?): Int {
+        return when (teamId) {
+            2 -> R.drawable.img_aboutlck_uniform_geng
+            3 -> R.drawable.img_aboutlck_uniform_hanwha
+            4 -> R.drawable.img_aboutlck_uniform_kia
+            5 -> R.drawable.img_aboutlck_uniform_t1
+            6 -> R.drawable.img_aboutlck_uniform_kt
+            7 -> R.drawable.img_aboutlck_uniform_kdf
+            8 -> R.drawable.img_aboutlck_uniform_bnk
+            9 -> R.drawable.img_aboutlck_uniform_ns
+            10 -> R.drawable.img_aboutlck_uniform_drx
+            11 -> R.drawable.img_aboutlck_uniform_ok
+            else -> R.drawable.img_aboutlck_uniform_geng
         }
     }
 }

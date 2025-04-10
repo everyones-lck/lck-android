@@ -1,8 +1,12 @@
 package umc.everyones.lck.presentation.login
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -26,6 +30,8 @@ import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
 
 
 @AndroidEntryPoint
@@ -36,15 +42,17 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
     private val navigator by lazy { findNavController() }
 
     // PhotoPicker Launcher
-    private val photoPickerLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == AppCompatActivity.RESULT_OK) {
-            result.data?.data?.let { uri ->
-                profileImageUri = uri
-                binding.ivSignupProfilePicture.setImageURI(uri) // 선택한 이미지 미리보기
-                viewModel.setProfileImageUri(uri) // ViewModel에 URI 저장
+    private val photoPickerLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                result.data?.data?.let { uri ->
+                    imageResize(requireContext(), uri)
+                    profileImageUri = uri
+                    binding.ivSignupProfilePicture.setImageURI(uri) // 선택한 이미지 미리보기
+                    viewModel.setProfileImageUri(uri) // ViewModel에 URI 저장
+                }
             }
         }
-    }
 
     override fun initObserver() {
         viewModel.profileUri.observe(viewLifecycleOwner) { uri ->
@@ -126,4 +134,24 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
         navigator.navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment)
     }
 
+
+    private fun imageResize(context: Context, photoUri: Uri) {
+        photoUri?.let { uri ->
+            val inputStreamResized: InputStream? = context.contentResolver.openInputStream(uri)
+            inputStreamResized?.use {
+                val originalBitmap = BitmapFactory.decodeStream(it)
+
+                originalBitmap?.let {
+                    val resizedBitmap = Bitmap.createScaledBitmap(it, 100, 100, true)
+                    it.recycle()
+
+                    binding.ivSignupProfilePicture.setImageBitmap(resizedBitmap)
+
+                    val outputStream = ByteArrayOutputStream()
+                    resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
+                    val byteArray = outputStream.toByteArray()
+                }
+            }
+        }
+    }
 }

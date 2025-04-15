@@ -50,10 +50,12 @@
     <color name="text_white">#ECECEC</color>
     <color name="black_00">#000000</color>
     <color name="white_60">#99E3E4F2</color>
-    <color name="gray_200">#B3B3B3</color>
+    <color name="gray_200">#F0F0F0</color>
     <color name="gray_700">#282828</color>
     <color name="gray_600">#353535</color>
     <color name="gray_500">#424242</color>
+    <color name="gray_800">#575757</color>
+    <color name="gray_900">#2B2B2B</color>
     <color name="white_40">#66FFFFFF</color>
     <color name="gray_100">#D9D9D9</color>
     <color name="gray_rectangle">#1C1C1C</color>

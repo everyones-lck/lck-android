@@ -61,11 +61,11 @@
                     style="@style/TextAppearance.LCK.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="40dp"
                     android:text="TODAY's MATCHES"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="36dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -106,7 +106,7 @@
 
                 <TextView
                     android:id="@+id/tv_home_match_result"
-                    style="@style/TextAppearance.LCK.Bold"
+                    style="@style/TextAppearance.LCK.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"

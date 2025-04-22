@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textSize="14sp"
-        android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"/>
+        android:textAppearance="@style/Esamanru.Light.body03"
+        android:textColor="@color/new_bg"/>
 
 </LinearLayout>

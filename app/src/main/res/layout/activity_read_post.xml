@@ -143,7 +143,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text=""
-                        android:textAppearance="@style/Esamanru.Medium.label03"
+                        android:textAppearance="@style/Esamanru.Light.label03"
                         android:textColor="@color/gray_800"
                         app:layout_constraintStart_toStartOf="@id/tv_read_writer"
                         app:layout_constraintTop_toBottomOf="@id/tv_read_writer"

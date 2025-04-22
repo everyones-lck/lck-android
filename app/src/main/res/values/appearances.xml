@@ -276,7 +276,7 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="Esamanru.Medium.label03">
+    <style name="Esamanru.Light.label03">
         <item name="android:textSize">12sp</item>
     </style>
 </resources>

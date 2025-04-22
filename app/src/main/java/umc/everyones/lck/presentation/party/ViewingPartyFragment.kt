@@ -67,11 +67,10 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     override fun initView() {
         initViewingPartyRVAdapter()
         goToWriteViewingParty()
-        goMyPage()
     }
 
     private fun goToWriteViewingParty(){
-        binding.fabViewingPartyWrite.setOnSingleClickListener {
+        binding.layoutViewingPartyWriteBtn.setOnSingleClickListener {
             writeResultLauncher.launch(WriteViewingPartyActivity.newIntent(requireContext()))
         }
     }
@@ -102,11 +101,5 @@ class ViewingPartyFragment : BaseFragment<FragmentViewingPartyBinding>(R.layout.
     override fun onDestroyView() {
         super.onDestroyView()
         _viewIngPartyRVA = null
-    }
-
-    private fun goMyPage(){
-        binding.ivMyPage.setOnSingleClickListener {
-            startActivity(MyPageActivity.newIntent(requireContext()))
-        }
     }
 }

@@ -33,8 +33,11 @@ fun Activity.showCustomSnackBar(view: View, message: String){
     }
 
     val textView: TextView = snackBar.view.findViewById(com.google.android.material.R.id.snackbar_text)
-    textView.setTextAppearance(R.style.TextAppearance_LCK_Warning)
-    snackBar.setBackgroundTint(this.colorOf(R.color.white))
+    textView.apply {
+        setTextAppearance(R.style.Esamanru_Medium_label01)
+        setTextColor(view.context.colorOf(R.color.sement_color_warning))
+    }
+    snackBar.setBackgroundTint(this.colorOf(R.color.gray_200))
 
     snackBar.show()
 }

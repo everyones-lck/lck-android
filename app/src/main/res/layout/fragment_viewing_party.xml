@@ -28,17 +28,17 @@
             android:id="@+id/layout_viewing_party_write_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_viewing_party_title"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/shape_rect_4_gray_800"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="6dp"
             android:paddingStart="6dp"
+            android:paddingTop="8dp"
             android:paddingEnd="8dp"
-            android:gravity="center_vertical">
+            android:paddingBottom="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_viewing_party_title">
 
             <ImageView
                 android:id="@+id/iv_viewing_party_write"
@@ -51,9 +51,9 @@
                 android:id="@+id/tv_viewing_party_write"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="개최하기"
                 android:textAppearance="@style/Esamanru.Light.body03"
-                android:textColor="@color/gray_200"
-                android:text="개최하기" />
+                android:textColor="@color/gray_200" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -69,9 +69,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:listitem="@layout/item_viewing_party"
             app:layout_constraintTop_toBottomOf="@id/layout_viewing_party_write_btn"
-            app:layout_constraintVertical_bias="0" />
+            app:layout_constraintVertical_bias="0"
+            tools:listitem="@layout/item_viewing_party"
+            tools:visibility="gone"/>
 
         <ImageView
             android:id="@+id/iv_viewing_party_loading_img"
@@ -88,12 +89,12 @@
             android:id="@+id/layout_shimmer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_viewing_party_title"
+            app:layout_constraintTop_toBottomOf="@id/layout_viewing_party_write_btn"
             app:layout_constraintVertical_bias="0"
             tools:visibility="gone">
 

@@ -248,11 +248,11 @@
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="Esamanru.Medium.heading0">
+    <style name="Esamanru.Medium.heading01">
         <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="Esamanru.Light.heading0">
+    <style name="Esamanru.Light.heading02">
         <item name="android:textSize">20sp</item>
     </style>
 

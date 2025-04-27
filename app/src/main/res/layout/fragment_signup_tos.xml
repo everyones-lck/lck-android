@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:background="@color/new_bg">
 
+<!--
         <ImageView
             android:id="@+id/iv_signup_tos_back"
             android:layout_width="9dp"
@@ -22,6 +23,7 @@
             app:layout_constraintBottom_toBottomOf="@id/layout_signup_tos_topbar"
             android:layout_marginStart="30dp"
             android:onClick="onNextButtonClick"/>
+-->
 
         <LinearLayout
             android:id="@+id/layout_signup_tos_topbar"

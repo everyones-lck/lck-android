@@ -59,8 +59,8 @@
         <!-- 프로필 사진을 표시하는 ImageView -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_signup_profile_rect"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginTop="235dp"
             android:layout_gravity="center"
             app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +97,7 @@
             android:text="건너뛰기"
             style="@style/TextAppearance.LCK.Medium.12sp"
             android:gravity="center"
-            android:paddingVertical="16dp"
+            android:paddingVertical="19dp"
             android:layout_marginHorizontal="24dp"
             android:layout_marginBottom="58dp"
             app:layout_constraintBottom_toBottomOf="parent"/>

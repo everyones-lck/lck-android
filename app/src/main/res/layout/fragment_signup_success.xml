@@ -21,7 +21,7 @@
             android:scaleType="centerCrop"
             tools:src="@drawable/img_white"/>
 
-        <ImageView
+<!--        <ImageView
             android:id="@+id/iv_signup_success_back"
             android:layout_width="9dp"
             android:layout_height="18dp"
@@ -30,7 +30,8 @@
             app:layout_constraintTop_toTopOf="@id/layout_signup_success_topbar"
             app:layout_constraintBottom_toBottomOf="@id/layout_signup_success_topbar"
             android:layout_marginStart="30dp"
-            android:onClick="onNextButtonClick"/>
+            android:onClick="onNextButtonClick"/>-->
+
         <LinearLayout
             android:id="@+id/layout_signup_success_topbar"
             android:layout_width="match_parent"
@@ -96,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rect_4_gray_line_black_fill"
-            android:text="넘어가기"
+            android:text="홈으로 가기"
             style="@style/TextAppearance.LCK.Medium.12sp"
             android:gravity="center"
             android:paddingVertical="16dp"

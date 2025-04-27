@@ -31,9 +31,11 @@ class SignupTosFragment : BaseFragment<FragmentSignupTosBinding>(R.layout.fragme
 
     override fun initView() {
 
+/*
         binding.ivSignupTosBack.setOnSingleClickListener {
             navigator.navigateUp()
         }
+*/
 
         binding.tvSignupTosDetailsAgree1.setOnSingleClickListener {
             showDetailsDialog1()

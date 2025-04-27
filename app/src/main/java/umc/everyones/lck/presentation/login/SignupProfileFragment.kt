@@ -49,6 +49,7 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
                     imageResize(requireContext(), uri)
                     profileImageUri = uri
                     binding.ivSignupProfilePicture.setImageURI(uri) // 선택한 이미지 미리보기
+                    binding.tvSignupProfileNext.text = "확인"
                     viewModel.setProfileImageUri(uri) // ViewModel에 URI 저장
                 }
             }
@@ -131,7 +132,6 @@ class SignupProfileFragment : BaseFragment<FragmentSignupProfileBinding>(R.layou
 
     private fun navigateToSignupMyTeam() {
         navigator.navigate(R.id.action_signupProfileFragment_to_signupMyteamFragment)
-        navigator.navigate(R.id.action_signupMyteamFragment_to_signupSuccessFragment)
     }
 
 

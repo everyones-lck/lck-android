@@ -1,7 +1,9 @@
 package umc.everyones.lck.presentation.login
 
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -28,7 +30,9 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
     }
 
     override fun initView() {
-
+        binding.ivSignupMyteamBack.setOnSingleClickListener {
+            navigator.navigateUp()
+        }
         setupTeamSelection()
 
         binding.tvSignupMyteamNext.setOnSingleClickListener {
@@ -39,37 +43,36 @@ class SignupMyteamFragment : BaseFragment<FragmentSignupMyteamBinding>(R.layout.
             }
         }
     }
-
     private fun setupTeamSelection() {
-        TeamData.teamLogos.forEach { (imageViewId, teamId) ->
-            val imageView = binding.root.findViewById<ImageView>(imageViewId)
-            imageView.setOnClickListener {
+        TeamData.teamLogos.forEach { (linearLayoutId, teamId) -> // LinearLayout의 ID 사용
+            val linearLayout = binding.root.findViewById<LinearLayout>(linearLayoutId)
+            linearLayout?.setOnClickListener {
                 selectedTeamId = if (selectedTeamId == teamId) {
-                    null // 선택된 팀을 다시 클릭하면 선택 해제
+                    null
                 } else {
-                    teamId // 클릭한 팀 ID로 설정
+                    teamId
                 }
                 updateTeamSelectionUI()
 
-                // 팀이 선택되지 않았을 경우 1로 설정
-                val teamIdToSet = selectedTeamId ?: 1 // 선택된 팀이 없으면 기본값 1
-                viewModel.setTeamId(teamIdToSet) // ViewModel에 팀 ID 설정
+                val teamIdToSet = selectedTeamId ?: 1
+                viewModel.setTeamId(teamIdToSet)
             }
         }
     }
 
     private fun updateTeamSelectionUI() {
-        TeamData.teamLogos.forEach { (imageViewId, teamId) ->
-            val imageView = binding.root.findViewById<ImageView>(imageViewId)
-            val drawableRes = if (teamId == selectedTeamId) { // selectedTeamId로 변경
-                R.drawable.shape_team_background_selected
-            } else {
-                R.drawable.shape_team_background
+        TeamData.teamLogos.forEach { (linearLayoutId, teamId) -> // LinearLayout의 ID 사용
+            val linearLayout = binding.root.findViewById<LinearLayout>(linearLayoutId)
+            linearLayout?.let {
+                val drawableRes = if (teamId == selectedTeamId) {
+                    R.drawable.shape_team_background_selected
+                } else {
+                    R.drawable.shape_team_background
+                }
+                it.background = ContextCompat.getDrawable(requireContext(), drawableRes)
             }
-            imageView.background = ContextCompat.getDrawable(requireContext(), drawableRes)
         }
     }
-
     private fun showTeamConfirmDialog() {
         val dialogView =
             LayoutInflater.from(requireContext()).inflate(R.layout.dialog_myteam_confirm, null)

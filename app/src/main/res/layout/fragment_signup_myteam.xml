@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:background="@drawable/shape_rect_4_grayscale_600_line"
+                    android:background="@drawable/shape_team_background"
                     android:paddingVertical="20dp"
                     android:paddingHorizontal="10dp"
                     android:layout_marginVertical="9dp">
@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:background="@drawable/shape_rect_4_grayscale_600_line"
+                    android:background="@drawable/shape_team_background"
                     android:paddingVertical="20dp"
                     android:paddingHorizontal="10dp"
                     android:layout_marginHorizontal="8dp">
@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:background="@drawable/shape_rect_4_grayscale_600_line"
+                    android:background="@drawable/shape_team_background"
                     android:paddingVertical="20dp"
                     android:paddingHorizontal="10dp">
 
@@ -171,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:background="@drawable/shape_rect_4_grayscale_600_line"
+                    android:background="@drawable/shape_team_background"
                     android:paddingVertical="20dp"
                     android:paddingHorizontal="10dp"
                     android:layout_marginVertical="9dp">
@@ -200,7 +200,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:background="@drawable/shape_rect_4_grayscale_600_line"
+                    android:background="@drawable/shape_team_background"
                     android:paddingVertical="20dp"
                     android:paddingHorizontal="10dp"
                     android:layout_marginHorizontal="8dp">
@@ -229,7 +229,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:background="@drawable/shape_rect_4_grayscale_600_line"
+                    android:background="@drawable/shape_team_background"
                     android:paddingVertical="20dp"
                     android:paddingHorizontal="10dp">
 
@@ -259,7 +259,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:background="@drawable/shape_rect_4_grayscale_600_line"
+                    android:background="@drawable/shape_team_background"
                     android:paddingVertical="20dp"
                     android:paddingHorizontal="10dp"
                     android:layout_marginVertical="9dp">
@@ -288,7 +288,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:background="@drawable/shape_rect_4_grayscale_600_line"
+                    android:background="@drawable/shape_team_background"
                     android:paddingVertical="20dp"
                     android:paddingHorizontal="10dp"
                     android:layout_marginHorizontal="8dp">
@@ -317,7 +317,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:background="@drawable/shape_rect_4_grayscale_600_line"
+                    android:background="@drawable/shape_team_background"
                     android:paddingVertical="20dp"
                     android:paddingHorizontal="10dp">
 
@@ -348,7 +348,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:background="@drawable/shape_rect_4_grayscale_600_line"
+                    android:background="@drawable/shape_team_background"
                     android:paddingVertical="20dp"
                     android:paddingHorizontal="10dp"
                     android:layout_marginVertical="9dp">

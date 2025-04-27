@@ -41,6 +41,7 @@
     <color name="grayscale_500">#424242</color>
     <color name="grayscale_600">#353535</color>
     <color name="grayscale_700">#828282</color>
+    <color name="grayscale_800">#575757</color>
     <color name="grayscale_900">#0D0D0D</color>
     <color name="gray_spinner_bg">#D9D9D9</color>
     <color name="gray_comment_et_bg">#33D9D9D9</color>

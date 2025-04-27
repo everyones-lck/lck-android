@@ -31,7 +31,6 @@ class SignupNicknameFragment : BaseFragment<FragmentSignupNicknameBinding>(R.lay
                     navigateToSignupProfile()
                 }
             } else {
-                Log.d("SignupNicknameFragment","오류")
                 binding.layoutSignupNicknameWarning4.visibility = View.VISIBLE // 중복
                 binding.etSignupNicknameName.setBackgroundResource(R.drawable.shape_rect_4_red_line)
                 binding.tvSignupNicknameDuplication.text = "중복 확인" // 텍스트 유지

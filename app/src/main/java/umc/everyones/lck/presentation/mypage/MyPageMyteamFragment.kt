@@ -37,13 +37,13 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
 
             // 선택된 팀 ID 초기화 및 UI 업데이트
             selectedTeamId = teamId // 현재 팀 ID로 선택된 팀 ID 설정
-            updateTeamSelectionUI() // UI 업데이트
+           // updateTeamSelectionUI() // UI 업데이트
         }
     }
 
 
     override fun initView() {
-        setupTeamSelection()
+        //setupTeamSelection()
 
         binding.tvMypageMyteamTopbarEdit.setOnSingleClickListener {
             // 선택된 팀이 없을 경우 기본 팀 ID(1)로 설정
@@ -91,7 +91,7 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
     }
 
 
-    private fun setupTeamSelection() {
+/*    private fun setupTeamSelection() {
         TeamData.myteamLogos.forEach { (imageViewId, teamId) ->
             val imageView = binding.root.findViewById<ImageView>(imageViewId)
             if (imageView != null) {
@@ -105,7 +105,7 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
                 Timber.e("ImageView with ID $imageViewId not found in layout.")
             }
         }
-    }
+    }*/
 
     private fun updateTeamInfoUI(teamId: Int) {
         val teamName = TeamData.teamNames[teamId]
@@ -118,7 +118,7 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
     }
 
     //팀 선택 시 색상 변경
-    private fun updateTeamSelectionUI() {
+    /*private fun updateTeamSelectionUI() {
         TeamData.myteamLogos.forEach { (imageViewId, teamId) ->
             val imageView = binding.root.findViewById<ImageView>(imageViewId)
             val drawableRes = if (teamId == selectedTeamId) { // selectedTeamId로 변경
@@ -128,5 +128,5 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
             }
             imageView.background = ContextCompat.getDrawable(requireContext(), drawableRes)
         }
-    }
+    }*/
 }

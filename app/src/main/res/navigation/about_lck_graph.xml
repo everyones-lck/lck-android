@@ -69,6 +69,10 @@
             app:argType="integer"
             android:defaultValue="20"/>
         <argument
+            android:name="teamName"
+            app:argType="string"
+            android:defaultValue="DK"/>
+        <argument
             android:name="teamLogoUrl"
             app:argType="string"
             android:defaultValue="2"/>

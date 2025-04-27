@@ -9,5 +9,6 @@ data class PlayerData(
     val name: String,
     val teamLogo: Int,
     val position: AboutLckPlayerDetailsModel.PlayerPosition?,
-    val isCaptain: Boolean?
+    val isCaptain: Boolean?,
+    val displayRole: String
 )

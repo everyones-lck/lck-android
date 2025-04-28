@@ -34,6 +34,10 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="TextAppearance.LCK.Medium.12sp.tab">
+        <item name="android:textColor">@color/grayscale_100</item>
+    </style>
+
     <style name="TextAppearance.LCK.Bold.Title2_18sp">
         <item name="android:textSize">18sp</item>
     </style>
@@ -76,6 +80,10 @@
 
     <style name="TextAppearance.LCK.Light.12sp">
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.LCK.Light.12sp.tab">
+        <item name="android:textColor">@color/grayscale_800</item>
     </style>
 
     <style name="TextAppearance.LCK.Light.14sp">

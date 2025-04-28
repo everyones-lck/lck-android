@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             android:paddingHorizontal="13dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal"
             android:gravity="center">
 

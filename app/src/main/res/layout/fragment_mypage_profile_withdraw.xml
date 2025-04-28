@@ -12,64 +12,87 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.MainActivity"
-        android:background="@drawable/bg_gradient_color">
+        android:background="@color/new_bg">
 
         <ImageView
             android:id="@+id/iv_mypage_profile_withdraw_back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:src="@drawable/ic_mypage_back"
             app:layout_constraintTop_toTopOf="@id/tv_mypage_profile_withdraw_topbar_title"
             app:layout_constraintBottom_toBottomOf="@id/tv_mypage_profile_withdraw_topbar_title"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="24dp"/>
 
         <TextView
             android:id="@+id/tv_mypage_profile_withdraw_topbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="계정탈퇴"
-            style="@style/TextAppearance.LCK.Bold.Title1_22sp"
+            style="@style/TextAppearance.LCK.Medium.16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="39dp"
+            android:layout_marginTop="21dp"
             android:textColor="@color/white"/>
 
-        <ScrollView
-            android:layout_width="321dp"
-            android:layout_height="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/tv_mypage_profile_withdraw_topbar_title"
-            app:layout_constraintBottom_toTopOf="@id/tv_mypage_profile_withdraw"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:fillViewport="true">
+            android:layout_marginTop="65dp"
+            android:layout_marginHorizontal="24dp">
+
+            <ImageView
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@drawable/img_withdraw"/>
 
             <TextView
-                android:id="@+id/tv_mypage_profile_withdraw_text1"
-                android:layout_width="321dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:layout_marginTop="48dp"
+                android:text="탈퇴 전, 잠시만요"
+                style="@style/TextAppearance.LCK.Light.20sp"/>
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="지금까지 Evr.LOL을 사용해주셔서 감사했습니다 &#10;혹시 불편하셨던 점이 있었다면 들려주세요 &#10;더 나은 Evr.LOL을 만드는데 큰 도움이 됩니다"
                 style="@style/TextAppearance.LCK.Light.12sp"
-                android:textColor="@color/white"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="52dp"/>
-        </ScrollView>
+                android:textColor="@color/grayscale_600"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="탈퇴 전, 이건 꼭 확인해주세요"
+                style="@style/TextAppearance.LCK.Light.20sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="탈퇴하면, 회원정보와 채팅 등 개인 기록 모두 삭제됩니다 &#10;커뮤니티 글 / 댓글은 자동 삭제되지 않아요 &#10;탈퇴 후 본인 확인이 불가능해, 삭제하기 어렵습니다"
+                style="@style/TextAppearance.LCK.Light.12sp"
+                android:textColor="@color/grayscale_600"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_mypage_profile_withdraw"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="탈퇴하기"
-            style="@style/TextAppearance.LCK.Light.List_16sp"
-            android:textColor="@color/white"
-            android:background="@drawable/shape_rect_12_white_line"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="50dp"/>
+            android:background="@drawable/shape_rect_4_gray_line_black_fill"
+            android:text="확인"
+            style="@style/TextAppearance.LCK.Medium.12sp"
+            android:gravity="center"
+            android:paddingVertical="19dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="58dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

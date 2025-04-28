@@ -35,97 +35,25 @@
                 android:id="@+id/tv_mypage_myteam_topbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MY Team"
+                android:text="MY Team 선택"
                 style="@style/TextAppearance.LCK.Medium.16sp"
                 android:textColor="@color/white"
                 android:layout_weight="1"
                 android:gravity="center"/>
 
-            <TextView
-                android:id="@+id/tv_mypage_myteam_topbar_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="변경"
-                style="@style/TextAppearance.LCK.Light.Body_14sp"
-                android:textColor="@color/white"
-                android:paddingVertical="4dp"
-                android:paddingHorizontal="10dp"
-                android:background="@drawable/shape_rect_12_white_line"/>
+            <View
+                android:layout_width="36dp"
+                android:layout_height="36dp"/>
 
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layout_mypage_myteam_profile"
-            android:layout_width="match_parent"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_mypage_myteam_list"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/layout_mypage_main_topbar"
             app:layout_constraintStart_toStartOf="parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="24dp">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/iv_mypage_myteam_rect"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp">
-                    <ImageView
-                        android:id="@+id/iv_mypage_myteam_profile"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/img_signup_profile"
-                        android:scaleType="centerCrop"/>
-                </androidx.cardview.widget.CardView>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
-
-                    <TextView
-                        android:id="@+id/tv_mypage_myteam_nickname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="닉네임"
-                        style="@style/TextAppearance.LCK.Light.20sp"
-                        android:textColor="@color/text_white"/>
-
-                    <TextView
-                        android:id="@+id/tv_mypage_myteam_team"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Kt"
-                        style="@style/TextAppearance.LCK.Medium.10sp"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/shape_rect_4_gray_fill"
-                        android:padding="4dp"
-                        android:layout_gravity="center"/>
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_mypage_myteam_my_tier"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tier"
-                    style="@style/TextAppearance.LCK.Light.14sp"
-                    android:textColor="@color/grayscale_300"
-                    android:layout_marginTop="12dp"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_mypage_myteam_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/layout_mypage_myteam_profile">
+            app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
                 android:id="@+id/tv_mypage_myteam_warning"
@@ -133,11 +61,10 @@
                 android:layout_height="wrap_content"
                 android:text="My team은 한달에 한 번 변경 가능합니다"
                 style="@style/TextAppearance.LCK.Light.12sp"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="32dp"
                 android:textColor="@color/warning"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintStart_toStartOf="layout_mypage_myteam_select"/>
 
             <TableLayout
                 android:id="@+id/layout_mypage_myteam_select"
@@ -156,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:background="@drawable/shape_rect_4_grayscale_600_line"
+                        android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
                         android:paddingHorizontal="10dp"
                         android:layout_marginVertical="9dp">
@@ -185,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:background="@drawable/shape_rect_4_grayscale_600_line"
+                        android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
                         android:paddingHorizontal="10dp"
                         android:layout_marginHorizontal="8dp">
@@ -214,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:background="@drawable/shape_rect_4_grayscale_600_line"
+                        android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
                         android:paddingHorizontal="10dp">
 
@@ -245,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:background="@drawable/shape_rect_4_grayscale_600_line"
+                        android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
                         android:paddingHorizontal="10dp"
                         android:layout_marginVertical="9dp">
@@ -274,7 +201,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:background="@drawable/shape_rect_4_grayscale_600_line"
+                        android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
                         android:paddingHorizontal="10dp"
                         android:layout_marginHorizontal="8dp">
@@ -303,7 +230,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:background="@drawable/shape_rect_4_grayscale_600_line"
+                        android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
                         android:paddingHorizontal="10dp">
 
@@ -333,7 +260,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:background="@drawable/shape_rect_4_grayscale_600_line"
+                        android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
                         android:paddingHorizontal="10dp"
                         android:layout_marginVertical="9dp">
@@ -362,7 +289,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:background="@drawable/shape_rect_4_grayscale_600_line"
+                        android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
                         android:paddingHorizontal="10dp"
                         android:layout_marginHorizontal="8dp">
@@ -391,7 +318,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:background="@drawable/shape_rect_4_grayscale_600_line"
+                        android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
                         android:paddingHorizontal="10dp">
 
@@ -422,7 +349,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
-                        android:background="@drawable/shape_rect_4_grayscale_600_line"
+                        android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
                         android:paddingHorizontal="10dp"
                         android:layout_marginVertical="9dp">
@@ -449,6 +376,20 @@
             </TableLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_mypage_myteam_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rect_4_gray_line_black_fill"
+            android:text="변경"
+            style="@style/TextAppearance.LCK.Medium.12sp"
+            android:gravity="center"
+            android:paddingVertical="16dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="58dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

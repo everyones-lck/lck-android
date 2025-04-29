@@ -78,7 +78,7 @@
                         android:id="@+id/iv_mypage_profile_profile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/img_signup_profile"
+                        android:src="@color/grayscale_800"
                         android:scaleType="centerCrop"/>
                 </androidx.cardview.widget.CardView>
 
@@ -98,7 +98,7 @@
                     <TextView
                         android:id="@+id/tv_mypage_profile_team"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="18dp"
                         android:text="Kt"
                         style="@style/TextAppearance.LCK.Medium.10sp"
                         android:layout_marginStart="8dp"
@@ -260,8 +260,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/grayscale_900"/>
+                android:layout_marginTop="24dp"
+                android:background="@color/grayscale_1000"/>
 
         </LinearLayout>
 

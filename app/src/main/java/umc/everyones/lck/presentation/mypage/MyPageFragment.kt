@@ -3,6 +3,7 @@ package umc.everyones.lck.presentation.mypage
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -12,6 +13,7 @@ import umc.everyones.lck.databinding.FragmentMypageMainBinding
 import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.util.TeamData
+import umc.everyones.lck.util.TeamData.mypageTeamBackground
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
@@ -26,10 +28,16 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
             profile?.let {
                 binding.tvMypageMainNickname.text = it.nickname // 닉네임 설정
                 binding.tvMypageMainMyTier.text = it.tier // 티어 설정
+                val teamId = it.teamId ?: 1
 
-/*                // 팀 로고 설정 -> 수정 필요
-                val teamBackgroundResId = teamLogos[it.teamId] ?: R.drawable.img_mypage_empty_background
-                binding.tvMypageMainTeam.setBackgroundResource(teamBackgroundResId)*/
+                // 팀 이름 설정
+                binding.tvMypageMainTeam.text = TeamData.teamNames[teamId] ?: TeamData.teamNames[1] // teamNames에 없으면 기본값 사용
+
+                // 팀 배경 설정
+                val teamBackground = mypageTeamBackground[teamId]
+                teamBackground?.let { colorResId ->
+                    binding.tvMypageMainTeam.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
+                }
 
                 loadProfileImage(it.profileImageUrl) // 프로필 이미지 로드
 
@@ -51,8 +59,7 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
         }
 
         binding.tvMypageMainMyteamText.setOnSingleClickListener {
-            //navigator.navigate(R.id.action_myPageFragment_to_myPageMyteamFragment)
-            Toast.makeText(requireContext(), "미구현 기능입니다.", Toast.LENGTH_SHORT).show()
+            navigator.navigate(R.id.action_myPageFragment_to_myPageMyteamFragment)
         }
 
         binding.tvMypageMainCommunityText.setOnSingleClickListener {
@@ -84,14 +91,12 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
     private fun updateTierUI(tier: String) {
 
         val tierStyles = mapOf(
-            "Bronze" to R.style.TextAppearance_Bronze,
-            "Silver" to R.style.TextAppearance_Silver,
-            "Gold" to R.style.TextAppearance_Gold,
-            "Master" to R.style.TextAppearance_Master,
-            "Challenger" to R.style.TextAppearance_Challenger
+            "Bronze" to R.style.TextAppearance_LCK_Medium_Bronze,
+            "Silver" to R.style.TextAppearance_LCK_Medium_Silver,
+            "Gold" to R.style.TextAppearance_LCK_Medium_Gold,
+            "Master" to R.style.TextAppearance_LCK_Medium_Master,
+            "Challenger" to R.style.TextAppearance_LCK_Medium_Challenger
         )
-
-        binding.tvMypageMainMyTier.setTextAppearance(requireContext(), tierStyles[tier]!!)
         binding.tvMypageMainMyTier.text = tier
     }
 }

@@ -64,7 +64,7 @@
                 android:layout_marginTop="32dp"
                 android:textColor="@color/warning"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="layout_mypage_myteam_select"/>
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <TableLayout
                 android:id="@+id/layout_mypage_myteam_select"

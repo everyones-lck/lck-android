@@ -122,7 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
                 android:layout_marginTop="24dp"
-                android:background="@color/grayscale_900"/>
+                android:background="@color/grayscale_1000"/>
 
         </LinearLayout>
 

@@ -62,16 +62,14 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
 
         signupViewModel.isNicknameAvailable.observe(viewLifecycleOwner) { isAvailable ->
             if (isAvailable) {
-                binding.viewMypageProfileEditNicknameBar.setBackgroundResource(R.drawable.shape_rect_4_green_line)
-                binding.tvMypageNicknameDuplication.setTextColor(requireContext().getColor(R.color.success))
-                binding.tvMypageNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_green_line)
+                binding.etMypageProfileEditNicknameName.setBackgroundResource(R.drawable.shape_rect_4_green_line)
+                binding.etMypageProfileEditNicknameName.setTextColor(requireContext().getColor(R.color.success))
                 binding.layoutMypageProfileEditValid.visibility = View.VISIBLE
                 binding.layoutMypageProfileEditWarning4.visibility = View.GONE
             } else {
                 binding.layoutMypageProfileEditWarning4.visibility = View.VISIBLE // 중복
-                binding.viewMypageProfileEditNicknameBar.setBackgroundResource(R.drawable.shape_rect_4_red_line)
-                binding.tvMypageNicknameDuplication.setTextColor(requireContext().getColor(R.color.warning))
-                binding.tvMypageNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_red_line)
+                binding.etMypageProfileEditNicknameName.setBackgroundResource(R.drawable.shape_rect_4_red_line)
+                binding.etMypageProfileEditNicknameName.setTextColor(requireContext().getColor(R.color.warning))
             }
         }
 
@@ -91,11 +89,6 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
 
     override fun initView() {
         setInitialState() // 초기 상태 설정
-
-        // 기존 닉네임을 가져와 hint로 설정
-        viewModel.nickName.observe(viewLifecycleOwner) { nickName ->
-            binding.etMypageProfileEditNicknameName.hint = nickName
-        }
 
         // 뒤로가기 버튼 클릭 시 이동
         binding.ivMypageProfileEditBack.setOnSingleClickListener {
@@ -122,25 +115,16 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
             if (isValid) {
                 // 유효한 닉네임일 경우
                 if (!isDuplicated) {
-                    binding.tvMypageNicknameDuplication.setTextColor(requireContext().getColor(R.color.white)) // 기본 색상
-                    binding.tvMypageNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_white_line) // 기본 배경
-                    binding.tvMypageNicknameDuplication.setOnClickListener {
+                    binding.etMypageProfileEditNicknameName.setTextColor(requireContext().getColor(R.color.white)) // 기본 색상
+                    binding.etMypageProfileEditNicknameName.setBackgroundResource(R.drawable.shape_rect_4_white_line) // 기본 배경
+                    binding.etMypageProfileEditNicknameName.setOnClickListener {
                         signupViewModel.checkNicknameAvailability(nickname) // 중복 확인 로직 호출
                         binding.tvMypageProfileEditTopbarEdit.isEnabled = true
                     }
-                    binding.tvMypageNicknameDuplication.isEnabled = true // 버튼 활성화
+                    binding.etMypageProfileEditNicknameName.isEnabled = true // 버튼 활성화
                 } else {
-                    // 중복된 경우
-                    setNicknameUnavailableState() // 중복 상태 설정
                     binding.layoutMypageProfileEditWarning4.visibility = View.GONE // 중복 아님
-                    binding.tvMypageNicknameDuplication.isEnabled = false // 버튼 비활성화
-                    binding.tvMypageProfileEditTopbarEdit.isEnabled = false
                 }
-            } else {
-                // 유효하지 않은 경우
-                setNicknameUnavailableState() // 닉네임이 비어 있을 때 상태 설정
-                binding.tvMypageNicknameDuplication.isEnabled = false // 버튼 비활성화
-                binding.tvMypageProfileEditTopbarEdit.isEnabled = false
             }
         }
 
@@ -159,63 +143,36 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
 
             viewModel.updateProfile(finalNickname, finalProfileImageUri)
 
-            showConfirmDialog()
-        }
-    }
-
-    private fun showConfirmDialog() {
-        val dialogView =
-            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_profile_edit_confirm, null)
-        val dialogBinding = DialogProfileEditConfirmBinding.bind(dialogView)
-
-        val dialog = MaterialAlertDialogBuilder(requireContext())
-            .setView(dialogView)
-            .setCancelable(false)
-            .create()
-
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.show()
-
-        val layoutParams = dialog.window?.attributes
-        layoutParams?.dimAmount = 0.8f
-        dialog.window?.attributes = layoutParams
-
-        dialogBinding.btnConfirm.setOnClickListener {
-            dialog.dismiss()
             navigator.navigate(R.id.action_myPageProfileEditFragment_to_myPageProfileFragment)
         }
     }
 
-
     private fun setInitialState() {
-        binding.tvMypageNicknameDuplication.setTextColor(requireContext().getColor(R.color.nickname_gray)) // 회색
-        binding.tvMypageNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_gray_line) // 회색 배경
-        binding.viewMypageProfileEditNicknameBar.setBackgroundResource(R.drawable.shape_rect_4_white_line)
+        binding.etMypageProfileEditNicknameName.setTextColor(requireContext().getColor(R.color.nickname_gray)) // 회색
+        binding.etMypageProfileEditNicknameName.setBackgroundResource(R.drawable.shape_rect_4_white_line)
         binding.layoutMypageProfileEditValid.visibility = View.GONE
         binding.layoutMypageProfileEditWarning4.visibility = View.GONE // 초기 경고 숨기기
-    }
-
-    private fun setNicknameUnavailableState() {
-        binding.tvMypageNicknameDuplication.setTextColor(requireContext().getColor(R.color.nickname_gray)) // 회색
-        binding.tvMypageNicknameDuplication.setBackgroundResource(R.drawable.shape_rect_12_gray_line) // 회색 배경
     }
 
     private fun validateNickname(nickname: String): Boolean {
         var isValid = true
         // 닉네임 유효성 검사
         if (nickname.isEmpty()) {
+            binding.etMypageProfileEditNicknameName.setBackgroundResource(R.drawable.shape_rect_4_white_line)
             binding.layoutMypageProfileEditWarning1.visibility = View.VISIBLE
             isValid = false
         } else {
             binding.layoutMypageProfileEditWarning1.visibility = View.GONE
         }
         if (nickname.length > 10) {
+            binding.etMypageProfileEditNicknameName.setBackgroundResource(R.drawable.shape_rect_4_white_line)
             binding.layoutMypageProfileEditWarning2.visibility = View.VISIBLE
             isValid = false
         } else {
             binding.layoutMypageProfileEditWarning2.visibility = View.GONE
         }
         if (nickname.contains(" ")) {
+            binding.etMypageProfileEditNicknameName.setBackgroundResource(R.drawable.shape_rect_4_white_line)
             binding.layoutMypageProfileEditWarning3.visibility = View.VISIBLE
             isValid = false
         } else {

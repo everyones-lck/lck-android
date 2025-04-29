@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import umc.everyones.lck.R
-import umc.everyones.lck.databinding.ItemMypageViewingPartyGuestBinding
+import umc.everyones.lck.databinding.ItemMypageCommunityBinding
 import umc.everyones.lck.databinding.ItemViewingPartyBinding
 import umc.everyones.lck.domain.model.response.mypage.HostViewingPartyMypageModel
 import umc.everyones.lck.domain.model.response.mypage.ParticipateViewingPartyMypageModel
@@ -24,7 +24,7 @@ class MyViewingPartyParticipateRVA(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewingPartyViewHolder {
         return ViewingPartyViewHolder(
-            ItemMypageViewingPartyGuestBinding.inflate(
+            ItemMypageCommunityBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -39,29 +39,15 @@ class MyViewingPartyParticipateRVA(
         }
     }
 
-    inner class ViewingPartyViewHolder(private val binding: ItemMypageViewingPartyGuestBinding) :
+    inner class ViewingPartyViewHolder(private val binding: ItemMypageCommunityBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(viewingPartyItem: ParticipateViewingPartyMypageModel.ParticipateViewingPartyMypageElementModel) {
             with(binding) {
-                tvMypageViewingPartyTitle.text = viewingPartyItem.name
-                tvMypageViewingPartyDate.text = viewingPartyItem.date
+                tvMypageCommunityTitle.text = viewingPartyItem.name
+                tvMypageCommunityCategory.text = viewingPartyItem.date
 
-                tvMypageViewingPartyShortcuts.setOnSingleClickListener {
+                tvMypageCommunityShortcuts.setOnSingleClickListener {
                     readViewingParty(viewingPartyItem.id)
-                }
-
-                val currentDate = LocalDate.now()
-                val eventDate = LocalDate.parse(viewingPartyItem.date, DateTimeFormatter.ofPattern("yyyy.MM.dd")) // 날짜 형식에 맞게 변경
-
-                if (eventDate.isBefore(currentDate)) {
-                    binding.root.setBackgroundResource(R.drawable.bg_mypage_community) // 날짜가 지난 경우 사용할 배경
-                    linearLayout.visibility = View.GONE // LinearLayout 숨기기
-                } else {
-                    binding.root.setBackgroundResource(R.drawable.bg_mypage_viewing_party)
-                    linearLayout.visibility = View.VISIBLE // LinearLayout 보이기
-                    tvCancelButton.setOnSingleClickListener {
-                        deleteViewingParty(viewingPartyItem.id) // 삭제 메소드 호출
-                    }
                 }
             }
         }

@@ -45,13 +45,13 @@
 
                     <TextView
                         android:id="@+id/tv_read_category"
-                        style="@style/TextAppearance.LCK.Light.Detail_10sp"
+                        style="@style/Esamanru.Light.body03"
+                        android:textColor="@color/gray_200"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="16dp"
                         android:text=""
-                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/tv_read_title"
                         app:layout_constraintStart_toStartOf="@id/tv_read_title"

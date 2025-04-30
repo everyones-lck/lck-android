@@ -125,7 +125,6 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                     layoutReadViewingPartyContent.isVisible = true
                     viewingPartyMarker.apply {
                         position = LatLng(event.viewingParty.latitude, event.viewingParty.longitude)
-                        icon = OverlayImage.fromResource(R.drawable.img_marker)
                         map = naverMap
                     }
                     naverMap?.moveCamera(CameraUpdate.scrollTo(viewingPartyMarker.position))
@@ -161,7 +160,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
         }
     }
     private fun deleteViewingParty(){
-        binding.ivReadDeleteBtn.setOnSingleClickListener {
+        binding.layoutReadViewingPartyDeleteBtn.setOnSingleClickListener {
             viewModel.deleteViewingParty()
         }
     }
@@ -196,7 +195,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     private fun goToEditViewingParty(){
         with(binding){
-            ivReadEditBtn.setOnSingleClickListener {
+            layoutReadViewingPartyEditBtn.setOnSingleClickListener {
                 val participate = tvReadParticipants.textToString().split("-")
                 writeResultLauncher.launch(WriteViewingPartyActivity.editIntent(requireContext(), postId,
                     WriteViewingPartyModel(

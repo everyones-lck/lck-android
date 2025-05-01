@@ -43,7 +43,7 @@ class SignupSuccessFragment : BaseFragment<FragmentSignupSuccessBinding>(R.layou
 
     override fun initView() {
         // Next 버튼 클릭 처리
-        binding.ivSignupSuccessNext.setOnSingleClickListener {
+        binding.tvSignupSuccessNext.setOnSingleClickListener {
             // 회원 가입 데이터 전송
             viewModel.sendSignupData() // 로그인 서비스 전달
 

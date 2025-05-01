@@ -2,6 +2,8 @@ package umc.everyones.lck.presentation.mypage
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,85 +20,52 @@ import umc.everyones.lck.util.extension.setOnSingleClickListener
 @AndroidEntryPoint
 class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.fragment_mypage_myteam) {
 
-    private var selectedTeamId: Int = 1 // 기본 팀 ID로 초기화
+    private var selectedTeamId: Int? = 1 // 기본 팀 ID로 초기화
     private val myPageViewModel: MyPageViewModel by activityViewModels()
     private val navigator by lazy { findNavController() }
 
     override fun initObserver() {
-        myPageViewModel.inquiryProfile()
         myPageViewModel.teamId.observe(viewLifecycleOwner) { teamId ->
-            Timber.d("Observed teamId: $teamId") // teamId 로그 추가
-
-            // 기존 팀 로고와 이름을 반영 (처음 로딩 시)
-            val teamLogoResId = TeamData.mypageMyteam[teamId] ?: R.drawable.ic_mypage_myteam_empty // 기본 로고 설정
-            val teamName = TeamData.teamNames[teamId] // 팀 ID로 팀 이름 가져오기
-
-            // 팀 로고와 이름 업데이트
-            binding.ivMypageMyteamTeamLogo.setImageResource(teamLogoResId)
-            binding.tvMypageMyteamTeamName.text = teamName
-
-            // 선택된 팀 ID 초기화 및 UI 업데이트
-            selectedTeamId = teamId // 현재 팀 ID로 선택된 팀 ID 설정
-            updateTeamSelectionUI() // UI 업데이트
+            Timber.d("Observed teamId: $teamId")
+            selectedTeamId = teamId
         }
     }
 
 
     override fun initView() {
-        setupTeamSelection { teamName, teamId ->
-            // 팀 로고 업데이트
-            val teamLogoResId = TeamData.myteamLogos[teamId] // TeamData에서 로고 리소스 가져오기
-            if (teamLogoResId != null) {
-                binding.ivMypageMyteamTeamLogo.setImageResource(teamLogoResId) // 로고 설정
-            }
+        setInitialState()
+        setupTeamSelection()
+        if (selectedTeamId == null) {
+            setInitialState()
+        } else {
+            setButton()
         }
 
-        binding.tvMypageMyteamTopbarEdit.setOnSingleClickListener {
-            // 선택된 팀이 없을 경우 기본 팀 ID(1)로 설정
+        binding.tvMypageMyteamNext.setOnSingleClickListener {
+
             val teamIdToUpdate = selectedTeamId ?: 1
 
             lifecycleScope.launch {
-                try {
-                    // 팀 업데이트 호출
-                    myPageViewModel.updateTeam(teamIdToUpdate)
-
-                    // 팀 ID 관찰 (한 번만 등록)
-                    myPageViewModel.teamId.observe(viewLifecycleOwner) { teamId ->
-                        Timber.d("Observed teamId: $teamId") // teamId 로그 추가
-
-                        // 기존 팀 로고를 반영 (처음 로딩 시)
-                        val teamLogoResId = TeamData.mypageMyteam[teamId]
-                        val teamName = TeamData.teamNames[teamId] // 팀 ID로 팀 이름 가져오기
-
-                        if (teamLogoResId != null) {
-                            binding.ivMypageMyteamTeamLogo.setImageResource(teamLogoResId)
-                        } else {
-                            // 기본 로고 설정 (예: 선택된 팀이 없을 경우)
-                            binding.ivMypageMyteamTeamLogo.setImageResource(R.drawable.ic_mypage_myteam_empty)
-                        }
-
-                        // 팀 이름 업데이트
-                        binding.tvMypageMyteamTeamName.text = teamName ?: "선택된 My Team이 없습니다"
+                // 팀 업데이트 호출 및 결과 처리
+                myPageViewModel.updateTeam(teamIdToUpdate) { isSuccess ->
+                    if (isSuccess) {
+                        Timber.d("Team update successful. Navigating to next fragment with team ID: $teamIdToUpdate")
+                        Toast.makeText(
+                            requireContext(),
+                            "Team 변경 되었습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        // API 호출 실패 시 토스트 메시지 표시
+                        Timber.d("Team update failed.")
+                        Toast.makeText(
+                            requireContext(),
+                            "My Team은 한달에 한 번 변경 가능합니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-
-                    // 프로필 조회 (팀 업데이트 후)
-                    myPageViewModel.inquiryProfile()
-
-                    Timber.d( "Navigated to next fragment with team ID: $teamIdToUpdate")
-
-                } catch (e: Exception) {
-                    Timber.e("Error navigating", e)
                 }
             }
-        }
-
-
-        // ScrollView 및 버튼 초기화
-        binding.layoutMypageMyteamList.visibility = View.GONE
-        binding.btnMypageMyteamArrow.setImageResource(R.drawable.ic_arrow_down)
-
-        binding.btnMypageMyteamArrow.setOnSingleClickListener {
-            toggleScrollView()
         }
 
         binding.ivMypageMyteamBack.setOnSingleClickListener {
@@ -104,58 +73,44 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
         }
     }
 
+    private fun setInitialState() {
+        binding.tvMypageMyteamNext.setBackgroundResource(R.drawable.shape_rect_4_grayscale_700_line_new_bg_fill)
+        binding.tvMypageMyteamNext.setTextColor(requireContext().getColor(R.color.grayscale_700)) // 회색
+    }
 
-    private fun setupTeamSelection(onTeamSelected: (String?, Int) -> Unit) {
-        TeamData.myteamLogos.forEach { (imageViewId, teamId) ->
-            val imageView = binding.root.findViewById<ImageView>(imageViewId)
+    private fun setButton() {
+        binding.tvMypageMyteamNext.setBackgroundResource(R.drawable.shape_rect_4_gray_line_black_fill)
+        binding.tvMypageMyteamNext.setTextColor(requireContext().getColor(R.color.grayscale_100)) // 회색
+    }
 
-            if (imageView != null) { // null 체크
-                imageView.setOnSingleClickListener {
-                    // 선택한 팀 ID가 이미 선택된 ID와 같으면 기본 팀 ID로 설정
-                    selectedTeamId = if (selectedTeamId == teamId) {
-                        1 // 기본 팀 ID
-                    } else {
-                        teamId // 선택한 팀 ID
-                    }
-
-                    // 선택된 팀의 UI 업데이트
-                    updateTeamSelectionUI()
-
-                    // 로그 찍기: 현재 선택된 팀 ID와 보낼 팀 ID 확인
-                    Timber.d("보내고자 하는 팀 ID: $teamId, 현재 선택된 팀 ID: $selectedTeamId")
-
-                    // 팀 이름과 ID를 전달
-                    val teamName = TeamData.teamNames[selectedTeamId]
-                    onTeamSelected(teamName, selectedTeamId!!)
+    private fun setupTeamSelection() {
+        TeamData.teamMyPageLogos.forEach { (linearLayoutId, teamId) -> // LinearLayout의 ID 사용
+            val linearLayout = binding.root.findViewById<LinearLayout>(linearLayoutId)
+            linearLayout?.setOnClickListener {
+                selectedTeamId = if (selectedTeamId == teamId) {
+                    null
+                } else {
+                    teamId
                 }
-            } else {
-                Timber.e("ImageView with ID $imageViewId not found.")
+                updateTeamSelectionUI()
+
+                val teamIdToSet = selectedTeamId ?: 1
+                myPageViewModel.setTeamId(teamIdToSet)
             }
         }
     }
 
-    //팀 선택 시 색상 변경
     private fun updateTeamSelectionUI() {
-        TeamData.myteamLogos.forEach { (imageViewId, teamId) ->
-            val imageView = binding.root.findViewById<ImageView>(imageViewId)
-            val drawableRes = if (teamId == selectedTeamId) { // selectedTeamId로 변경
-                R.drawable.shape_team_background_selected
-            } else {
-                R.drawable.shape_team_background
+        TeamData.teamMyPageLogos.forEach { (linearLayoutId, teamId) -> // LinearLayout의 ID 사용
+            val linearLayout = binding.root.findViewById<LinearLayout>(linearLayoutId)
+            linearLayout?.let {
+                val drawableRes = if (teamId == selectedTeamId) {
+                    R.drawable.shape_team_background_selected
+                } else {
+                    R.drawable.shape_team_background
+                }
+                it.background = ContextCompat.getDrawable(requireContext(), drawableRes)
             }
-            imageView.background = ContextCompat.getDrawable(requireContext(), drawableRes)
-        }
-    }
-
-    // 화살표 클릭시 팀 열림
-    private fun toggleScrollView() {
-        // ScrollView의 상태를 전환하는 메서드
-        if (binding.layoutMypageMyteamList.visibility == View.GONE) {
-            binding.layoutMypageMyteamList.visibility = View.VISIBLE
-            binding.btnMypageMyteamArrow.setImageResource(R.drawable.ic_arrow_up)
-        } else {
-            binding.layoutMypageMyteamList.visibility = View.GONE
-            binding.btnMypageMyteamArrow.setImageResource(R.drawable.ic_arrow_down)
         }
     }
 }

@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import umc.everyones.lck.databinding.ItemMypageViewingPartyGuestBinding
-import umc.everyones.lck.databinding.ItemMypageViewingPartyHostBinding
+import umc.everyones.lck.databinding.ItemMypageCommunityBinding
 import umc.everyones.lck.domain.model.response.mypage.HostViewingPartyMypageModel
 import umc.everyones.lck.domain.model.response.mypage.ParticipateViewingPartyMypageModel
 import java.util.Date
@@ -34,8 +33,8 @@ class MyPageViewingPartyRVA : ListAdapter<ViewingPartyItem, RecyclerView.ViewHol
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when(viewType) {
-            TYPE_HOST -> HostViewHolder(ItemMypageViewingPartyHostBinding.inflate(inflater, parent, false))
-            TYPE_GUEST -> GuestViewHolder(ItemMypageViewingPartyGuestBinding.inflate(inflater, parent, false))
+            TYPE_HOST -> HostViewHolder(ItemMypageCommunityBinding.inflate(inflater, parent, false))
+            TYPE_GUEST -> GuestViewHolder(ItemMypageCommunityBinding.inflate(inflater, parent, false))
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -47,18 +46,18 @@ class MyPageViewingPartyRVA : ListAdapter<ViewingPartyItem, RecyclerView.ViewHol
         }
     }
 
-    class HostViewHolder(private val binding: ItemMypageViewingPartyHostBinding):RecyclerView.ViewHolder(binding.root) {
+    class HostViewHolder(private val binding: ItemMypageCommunityBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(item:ViewingPartyItem.HostItem) {
-            binding.tvMypageViewingPartyTitle.text = item.host.name
-            binding.tvMypageViewingPartyDate.text = item.host.date
+            binding.tvMypageCommunityTitle.text = item.host.name
+            binding.tvMypageCommunityCategory.text = item.host.date
             binding.executePendingBindings()
         }
     }
 
-    class GuestViewHolder(private val binding: ItemMypageViewingPartyGuestBinding):RecyclerView.ViewHolder(binding.root) {
+    class GuestViewHolder(private val binding: ItemMypageCommunityBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ViewingPartyItem.GuestItem) {
-            binding.tvMypageViewingPartyTitle.text = item.guest.name
-            binding.tvMypageViewingPartyDate.text = item.guest.date
+            binding.tvMypageCommunityTitle.text = item.guest.name
+            binding.tvMypageCommunityCategory.text = item.guest.date
             binding.executePendingBindings()
         }
     }

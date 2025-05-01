@@ -24,7 +24,6 @@
 
     </androidx.cardview.widget.CardView>
 
-
     <TextView
         android:id="@+id/tv_lck_pog_player_name"
         android:layout_width="wrap_content"

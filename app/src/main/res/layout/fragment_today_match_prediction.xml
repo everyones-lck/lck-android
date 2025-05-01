@@ -10,48 +10,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_today_match_prediction_topbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/iv_today_match_prediction_logo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_modu_logo"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <ImageView
-                android:id="@+id/iv_today_match_prediction_my_page"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_my_page"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        android:background="@color/black_00">
 
         <LinearLayout
             android:id="@+id/layout_today_match_prediction_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_today_match_prediction_topbar">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/iv_today_match_prediction_back"
@@ -74,7 +43,7 @@
                     android:layout_height="wrap_content"
                     style="@style/TextAppearance.LCK.Bold"
                     android:text="승부 예측"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -86,9 +55,8 @@
                     android:layout_height="wrap_content"
                     style="@style/TextAppearance.LCK.Light"
                     android:text="2024 LCK Summer 1st Match"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     android:textColor="@color/white"
-                    android:layout_marginTop="10dp"
                     app:layout_constraintTop_toBottomOf="@+id/tv_today_match_prediction_content_title"
                     app:layout_constraintStart_toStartOf="@+id/tv_today_match_prediction_content_title"
                     app:layout_constraintEnd_toEndOf="@id/tv_today_match_prediction_content_title"/>
@@ -101,7 +69,7 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/tv_today_match_prediction_vote"
+                    android:visibility="invisible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextAppearance.LCK.Light"
@@ -123,31 +91,45 @@
 
         <TextView
             android:id="@+id/tv_today_match_prediction_vote_text"
+            style="@style/TextAppearance.LCK.Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.LCK.Light"
-            android:textColor="@color/warning"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="80dp"
             android:text="오늘의 승리팀을 예측해보세요!"
+            android:textColor="@color/warning"
             android:textSize="16sp"
-            android:layout_marginTop="45dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_today_match_prediction_title"/>
+            app:layout_constraintStart_toStartOf="@+id/rv_today_match_prediction"
+            app:layout_constraintTop_toBottomOf="@id/layout_today_match_prediction_title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_today_match_prediction"
             android:layout_width="410dp"
             android:layout_height="0dp"
             android:layout_marginTop="40dp"
-            tools:listitem="@layout/item_today_match_prediction"
             android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:overScrollMode="never"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_today_match_prediction"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_today_match_prediction_vote_text"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_today_match_prediction_vote_text" />
 
-
+        <TextView
+            android:id="@+id/tv_today_match_prediction_vote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.LCK.Medium"
+            android:text="투표하기"
+            android:textColor="@color/LCK_purple"
+            android:textSize="12sp"
+            android:paddingVertical="25dp"
+            android:paddingHorizontal="150dp"
+            android:background="@drawable/shape_rect_4_gray_fill_white_line"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

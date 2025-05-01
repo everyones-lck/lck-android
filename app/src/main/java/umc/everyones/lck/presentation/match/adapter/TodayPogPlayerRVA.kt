@@ -42,18 +42,15 @@ class TodayPogPlayerRVA(
 
     inner class PogPlayerViewHolder(private val binding: ItemTodayPogPlayerBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(player: PogPlayerTodayMatchModel.InformationModel, isSelected: Boolean, onItemClick: () -> Unit) {
-            Glide.with(binding.root.context)
-                .load(player.playerProfileImageUrl)
-                .into(binding.ivTodayPogPlayer)
 
-            // 아이템이 선택되었는지 여부에 따라 색상 필터 적용
-            if (isSelected) {
-                binding.ivTodayPogPlayer.colorFilter = null
-            } else {
-                // 선택되지 않은 경우 흑백 처리
-                val matrix = ColorMatrix().apply { setSaturation(0f) }
-                binding.ivTodayPogPlayer.colorFilter = ColorMatrixColorFilter(matrix)
-            }
+//            // 아이템이 선택되었는지 여부에 따라 색상 필터 적용
+//            if (isSelected) {
+//                binding.ivTodayPogPlayer.colorFilter = null
+//            } else {
+//                // 선택되지 않은 경우 흑백 처리
+//                val matrix = ColorMatrix().apply { setSaturation(0f) }
+//                binding.ivTodayPogPlayer.colorFilter = ColorMatrixColorFilter(matrix)
+//            }
             // 아이템 클릭 시 실행할 리스너 설정
             binding.root.setOnSingleClickListener {
                 onItemClick()

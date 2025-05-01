@@ -40,18 +40,6 @@ class LckMatchContentRVA(private val items: List<TodayMatchInformationModel.Matc
             binding.tvTodayMatchLckMatch1Date.text = item.matchDate
             binding.tvTodayMatchLckMatchTeam1Name.text = item.team1Name
             binding.tvTodayMatchLckMatchTeam2Name.text = item.team2Name
-            // Glide를 사용해 이미지 로드
-            Glide.with(binding.root.context)
-                .load(item.team1LogoUrl)
-                .into(binding.ivTodayMatchLckMatchTeam1Logo)
-
-            Glide.with(binding.root.context)
-                .load(item.team2LogoUrl)
-                .into(binding.ivTodayMatchLckMatchTeam2Logo)
-
-            // 소수점 첫째 자리까지만 퍼센트 출력
-            binding.tvTodayMatchTeam1Percent.text = String.format("%.1f%%", item.team1VoteRate)
-            binding.tvTodayMatchTeam2Percent.text = String.format("%.1f%%", item.team2VoteRate)
 
             // 승부 예측하기 버튼 클릭 시, matchId 전달
             binding.tvTodayMatch1Prediction.setOnSingleClickListener {
@@ -65,9 +53,6 @@ class LckMatchContentRVA(private val items: List<TodayMatchInformationModel.Matc
             val team1Color = ContextCompat.getColor(context, teamColorMap[item.team1Name] ?: R.color.white)
             val team2Color = ContextCompat.getColor(context, teamColorMap[item.team2Name] ?: R.color.black)
 
-            // 팀 승률 텍스트 색상 설정
-            binding.tvTodayMatchTeam1Percent.setTextColor(team1Color)
-            binding.tvTodayMatchTeam2Percent.setTextColor(team2Color)
             // 팀 승률 바 색상 설정
             binding.tvTodayMatchTeam1Bar.backgroundTintList = ColorStateList.valueOf(team1Color)
             binding.tvTodayMatchTeam2Bar.backgroundTintList = ColorStateList.valueOf(team2Color)

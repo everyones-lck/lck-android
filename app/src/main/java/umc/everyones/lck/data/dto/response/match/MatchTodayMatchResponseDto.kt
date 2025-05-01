@@ -13,5 +13,5 @@ data class MatchTodayMatchResponseDto(
 )
 {
     fun toMatchTodayMatchModel() =
-        MatchTodayMatchModel(seasonName, matchNumber, team1Id, team1Logo, team2Id, team2Logo, myVoteTeamId)
+        MatchTodayMatchModel(seasonName, matchNumber, team1Id, team1Name = "Gen.G", team1Logo, team2Id, team2Name = "T1", team2Logo, myVoteTeamId)
 }

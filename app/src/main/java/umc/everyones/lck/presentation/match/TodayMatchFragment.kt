@@ -22,7 +22,6 @@ class TodayMatchFragment : BaseFragment<FragmentTodayMatchBinding>(R.layout.frag
 
     override fun initView() {
         setupTabs()
-        goMyPage()
     }
 
     private fun setupTabs() {
@@ -43,10 +42,5 @@ class TodayMatchFragment : BaseFragment<FragmentTodayMatchBinding>(R.layout.frag
 
     companion object {
         private val tabTitles = listOf("LCK Match", "LCK POG")
-    }
-    private fun goMyPage(){
-        binding.ivTodayMatchMyPage.setOnSingleClickListener {
-            startActivity(MyPageActivity.newIntent(requireContext()))
-        }
     }
 }

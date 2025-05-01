@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import umc.everyones.lck.R
-import umc.everyones.lck.databinding.ItemMypageViewingPartyHostBinding
+import umc.everyones.lck.databinding.ItemMypageCommunityBinding
 import umc.everyones.lck.databinding.ItemViewingPartyBinding
 import umc.everyones.lck.domain.model.response.mypage.HostViewingPartyMypageModel
 import umc.everyones.lck.domain.model.response.party.ViewingPartyListModel
@@ -24,7 +24,7 @@ class MyViewingPartyHostRVA(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewingPartyViewHolder {
         return ViewingPartyViewHolder(
-            ItemMypageViewingPartyHostBinding.inflate(
+            ItemMypageCommunityBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -39,36 +39,16 @@ class MyViewingPartyHostRVA(
         }
     }
 
-    inner class ViewingPartyViewHolder(private val binding: ItemMypageViewingPartyHostBinding) :
+    inner class ViewingPartyViewHolder(private val binding: ItemMypageCommunityBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(viewingPartyItem: HostViewingPartyMypageModel.HostViewingPartyMypageElementModel) {
             with(binding) {
-                tvMypageViewingPartyTitle.text = viewingPartyItem.name
-                tvMypageViewingPartyDate.text = viewingPartyItem.date
+                tvMypageCommunityTitle.text = viewingPartyItem.name
+                tvMypageCommunityCategory.text = viewingPartyItem.date
 
-                tvMypageViewingPartyShortcuts.setOnSingleClickListener {
+                tvMypageCommunityShortcuts.setOnSingleClickListener {
                     readViewingParty(viewingPartyItem.id)
-                }
-
-                // 수정하기 버튼 클릭 리스너 추가
-                tvMypageViewingPartyEdit.setOnSingleClickListener {
-                    onEditViewingParty(viewingPartyItem.id) // 수정하기 콜백 호출
-                }
-
-                // 날짜 비교
-                val currentDate = LocalDate.now()
-                val eventDate = LocalDate.parse(viewingPartyItem.date, DateTimeFormatter.ofPattern("yyyy.MM.dd"))
-
-                if (eventDate.isBefore(currentDate)) {
-                    binding.root.setBackgroundResource(R.drawable.bg_mypage_community)
-                    linearLayout.visibility = View.GONE
-                } else {
-                    binding.root.setBackgroundResource(R.drawable.bg_mypage_viewing_party)
-                    linearLayout.visibility = View.VISIBLE
-                    tvCancelButton.setOnSingleClickListener {
-                        deleteViewingParty(viewingPartyItem.id)
-                    }
                 }
             }
         }

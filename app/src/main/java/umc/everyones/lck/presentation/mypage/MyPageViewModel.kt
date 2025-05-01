@@ -66,6 +66,9 @@ class MyPageViewModel @Inject constructor(
     private val _teamId = MutableLiveData<Int>()
     val teamId: LiveData<Int> get() = _teamId
 
+    fun setTeamId(teamId: Int) {
+        _teamId.value = teamId
+    }
     fun setProfileImageUri(uri: Uri) {
         _profileUri.value = uri
     }
@@ -170,14 +173,18 @@ class MyPageViewModel @Inject constructor(
         return MultipartBody.Part.createFormData("profileImage", "profile_image.png", requestBody)
     }
 
-    fun updateTeam(teamId: Int) {
+    fun updateTeam(teamId: Int, callback: (Boolean) -> Unit) {
         viewModelScope.launch {
-            repository.updateTeam(UpdateTeamModel(teamId)).onSuccess { response ->
-                Timber.d("팀 변경 성공: $response")
-                _teamId.value = teamId
-            }.onFailure { error ->
-                Timber.d("팀 변경 실패: $error")
-            }
+            repository.updateTeam(UpdateTeamModel(teamId))
+                .onSuccess { response ->
+                    Timber.d("팀 변경 성공: $response")
+                    _teamId.value = teamId
+                    callback(true) // API 호출 성공 시 true를 콜백으로 전달
+                }
+                .onFailure { error ->
+                    Timber.d("팀 변경 실패: $error")
+                    callback(false) // API 호출 실패 시 false를 콜백으로 전달
+                }
         }
     }
 

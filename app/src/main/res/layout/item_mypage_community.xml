@@ -17,34 +17,52 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:layout_marginHorizontal="20dp"
-        android:background="@drawable/bg_mypage_community">
+        android:background="@drawable/shape_rect_12_grayscale_200">
 
-        <TextView
-            android:id="@+id/tv_mypage_community_title"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/layout_mypage_community"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:maxLines="1"
-            android:ellipsize="end"
-            style="@style/TextAppearance.LCK.Bold.Title2_18sp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/black"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="22dp"
-            tools:text="Sample Title"/>
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_mypage_community_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:maxLines="1"
+                android:ellipsize="end"
+                style="@style/TextAppearance.LCK.Medium.16sp"
+                android:textColor="@color/black"
+                tools:text="Sample Title"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="31dp"
+                android:layout_height="16dp"
+                android:src="@drawable/img_community_logo"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_mypage_community_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            style="@style/TextAppearance.LCK.Light.Level_12sp"
-            app:layout_constraintStart_toStartOf="@id/tv_mypage_community_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_mypage_community_title"
-            android:layout_marginTop="8dp"
+            style="@style/TextAppearance.LCK.Light.8sp"
+            app:layout_constraintStart_toStartOf="@id/layout_mypage_community"
+            app:layout_constraintTop_toBottomOf="@id/layout_mypage_community"
+            android:layout_marginTop="23dp"
             android:textColor="@color/black"
-            android:background="@drawable/shape_rect_12_black_line"
+            android:background="@drawable/shape_rect_4_grayscale_800_line"
             android:paddingHorizontal="10dp"
             android:paddingVertical="4dp"
             tools:text="#Category"/>
@@ -53,17 +71,17 @@
             android:id="@+id/tv_mypage_community_shortcuts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="해당 게시글 바로가기   "
-            style="@style/TextAppearance.LCK.Light.Level_12sp"
+            android:text="바로가기     "
+            style="@style/TextAppearance.LCK.Light.8sp"
             app:layout_constraintStart_toEndOf="@id/tv_mypage_community_category"
             app:layout_constraintTop_toTopOf="@id/tv_mypage_community_category"
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
-            android:background="@drawable/shape_rect_12_black_line"
+            android:background="@drawable/shape_rect_4_grayscale_800_line"
             android:paddingVertical="4dp"
             android:paddingHorizontal="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="27dp"/>
+            android:layout_marginBottom="16dp"/>
 
         <ImageButton
             android:id="@+id/btn_mypage_community_shortcuts"

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grayscale_200">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.LCK.Light.List_16sp"
+            android:textColor="@color/grayscale_800"
+            android:paddingVertical="21dp"
+            android:paddingHorizontal="24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="아이템 제목" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grayscale_600"
+            app:layout_constraintBottom_toTopOf="@id/layout_viewing_party_cancel"/>
+
+        <LinearLayout
+            android:id="@+id/layout_viewing_party_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="21dp"
+            android:paddingHorizontal="24dp"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            android:orientation="horizontal">
+            
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_cancel_viewing_party"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="참여 취소하기"
+                style="@style/TextAppearance.LCK.Light.List_16sp"
+                android:textColor="@color/grayscale_800"
+                android:layout_marginStart="12dp"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

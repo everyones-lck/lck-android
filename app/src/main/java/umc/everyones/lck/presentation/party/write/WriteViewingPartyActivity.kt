@@ -144,7 +144,6 @@ class WriteViewingPartyActivity :
                 etWriteViewingPartyAddress.setText(editViewingParty.location)
                 etWriteViewingPartyEtc.setText(editViewingParty.etc)
                 tvWriteViewingPartyDate.text = editViewingParty.date
-                tvWriteDone.text = "수정"
 
                 location = editViewingParty.location
             }
@@ -247,7 +246,7 @@ class WriteViewingPartyActivity :
     // 뷰잉파티 등록 버튼 눌렀을 때
     private fun writeDone() {
         with(binding) {
-            tvWriteDone.setOnSingleClickListener {
+            ivWriteDone.setOnSingleClickListener {
 
                 // 최대 최소 인원 예외처리
                 if (etWriteViewingPartyParticipantMaximum.text.toString()
@@ -302,7 +301,7 @@ class WriteViewingPartyActivity :
     }
 
     private fun closeWriteViewingParty() {
-        binding.ivWriteClose.setOnSingleClickListener {
+        binding.ivWriteViewingPartyBackBtn.setOnSingleClickListener {
             finish()
         }
     }

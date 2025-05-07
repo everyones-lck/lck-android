@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_gradient_color">
+        android:background="@color/new_bg">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/layout_read_coordinator"
@@ -22,10 +22,10 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/end_gradient_color"
+                android:background="@color/new_bg"
                 android:elevation="0dp"
                 android:stateListAnimator="@null"
-                app:liftOnScrollColor="@color/end_gradient_color">
+                app:liftOnScrollColor="@color/new_bg">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -33,34 +33,37 @@
 
                     <TextView
                         android:id="@+id/tv_chat_title"
-                        style="@style/TextAppearance.LCK.Bold.Title1_22sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:text="240514 홍대 뷰파"
+                        android:textAppearance="@style/Esamanru.Medium.heading01"
+                        android:textColor="@color/gray_200"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_chat_writer"
-                        style="@style/TextAppearance.LCK.Light.Detail_10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginBottom="16dp"
-                        tools:text="Perfect 조아 | KT"
+                        android:textAppearance="@style/Esamanru.Light.body03"
+                        android:textColor="@color/gray_200"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/tv_chat_title"
                         app:layout_constraintStart_toStartOf="@id/tv_chat_title"
-                        app:layout_constraintTop_toBottomOf="@id/tv_chat_title" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_chat_title"
+                        tools:text="Perfect 조아 | KT" />
 
                     <ImageView
                         android:id="@+id/iv_chat_back_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="36dp"
-                        android:layout_marginTop="9dp"
+                        android:layout_marginStart="24dp"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp"
                         android:src="@drawable/ic_back_btn"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tv_chat_title" />
@@ -73,9 +76,8 @@
                 android:id="@+id/rv_chat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="13dp"
                 android:layout_marginBottom="20dp"
                 android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
@@ -85,7 +87,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0"
                 app:reverseLayout="true"
-                app:stackFromEnd="true" />
+                app:stackFromEnd="true"
+                tools:listitem="@layout/item_receiver_chat" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -93,8 +96,9 @@
             android:id="@+id/layout_chat_send"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="26dp"
-            android:layout_marginBottom="35dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/shape_rect_8_gray_fill"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <EditText
@@ -103,17 +107,17 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_rect_8_gray_fill"
-                android:hint="채팅을 입력하세요"
+                android:background="@null"
+                android:hint="메세지를 입력해주세요."
                 android:inputType="textMultiLine"
                 android:maxHeight="300dp"
                 android:maxLength="1000"
-                android:paddingVertical="12dp"
-                android:paddingStart="10dp"
+                android:paddingVertical="16dp"
+                android:paddingStart="18dp"
                 android:text=""
-                android:textAppearance="@style/TextAppearance.LCK.Light.Detail_10sp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
+                android:textAppearance="@style/Esamanru.Medium.body02"
+                android:textColor="@color/gray_200"
+                android:textColorHint="@color/gray_800"
                 app:layout_constraintBottom_toBottomOf="@id/iv_chat_send_btn"
                 app:layout_constraintEnd_toStartOf="@id/iv_chat_send_btn"
                 app:layout_constraintStart_toStartOf="parent"
@@ -121,9 +125,10 @@
 
             <ImageView
                 android:id="@+id/iv_chat_send_btn"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_send"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_send_comment_btn"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

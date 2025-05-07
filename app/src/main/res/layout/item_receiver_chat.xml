@@ -4,33 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp">
+    android:layout_marginBottom="16dp"
+    tools:background="@color/new_bg">
 
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
         android:gravity="center"
-        android:textAppearance="@style/TextAppearance.LCK.Bold.Detail_10sp"
-        android:textColor="@color/white"
+        android:text=""
+        android:textAppearance="@style/Esamanru.Light.body03"
+        android:textColor="@color/gray_200"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"/>
+        tools:text="2011.11.11"
+        tools:visibility="visible" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_receiver_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_date"
+        app:cardCornerRadius="4dp"
         app:cardElevation="0dp"
-        app:cardCornerRadius="4dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_date">
 
         <ImageView
             android:id="@+id/iv_receiver_profile"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -42,29 +45,29 @@
         android:id="@+id/tv_receiver_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="상대방 닉네임"
-        android:textAppearance="@style/TextAppearance.LCK.Light.Detail_10sp"
-        android:textColor="@color/white"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@id/cv_receiver_profile"
-        app:layout_constraintStart_toEndOf="@id/cv_receiver_profile"/>
+        android:textAppearance="@style/Esamanru.Light.label03"
+        android:textColor="@color/gray_600"
+        app:layout_constraintTop_toTopOf="@id/cv_receiver_profile"
+        app:layout_constraintStart_toEndOf="@id/cv_receiver_profile"
+        tools:text="상대방 닉네임" />
 
     <TextView
         android:id="@+id/tv_receiver_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/shape_rect_receiver_chat_bg"
         android:breakStrategy="simple"
         android:clipToOutline="true"
         android:maxWidth="280dp"
-        android:layout_marginTop="7dp"
         android:paddingHorizontal="12dp"
         android:paddingVertical="8dp"
-        android:textAppearance="@style/TextAppearance.LCK.Light.Level_12sp"
-        android:textColor="@color/white"
+        android:textAppearance="@style/Esamanru.Light.body03"
+        android:textColor="@color/gray_200"
         app:layout_constraintStart_toStartOf="@id/tv_receiver_nickname"
-        app:layout_constraintTop_toBottomOf="@id/cv_receiver_profile"
+        app:layout_constraintTop_toBottomOf="@id/tv_receiver_nickname"
         tools:text="뷰잉파티 현재 참여 인원이 어떻게 되나요??" />
 
     <TextView
@@ -73,11 +76,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="22:00"
-        android:textAppearance="@style/TextAppearance.LCK.Light.Detail_10sp"
-        android:textColor="@color/white"
+        android:textAppearance="@style/Esamanru.Light.label03"
+        android:textColor="@color/gray_600"
         app:layout_constraintBottom_toBottomOf="@id/tv_receiver_chat"
-        app:layout_constraintStart_toEndOf="@id/tv_receiver_chat"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/tv_receiver_chat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

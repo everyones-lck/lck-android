@@ -120,6 +120,26 @@
                     android:name="shortLocation"
                     app:argType="string" />
             </action>
+            <action
+                android:id="@+id/action_myPageViewingPartyFragment_to_viewingPartyHostBottomSheetFragment"
+                app:destination="@id/viewingPartyHostBottomSheetFragment" >
+                <argument
+                    android:name="viewingPartyId"
+                    app:argType="long" />
+                <argument
+                    android:name="title"
+                    app:argType="string" />
+            </action>
+            <action
+                android:id="@+id/action_myPageViewingPartyFragment_to_viewingPartyGuestBottomSheetFragment"
+                app:destination="@id/viewingPartyGuestBottomSheetFragment" >
+                <argument
+                    android:name="viewingPartyId"
+                    app:argType="long" />
+                <argument
+                    android:name="title"
+                    app:argType="string" />
+            </action>
         </fragment>
         <fragment
             android:id="@+id/readViewingPartyFragment"
@@ -136,11 +156,35 @@
                 android:name="shortLocation"
                 app:argType="string" />
         </fragment>
+        <dialog
+            android:id="@+id/viewingPartyHostBottomSheetFragment"
+            android:name="umc.everyones.lck.presentation.mypage.viewingparty.ViewingPartyHostBottomSheetFragment"
+            android:label="ViewingPartyHostBottomSheetFragment"
+            tools:layout="@layout/fragment_viewing_party_host_bottom_sheet">
+            <argument
+                android:name="viewingPartyId"
+                app:argType="long" />
+            <argument
+                android:name="title"
+                app:argType="string" />
+        </dialog>
         <fragment
             android:id="@+id/participantsFragment"
             android:name="umc.everyones.lck.presentation.party.read.ParticipantsFragment"
             android:label="ParticipantsFragment"
             tools:layout="@layout/fragment_participants"/>
+        <dialog
+            android:id="@+id/viewingPartyGuestBottomSheetFragment"
+            android:name="umc.everyones.lck.presentation.mypage.viewingparty.ViewingPartyGuestBottomSheetFragment"
+            android:label="ViewingPartyGuestBottomSheetFragment"
+            tools:layout="@layout/fragment_viewing_party_guest_bottom_sheet">
+            <argument
+                android:name="viewingPartyId"
+                app:argType="long" />
+            <argument
+                android:name="title"
+                app:argType="string" />
+        </dialog>
     </navigation>
 
 

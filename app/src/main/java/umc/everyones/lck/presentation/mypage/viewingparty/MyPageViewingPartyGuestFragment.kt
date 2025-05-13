@@ -66,6 +66,10 @@ class MyPageViewingPartyGuestFragment : BaseFragment<FragmentMypageViewingPartyG
             deleteViewingParty = { id ->
                 deleteViewingParty(id) // 삭제 메소드 호출
                 Toast.makeText(requireContext(), "참여가 취소되었습니다.", Toast.LENGTH_SHORT).show() // Toast 메시지
+            },
+            showBottomSheet = { id, title ->
+                val action = MyPageViewingPartyFragmentDirections.actionMyPageViewingPartyFragmentToViewingPartyGuestBottomSheetFragment(id, title)
+                findNavController().navigate(action)
             }
         )
         binding.rvMypageViewingPartyGuest.adapter = myViewingPartyParticipateRVA

@@ -73,7 +73,6 @@
     <color name="white_40">#66FFFFFF</color>
     <color name="gray_100">#D9D9D9</color>
     <color name="gray_rectangle">#1C1C1C</color>
-    <color name="text_white">#ECECEC</color>
     <array name="red">
         <item>#FFE81B3B</item>
         <item>#FFE81B3B</item>

@@ -31,6 +31,12 @@ class SignupTosFragment : BaseFragment<FragmentSignupTosBinding>(R.layout.fragme
 
     override fun initView() {
 
+/*
+        binding.ivSignupTosBack.setOnSingleClickListener {
+            navigator.navigateUp()
+        }
+*/
+
         binding.tvSignupTosDetailsAgree1.setOnSingleClickListener {
             showDetailsDialog1()
         }
@@ -39,7 +45,7 @@ class SignupTosFragment : BaseFragment<FragmentSignupTosBinding>(R.layout.fragme
             showDetailsDialog2()
         }
 
-        binding.ivSignupTosNext.setOnSingleClickListener {
+        binding.tvSignupTosNext.setOnSingleClickListener {
             if (!isAgree1Checked || !isAgree2Checked) {
                 Toast.makeText(requireContext(), "모든 동의 항목을 체크해주세요.", Toast.LENGTH_SHORT).show()
             } else {

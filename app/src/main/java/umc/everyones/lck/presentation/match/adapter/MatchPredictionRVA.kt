@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ItemTodayMatchPredictionBinding
 import umc.everyones.lck.domain.model.response.match.MatchTodayMatchModel
 import umc.everyones.lck.domain.model.todayMatch.LckMatch
@@ -34,24 +35,30 @@ class MatchPredictionRVA(private val onOptionSelected: (Int) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(match: MatchTodayMatchModel, selectedTeam: Int?, onClick: (Int) -> Unit) {
-            // 팀 로고 설정
-            Glide.with(binding.root.context)
-                .load(match.team1Logo)
-                .into(binding.ivTodayMatchPredictionTeam1Logo)
+            // 이름 설정
+            binding.tvTodayMatchPredictionTeam1Name.text = match.team1Name
+            binding.tvTodayMatchPredictionTeam2Name.text = match.team2Name
 
-            Glide.with(binding.root.context)
-                .load(match.team2Logo)
-                .into(binding.ivTodayMatchPredictionTeam2Logo)
+            val team1Color = teamColorMap[match.team1Name] ?: R.color.gray_700
+            val team2Color = teamColorMap[match.team2Name] ?: R.color.gray_700
 
-            // 라디오 버튼 상태 설정
-            binding.btnTodayMatchPredictionRadio1.isChecked = selectedTeam == match.team1Id
-            binding.btnTodayMatchPredictionRadio2.isChecked = selectedTeam == match.team2Id
+            val team1Drawable = binding.ivTodayMatchPredictionTeam1Box.drawable?.mutate()
+            val team2Drawable = binding.ivTodayMatchPredictionTeam2Box.drawable?.mutate()
+
+            team1Drawable?.setTint(
+                if (selectedTeam == match.team1Id) binding.root.context.getColor(team1Color)
+                else binding.root.context.getColor(R.color.gray_700)
+            )
+            team2Drawable?.setTint(
+                if (selectedTeam == match.team2Id) binding.root.context.getColor(team2Color)
+                else binding.root.context.getColor(R.color.gray_700)
+            )
 
             // 클릭 이벤트 설정
-            binding.layoutTodayMatchPredictionContainer1.setOnSingleClickListener {
+            binding.ivTodayMatchPredictionTeam1Box.setOnSingleClickListener {
                 onClick(match.team1Id)
             }
-            binding.layoutTodayMatchPredictionContainer2.setOnSingleClickListener {
+            binding.ivTodayMatchPredictionTeam2Box.setOnSingleClickListener {
                 onClick(match.team2Id)
             }
         }
@@ -66,4 +73,19 @@ class MatchPredictionRVA(private val onOptionSelected: (Int) -> Unit) :
             return oldItem == newItem
         }
     }
+
+    private val teamColorMap = mapOf(
+        "Gen.G" to R.color.gen_g,
+        "GEN" to R.color.gen_g,
+        "HLE" to R.color.hanhwa,
+        "DK" to R.color.dplus_kia,
+        "T1" to R.color.t1,
+        "KT" to R.color.kt_rolster,
+        "KDF" to R.color.kwangdong_freecs,
+        "BNK" to R.color.bnk,
+        "NS" to R.color.ns,
+        "DRX" to R.color.drx,
+        "BRO" to R.color.ok_brion
+        // 추가적인 팀과 색상 매핑
+    )
 }

@@ -5,73 +5,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <LinearLayout
+    <ImageView
         android:id="@+id/iv_home_today_match_box"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="230dp"
         android:layout_marginHorizontal="19dp"
-        android:background="@drawable/shape_rect_8_white_line_shadow"
-        android:elevation="8dp"
+        android:background="@drawable/shape_rect_8_gray_300_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view_home_match_white_bar"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginBottom="29dp"
-        android:background="@color/white_rectangle"
-        app:layout_constraintBottom_toBottomOf="@id/iv_home_today_match_box"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_home_match_container"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_height="230dp"
+        android:layout_marginHorizontal="19dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        >
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_home_today_match_bar1"
             android:layout_width="0dp"
-            android:layout_height="26dp"
+            android:layout_height="20dp"
             android:src="@drawable/ic_home_match_bar"
             android:background="@color/gen_g"
             android:layout_marginEnd="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/iv_home_today_match_bar2"
-            app:layout_constraintTop_toTopOf="@+id/tv_home_today_match_team1"/>
+            app:layout_constraintTop_toTopOf="@+id/tv_home_today_match_team1"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_home_today_match_team1"/>
 
         <ImageView
             android:id="@+id/iv_home_today_match_bar2"
             android:layout_width="0dp"
-            android:layout_height="26dp"
+            android:layout_height="20dp"
             android:src="@drawable/ic_home_match_bar"
             android:background="@color/t1"
             android:layout_marginStart="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_home_today_match_bar1"
-            app:layout_constraintTop_toTopOf="@+id/tv_home_today_match_team2"/>
+            app:layout_constraintTop_toTopOf="@+id/tv_home_today_match_team2"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_home_today_match_team2"/>
 
         <TextView
             android:id="@+id/tv_home_today_match_content"
             style="@style/TextAppearance.LCK.Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:text="2024 LCK Summer 1st Match"
             android:textColor="@color/white"
             android:textSize="12sp"
+            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="@+id/layout_home_match_container"
             app:layout_constraintStart_toStartOf="@+id/layout_home_match_container"
             app:layout_constraintTop_toTopOf="@+id/layout_home_match_container" />
@@ -84,6 +70,7 @@
             android:text="2024.07.12 17:00"
             android:textColor="@color/white"
             android:textSize="12sp"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="@+id/tv_home_today_match_content"
             app:layout_constraintStart_toStartOf="@+id/tv_home_today_match_content"
             app:layout_constraintTop_toBottomOf="@+id/tv_home_today_match_content" />
@@ -92,18 +79,18 @@
             android:id="@+id/iv_home_today_match_logo1"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_gen_g"
-            app:layout_constraintStart_toStartOf="@+id/layout_home_match_container"
             app:layout_constraintEnd_toStartOf="@id/iv_home_today_match_logo2"
+            app:layout_constraintStart_toStartOf="@+id/layout_home_match_container"
             app:layout_constraintTop_toBottomOf="@id/tv_home_today_match_content" />
 
         <ImageView
             android:id="@+id/iv_home_today_match_logo2"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             android:layout_marginStart="20dp"
             android:src="@drawable/ic_t1"
             app:layout_constraintEnd_toEndOf="@id/layout_home_match_container"
@@ -114,12 +101,12 @@
             android:id="@+id/tv_home_today_match_team1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.LCK.Light"
+            style="@style/TextAppearance.LCK.Bold"
             android:text="Gen.G"
-            android:textSize="20sp"
+            android:textSize="14dp"
             android:textColor="@color/white"
-            android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/iv_home_today_match_logo1"
+            android:layout_marginBottom="35dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/iv_home_today_match_logo1"
             app:layout_constraintEnd_toEndOf="@id/iv_home_today_match_logo1"/>
 
@@ -127,12 +114,12 @@
             android:id="@+id/tv_home_today_match_team2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.LCK.Light"
+            style="@style/TextAppearance.LCK.Bold"
             android:text="T1"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/iv_home_today_match_logo2"
+            android:textSize="14sp"
+            android:layout_marginBottom="35dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/iv_home_today_match_logo2"
             app:layout_constraintEnd_toEndOf="@id/iv_home_today_match_logo2"/>
 
@@ -142,33 +129,110 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_home_no_match"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="230dp"
         android:layout_marginHorizontal="19dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_home_no_match"
-            android:paddingHorizontal="20dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/iv_home_today_no_match_bar1"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_home_match_bar"
+            android:background="@color/white_bar"
+            android:layout_marginEnd="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toStartOf="@id/iv_home_today_no_match_bar2"
+            app:layout_constraintTop_toTopOf="@+id/tv_home_today_no_match_team1"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_home_today_no_match_team1"/>
+
+        <ImageView
+            android:id="@+id/iv_home_today_no_match_bar2"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_home_match_bar"
+            android:background="@color/white_bar"
+            android:layout_marginStart="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_home_today_no_match_bar1"
+            app:layout_constraintTop_toTopOf="@+id/tv_home_today_no_match_team2"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_home_today_no_match_team2"/>
 
         <TextView
+            android:id="@+id/tv_home_today_no_match_content"
+            style="@style/TextAppearance.LCK.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Matches"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="@+id/layout_home_no_match"
+            app:layout_constraintStart_toStartOf="@+id/layout_home_no_match"
+            app:layout_constraintTop_toTopOf="@+id/layout_home_no_match" />
+
+        <TextView
+            android:id="@+id/tv_home_today_no_match_date"
+            style="@style/TextAppearance.LCK.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_home_today_no_match_content"
+            app:layout_constraintStart_toStartOf="@+id/tv_home_today_no_match_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_home_today_no_match_content" />
+
+        <ImageView
+            android:id="@+id/iv_home_today_no_match_logo1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_logo_gray"
+            app:layout_constraintEnd_toStartOf="@id/iv_home_today_no_match_logo2"
+            app:layout_constraintStart_toStartOf="@+id/layout_home_no_match"
+            app:layout_constraintTop_toBottomOf="@id/tv_home_today_no_match_content" />
+
+        <ImageView
+            android:id="@+id/iv_home_today_no_match_logo2"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_logo_gray"
+            app:layout_constraintEnd_toEndOf="@id/layout_home_no_match"
+            app:layout_constraintStart_toEndOf="@id/iv_home_today_no_match_logo1"
+            app:layout_constraintTop_toBottomOf="@id/tv_home_today_no_match_content" />
+
+        <TextView
+            android:id="@+id/tv_home_today_no_match_team1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/TextAppearance.LCK.Light"
-            android:text="No Matches"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:text="-"
+            android:textSize="14dp"
+            android:textColor="@color/black_00"
+            android:layout_marginBottom="35dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/iv_home_today_no_match_logo1"
+            app:layout_constraintEnd_toEndOf="@id/iv_home_today_no_match_logo1"/>
+
+        <TextView
+            android:id="@+id/tv_home_today_no_match_team2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.LCK.Light"
+            android:text="-"
+            android:textColor="@color/black_00"
+            android:textSize="14sp"
+            android:layout_marginBottom="35dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/iv_home_today_no_match_logo2"
+            app:layout_constraintEnd_toEndOf="@id/iv_home_today_no_match_logo2"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

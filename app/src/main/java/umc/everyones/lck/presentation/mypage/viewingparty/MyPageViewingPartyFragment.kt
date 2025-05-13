@@ -1,7 +1,6 @@
 package umc.everyones.lck.presentation.mypage.viewingparty
 
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -62,5 +61,7 @@ class MyPageViewingPartyFragment : BaseFragment<FragmentMypageViewingPartyBindin
     companion object {
         private val tabTitles = listOf("HOST", "GUEST")
     }
+
+
 
 }

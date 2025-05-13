@@ -2,6 +2,7 @@
 <resources>
     <color name="black_100">#000000</color>
     <color name="new_bg">#131313</color>
+    <color name="bg_color">#111111</color>
     <color name="black">#272727</color>
     <color name="black_80">#CC272727</color>
     <color name="white">#FFFFFFFF</color>
@@ -18,9 +19,11 @@
     <color name="bnk">#F8E52F</color>
     <color name="dplus_kia">#FFFFFF</color>
     <color name="t1">#E91B3B</color>
+    <color name="brion">#02694C</color>
     <color name="ok_brion">#03492D</color>
     <color name="kt_rolster">#E91B3B</color>
     <color name="kwangdong_freecs">#0952EF</color>
+    <color name="dn">#0017E7</color>
     <color name="drx">#0017E7</color>
     <color name="ns">#E91B3B</color>
     <color name="gray_indicator">#A2A2A2</color>
@@ -32,6 +35,15 @@
     <color name="gray_detail">#9F9F9F</color>
     <color name="gray_dayOfWeek">#767A81</color>
     <color name="gray_line">#BBBBBB</color>
+    <color name="grayscale_100">#F7F7F7</color>
+    <color name="grayscale_200">#F0F0F0</color>
+    <color name="grayscale_300">#8E8E8E</color>
+    <color name="grayscale_500">#424242</color>
+    <color name="grayscale_600">#AEAEAE</color>
+    <color name="grayscale_700">#828282</color>
+    <color name="grayscale_800">#575757</color>
+    <color name="grayscale_900">#2B2B2B</color>
+    <color name="grayscale_1000">#0C0C0C</color>
     <color name="gray_spinner_bg">#D9D9D9</color>
     <color name="gray_comment_et_bg">#33D9D9D9</color>
     <color name="bronze">#966C00</color>
@@ -47,6 +59,25 @@
     <color name="sender_bg">#EFEFEF</color>
     <color name="nickname_gray">#8C8C8C</color>
     <color name="gray_shimmer">#636363</color>
+    <color name="gray_300">#8E8E8E</color>
+    <color name="white_bar">#ECECEC</color>
+    <color name="text_white">#ECECEC</color>
+    <color name="black_00">#000000</color>
+    <color name="white_60">#99E3E4F2</color>
+    <color name="gray_200">#F0F0F0</color>
+    <color name="gray_700">#282828</color>
+    <color name="gray_600">#353535</color>
+    <color name="gray_500">#424242</color>
+    <color name="gray_800">#575757</color>
+    <color name="gray_900">#2B2B2B</color>
+    <color name="white_40">#66FFFFFF</color>
+    <color name="gray_100">#D9D9D9</color>
+    <color name="gray_rectangle">#1C1C1C</color>
+    <array name="red">
+        <item>#FFE81B3B</item>
+        <item>#FFE81B3B</item>
+        <item>#FF000000</item>
+    </array>
 
     <color name="text_white">#ECECEC</color>
     <color name="gray_100">#F7F7F7</color>

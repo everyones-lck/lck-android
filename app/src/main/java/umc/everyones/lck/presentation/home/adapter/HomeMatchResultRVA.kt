@@ -1,6 +1,7 @@
 package umc.everyones.lck.presentation.home.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -27,9 +28,6 @@ class HomeMatchResultRVA(
     inner class ViewHolder(private val binding: ItemHomeMatchResultBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: HomeTodayMatchModel.RecentMatchResultModel) {
-            Glide.with(binding.root.context)
-                .load(item.team1LogoUrl)
-                .into(binding.ivHomeResultLogo1)
             binding.tvHomeResultDate1.text = item.matchDate
             binding.tvHomeResultTeam1.text = item.team1Name
             binding.tvHomeResultTeam2.text = item.team2Name
@@ -37,12 +35,24 @@ class HomeMatchResultRVA(
             // 우승 팀 표시 로직
             when (item.matchResult) {
                 "TEAM1_WIN" -> {
-                    // 팀 1이 우승했을 경우, 팀 1 이름의 스타일을 TextAppearance.LCK.bold로 설정
+                    binding.tvHomeResultTeam1.text = item.team1Name
                     binding.tvHomeResultTeam1.setTextAppearance(R.style.TextAppearance_LCK_Bold)
+                    binding.tvHomeResultTeam2.text = item.team2Name
+
+                    val colorResId = teamColorMap[item.team1Name] ?: R.color.gray
+                    val dotDrawable = binding.ivHomeWinnerDot.drawable?.mutate()
+                    dotDrawable?.setTint(binding.root.context.getColor(colorResId))
+                    binding.ivHomeWinnerDot.setImageDrawable(dotDrawable)
                 }
                 "TEAM2_WIN" -> {
-                    // 팀 2가 우승했을 경우, 팀 2 이름의 스타일을 TextAppearance.LCK.bold로 설정
-                    binding.tvHomeResultTeam2.setTextAppearance(R.style.TextAppearance_LCK_Bold)
+                    binding.tvHomeResultTeam1.text = item.team2Name
+                    binding.tvHomeResultTeam1.setTextAppearance(R.style.TextAppearance_LCK_Bold)
+                    binding.tvHomeResultTeam2.text = item.team1Name
+
+                    val colorResId = teamColorMap[item.team2Name] ?: R.color.gray
+                    val dotDrawable = binding.ivHomeWinnerDot.drawable?.mutate()
+                    dotDrawable?.setTint(binding.root.context.getColor(colorResId))
+                    binding.ivHomeWinnerDot.setImageDrawable(dotDrawable)
                 }
                 else -> {
                     // 무승부 또는 기타 결과 처리 시 별도의 처리 불필요
@@ -51,4 +61,17 @@ class HomeMatchResultRVA(
 
         }
     }
+    private val teamColorMap = mapOf(
+        "Gen.G" to R.color.gen_g,
+        "GEN" to R.color.gen_g,
+        "HLE" to R.color.hanhwa,
+        "DK" to R.color.dplus_kia,
+        "T1" to R.color.t1,
+        "KT" to R.color.kt_rolster,
+        "KDF" to R.color.kwangdong_freecs,
+        "BNK" to R.color.bnk,
+        "NS" to R.color.ns,
+        "DRX" to R.color.drx,
+        "BRO" to R.color.ok_brion
+    )
 }

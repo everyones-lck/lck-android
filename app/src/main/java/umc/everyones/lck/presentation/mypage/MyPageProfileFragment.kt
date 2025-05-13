@@ -3,6 +3,7 @@ package umc.everyones.lck.presentation.mypage
 import android.content.Intent
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -28,12 +29,17 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         myPageViewModel.profileData.observe(viewLifecycleOwner) { profile ->
             profile?.let {
                 binding.tvMypageProfileNickname.text = it.nickname // 닉네임 설정
-                binding.tvMypageProfileTier.text = it.tier // 티어 설정
+                binding.tvMypageProfileMyTier.text = it.tier // 티어 설정
+                val teamId = it.teamId ?: 1
 
-                // 팀 로고 설정
-                val teamBackgroundResId =
-                    teamLogos[it.teamId] ?: R.drawable.img_mypage_empty_background
-                binding.ivMypageMainTeamBackground.setImageResource(teamBackgroundResId)
+                // 팀 이름 설정
+                binding.tvMypageProfileTeam.text = TeamData.teamNames[teamId] ?: TeamData.teamNames[1] // teamNames에 없으면 기본값 사용
+
+                // 팀 배경 설정
+                val teamBackground = TeamData.mypageTeamBackground[teamId]
+                teamBackground?.let { colorResId ->
+                    binding.tvMypageProfileTeam.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
+                }
 
                 loadProfileImage(it.profileImageUrl) // 프로필 이미지 로드
 
@@ -62,7 +68,7 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
 
     private fun updateTierUI(tier: String) {
         val tierBackgrounds = mapOf(
-            "bronze" to R.drawable.shape_oval_bronze,
+            "Bronze" to R.drawable.shape_oval_bronze,
             "Silver" to R.drawable.shape_oval_silver,
             "Gold" to R.drawable.shape_oval_gold,
             "Master" to R.drawable.shape_oval_master,
@@ -70,20 +76,38 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         )
 
         val tierStyles = mapOf(
-            "bronze" to R.style.TextAppearance_Bronze,
-            "Silver" to R.style.TextAppearance_Silver,
-            "Gold" to R.style.TextAppearance_Gold,
-            "Master" to R.style.TextAppearance_Master,
-            "Challenger" to R.style.TextAppearance_Challenger
+            "Bronze" to R.style.TextAppearance_LCK_Medium_Bronze,
+            "Silver" to R.style.TextAppearance_LCK_Medium_Silver,
+            "Gold" to R.style.TextAppearance_LCK_Medium_Gold,
+            "Master" to R.style.TextAppearance_LCK_Medium_Master,
+            "Challenger" to R.style.TextAppearance_LCK_Medium_Challenger
         )
 
-        // 사용자 티어에 해당하는 요소만 업데이트
-        binding.viewMypageProfileCircleBronze.setBackgroundResource(tierBackgrounds[tier]!!)
-        binding.tvMypageProfileBronzeText.setTextAppearance(requireContext(), tierStyles[tier]!!)
-        binding.tvMypageProfileTier.setTextAppearance(requireContext(), tierStyles[tier]!!)
+        when (tier) {
+            "Bronze" -> {
+                binding.viewMypageProfileCircleBronze.setBackgroundResource(tierBackgrounds[tier]!!)
+                binding.tvMypageProfileBronzeText.setTextAppearance(requireContext(), tierStyles[tier]!!)
+            }
+            "Silver" -> {
+                binding.viewMypageProfileCircleSilver.setBackgroundResource(tierBackgrounds[tier]!!)
+                binding.tvMypageProfileSilverText.setTextAppearance(requireContext(), tierStyles[tier]!!)
+            }
+            "Gold" -> {
+                binding.viewMypageProfileCircleGold.setBackgroundResource(tierBackgrounds[tier]!!)
+                binding.tvMypageProfileGoldText.setTextAppearance(requireContext(), tierStyles[tier]!!)
+            }
+            "Master" -> {
+                binding.viewMypageProfileCircleMaster.setBackgroundResource(tierBackgrounds[tier]!!)
+                binding.tvMypageProfileMasterText.setTextAppearance(requireContext(), tierStyles[tier]!!)
+            }
+            "Challenger" -> {
+                binding.viewMypageProfileCircleChallenger.setBackgroundResource(tierBackgrounds[tier]!!)
+                binding.tvMypageProfileChallengerText.setTextAppearance(requireContext(), tierStyles[tier]!!)
+            }
+        }
 
         // 티어 텍스트 업데이트
-        binding.tvMypageProfileTier.text = tier
+        binding.tvMypageProfileMyTier.text = tier
     }
 
     private fun showProfileDialog() {
@@ -124,9 +148,9 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
             Glide. with(this)
                 .load(it)
                 .placeholder(R.drawable.img_signup_profile) // 기본 이미지
-                .into(binding.ivMypageMainProfile) // 프로필 이미지 뷰에 로드
+                .into(binding.ivMypageProfileProfile) // 프로필 이미지 뷰에 로드
         } ?: run {
-            binding.ivMypageMainProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지 설정
+            binding.ivMypageProfileProfile.setImageResource(R.drawable.img_signup_profile) // 기본 이미지 설정
         }
     }
 }

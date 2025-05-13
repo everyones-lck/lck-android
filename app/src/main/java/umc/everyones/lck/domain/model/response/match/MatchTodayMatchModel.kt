@@ -4,8 +4,10 @@ data class MatchTodayMatchModel(
     val seasonName: String,
     val matchNumber: Int,
     val team1Id: Int,
+    val team1Name: String,
     val team1Logo: String,
     val team2Id: Int,
+    val team2Name: String,
     val team2Logo: String,
     val myVoteTeamId: Int
 )

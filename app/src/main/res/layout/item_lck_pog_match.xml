@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/black_00">
+        android:background="@color/new_bg">
 
         <TextView
             android:id="@+id/tv_today_match_lck_pog_match_title"

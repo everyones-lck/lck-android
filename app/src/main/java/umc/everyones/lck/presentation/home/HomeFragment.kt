@@ -1,10 +1,14 @@
 package umc.everyones.lck.presentation.home
 
+import android.view.LayoutInflater
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
+import umc.everyones.lck.databinding.DialogSignupTosDetailsAgree1Binding
+import umc.everyones.lck.databinding.DialogSignupTosDetailsAgree2Binding
 import umc.everyones.lck.databinding.FragmentHomeBinding
 import umc.everyones.lck.domain.model.response.home.HomeTodayMatchModel
 import umc.everyones.lck.presentation.base.BaseFragment
@@ -32,6 +36,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     override fun initView() {
         viewModel.fetchHomeTodayMatchInformation()
         goMyPage()
+        setUpService()
     }
 
     private fun updateMatchContent(todayMatches: List<HomeTodayMatchModel.TodayMatchesModel>) {
@@ -52,6 +57,61 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private fun goMyPage(){
         binding.ivHomeMyPage.setOnSingleClickListener {
             startActivity(MyPageActivity.newIntent(requireContext()))
+        }
+    }
+
+    private fun setUpService() {
+        binding.tvHomePrivacyPolicy.setOnSingleClickListener {
+            showDetailsDialog1()
+        }
+        binding.tvHomeTermsOfService.setOnSingleClickListener {
+            showDetailsDialog2()
+        }
+    }
+
+    private fun showDetailsDialog1() {
+        val dialogView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_signup_tos_details_agree_1, null)
+
+        val dialogBinding = DialogSignupTosDetailsAgree1Binding.bind(dialogView)
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+
+        val layoutParams = dialog.window?.attributes
+        layoutParams?.dimAmount = 0.8f
+        dialog.window?.attributes = layoutParams
+
+        dialogBinding.btnConfirm.setOnSingleClickListener {
+            dialog.dismiss()
+        }
+    }
+
+    private fun showDetailsDialog2() {
+        val dialogView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_signup_tos_details_agree_2, null)
+
+        val dialogBinding = DialogSignupTosDetailsAgree2Binding.bind(dialogView)
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+
+        val layoutParams = dialog.window?.attributes
+        layoutParams?.dimAmount = 0.8f
+        dialog.window?.attributes = layoutParams
+
+        dialogBinding.btnConfirm.setOnSingleClickListener {
+            dialog.dismiss()
         }
     }
 }

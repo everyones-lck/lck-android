@@ -104,8 +104,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_today_match_prediction"
-            android:layout_width="410dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
+            android:maxWidth="410dp"
+            app:layout_constraintWidth_max="410dp"
             android:layout_marginTop="40dp"
             android:orientation="vertical"
             android:overScrollMode="never"
@@ -113,6 +115,7 @@
             tools:listitem="@layout/item_today_match_prediction"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_today_match_prediction_vote_text" />
 
         <TextView

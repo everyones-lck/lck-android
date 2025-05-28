@@ -140,7 +140,7 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
             onFlagToggle(true)
 
             teamId?.let {
-                viewModel.fetchLckPlayerDetails(it, "2024 Summer", role)
+                viewModel.fetchLckPlayerDetails(it, "2025 LCK", role)
             }
         }
     }

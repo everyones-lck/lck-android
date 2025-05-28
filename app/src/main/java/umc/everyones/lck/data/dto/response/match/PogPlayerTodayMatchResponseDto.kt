@@ -40,7 +40,7 @@ data class PogPlayerTodayMatchResponseDto(
 
     fun toPogPlayerTodayMatchModel() =
         PogPlayerTodayMatchModel(
-            matchPogVoteCandidate.toMatchPogVoteCandidateModel(),
-            setPogVoteCandidates.map { it.toSetPogVoteCandidatesModel() }
+            matchPogVoteCandidate = matchPogVoteCandidate?.toMatchPogVoteCandidateModel(),
+            setPogVoteCandidates = setPogVoteCandidates.map { it.toSetPogVoteCandidatesModel() }
         )
 }

@@ -24,8 +24,8 @@ android {
         applicationId = "umc.everyones.lck"
         minSdk = 26
         targetSdk = 34
-        versionCode = 4
-        versionName = "1.0"
+        versionCode = 19
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "NAVER_CLIENT_ID", "\""+properties["NAVER_CLIENT_ID"]+"\"")

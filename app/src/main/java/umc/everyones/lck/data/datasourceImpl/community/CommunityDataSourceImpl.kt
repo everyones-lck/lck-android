@@ -4,6 +4,8 @@ import umc.everyones.lck.data.datasource.community.CommunityDataSource
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.community.CreateCommentRequestDto
 import umc.everyones.lck.data.dto.request.community.EditCommunityRequestDto
+import umc.everyones.lck.data.dto.request.community.ReportCommentRequestDto
+import umc.everyones.lck.data.dto.request.community.ReportPostRequestDto
 import umc.everyones.lck.data.dto.request.community.WriteCommunityRequestDto
 import umc.everyones.lck.data.dto.response.NonBaseResponse
 import umc.everyones.lck.data.dto.response.community.CommunityListResponseDto
@@ -40,11 +42,11 @@ class CommunityDataSourceImpl @Inject constructor(
     ): BaseResponse<EditCommunityResponseDto> =
         communityService.editCommunityPost(postId, request)
 
-    override suspend fun reportCommunityPost(postId: Long): NonBaseResponse =
-        communityService.reportCommunityPost(postId)
+    override suspend fun reportCommunityPost(request: ReportPostRequestDto): NonBaseResponse =
+        communityService.reportCommunityPost(request)
 
-    override suspend fun reportCommunityComment(commentId: Long): NonBaseResponse =
-        communityService.reportCommunityComment(commentId)
+    override suspend fun reportCommunityComment(request: ReportCommentRequestDto): NonBaseResponse =
+        communityService.reportCommunityComment(request)
 
     override suspend fun createComment(postId: Long, request: CreateCommentRequestDto): NonBaseResponse =
         communityService.createComment(postId, request)

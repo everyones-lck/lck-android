@@ -2,11 +2,12 @@ package umc.everyones.lck.domain.repository.community
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import umc.everyones.lck.data.dto.request.community.CreateCommentRequestDto
 import umc.everyones.lck.data.dto.response.NonBaseResponse
 import umc.everyones.lck.domain.model.community.CommunityListModel
 import umc.everyones.lck.domain.model.request.community.CreateCommentRequestModel
 import umc.everyones.lck.domain.model.request.community.EditCommunityRequestModel
+import umc.everyones.lck.domain.model.request.community.ReportCommentRequestModel
+import umc.everyones.lck.domain.model.request.community.ReportPostRequestModel
 import umc.everyones.lck.domain.model.request.community.WriteCommunityRequestModel
 import umc.everyones.lck.domain.model.response.community.EditCommunityResponseModel
 import umc.everyones.lck.domain.model.response.community.ReadCommunityResponseModel
@@ -25,9 +26,9 @@ interface CommunityRepository {
 
     fun fetchPagingSource(category: String): Flow<PagingData<CommunityListModel.CommunityListElementModel>>
 
-    suspend fun reportCommunityPost(postId: Long): Result<NonBaseResponse>
+    suspend fun reportCommunityPost(request: ReportPostRequestModel): Result<NonBaseResponse>
 
-    suspend fun reportCommunityComment(commentId: Long): Result<NonBaseResponse>
+    suspend fun reportCommunityComment(request: ReportCommentRequestModel): Result<NonBaseResponse>
 
     suspend fun createComment(postId: Long, request: CreateCommentRequestModel): Result<NonBaseResponse>
 

@@ -196,7 +196,7 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
             4 -> R.drawable.img_aboutlck_uniform_kia
             5 -> R.drawable.img_aboutlck_uniform_t1
             6 -> R.drawable.img_aboutlck_uniform_kt
-            7 -> R.drawable.img_aboutlck_uniform_kdf
+            7 -> R.drawable.img_aboutlck_uniform_dnf
             8 -> R.drawable.img_aboutlck_uniform_bnk
             9 -> R.drawable.img_aboutlck_uniform_ns
             10 -> R.drawable.img_aboutlck_uniform_drx

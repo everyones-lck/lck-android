@@ -39,8 +39,8 @@ class MatchPredictionRVA(private val onOptionSelected: (Int) -> Unit) :
             binding.tvTodayMatchPredictionTeam1Name.text = match.team1Name
             binding.tvTodayMatchPredictionTeam2Name.text = match.team2Name
 
-            val team1Color = teamColorMap[match.team1Name] ?: R.color.gray_700
-            val team2Color = teamColorMap[match.team2Name] ?: R.color.gray_700
+            val team1Color = teamColorMap[match.team1Name] ?: R.color.gray_300
+            val team2Color = teamColorMap[match.team2Name] ?: R.color.gray_300
 
             val team1Drawable = binding.ivTodayMatchPredictionTeam1Box.drawable?.mutate()
             val team2Drawable = binding.ivTodayMatchPredictionTeam2Box.drawable?.mutate()
@@ -82,7 +82,9 @@ class MatchPredictionRVA(private val onOptionSelected: (Int) -> Unit) :
         "T1" to R.color.t1,
         "KT" to R.color.kt_rolster,
         "KDF" to R.color.kwangdong_freecs,
+        "DNF" to R.color.dnf,
         "BNK" to R.color.bnk,
+        "BFX" to R.color.bnk,
         "NS" to R.color.ns,
         "DRX" to R.color.drx,
         "BRO" to R.color.ok_brion

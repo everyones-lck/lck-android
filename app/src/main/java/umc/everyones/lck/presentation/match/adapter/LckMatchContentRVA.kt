@@ -78,7 +78,9 @@ class LckMatchContentRVA(private val items: List<TodayMatchInformationModel.Matc
         "T1" to R.color.t1,
         "KT" to R.color.kt_rolster,
         "KDF" to R.color.kwangdong_freecs,
+        "DNF" to R.color.dnf,
         "BNK" to R.color.bnk,
+        "BFX" to R.color.bnk,
         "NS" to R.color.ns,
         "DRX" to R.color.drx,
         "BRO" to R.color.ok_brion

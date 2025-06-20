@@ -112,6 +112,7 @@
                     android:id="@+id/layout_today_match_1st_vote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@+id/layout_today_match_today_pog_vote">
 
                     <TextView
@@ -171,7 +172,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_today_match_2nd_vote"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_today_match_today_pog_2nd"
@@ -229,7 +231,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_today_match_3rd_vote"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_today_match_today_pog_3rd"
@@ -287,7 +290,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_today_match_4th_vote"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_today_match_today_pog_4th"
@@ -345,7 +349,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_today_match_5th_vote"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_today_match_today_pog_5th"
@@ -403,7 +408,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_today_match_match_vote"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_today_match_today_pog_match"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,47 +9,59 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/iv_viewing_party_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/ic_logo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_my_page"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="36dp"
-            android:src="@drawable/ic_my_page"
-            app:layout_constraintBottom_toBottomOf="@id/iv_viewing_party_logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_viewing_party_logo" />
+        android:layout_height="match_parent"
+        tools:background="@color/new_bg">
 
         <TextView
             android:id="@+id/tv_viewing_party_title"
-            style="@style/TextAppearance.LCK.Bold.Title1_22sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="20dp"
             android:text="Viewing Party"
-            android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textAppearance="@style/Esamanru.Medium.heading01"
+            android:textColor="@color/gray_200"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_viewing_party_logo" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layout_viewing_party_write_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/shape_rect_4_gray_800"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="6dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_viewing_party_title">
+
+            <ImageView
+                android:id="@+id/iv_viewing_party_write"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/ic_selected_viewing" />
+
+            <TextView
+                android:id="@+id/tv_viewing_party_write"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="개최하기"
+                android:textAppearance="@style/Esamanru.Light.body03"
+                android:textColor="@color/gray_200" />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_viewing_party"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="24dp"
             android:orientation="vertical"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -56,24 +69,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_viewing_party_title"
-            app:layout_constraintVertical_bias="0" />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/fab_viewing_party_write"
-            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/gray"
-            android:text="개최하기"
-            android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
-            android:textColor="@color/white"
-            app:icon="@drawable/ic_selected_viewing"
-            app:iconTint="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/layout_viewing_party_write_btn"
+            app:layout_constraintVertical_bias="0"
+            tools:listitem="@layout/item_viewing_party"
+            tools:visibility="gone"/>
 
         <ImageView
             android:id="@+id/iv_viewing_party_loading_img"
@@ -90,13 +89,14 @@
             android:id="@+id/layout_shimmer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_viewing_party_title"
-            app:layout_constraintVertical_bias="0">
+            app:layout_constraintTop_toBottomOf="@id/layout_viewing_party_write_btn"
+            app:layout_constraintVertical_bias="0"
+            tools:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"

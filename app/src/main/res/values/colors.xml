@@ -59,23 +59,27 @@
     <color name="sender_bg">#EFEFEF</color>
     <color name="nickname_gray">#8C8C8C</color>
     <color name="gray_shimmer">#636363</color>
-    <color name="gray_300">#8E8E8E</color>
+    <color name="gray_300">#E8E8E8</color>
     <color name="white_bar">#ECECEC</color>
     <color name="text_white">#ECECEC</color>
     <color name="black_00">#000000</color>
     <color name="white_60">#99E3E4F2</color>
     <color name="gray_200">#F0F0F0</color>
-    <color name="gray_700">#282828</color>
-    <color name="gray_600">#353535</color>
-    <color name="gray_500">#424242</color>
+    <color name="gray_700">#828282</color>
+    <color name="gray_600">#AEAEAE</color>
+    <color name="gray_500">#D9D9D9</color>
     <color name="gray_800">#575757</color>
     <color name="gray_900">#2B2B2B</color>
     <color name="white_40">#66FFFFFF</color>
-    <color name="gray_100">#D9D9D9</color>
+    <color name="gray_100">#F7F7F7</color>
     <color name="gray_rectangle">#1C1C1C</color>
     <array name="red">
         <item>#FFE81B3B</item>
         <item>#FFE81B3B</item>
         <item>#FF000000</item>
     </array>
+    <color name="gray_400">#E1E1E1</color>
+    <color name="gray_1000">#0C0C0C</color>
+    <color name="sement_color_warning">#F26E6E</color>
+    <color name="sement_color_check_right">#C5E3BA</color>
 </resources>

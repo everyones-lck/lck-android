@@ -1,22 +1,19 @@
 package umc.everyones.lck.presentation.community.read
 
 import android.content.SharedPreferences
-import android.util.Log
 import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import umc.everyones.lck.domain.model.request.community.CreateCommentRequestModel
-import umc.everyones.lck.domain.model.request.community.EditCommunityRequestModel
+import umc.everyones.lck.domain.model.request.community.ReportCommentRequestModel
+import umc.everyones.lck.domain.model.request.community.ReportPostRequestModel
 import umc.everyones.lck.domain.model.response.community.ReadCommunityResponseModel
 import umc.everyones.lck.domain.repository.community.CommunityRepository
-import umc.everyones.lck.presentation.party.chat.ViewingPartyChatViewModel
 import umc.everyones.lck.util.network.EventFlow
 import umc.everyones.lck.util.network.MutableEventFlow
 import umc.everyones.lck.util.network.UiState
@@ -93,7 +90,7 @@ class ReadPostViewModel @Inject constructor(
     fun reportCommunityPost(){
         viewModelScope.launch {
             _readCommunityEvent.value = UiState.Loading
-            repository.reportCommunityPost(postId.value).onSuccess { response ->
+            repository.reportCommunityPost(ReportPostRequestModel(postId.value, "")).onSuccess { response ->
                 Timber.d("reportCommunityPost", response.toString())
                 _readCommunityEvent.value = UiState.Success(ReadCommunityEvent.ReportPost)
             }.onFailure {
@@ -110,7 +107,7 @@ class ReadPostViewModel @Inject constructor(
     fun reportCommunityComment(commentId: Long){
         viewModelScope.launch {
             _readCommunityEvent.value = UiState.Loading
-            repository.reportCommunityComment(commentId).onSuccess { response ->
+            repository.reportCommunityComment(ReportCommentRequestModel(commentId, "")).onSuccess { response ->
                 Timber.d("reportCommunityComment", response.toString())
                 _readCommunityEvent.value = UiState.Success(ReadCommunityEvent.ReportComment)
             }.onFailure {

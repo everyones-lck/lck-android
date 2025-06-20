@@ -117,7 +117,6 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
                 etWriteTitle.setText(post.title)
                 etWriteBody.setText(post.body)
                 tvWriteTitle.text = "글 수정하기"
-                ivWriteDone.text = "수정"
                 line3.visibility = View.GONE
                 tvWriteUploadTitle.visibility = View.GONE
                 rvWriteMedia.visibility = View.GONE
@@ -153,7 +152,7 @@ class WritePostActivity : BaseActivity<ActivityWritePostBinding>(R.layout.activi
     private fun initMediaRVAdapter() {
         binding.rvWriteMedia.apply {
             adapter = writeMediaRVA
-            addItemDecoration(GridSpaceItemDecoration(4, 8))
+            addItemDecoration(GridSpaceItemDecoration(4, 12))
             itemAnimator = null
         }
         writeMediaRVA.submitList(listOf(Uri.EMPTY))

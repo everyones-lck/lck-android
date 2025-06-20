@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,44 +10,47 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_gradient_color">
+        android:background="@color/new_bg">
 
         <ImageView
             android:id="@+id/iv_write_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/ic_close"
+            android:layout_marginStart="24dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="8dp"
+            android:src="@drawable/ic_back_btn"
+            app:layout_constraintBottom_toBottomOf="@id/tv_write_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_write_title"
-            app:layout_constraintBottom_toBottomOf="@id/tv_write_title"/>
+            app:layout_constraintTop_toTopOf="@id/tv_write_title" />
 
 
         <TextView
             android:id="@+id/tv_write_title"
-            style="@style/TextAppearance.LCK.Bold.Title1_22sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="39dp"
             android:text="글 작성하기"
+            android:textAppearance="@style/Esamanru.Medium.heading01"
+            android:textColor="@color/gray_200"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <ImageView
             android:id="@+id/iv_write_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="36dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:src="@drawable/ic_write_post_btn"
             android:text="등록"
             android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
             android:textColor="@color/white"
-            android:background="@drawable/shape_rect_12_white_line"
-            android:paddingVertical="4dp"
-            android:paddingHorizontal="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_write_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_write_title"
-            app:layout_constraintBottom_toBottomOf="@id/tv_write_title"/>
+            app:layout_constraintTop_toTopOf="@id/tv_write_title" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -67,21 +71,21 @@
                     android:id="@+id/iv_board_ellipse"
                     android:layout_width="6dp"
                     android:layout_height="6dp"
-                    android:layout_marginBottom="-4dp"
-                    android:layout_marginEnd="2dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="-2dp"
                     android:src="@drawable/img_ellipse"
                     app:layout_constraintBottom_toTopOf="@id/tv_write_board_title"
-                    app:layout_constraintEnd_toStartOf="@id/tv_write_board_title"/>
+                    app:layout_constraintEnd_toStartOf="@id/tv_write_board_title" />
 
                 <TextView
                     android:id="@+id/tv_write_board_title"
-                    style="@style/TextAppearance.LCK.Bold.List_14sp"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="36dp"
                     android:text="게시판 선택"
+                    android:textAppearance="@style/Esamanru.Medium.body02"
+                    android:textColor="@color/new_bg"
                     app:layout_constraintStart_toStartOf="@id/line"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,10 +93,10 @@
                     android:id="@+id/spinner_write_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
                     android:background="@null"
                     android:dropDownWidth="match_parent"
-                    android:layout_marginEnd="16dp"
-                    android:popupBackground="@drawable/shape_rect_4_gray_fill"
+                    android:popupBackground="@drawable/shape_rect_gray_300"
                     android:popupElevation="4dp"
                     android:spinnerMode="dropdown"
                     app:layout_constraintBottom_toBottomOf="@id/tv_write_board_title"
@@ -103,9 +107,10 @@
                     android:id="@+id/line"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginHorizontal="28dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="22dp"
                     android:layout_marginTop="16dp"
-                    android:background="@color/gray_line"
+                    android:background="@color/gray_800"
                     app:layout_constraintStart_toStartOf="@id/tv_write_board_title"
                     app:layout_constraintTop_toBottomOf="@id/tv_write_board_title" />
 
@@ -113,20 +118,20 @@
                     android:id="@+id/iv_board_ellipse2"
                     android:layout_width="6dp"
                     android:layout_height="6dp"
-                    android:layout_marginBottom="-4dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="-2dp"
                     android:src="@drawable/img_ellipse"
-                    android:layout_marginEnd="2dp"
                     app:layout_constraintBottom_toTopOf="@id/tv_write_post_title"
-                    app:layout_constraintEnd_toStartOf="@id/tv_write_post_title"/>
+                    app:layout_constraintEnd_toStartOf="@id/tv_write_post_title" />
 
                 <TextView
                     android:id="@+id/tv_write_post_title"
-                    style="@style/TextAppearance.LCK.Bold.List_14sp"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="26dp"
                     android:text="제목"
+                    android:textAppearance="@style/Esamanru.Medium.body02"
+                    android:textColor="@color/new_bg"
                     app:layout_constraintStart_toStartOf="@id/tv_write_board_title"
                     app:layout_constraintTop_toBottomOf="@id/line" />
 
@@ -134,37 +139,40 @@
                 <EditText
                     android:id="@+id/et_write_title"
                     style="@style/Widget.AppCompat.EditText.LCK"
-                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
                     android:background="@null"
                     android:gravity="end"
-                    android:hint="제목을 입력하세요"
+                    android:hint="제목을 입력해주세요."
                     android:inputType="text"
                     android:maxLength="20"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintStart_toEndOf="@id/tv_write_post_title"
+                    android:textColor="@color/new_bg"
+                    android:textColorHint="@color/gray_800"
+                    android:textAppearance="@style/Esamanru.Light.body03"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_write_post_title"
                     app:layout_constraintEnd_toEndOf="@id/line2"
-                    app:layout_constraintBaseline_toBaselineOf="@id/tv_write_post_title"/>
+                    app:layout_constraintStart_toEndOf="@id/tv_write_post_title" />
 
                 <View
                     android:id="@+id/line2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginHorizontal="28dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/gray_line"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/gray_800"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_write_post_title" />
 
                 <TextView
                     android:id="@+id/tv_write_post_body"
-                    style="@style/TextAppearance.LCK.Bold.List_14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="26dp"
                     android:text="내용"
-                    android:textColor="@color/black"
+                    android:textAppearance="@style/Esamanru.Medium.body02"
+                    android:textColor="@color/new_bg"
                     app:layout_constraintStart_toStartOf="@id/tv_write_board_title"
                     app:layout_constraintTop_toBottomOf="@id/line2" />
 
@@ -172,51 +180,52 @@
                     android:id="@+id/iv_board_ellipse3"
                     android:layout_width="6dp"
                     android:layout_height="6dp"
-                    android:layout_marginBottom="-4dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="-2dp"
                     android:src="@drawable/img_ellipse"
-                    android:layout_marginEnd="2dp"
                     app:layout_constraintBottom_toTopOf="@id/tv_write_post_body"
-                    app:layout_constraintEnd_toStartOf="@id/tv_write_post_body"/>
+                    app:layout_constraintEnd_toStartOf="@id/tv_write_post_body" />
 
                 <EditText
                     android:id="@+id/et_write_body"
+                    style="@style/Widget.AppCompat.EditText.LCK"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="8dp"
                     android:background="@null"
                     android:gravity="start"
                     android:hint="내용을 입력하세요"
                     android:inputType="textMultiLine"
+                    android:maxLength="2000"
                     android:minHeight="230dp"
                     android:text=""
-                    android:maxLength="2000"
-                    android:layout_marginEnd="8dp"
-                    android:textSize="14sp"
-                    style="@style/Widget.AppCompat.EditText.LCK"
-                    android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
+                    android:textColor="@color/new_bg"
+                    android:textColorHint="@color/gray_800"
+                    android:textAppearance="@style/Esamanru.Light.body03"
+                    app:layout_constraintEnd_toEndOf="@id/line2"
                     app:layout_constraintStart_toStartOf="@id/tv_write_post_body"
-                    app:layout_constraintTop_toBottomOf="@id/tv_write_post_body"
-                    app:layout_constraintEnd_toEndOf="@id/line2"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_write_post_body" />
 
                 <View
                     android:id="@+id/line3"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginHorizontal="28dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/gray_line"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/gray_800"
                     app:layout_constraintStart_toStartOf="@id/et_write_body"
                     app:layout_constraintTop_toBottomOf="@id/et_write_body" />
 
                 <TextView
                     android:id="@+id/tv_write_upload_title"
-                    style="@style/TextAppearance.LCK.Bold.List_14sp"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="20dp"
                     android:text="사진 및 영상 업로드"
+                    android:textAppearance="@style/Esamanru.Medium.body02"
+                    android:textColor="@color/new_bg"
                     app:layout_constraintStart_toStartOf="@id/tv_write_board_title"
                     app:layout_constraintTop_toBottomOf="@id/line3" />
 
@@ -230,15 +239,17 @@
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_write_upload_title"
-                    app:spanCount="4" />
+                    app:spanCount="4"
+                    tools:listitem="@layout/item_media_write"/>
 
                 <View
                     android:id="@+id/line4"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginHorizontal="28dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="22dp"
                     android:layout_marginTop="16dp"
-                    android:background="@color/gray_line"
+                    android:background="@color/gray_800"
                     app:layout_constraintStart_toStartOf="@id/et_write_body"
                     app:layout_constraintTop_toBottomOf="@id/rv_write_media" />
 
@@ -247,30 +258,30 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="32dp"
+                    android:layout_marginBottom="20dp"
                     android:gravity="start"
                     android:orientation="vertical"
-                    app:layout_constraintTop_toBottomOf="@id/line4"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintVertical_bias="0"
-                    android:layout_marginBottom="20dp">
+                    app:layout_constraintTop_toBottomOf="@id/line4"
+                    app:layout_constraintVertical_bias="0">
 
                     <TextView
                         android:id="@+id/tv_write_guide_media"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="\u00B7 사진 및 영상은 최대 12개까지 업로드 가능합니다."
-                        android:textAppearance="@style/TextAppearance.LCK.Light.Comment_8sp"
-                        android:textSize="10sp"
-                        android:textColor="@color/black" />
+                        android:textAppearance="@style/Esamanru.Light.label03"
+                        android:textColor="@color/sement_color_warning"
+                        android:textSize="10sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:text="\u00B7 과도한 비방 및 욕설이 포함된 게시물은 신고에 의해 무통보 삭제될 수 있습니다."
-                        android:textAppearance="@style/TextAppearance.LCK.Light.Comment_8sp"
-                        android:textSize="10sp"
-                        android:textColor="@color/black" />
+                        android:textAppearance="@style/Esamanru.Light.label03"
+                        android:textColor="@color/sement_color_warning"
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/tv_write_guide"
@@ -278,9 +289,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:text="\u00B7 초상권, 저작권 침해 및 기타 위법한 게시물은 관리자에 의해 무통보 삭제될 수 있습니다."
-                        android:textAppearance="@style/TextAppearance.LCK.Light.Comment_8sp"
-                        android:textSize="10sp"
-                        android:textColor="@color/black" />
+                        android:textAppearance="@style/Esamanru.Light.label03"
+                        android:textColor="@color/sement_color_warning"
+                        android:textSize="10sp" />
 
                 </LinearLayout>
 

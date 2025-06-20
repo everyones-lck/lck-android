@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginBottom="20dp">
+    android:layout_marginBottom="20dp"
+    tools:background="@color/new_bg">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_comment"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginTop="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_comment_nickname">
@@ -18,63 +19,65 @@
             android:id="@+id/iv_comment_profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:src="@drawable/ic_logo"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            tools:src="@drawable/ic_logo" />
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tv_comment_nickname"
-        style="@style/TextAppearance.LCK.Bold.Detail_10sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        tools:text="모두의 LCK | KT"
+        android:layout_marginStart="8dp"
+        android:textAppearance="@style/Esamanru.Light.label03"
+        android:textColor="@color/gray_800"
         app:layout_constraintStart_toEndOf="@id/cv_comment"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="모두의 LCK | KT" />
 
     <TextView
         android:id="@+id/tv_comment_body"
         style="@style/TextAppearance.LCK.Light.Detail_10sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="모두의 마블\n모두의 마블"
         android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="@id/tv_commnet_date"
+        android:layout_marginEnd="12dp"
         app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@id/tv_commnet_date"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@id/tv_comment_nickname"
-        app:layout_constraintTop_toBottomOf="@id/tv_comment_nickname" />
+        app:layout_constraintTop_toBottomOf="@id/tv_comment_nickname"
+        tools:text="모두의 마블 모두의 마블 모두의 마블 모두의 마블 모두의 마블 모두의 마블 모두의 마블" />
 
     <TextView
         android:id="@+id/tv_commnet_date"
-        style="@style/TextAppearance.LCK.Light.Comment_8sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        app:layout_goneMarginEnd="28dp"
-        tools:text="2024.07,01"
+        android:layout_marginEnd="16dp"
+        android:textAppearance="@style/Esamanru.Light.label03"
+        android:textColor="@color/gray_800"
         app:layout_constraintBottom_toBottomOf="@id/tv_comment_nickname"
-        app:layout_constraintEnd_toStartOf="@id/iv_comment_report_btn"
-        app:layout_constraintTop_toTopOf="@id/tv_comment_nickname" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_comment_nickname"
+        tools:text="2024.07,01" />
 
     <ImageView
         android:id="@+id/iv_comment_delete_btn"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="12dp"
         android:src="@drawable/ic_delete_comment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_commnet_date"
-        app:layout_constraintBottom_toBottomOf="@id/tv_commnet_date"/>
+        app:layout_constraintEnd_toEndOf="@id/tv_commnet_date"
+        app:layout_constraintTop_toBottomOf="@id/tv_commnet_date" />
 
     <ImageView
         android:id="@+id/iv_comment_report_btn"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:layout_gravity="center"
+        android:layout_marginTop="12dp"
         android:src="@drawable/ic_report_btn"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_commnet_date"
-        app:layout_constraintBottom_toBottomOf="@id/tv_commnet_date"/>
+        app:layout_constraintEnd_toEndOf="@id/tv_commnet_date"
+        app:layout_constraintTop_toBottomOf="@id/tv_commnet_date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

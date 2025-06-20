@@ -206,4 +206,127 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
+    
+    <style name="Esamanru" parent="">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+    </style>
+
+    <style name="Esamanru.Light">
+        <item name="android:fontFamily">@font/esamanru_light</item>
+    </style>
+
+    <style name="Esamanru.Medium">
+        <item name="android:fontFamily">@font/esamanru_medium</item>
+    </style>
+
+    <style name="Esamanru.Bold">
+        <item name="android:fontFamily">@font/esamanru_bold</item>
+    </style>
+
+    <!-- Esamanru Light TextWhite -->
+    <style name="Esamanru.Light.TextWhite">
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <style name="Esamanru.Light.TextWhite.14">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Esamanru Medium TextWhite -->
+    <style name="Esamanru.Medium.TextWhite">
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <style name="Esamanru.Medium.TextWhite.24">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <!-- Esamanru Light White -->
+    <style name="Esamanru.Light.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Esamanru.Light.White.12">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- Esamanru Light Gray -->
+    <style name="Esamanru.Light.Gray">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="Esamanru.Light.Gray.12">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- Esamanru Light Gray200 -->
+    <style name="Esamanru.Light.Gray200">
+        <item name="android:textColor">@color/gray_400</item>
+    </style>
+
+    <style name="Esamanru.Light.Gray200.11">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <!-- Esamanru Light Gray400 -->
+    <style name="Esamanru.Light.Gray400">
+        <item name="android:textColor">@color/gray_400</item>
+    </style>
+
+    <style name="Esamanru.Light.Gray400.8">
+        <item name="android:textSize">8sp</item>
+    </style>
+
+    <style name="Esamanru.Light.Gray400.10">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <!-- 새로운 디자인 시스템 적용-->
+    <style name="Esamanru.Bold.Playername01">
+        <item name="android:textSize">46sp</item>
+    </style>
+
+    <style name="Esamanru.Medium.Title01">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Esamanru.Light.Title02">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Esamanru.Medium.heading01">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Esamanru.Light.heading02">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Esamanru.Medium.body01">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Esamanru.Medium.body02">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Esamanru.Light.body03">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Esamanru.Medium.label01">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Esamanru.Light.label02">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Esamanru.Light.label03">
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

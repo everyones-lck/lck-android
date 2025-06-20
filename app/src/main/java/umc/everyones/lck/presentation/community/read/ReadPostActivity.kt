@@ -103,13 +103,9 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         repeatOnStarted {
             viewModel.isWriter.collect { isWriter ->
                 with(binding) {
-                    if (isWriter) {
-                        layoutReadReportBtn.visibility = View.GONE
-                        layoutReadWriterMenu.visibility = View.VISIBLE
-                    } else {
-                        layoutReadReportBtn.visibility = View.VISIBLE
-                        layoutReadWriterMenu.visibility = View.GONE
-                    }
+                    layoutReadPostEditBtn.isVisible = isWriter
+                    layoutReadPostDeleteBtn.isVisible = isWriter
+                    layoutReadPostReportBtn.isVisible = !isWriter
                 }
             }
         }
@@ -145,11 +141,11 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
             }
 
             ReadPostViewModel.ReadCommunityEvent.ReportComment -> {
-                showCustomSnackBar(binding.layoutReadReportBtn, "댓글이 신고 되었습니다")
+                showCustomSnackBar(binding.layoutReadPostReportBtn, "댓글이 신고 되었습니다")
             }
 
             ReadPostViewModel.ReadCommunityEvent.ReportPost -> {
-                showCustomSnackBar(binding.layoutReadReportBtn, "게시글이 신고 되었습니다")
+                showCustomSnackBar(binding.layoutReadPostReportBtn, "게시글이 신고 되었습니다")
             }
 
             ReadPostViewModel.ReadCommunityEvent.CreateComment -> {
@@ -188,13 +184,13 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
     }
 
     private fun reportPost() {
-        binding.layoutReadReportBtn.setOnSingleClickListener {
+        binding.layoutReadPostReportBtn.setOnSingleClickListener {
             viewModel.reportCommunityPost()
         }
     }
 
     private fun editPost() {
-        binding.layoutReadEditBtn.setOnSingleClickListener {
+        binding.layoutReadPostEditBtn.setOnSingleClickListener {
             // 글 작성 화면으로 이동 및 현재 게시글 Data 전송
             editResultLauncher.launch(
                 WritePostActivity.editIntent(
@@ -211,7 +207,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
     }
 
     private fun deletePost() {
-        binding.layoutReadDeleteBtn.setOnSingleClickListener {
+        binding.layoutReadPostDeleteBtn.setOnSingleClickListener {
             viewModel.deleteCommunityPost()
         }
     }
@@ -230,7 +226,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
         }
 
         // RecyclerView Item의 GridLayout에서의 일정한 간격을 위해 설정
-        binding.rvReadMedia.addItemDecoration(GridSpaceItemDecoration(4, 8))
+        binding.rvReadMedia.addItemDecoration(GridSpaceItemDecoration(4, 12))
     }
 
     private fun validateCommentSend() {
@@ -240,7 +236,7 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
 
                     // 댓글 작성 여부에 따른 전송 버튼 활성화 제어
                     if (text.isEmpty()) {
-                        binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send))
+                        binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send_comment_btn))
                     } else {
                         binding.ivReadSendCommentBtn.setImageDrawable(drawableOf(R.drawable.ic_send_enabled))
                     }

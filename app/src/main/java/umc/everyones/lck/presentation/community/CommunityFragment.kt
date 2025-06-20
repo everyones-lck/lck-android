@@ -94,8 +94,8 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
     }
 
     private fun goMyPage(){
-        binding.ivMyPage.setOnSingleClickListener {
+        /*binding.ivMyPage.setOnSingleClickListener {
             startActivity(MyPageActivity.newIntent(requireContext()))
-        }
+        }*/
     }
 }

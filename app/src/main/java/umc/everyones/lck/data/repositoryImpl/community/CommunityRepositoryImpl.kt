@@ -12,6 +12,8 @@ import umc.everyones.lck.data.service.community.CommunityService
 import umc.everyones.lck.domain.model.community.CommunityListModel
 import umc.everyones.lck.domain.model.request.community.CreateCommentRequestModel
 import umc.everyones.lck.domain.model.request.community.EditCommunityRequestModel
+import umc.everyones.lck.domain.model.request.community.ReportCommentRequestModel
+import umc.everyones.lck.domain.model.request.community.ReportPostRequestModel
 import umc.everyones.lck.domain.model.request.community.WriteCommunityRequestModel
 import umc.everyones.lck.domain.model.response.community.EditCommunityResponseModel
 import umc.everyones.lck.domain.model.response.community.ReadCommunityResponseModel
@@ -65,11 +67,12 @@ class CommunityRepositoryImpl @Inject constructor(
             pagingSourceFactory = { CommunityListPagingSource(communityService, category) }
         ).flow
 
-    override suspend fun reportCommunityPost(postId: Long): Result<NonBaseResponse> =
-        runCatching { communityService.reportCommunityPost(postId)}
+    override suspend fun reportCommunityPost(request: ReportPostRequestModel): Result<NonBaseResponse> =
+        runCatching { communityDataSource.reportCommunityPost(request.toDto())}
 
-    override suspend fun reportCommunityComment(commentId: Long): Result<NonBaseResponse> =
-        runCatching { communityDataSource.reportCommunityComment(commentId) }
+
+    override suspend fun reportCommunityComment(request: ReportCommentRequestModel): Result<NonBaseResponse> =
+        kotlin.runCatching { communityDataSource.reportCommunityComment(request.toDto()) }
 
     override suspend fun createComment(postId: Long, request: CreateCommentRequestModel): Result<NonBaseResponse> =
         runCatching { communityDataSource.createComment(postId, request.toCreateCommentRequestDto()) }

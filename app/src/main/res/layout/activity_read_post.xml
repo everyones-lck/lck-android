@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,22 +10,22 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_gradient_color">
+        android:background="@color/new_bg">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/layout_read_coordinator"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/layout_read_send_comment">
+            app:layout_constraintBottom_toTopOf="@id/layout_read_send_comment"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/new_bg"
                 android:elevation="0dp"
                 android:stateListAnimator="@null"
-                app:liftOnScrollColor="@color/end_gradient_color"
-                android:background="@color/end_gradient_color">
+                app:liftOnScrollColor="@color/new_bg">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -32,37 +33,42 @@
 
                     <TextView
                         android:id="@+id/tv_read_title"
-                        style="@style/TextAppearance.LCK.Bold.Title1_22sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
                         android:text="Community"
+                        android:textAppearance="@style/Esamanru.Medium.heading01"
+                        android:textColor="@color/gray_200"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_read_back_btn"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@id/iv_read_back_btn" />
 
                     <TextView
                         android:id="@+id/tv_read_category"
-                        style="@style/TextAppearance.LCK.Light.Detail_10sp"
+                        style="@style/Esamanru.Light.body03"
+                        android:textColor="@color/gray_200"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="16dp"
                         android:text=""
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/tv_read_title"
                         app:layout_constraintStart_toStartOf="@id/tv_read_title"
                         app:layout_constraintTop_toBottomOf="@id/tv_read_title"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        tools:text="잡담" />
 
                     <ImageView
                         android:id="@+id/iv_read_back_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="36dp"
-                        android:layout_marginTop="9dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="4dp"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp"
                         android:src="@drawable/ic_back_btn"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tv_read_title" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -76,7 +82,8 @@
                 android:overScrollMode="never"
                 android:visibility="invisible"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -84,197 +91,215 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cv_read_profile_background"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="4dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="26dp"
                         android:layout_marginEnd="4dp"
-                        app:layout_constraintEnd_toStartOf="@id/tv_read_writer"
-                        app:layout_constraintTop_toTopOf="@id/tv_read_post_title">
+                        app:cardCornerRadius="4dp"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_read_date"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_read_writer">
 
                         <ImageView
                             android:id="@+id/iv_read_profile_image"
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:scaleType="center"
-                            android:src="@drawable/ic_hanhwa" />
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            tools:src="@drawable/ic_hanhwa" />
                     </androidx.cardview.widget.CardView>
 
                     <TextView
                         android:id="@+id/tv_read_writer"
-                        style="@style/TextAppearance.LCK.Light.Detail_10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="40dp"
                         android:text=""
-                        app:layout_constraintBottom_toBottomOf="@id/cv_read_profile_background"
-                        app:layout_constraintEnd_toEndOf="@id/line"
-                        app:layout_constraintTop_toTopOf="@id/cv_read_profile_background" />
+                        android:textAppearance="@style/Esamanru.Light.body03"
+                        android:textColor="@color/gray_200"
+                        app:layout_constraintStart_toEndOf="@id/cv_read_profile_background"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Perfect 조아" />
 
                     <TextView
                         android:id="@+id/tv_read_post_title"
                         style="@style/TextAppearance.LCK.Bold.Title2_18sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="36dp"
-                        android:layout_marginStart="15dp"
+                        android:layout_marginHorizontal="6dp"
+                        app:layout_constraintHorizontal_bias="0"
+                        android:layout_marginTop="20dp"
                         android:text=""
+                        tools:text="1경기 전력 어떻게 봐?"
+                        android:textColor="@color/gray_200"
                         app:layout_constraintStart_toStartOf="@id/line"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintEnd_toEndOf="@id/line"
+                        app:layout_constraintTop_toBottomOf="@id/line" />
 
                     <TextView
                         android:id="@+id/tv_read_date"
-                        style="@style/TextAppearance.LCK.Light.Comment_8sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:text=""
-                        android:layout_marginTop="9dp"
+                        android:textAppearance="@style/Esamanru.Light.label03"
+                        android:textColor="@color/gray_800"
+                        app:layout_constraintStart_toStartOf="@id/tv_read_writer"
                         app:layout_constraintTop_toBottomOf="@id/tv_read_writer"
-                        app:layout_constraintEnd_toEndOf="@id/tv_read_writer" />
+                        tools:text="2024.03.08 00:00" />
 
                     <View
                         android:id="@+id/line"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@color/gray_line"
-                        app:layout_constraintTop_toBottomOf="@id/tv_read_post_title" />
+                        android:layout_marginTop="20dp"
+                        android:background="@color/gray_900"
+                        app:layout_constraintTop_toBottomOf="@id/tv_read_date" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_read_post_report_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="26dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        tools:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@id/cv_read_profile_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/cv_read_profile_background">
+
+                        <ImageView
+                            android:id="@+id/iv_read_post_report"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_marginEnd="4dp"
+                            android:src="@drawable/ic_report_btn" />
+
+                        <TextView
+                            android:id="@+id/tv_read_post_report"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="신고하기"
+                            android:textAppearance="@style/Esamanru.Medium.label01"
+                            android:textColor="@color/sement_color_warning" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_read_post_edit_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="@id/cv_read_profile_background"
+                        app:layout_constraintEnd_toStartOf="@id/layout_read_post_delete_btn"
+                        app:layout_constraintTop_toTopOf="@id/cv_read_profile_background">
+
+                        <ImageView
+                            android:id="@+id/iv_read_post_edit"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_marginEnd="4dp"
+                            android:src="@drawable/ic_edit_post_btn"
+                            app:tint="@color/gray_200"/>
+
+                        <TextView
+                            android:id="@+id/tv_read_post_edit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="수정하기"
+                            android:textAppearance="@style/Esamanru.Medium.label01"
+                            android:textColor="@color/gray_200" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_read_post_delete_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="26dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="@id/cv_read_profile_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/cv_read_profile_background">
+
+                        <ImageView
+                            android:id="@+id/iv_read_post_delete"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_marginEnd="4dp"
+                            android:src="@drawable/ic_delete_post_btn"
+                            app:tint="@color/gray_200"/>
+
+                        <TextView
+                            android:id="@+id/tv_read_post_delete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="삭제하기"
+                            android:textAppearance="@style/Esamanru.Medium.label01"
+                            android:textColor="@color/gray_200" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_read_post_body"
                         style="@style/Widget.AppCompat.TextView.LCK"
-                        android:textAppearance="@style/TextAppearance.LCK.Light.Body_14sp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="28dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="12dp"
                         android:gravity="start"
-                        android:textColor="@color/white"
+                        android:layout_marginEnd="6dp"
                         android:text=""
+                        tools:text="디자인 너무 많이 바뀌었죠"
+                        android:textAppearance="@style/Esamanru.Light.body03"
+                        android:textColor="@color/gray_600"
                         app:layout_constraintEnd_toEndOf="@id/line"
-                        app:layout_constraintStart_toStartOf="@id/line"
-                        app:layout_constraintTop_toBottomOf="@id/line" />
+                        app:layout_constraintStart_toStartOf="@id/tv_read_post_title"
+                        app:layout_constraintTop_toBottomOf="@id/tv_read_post_title" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_read_media"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="36dp"
-                        android:layout_marginTop="108dp"
+                        android:layout_marginTop="40dp"
                         android:orientation="vertical"
                         android:overScrollMode="never"
                         android:visibility="gone"
+                        tools:visibility="visible"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_read_post_body"
+                        tools:listitem="@layout/item_media_read"
                         app:spanCount="4" />
-
-                    <LinearLayout
-                        android:id="@+id/layout_read_menu_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        app:layout_constraintStart_toStartOf="@id/rv_read_media"
-                        app:layout_constraintTop_toBottomOf="@id/rv_read_media">
-
-                        <LinearLayout
-                            android:id="@+id/layout_read_report_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            android:gravity="center"
-                            app:layout_constraintStart_toStartOf="@id/rv_read_media"
-                            app:layout_constraintTop_toBottomOf="@id/rv_read_media">
-
-                            <ImageView
-                                android:id="@+id/iv_read_report_btn"
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                android:src="@drawable/ic_report_btn" />
-
-                            <TextView
-                                android:id="@+id/tv_read_report_btn"
-                                style="@style/TextAppearance.LCK.Light.Detail_10sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:text="신고하기"
-                                android:textColor="@color/warning" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/layout_read_writer_menu"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:visibility="visible"
-                            app:layout_constraintStart_toStartOf="@id/rv_read_media"
-                            app:layout_constraintTop_toBottomOf="@id/rv_read_media">
-
-                            <LinearLayout
-                                android:id="@+id/layout_read_delete_btn"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center">
-
-                                <ImageView
-                                    android:id="@+id/iv_read_delete_btn"
-                                    android:layout_width="12dp"
-                                    android:layout_height="12dp"
-                                    android:src="@drawable/ic_delete_comment" />
-
-                                <TextView
-                                    android:id="@+id/tv_read_delete_btn"
-                                    style="@style/TextAppearance.LCK.Light.Detail_10sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="4dp"
-                                    android:text="삭제하기" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/layout_read_edit_btn"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="11dp"
-                                android:gravity="center">
-
-                                <ImageView
-                                    android:id="@+id/iv_read_edit_btn"
-                                    android:layout_width="12dp"
-                                    android:layout_height="12dp"
-                                    android:src="@drawable/ic_edit" />
-
-                                <TextView
-                                    android:id="@+id/tv_read_edit_btn"
-                                    style="@style/TextAppearance.LCK.Light.Detail_10sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="4dp"
-                                    android:text="수정하기" />
-
-                            </LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
 
                     <View
                         android:id="@+id/line2"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="19dp"
-                        android:background="@color/gray_line"
-                        app:layout_constraintTop_toBottomOf="@id/layout_read_menu_btn" />
+                        android:layout_marginTop="24dp"
+                        android:background="@color/gray_900"
+                        app:layout_goneMarginTop="24dp"
+                        app:layout_constraintTop_toBottomOf="@id/rv_read_media" />
+
+                    <TextView
+                        android:id="@+id/tv_read_post_comment_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="댓글"
+                        android:textAppearance="@style/Esamanru.Medium.body02"
+                        android:textColor="@color/gray_800"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintStart_toStartOf="@id/line2"
+                        app:layout_constraintTop_toBottomOf="@id/line2" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_read_comment"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="18dp"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginEnd="13dp"
+                        android:layout_marginTop="12dp"
                         android:layout_marginBottom="20dp"
                         android:nestedScrollingEnabled="false"
                         android:orientation="vertical"
@@ -282,9 +307,11 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/line2"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@id/line2"
-                        app:layout_constraintTop_toBottomOf="@id/line2"
-                        app:layout_constraintVertical_bias="0" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_read_post_comment_title"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:listitem="@layout/item_comment" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -296,27 +323,28 @@
             android:id="@+id/layout_read_send_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="26dp"
-            android:layout_marginBottom="35dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/shape_rect_8_gray_fill"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <EditText
                 android:id="@+id/et_read_comment_input"
                 style="@style/Widget.AppCompat.EditText.LCK"
-                android:textAppearance="@style/TextAppearance.LCK.Light.Detail_10sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:paddingVertical="12dp"
-                android:background="@drawable/shape_rect_8_gray_fill"
+                android:background="@null"
                 android:hint="댓글을 입력하세요"
-                android:paddingStart="10dp"
-                android:maxLength="1000"
-                android:maxHeight="300dp"
                 android:inputType="textMultiLine"
+                android:maxHeight="300dp"
+                android:maxLength="1000"
+                android:paddingVertical="16dp"
+                android:paddingStart="18dp"
                 android:text=""
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
+                android:textAppearance="@style/Esamanru.Medium.body02"
+                android:textColor="@color/gray_200"
+                android:textColorHint="@color/gray_800"
                 app:layout_constraintBottom_toBottomOf="@id/iv_read_send_comment_btn"
                 app:layout_constraintEnd_toStartOf="@id/iv_read_send_comment_btn"
                 app:layout_constraintStart_toStartOf="parent"
@@ -324,9 +352,10 @@
 
             <ImageView
                 android:id="@+id/iv_read_send_comment_btn"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_send"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_send_comment_btn"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

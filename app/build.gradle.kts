@@ -5,6 +5,7 @@ import java.util.*
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.google.gms.google-services")
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
@@ -23,8 +24,8 @@ android {
         applicationId = "umc.everyones.lck"
         minSdk = 26
         targetSdk = 34
-        versionCode = 4
-        versionName = "1.0"
+        versionCode = 19
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "NAVER_CLIENT_ID", "\""+properties["NAVER_CLIENT_ID"]+"\"")
@@ -146,4 +147,8 @@ dependencies {
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
     implementation ("com.auth0.android:jwtdecode:2.0.0")
+
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation("com.google.firebase:firebase-analytics")
 }

@@ -4,33 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp">
+    android:layout_marginBottom="16dp"
+    tools:background="@color/new_bg">
 
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
         android:gravity="center"
-        android:textAppearance="@style/TextAppearance.LCK.Bold.Detail_10sp"
-        android:textColor="@color/white"
+        android:text=""
+        android:textAppearance="@style/Esamanru.Light.body03"
+        android:textColor="@color/gray_200"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"/>
-
-    <ImageView
-        android:id="@+id/iv_sender_profile"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:scaleType="centerCrop"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_date"
-        tools:src="@drawable/ic_t1" />
+        tools:text="2011.11.11"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tv_senderer_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/shape_rect_sender_chat_bg"
         android:breakStrategy="simple"
@@ -38,10 +32,10 @@
         android:maxWidth="280dp"
         android:paddingHorizontal="12dp"
         android:paddingVertical="8dp"
-        android:textAppearance="@style/TextAppearance.LCK.Light.Level_12sp"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@id/iv_sender_profile"
-        app:layout_constraintTop_toTopOf="@id/iv_sender_profile"
+        android:textAppearance="@style/Esamanru.Light.body03"
+        android:textColor="@color/gray_200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_date"
         app:layout_wrapBehaviorInParent="vertical_only"
         tools:text="뷰잉파티 현재 참여 인원이 어떻게 되나요??" />
 
@@ -51,8 +45,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:text="22:00"
-        android:textAppearance="@style/TextAppearance.LCK.Light.Detail_10sp"
-        android:textColor="@color/white"
+        android:textAppearance="@style/Esamanru.Light.label03"
+        android:textColor="@color/gray_600"
         app:layout_constraintBottom_toBottomOf="@id/tv_senderer_chat"
         app:layout_constraintEnd_toStartOf="@id/tv_senderer_chat"
         app:layout_constraintHorizontal_bias="1"

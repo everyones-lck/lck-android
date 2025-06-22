@@ -200,7 +200,7 @@ class AboutLCKFragment : BaseFragment<FragmentAboutLckBinding>(R.layout.fragment
         val verticalSpaceHeightPx = (10 * resources.displayMetrics.density).toInt()
         recyclerView.addItemDecoration(VerticalSpaceItemDecoration(verticalSpaceHeightPx))
 
-        viewModel.fetchLckRanking("2024 Summer", 0, 10)
+        viewModel.fetchLckRanking("2025 LCK", 0, 10)
 
     }
 

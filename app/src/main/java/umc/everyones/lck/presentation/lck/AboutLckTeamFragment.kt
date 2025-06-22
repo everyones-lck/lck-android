@@ -140,7 +140,7 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
             onFlagToggle(true)
 
             teamId?.let {
-                viewModel.fetchLckPlayerDetails(it, "2024 Summer", role)
+                viewModel.fetchLckPlayerDetails(it, "2025 LCK", role)
             }
         }
     }
@@ -196,7 +196,7 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
             4 -> R.drawable.img_aboutlck_uniform_kia
             5 -> R.drawable.img_aboutlck_uniform_t1
             6 -> R.drawable.img_aboutlck_uniform_kt
-            7 -> R.drawable.img_aboutlck_uniform_kdf
+            7 -> R.drawable.img_aboutlck_uniform_dnf
             8 -> R.drawable.img_aboutlck_uniform_bnk
             9 -> R.drawable.img_aboutlck_uniform_ns
             10 -> R.drawable.img_aboutlck_uniform_drx

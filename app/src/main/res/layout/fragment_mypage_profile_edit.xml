@@ -50,21 +50,32 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tv_mypage_profile_edit_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로필 사진 수정"
+            style="@style/TextAppearance.LCK.Light.14sp"
+            app:layout_constraintTop_toBottomOf="@id/layout_mypage__community_topbar"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="44dp"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+
         <LinearLayout
             android:id="@+id/layout_mypage_profile_edit_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_profile_edit_image"
             android:layout_marginHorizontal="36dp"
             android:orientation="horizontal"
-            android:layout_marginTop="150dp">
+            android:layout_marginTop="16dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/iv_mypage_profile_edit_rect"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="16dp"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="0dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="닉네임 수정"
-            style="@style/TextAppearance.LCK.Light.Title_18sp"
+            style="@style/TextAppearance.LCK.Light.14sp"
             app:layout_constraintTop_toBottomOf="@id/layout_mypage_profile_edit_profile"
             android:layout_marginStart="36dp"
             android:layout_marginTop="52dp"

@@ -306,7 +306,7 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="Esamanru.Medium.body01">
+    <style name="Esamanru.Light.body01">
         <item name="android:textSize">18sp</item>
     </style>
 

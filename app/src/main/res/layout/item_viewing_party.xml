@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="18dp"
-            android:textAppearance="@style/Esamanru.Medium.body01"
+            android:textAppearance="@style/Esamanru.Light.body01"
             android:textColor="@color/gray_800"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

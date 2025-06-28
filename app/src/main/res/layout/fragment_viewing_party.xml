@@ -42,10 +42,10 @@
 
             <ImageView
                 android:id="@+id/iv_viewing_party_write"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_marginEnd="2dp"
-                android:src="@drawable/ic_selected_viewing" />
+                android:src="@drawable/ic_write_viewing_party" />
 
             <TextView
                 android:id="@+id/tv_viewing_party_write"

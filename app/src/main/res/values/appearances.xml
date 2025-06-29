@@ -302,6 +302,10 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="Esamanru.Medium.heading01.gray800">
+        <item name="android:textColor">@color/gray_800</item>
+    </style>
+
     <style name="Esamanru.Light.heading02">
         <item name="android:textSize">20sp</item>
     </style>
@@ -312,6 +316,10 @@
 
     <style name="Esamanru.Medium.body02">
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Esamanru.Medium.body02.gray800">
+        <item name="android:textColor">@color/gray_800</item>
     </style>
 
     <style name="Esamanru.Light.body03">

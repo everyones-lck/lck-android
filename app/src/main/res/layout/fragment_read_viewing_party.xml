@@ -138,13 +138,13 @@
                         android:layout_marginEnd="4dp"
                         android:src="@drawable/ic_report_btn" />
 
-                    <TextView
+                    <!--TextView
                         android:id="@+id/tv_read_viewing_party_report"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="신고하기"
                         android:textAppearance="@style/Esamanru.Medium.label01"
-                        android:textColor="@color/sement_color_warning" />
+                        android:textColor="@color/sement_color_warning" /-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -166,13 +166,13 @@
                         android:src="@drawable/ic_edit_post_btn"
                         app:tint="@color/gray_200" />
 
-                    <TextView
+                    <!--TextView
                         android:id="@+id/tv_read_viewing_party_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="수정하기"
                         android:textAppearance="@style/Esamanru.Medium.label01"
-                        android:textColor="@color/gray_200" />
+                        android:textColor="@color/gray_200" /-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -193,13 +193,13 @@
                         android:src="@drawable/ic_delete_post_btn"
                         app:tint="@color/gray_200" />
 
-                    <TextView
+                    <!--TextView
                         android:id="@+id/tv_read_viewing_party_delete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="삭제하기"
                         android:textAppearance="@style/Esamanru.Medium.label01"
-                        android:textColor="@color/gray_200" />
+                        android:textColor="@color/gray_200" /-->
                 </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout

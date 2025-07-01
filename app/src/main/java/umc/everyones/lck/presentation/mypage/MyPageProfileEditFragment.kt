@@ -111,6 +111,7 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
             val isValid = validateNickname(nickname) // 유효성 검사 추가
 
             binding.tvMypageProfileEditTopbarEdit.isEnabled = false
+            binding.layoutMypageProfileEditValid.visibility = View.GONE
 
             if (isValid) {
                 // 유효한 닉네임일 경우

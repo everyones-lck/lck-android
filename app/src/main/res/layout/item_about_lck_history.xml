@@ -12,11 +12,11 @@
 
         <ImageView
             android:id="@+id/iv_about_lck_team_history_year"
-            android:layout_width="60dp"
+            android:layout_width="64dp"
             android:layout_height="20dp"
             android:background="@drawable/ic_aboutlck_team_iscaptain"
             android:layout_marginTop="9dp"
-            android:layout_marginStart="35dp"
+            android:layout_marginStart="33dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 

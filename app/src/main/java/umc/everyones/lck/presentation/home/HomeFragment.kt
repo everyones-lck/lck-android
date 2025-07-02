@@ -11,35 +11,48 @@ import umc.everyones.lck.databinding.DialogSignupTosDetailsAgree1Binding
 import umc.everyones.lck.databinding.DialogSignupTosDetailsAgree2Binding
 import umc.everyones.lck.databinding.FragmentHomeBinding
 import umc.everyones.lck.domain.model.response.home.HomeTodayMatchModel
+import umc.everyones.lck.domain.model.response.match.TodayMatchInformationModel
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.home.adapter.HomeMatchContentVPA
 import umc.everyones.lck.presentation.home.adapter.HomeMatchResultRVA
+import umc.everyones.lck.presentation.match.TodayMatchLckMatchViewModel
 import umc.everyones.lck.presentation.mypage.MyPageActivity
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by activityViewModels()
+    private val matchViewModel: TodayMatchLckMatchViewModel by activityViewModels()
     override fun initObserver() {
         viewModel.matchData.observe(viewLifecycleOwner, Observer { matchData ->
-            if (matchData?.todayMatches.isNullOrEmpty()) {
+//            if (matchData?.todayMatches.isNullOrEmpty()) {
+//                // 경기가 없는 경우
+//                updateMatchContent(emptyList())
+//            } else {
+//                // 경기가 있는 경우
+//                updateMatchContent(matchData!!.todayMatches)
+//            }
+            updateMatchResults(matchData?.recentMatchResults ?: emptyList())
+        })
+        matchViewModel.matchData.observe(viewLifecycleOwner, Observer { todayMatch ->
+            if (todayMatch?.matchResponses.isNullOrEmpty()) {
                 // 경기가 없는 경우
                 updateMatchContent(emptyList())
             } else {
                 // 경기가 있는 경우
-                updateMatchContent(matchData!!.todayMatches)
+                updateMatchContent(todayMatch!!.matchResponses)
             }
-            updateMatchResults(matchData?.recentMatchResults ?: emptyList())
         })
     }
 
     override fun initView() {
         viewModel.fetchHomeTodayMatchInformation()
+        matchViewModel.fetchTodayMatchInformation()
         goMyPage()
         setUpService()
     }
 
-    private fun updateMatchContent(todayMatches: List<HomeTodayMatchModel.TodayMatchesModel>) {
+    private fun updateMatchContent(todayMatches: List<TodayMatchInformationModel.MatchResponsesModel>) {
         val homeMatchContentVPA = HomeMatchContentVPA(todayMatches) {
             viewModel.setNavigateEvent(R.id.todayMatchTab)
         }

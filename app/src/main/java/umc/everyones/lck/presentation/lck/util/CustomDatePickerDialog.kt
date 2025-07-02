@@ -23,6 +23,8 @@ class CustomDatePickerDialog(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        window?.setBackgroundDrawableResource(R.drawable.bg_calendar_dialog_rounded)
+
         // DatePickerDialog의 상단 헤더 영역을 숨김 처리
         try {
             val datePickerField = DatePickerDialog::class.java.getDeclaredField("mDatePicker")

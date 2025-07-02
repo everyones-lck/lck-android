@@ -106,7 +106,7 @@
 
                 <TextView
                     android:id="@+id/tv_home_match_result"
-                    style="@style/TextAppearance.LCK.Light"
+                    style="@style/Esamanru.Medium.body01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -151,39 +151,41 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
 
-                    <ImageView
-                        android:id="@+id/iv_home_logo_text_bottom"
-                        android:layout_width="85dp"
-                        android:layout_height="0dp"
-                        android:src="@drawable/ic_logo_text"
-                        android:layout_marginStart="10dp"
-                        app:layout_constraintStart_toEndOf="@+id/iv_home_logo_bottom"
-                        app:layout_constraintTop_toTopOf="@+id/iv_home_logo_bottom"
-                        app:layout_constraintBottom_toBottomOf="@+id/iv_home_logo_bottom"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_home_logo_text_bottom"-->
+<!--                        android:layout_width="85dp"-->
+<!--                        android:layout_height="0dp"-->
+<!--                        android:src="@drawable/ic_logo_text"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        app:layout_constraintStart_toEndOf="@+id/iv_home_logo_bottom"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/iv_home_logo_bottom"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/iv_home_logo_bottom"/>-->
 
                     <TextView
                         android:id="@+id/tv_home_privacy_policy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/TextAppearance.LCK.Light"
+                        style="@style/Esamanru.Light.label03"
                         android:textSize="10dp"
                         android:text="개인정보 처리방침"
-                        android:textColor="@color/gray_300"
-                        android:layout_marginTop="20dp"
-                        app:layout_constraintTop_toBottomOf="@+id/iv_home_logo_bottom"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                        android:textColor="@color/gray_800"
+                        android:layout_marginStart="15dp"
+                        app:layout_constraintTop_toTopOf="@+id/iv_home_logo_bottom"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_home_logo_bottom"
+                        app:layout_constraintStart_toEndOf="@+id/iv_home_logo_bottom"/>
 
                     <TextView
                         android:id="@+id/tv_home_terms_of_service"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/TextAppearance.LCK.Light"
+                        style="@style/Esamanru.Light.label03"
                         android:textSize="10dp"
                         android:text="서비스 이용약관"
-                        android:textColor="@color/gray_300"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_home_privacy_policy"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                        android:textColor="@color/gray_800"
+                        android:layout_marginStart="15dp"
+                        app:layout_constraintTop_toTopOf="@+id/iv_home_logo_bottom"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_home_logo_bottom"
+                        app:layout_constraintStart_toEndOf="@+id/tv_home_privacy_policy"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

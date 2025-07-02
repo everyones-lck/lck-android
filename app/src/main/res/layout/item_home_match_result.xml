@@ -17,11 +17,11 @@
 
     <TextView
         android:id="@+id/tv_home_result_team1"
-        style="@style/TextAppearance.LCK.Light"
+        style="@style/Esamanru.Medium.label01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="KT Rolster"
-        android:textColor="@color/white"
+        android:textColor="@color/gray_100"
         android:textSize="12sp"
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toEndOf="@+id/iv_home_winner_dot"
@@ -30,11 +30,11 @@
 
     <TextView
         android:id="@+id/tv_home_result_versus"
-        style="@style/TextAppearance.LCK.Light"
+        style="@style/Esamanru.Medium.label01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" VS "
-        android:textColor="@color/white_60"
+        android:textColor="@color/gray_700"
         android:textSize="12sp"
         android:layout_marginStart="120dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,12 +42,12 @@
 
     <TextView
         android:id="@+id/tv_home_result_team2"
-        style="@style/TextAppearance.LCK.Light"
+        style="@style/Esamanru.Medium.label01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="0dp"
         android:text="Dplus KIA"
-        android:textColor="@color/white_60"
+        android:textColor="@color/gray_700"
         android:textSize="12sp"
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toEndOf="@+id/tv_home_result_versus"
@@ -56,12 +56,12 @@
 
     <TextView
         android:id="@+id/tv_home_result_date1"
-        style="@style/TextAppearance.LCK.Light"
+        style="@style/Esamanru.Light.label03"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:text="2024.05.11 17:00"
-        android:textColor="@color/white_60"
+        android:textColor="@color/gray_100"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_home_result_team1"

@@ -63,7 +63,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_mypage_community_post_comment"
             android:layout_width="match_parent"
-            android:layout_marginHorizontal="73dp"
+            android:layout_marginHorizontal="43dp"
             android:layout_height="wrap_content"
             android:background="@color/Transparency"
             app:layout_constraintTop_toBottomOf="@id/layout_mypage__community_topbar"

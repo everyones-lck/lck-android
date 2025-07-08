@@ -36,8 +36,8 @@
                 android:text=""
                 android:maxLines="1"
                 android:ellipsize="end"
-                style="@style/TextAppearance.LCK.Medium.16sp"
-                android:textColor="@color/black"
+                style="@style/TextAppearance.LCK.Light.14sp"
+                android:textColor="@color/grayscale_800"
                 tools:text="Sample Title"/>
 
             <View
@@ -63,35 +63,25 @@
             android:layout_marginTop="23dp"
             android:textColor="@color/black"
             android:background="@drawable/shape_rect_4_grayscale_800_line"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="2dp"
             tools:text="#Category"/>
 
         <TextView
             android:id="@+id/tv_mypage_community_shortcuts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="바로가기     "
+            android:text="바로가기 >"
             style="@style/TextAppearance.LCK.Light.8sp"
             app:layout_constraintStart_toEndOf="@id/tv_mypage_community_category"
             app:layout_constraintTop_toTopOf="@id/tv_mypage_community_category"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="4dp"
             android:textColor="@color/black"
             android:background="@drawable/shape_rect_4_grayscale_800_line"
-            android:paddingVertical="4dp"
-            android:paddingHorizontal="10dp"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="16dp"/>
-
-        <ImageButton
-            android:id="@+id/btn_mypage_community_shortcuts"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:src="@drawable/ic_arrow_right_black"
-            app:layout_constraintEnd_toEndOf="@id/tv_mypage_community_shortcuts"
-            app:layout_constraintTop_toTopOf="@id/tv_mypage_community_shortcuts"
-            app:layout_constraintBottom_toBottomOf="@id/tv_mypage_community_shortcuts"
-            android:layout_marginEnd="5dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -39,7 +39,7 @@ class MyPageViewingPartyFragment : BaseFragment<FragmentMypageViewingPartyBindin
             tabMypageViewingPartyGuestHost.addOnTabSelectedListener(object :
             TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
-                    viewModel.refreshCategoryPage(tab?.text?.toString() ?: "HOST")
+                    viewModel.refreshCategoryPage(tab?.text?.toString() ?: "Guest")
                 }
 
                 override fun onTabUnselected(p0: TabLayout.Tab?) {
@@ -59,7 +59,7 @@ class MyPageViewingPartyFragment : BaseFragment<FragmentMypageViewingPartyBindin
     }
 
     companion object {
-        private val tabTitles = listOf("HOST", "GUEST")
+        private val tabTitles = listOf( "Guest","Host")
     }
 
 

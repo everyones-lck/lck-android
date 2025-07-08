@@ -48,7 +48,7 @@ class MyPageCommunityRVA : ListAdapter<CommunityItem, RecyclerView.ViewHolder>(
     class PostViewHolder(private val binding: ItemMypageCommunityBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CommunityItem.PostItem) {
             binding.tvMypageCommunityTitle.text = item.post.title
-            binding.tvMypageCommunityCategory.text = item.post.postType
+            binding.tvMypageCommunityCategory.text = "${item.post.postType}게시판"
             binding.executePendingBindings()
         }
     }
@@ -63,7 +63,7 @@ class MyPageCommunityRVA : ListAdapter<CommunityItem, RecyclerView.ViewHolder>(
 
             binding.tvMypageCommunityTitle.text = truncatedBody
             binding.tvMypageCommunityCategory.text = item.comment.postType
-            binding.tvMypageCommunityShortcuts.text = "해당 댓글 바로가기"
+            binding.tvMypageCommunityShortcuts.text = "댓글 바로가기"
             binding.executePendingBindings()
         }
     }

@@ -44,7 +44,7 @@ class MyPageCommunityCommentFragment : BaseFragment<FragmentMypageCommunityComme
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.categoryNeedsRefresh.collect { categoryNeedsRefresh ->
-                Timber.d("MY COMMENT", categoryNeedsRefresh)
+                Timber.d(categoryNeedsRefresh, "My Comment")
                 if (categoryNeedsRefresh == CATEGORY) {
                     myCommentListRVA?.refresh()
                     binding.rvMypageCommunityComment.scrollToPosition(0)
@@ -81,6 +81,6 @@ class MyPageCommunityCommentFragment : BaseFragment<FragmentMypageCommunityComme
     }
 
     companion object {
-        private const val CATEGORY = "MY COMMENT"
+        private const val CATEGORY = "My Comment"
     }
 }

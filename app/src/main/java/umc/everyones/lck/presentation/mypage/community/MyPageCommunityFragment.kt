@@ -41,7 +41,7 @@ class MyPageCommunityFragment : BaseFragment<FragmentMypageCommunityBinding>(R.l
             tabMypageCommunityPostComment.addOnTabSelectedListener(object :
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
-                    viewModel.refreshCategoryPage(tab?.text?.toString() ?: "MY POST")
+                    viewModel.refreshCategoryPage(tab?.text?.toString() ?: "My Post")
                 }
 
                 override fun onTabUnselected(p0: TabLayout.Tab?) {
@@ -61,6 +61,6 @@ class MyPageCommunityFragment : BaseFragment<FragmentMypageCommunityBinding>(R.l
     }
 
     companion object {
-        private val tabTitles = listOf("MY POST", "MY COMMENT")
+        private val tabTitles = listOf("My Post", "My Comment")
     }
 }

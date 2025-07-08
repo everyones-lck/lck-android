@@ -109,7 +109,13 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
             val nickname = text.toString()
             val isDuplicated = false // 여기에 실제 중복 확인 로직을 추가해야 합니다.
             val isValid = validateNickname(nickname) // 유효성 검사 추가
-
+            if (nickname.isEmpty()) {
+                // 사용자가 닉네임을 모두 지웠을 경우
+                setInitialState() // UI를 초기 상태로 (경고 메시지 등 숨김)
+                binding.tvMypageProfileEditTopbarEdit.isEnabled = true // 빈 닉네임으로도 수정 가능하도록 (또는 false로 하고 완료 못하게)
+                // 정책에 따라 다름. 만약 빈 닉네임으로 업데이트하는 것을 허용한다면 true
+                // 혹은 초기 닉네임과 같다면 비활성화, 다르면 활성화
+            }
             binding.tvMypageProfileEditTopbarEdit.isEnabled = false
 
             if (isValid) {
@@ -151,27 +157,23 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
         binding.etMypageProfileEditNicknameName.setTextColor(requireContext().getColor(R.color.nickname_gray)) // 회색
         binding.etMypageProfileEditNicknameName.setBackgroundResource(R.drawable.shape_rect_4_white_line)
         binding.layoutMypageProfileEditValid.visibility = View.GONE
+        binding.layoutMypageProfileEditWarning1.visibility = View.GONE
+        binding.layoutMypageProfileEditWarning2.visibility = View.GONE
+        binding.layoutMypageProfileEditWarning3.visibility = View.GONE
         binding.layoutMypageProfileEditWarning4.visibility = View.GONE // 초기 경고 숨기기
     }
 
     private fun validateNickname(nickname: String): Boolean {
         var isValid = true
         // 닉네임 유효성 검사
-        if (nickname.isEmpty()) {
-            binding.etMypageProfileEditNicknameName.setBackgroundResource(R.drawable.shape_rect_4_white_line)
-            binding.layoutMypageProfileEditWarning1.visibility = View.VISIBLE
-            isValid = false
-        } else {
-            binding.layoutMypageProfileEditWarning1.visibility = View.GONE
-        }
-        if (nickname.length > 10) {
+        if (nickname.isNotEmpty() && nickname.length > 10) {
             binding.etMypageProfileEditNicknameName.setBackgroundResource(R.drawable.shape_rect_4_white_line)
             binding.layoutMypageProfileEditWarning2.visibility = View.VISIBLE
             isValid = false
         } else {
             binding.layoutMypageProfileEditWarning2.visibility = View.GONE
         }
-        if (nickname.contains(" ")) {
+        if (nickname.isNotEmpty() && nickname.contains(" ")) {
             binding.etMypageProfileEditNicknameName.setBackgroundResource(R.drawable.shape_rect_4_white_line)
             binding.layoutMypageProfileEditWarning3.visibility = View.VISIBLE
             isValid = false

@@ -46,7 +46,7 @@ class MatchVPAdapter :
             binding.rvAboutLckMatchDetails.adapter = adapter
 
             if (matchDetails.matchDetailList.isEmpty()) {
-                adapter.submitList(listOf(null))
+                adapter.submitList(listOf(null, null))
             } else {
                 adapter.submitList(matchDetails.matchDetailList)
             }

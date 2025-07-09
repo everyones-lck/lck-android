@@ -43,7 +43,7 @@
     </style>
 
     <style name="Widget.LCK.DatePicker" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorControlActivated">@color/green</item>
-        <item name="colorControlHighlight">@color/green</item>
+        <item name="colorControlActivated">@color/gray_400</item>
+        <item name="colorControlHighlight">@color/gray_400</item>
     </style>
 </resources>

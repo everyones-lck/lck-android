@@ -11,11 +11,12 @@ import com.bumptech.glide.Glide
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ItemHomeMatchContentBinding
 import umc.everyones.lck.domain.model.response.home.HomeTodayMatchModel
+import umc.everyones.lck.domain.model.response.match.TodayMatchInformationModel
 import umc.everyones.lck.domain.model.todayMatch.LckMatch
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.toOrdinal
 
-class HomeMatchContentVPA(private val items: List<HomeTodayMatchModel.TodayMatchesModel>,
+class HomeMatchContentVPA(private val items: List<TodayMatchInformationModel.MatchResponsesModel>,
                           private val onClick: () -> Unit):
     RecyclerView.Adapter<HomeMatchContentVPA.HomeMatchContentViewHolder>(){
     override fun onCreateViewHolder(
@@ -44,29 +45,29 @@ class HomeMatchContentVPA(private val items: List<HomeTodayMatchModel.TodayMatch
 
     inner class HomeMatchContentViewHolder(private val binding: ItemHomeMatchContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: HomeTodayMatchModel.TodayMatchesModel) {
+        fun bind(item: TodayMatchInformationModel.MatchResponsesModel) {
             binding.layoutHomeNoMatch.visibility = View.GONE
             binding.layoutHomeMatchContainer.visibility = View.VISIBLE
 
-            binding.tvHomeTodayMatchContent.text = "${item.seasonInfo} ${item.matchNumber.toOrdinal()} Match"
-            binding.tvHomeTodayMatchDate.text = item.matchDate
+            binding.tvHomeMatchTitle.text = "${item.seasonInfo} ${item.matchNumber.toOrdinal()} Match"
+            binding.tvHomeMatchDate.text = item.matchDate
 
-            Glide.with(binding.root.context)
-                .load(item.team1LogoUrl)
-                .into(binding.ivHomeTodayMatchLogo1)
-            Glide.with(binding.root.context)
-                .load(item.team2LogoUrl)
-                .into(binding.ivHomeTodayMatchLogo2)
+//            Glide.with(binding.root.context)
+//                .load(item.team1LogoUrl)
+//                .into(binding.ivHomeTodayMatchLogo1)
+//            Glide.with(binding.root.context)
+//                .load(item.team2LogoUrl)
+//                .into(binding.ivHomeTodayMatchLogo2)
 
-            binding.tvHomeTodayMatchTeam1.text = item.team1Name
-            binding.tvHomeTodayMatchTeam2.text = item.team2Name
+            binding.tvHomeMatchTeam1Name.text = item.team1Name
+            binding.tvHomeMatchTeam2Name.text = item.team2Name
 
             val context = binding.root.context
             // 팀 색이 정해지지 않았을 때 디폴트 값 설정
             val team1Color = ContextCompat.getColor(context, teamColorMap[item.team1Name] ?: R.color.t1)
             val team2Color = ContextCompat.getColor(context, teamColorMap[item.team2Name] ?: R.color.gray_indicator)
-            binding.ivHomeTodayMatchBar1.backgroundTintList = ColorStateList.valueOf(team1Color)
-            binding.ivHomeTodayMatchBar2.backgroundTintList = ColorStateList.valueOf(team2Color)
+            binding.viewHomeMatchTeam1Bar.backgroundTintList = ColorStateList.valueOf(team1Color)
+            binding.viewHomeMatchTeam2Bar.backgroundTintList = ColorStateList.valueOf(team2Color)
 
             itemView.setOnSingleClickListener {
                 onClick()

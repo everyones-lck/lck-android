@@ -70,6 +70,19 @@ object TeamData {
         11 to R.color.brion
     )
 
+    val mypageProfileTeamBackground = mapOf(
+        2 to R.drawable.shape_rect_4_gen_g_fill,
+        3 to R.drawable.shape_rect_4_hanhwa_fill,
+        4 to R.drawable.shape_rect_4_dplus_kia_fill,
+        5 to R.drawable.shape_rect_4_t1_fill,
+        6 to R.drawable.shape_rect_4_kt_rolster_fill,
+        7 to R.drawable.shape_rect_4_dn_fill,
+        8 to R.drawable.shape_rect_4_bnk_fill,
+        9 to R.drawable.shape_rect_4_red_fill,
+        10 to R.drawable.shape_rect_4_drx_fill,
+        11 to R.drawable.shape_rect_4_brion_fill
+    )
+
     fun getSignupSuccessTeamLogo(teamId: Int): Int {
         return signupSuccessTeamBackground[teamId] ?: android.R.color.transparent
     }

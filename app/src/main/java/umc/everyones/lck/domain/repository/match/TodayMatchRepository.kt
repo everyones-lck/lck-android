@@ -15,7 +15,7 @@ interface TodayMatchRepository {
     suspend fun fetchTodayMatchInformation(): Result<TodayMatchInformationModel>
     suspend fun fetchTodayMatchVoteMatch(matchId: Long): Result<MatchTodayMatchModel>
     suspend fun fetchTodayMatchPogPlayer(matchId: Long): Result<PogPlayerTodayMatchModel>
-    suspend fun fetchTodayMatchPog(request: CommonPogModel): Result<CommonTodayMatchPogModel>
+    suspend fun fetchTodayMatchPog(matchId: Long): Result<CommonTodayMatchPogModel>
     suspend fun voteSetPog(request: VoteSetPogModel): Result<CommonVotePogModel>
     suspend fun voteMatch(request: VoteMatchModel): Result<CommonVotePogModel>
     suspend fun voteMatchPog(request: VoteMatchPogModel): Result<CommonVotePogModel>

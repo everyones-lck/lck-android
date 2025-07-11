@@ -30,9 +30,9 @@ interface TodayMatchService {
         @Query("match-id") matchId: Long
     ): BaseResponse<MatchTodayMatchResponseDto>
 
-    @POST("pog/result")
+    @GET("pog/result/{matchId}")
     suspend fun fetchTodayMatchPog(
-        @Body request: CommonPogRequestDto
+        @Query ("match-id") matchId: Long
     ): BaseResponse<CommonTodayMatchPogResponseDto>
 
     @POST("votes/set-pog/making")

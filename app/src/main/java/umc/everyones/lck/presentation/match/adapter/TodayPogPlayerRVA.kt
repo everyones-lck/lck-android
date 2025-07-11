@@ -51,6 +51,7 @@ class TodayPogPlayerRVA(
 //                val matrix = ColorMatrix().apply { setSaturation(0f) }
 //                binding.ivTodayPogPlayer.colorFilter = ColorMatrixColorFilter(matrix)
 //            }
+            binding.tvTodayPogPlayerName.text = player.playerName
             // 아이템 클릭 시 실행할 리스너 설정
             binding.root.setOnSingleClickListener {
                 onItemClick()

@@ -123,6 +123,9 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                     viewModel.setTitle(event.viewingParty.name)
                     isParticipated = event.viewingParty.isParticipated
                     layoutReadViewingPartyContent.isVisible = true
+                    layoutReadViewingPartyReportBtn.isVisible = !event.viewingParty.isWriter
+                    layoutReadViewingPartyEditBtn.isVisible = event.viewingParty.isWriter
+                    layoutReadViewingPartyDeleteBtn.isVisible = event.viewingParty.isWriter
                     viewingPartyMarker.apply {
                         position = LatLng(event.viewingParty.latitude, event.viewingParty.longitude)
                         map = naverMap

@@ -12,5 +12,6 @@ data class ReadViewingPartyModel(
     val price: String,
     val participants: String,
     val etc: String,
-    val isParticipated: Boolean
+    val isParticipated: Boolean,
+    val isWriter: Boolean
 )

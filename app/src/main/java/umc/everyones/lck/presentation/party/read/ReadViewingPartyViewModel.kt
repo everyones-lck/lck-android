@@ -134,7 +134,8 @@ class ReadViewingPartyViewModel @Inject constructor(
                     price = response.price,
                     participants = response.participants,
                     etc = response.etc,
-                    isParticipated = response.isParticipated
+                    isParticipated = response.isParticipated,
+                    isWriter = response.isWriter
                 )
                 _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.ReadViewingParty(response))
             }.onFailure {

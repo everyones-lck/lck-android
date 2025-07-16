@@ -140,17 +140,17 @@
                 <View
                     android:id="@+id/view_mypage_profile_tier_line"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@drawable/shape_rect_mypage_profile_tier"
-                    android:layout_marginTop="38dp"/>
+                    android:layout_height="1.5dp"
+                    android:background="@color/grayscale_800"
+                    android:layout_marginTop="45.5dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="21dp">
+                    android:layout_marginTop="25dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center"
@@ -166,12 +166,12 @@
                             android:id="@+id/view_mypage_profile_circle_bronze"
                             android:layout_width="4dp"
                             android:layout_height="5dp"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="7dp"
                             android:background="@drawable/shape_oval_none"/>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center"
@@ -187,12 +187,12 @@
                             android:id="@+id/view_mypage_profile_circle_silver"
                             android:layout_width="4dp"
                             android:layout_height="5dp"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="7dp"
                             android:background="@drawable/shape_oval_none"/>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center"
@@ -208,11 +208,11 @@
                             android:id="@+id/view_mypage_profile_circle_gold"
                             android:layout_width="4dp"
                             android:layout_height="5dp"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="7dp"
                             android:background="@drawable/shape_oval_none"/>
                     </LinearLayout>
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center"
@@ -228,11 +228,11 @@
                             android:id="@+id/view_mypage_profile_circle_master"
                             android:layout_width="4dp"
                             android:layout_height="5dp"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="7dp"
                             android:background="@drawable/shape_oval_none"/>
                     </LinearLayout>
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center"
@@ -248,7 +248,7 @@
                             android:id="@+id/view_mypage_profile_circle_challenger"
                             android:layout_width="4dp"
                             android:layout_height="5dp"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="7dp"
                             android:background="@drawable/shape_oval_none"/>
                     </LinearLayout>
 
@@ -286,7 +286,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/white_20"
+                android:background="@color/grayscale_900"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"/>
 
@@ -301,7 +301,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/white_20"
+                android:background="@color/grayscale_900"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"/>
 

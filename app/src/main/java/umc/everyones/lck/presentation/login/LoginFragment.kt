@@ -42,7 +42,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private fun loginWithKakaoTalk() {
         UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
             if (error != null) {
-                Timber.e("카카오톡으로 로그인 실패", error)
+                Timber.e(error,"카카오톡으로 로그인 실패")
                 if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
                     // 사용자가 로그인 과정을 취소한 경우
                     return@loginWithKakaoTalk
@@ -59,7 +59,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private fun loginWithKakaoAccount() {
         UserApiClient.instance.loginWithKakaoAccount(requireContext()) {token, error ->
             if (error != null) {
-                Timber.e("카카오 계정으로 로그인 실패", error)
+                Timber.e(error, "카카오 계정으로 로그인 실패")
             } else if (token != null) {
                 Timber.i("카카오 계정으로 로그인 성공 ${token.accessToken}")
                 handleLoginSuccess()

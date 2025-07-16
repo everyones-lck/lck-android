@@ -52,7 +52,7 @@ class MyPageViewingPartyHostFragment : BaseFragment<FragmentMypageViewingPartyHo
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.categoryMypageRefresh.collect { categoryMypageRefresh ->
-                Timber.d("HOST", categoryMypageRefresh)
+                Timber.d(categoryMypageRefresh,"Host")
                 if (categoryMypageRefresh == CATEGORY) {
                     myViewingPartyHostRVA?.refresh()
                     binding.rvMypageViewingPartyHost.scrollToPosition(0)
@@ -105,7 +105,7 @@ class MyPageViewingPartyHostFragment : BaseFragment<FragmentMypageViewingPartyHo
     }
 
     companion object {
-        private const val CATEGORY = "HOST"
+        private const val CATEGORY = "Host"
     }
 
     private fun refreshParticipateList() {

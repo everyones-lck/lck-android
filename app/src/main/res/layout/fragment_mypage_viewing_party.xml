@@ -62,7 +62,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_mypage_viewing_party_guest_host"
             android:layout_width="match_parent"
-            android:layout_marginHorizontal="73dp"
+            android:layout_marginHorizontal="43dp"
             android:layout_height="wrap_content"
             android:background="@color/Transparency"
             app:layout_constraintTop_toBottomOf="@id/layout_mypage_viewing_party_topbar"
@@ -79,12 +79,12 @@
             app:tabTextColor="@color/grayscale_800">
 
             <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Guest" />
 
             <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Host" />
 

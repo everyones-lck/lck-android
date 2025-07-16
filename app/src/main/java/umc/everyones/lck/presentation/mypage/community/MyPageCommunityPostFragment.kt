@@ -50,7 +50,7 @@ class MyPageCommunityPostFragment : BaseFragment<FragmentMypageCommunityPostBind
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.categoryNeedsRefresh.collect { categoryNeedsRefresh ->
-                Timber.d("MY POST", categoryNeedsRefresh)
+                Timber.d(categoryNeedsRefresh, "My Post")
                 if (categoryNeedsRefresh == CATEGORY) {
                     myPostListRVA?.refresh()
                     binding.rvMypageCommunityPost.scrollToPosition(0)
@@ -87,6 +87,6 @@ class MyPageCommunityPostFragment : BaseFragment<FragmentMypageCommunityPostBind
     }
 
     companion object {
-        private const val CATEGORY = "MY POST"
+        private const val CATEGORY = "My Post"
     }
 }

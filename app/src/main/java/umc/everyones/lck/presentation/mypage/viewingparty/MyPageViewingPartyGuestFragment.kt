@@ -42,7 +42,7 @@ class MyPageViewingPartyGuestFragment : BaseFragment<FragmentMypageViewingPartyG
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.categoryMypageRefresh.collect { categoryMypageRefresh ->
-                Timber.d("GUEST", categoryMypageRefresh)
+                Timber.d(categoryMypageRefresh,"Guest")
                 if (categoryMypageRefresh == CATEGORY) {
                     myViewingPartyParticipateRVA?.refresh()
                     binding.rvMypageViewingPartyGuest.scrollToPosition(0)
@@ -95,7 +95,7 @@ class MyPageViewingPartyGuestFragment : BaseFragment<FragmentMypageViewingPartyG
         refreshParticipateList() // 리스트 새로 고침 메서드 호출
     }
     companion object {
-        private const val CATEGORY = "GUEST"
+        private const val CATEGORY = "Guest"
     }
 
     private fun refreshParticipateList() {

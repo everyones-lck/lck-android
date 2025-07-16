@@ -127,6 +127,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                     layoutReadViewingPartyEditBtn.isVisible = event.viewingParty.isWriter
                     layoutReadViewingPartyDeleteBtn.isVisible = event.viewingParty.isWriter
                     viewingPartyMarker.apply {
+                        icon = OverlayImage.fromResource(R.drawable.img_marker)
                         position = LatLng(event.viewingParty.latitude, event.viewingParty.longitude)
                         map = naverMap
                     }

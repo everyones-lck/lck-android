@@ -38,10 +38,10 @@
                         android:text="Community"
                         android:textAppearance="@style/Esamanru.Medium.heading01"
                         android:textColor="@color/gray_200"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_read_back_btn"
+                        android:layout_marginTop="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/iv_read_back_btn" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_read_category"
@@ -50,7 +50,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="20dp"
                         android:text=""
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/tv_read_title"
@@ -63,12 +63,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:layout_marginTop="4dp"
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="8dp"
                         android:src="@drawable/ic_back_btn"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@id/tv_read_title"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_read_category"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

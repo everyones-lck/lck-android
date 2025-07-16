@@ -18,7 +18,8 @@ data class ReadViewingPartyResponseDto(
     val lowParticipate: String,
     val highParticipate: String,
     val etc: String,
-    val participated: Boolean
+    val participated: Boolean,
+    val isWriter: Boolean
 ) {
     fun toReadViewingPartyModel() =
         ReadViewingPartyModel(
@@ -33,6 +34,7 @@ data class ReadViewingPartyResponseDto(
             price,
             "$lowParticipate - $highParticipate 명",
             etc,
-            participated
+            participated,
+            isWriter
         )
 }

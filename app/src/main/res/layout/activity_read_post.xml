@@ -38,10 +38,10 @@
                         android:text="Community"
                         android:textAppearance="@style/Esamanru.Medium.heading01"
                         android:textColor="@color/gray_200"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_read_back_btn"
+                        android:layout_marginTop="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/iv_read_back_btn" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_read_category"
@@ -50,7 +50,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="20dp"
                         android:text=""
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/tv_read_title"
@@ -63,12 +63,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:layout_marginTop="4dp"
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="8dp"
                         android:src="@drawable/ic_back_btn"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@id/tv_read_title"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_read_category"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -165,6 +165,7 @@
                         android:layout_marginEnd="26dp"
                         android:gravity="center"
                         android:orientation="horizontal"
+                        android:visibility="gone"
                         tools:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/cv_read_profile_background"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -177,13 +178,13 @@
                             android:layout_marginEnd="4dp"
                             android:src="@drawable/ic_report_btn" />
 
-                        <TextView
+                        <!--TextView
                             android:id="@+id/tv_read_post_report"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="신고하기"
                             android:textAppearance="@style/Esamanru.Medium.label01"
-                            android:textColor="@color/sement_color_warning" />
+                            android:textColor="@color/sement_color_warning" /-->
                     </LinearLayout>
 
                     <LinearLayout
@@ -193,6 +194,7 @@
                         android:layout_marginEnd="8dp"
                         android:gravity="center"
                         android:orientation="horizontal"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/cv_read_profile_background"
                         app:layout_constraintEnd_toStartOf="@id/layout_read_post_delete_btn"
                         app:layout_constraintTop_toTopOf="@id/cv_read_profile_background">
@@ -205,13 +207,13 @@
                             android:src="@drawable/ic_edit_post_btn"
                             app:tint="@color/gray_200"/>
 
-                        <TextView
+                        <!--TextView
                             android:id="@+id/tv_read_post_edit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="수정하기"
                             android:textAppearance="@style/Esamanru.Medium.label01"
-                            android:textColor="@color/gray_200" />
+                            android:textColor="@color/gray_200" /-->
                     </LinearLayout>
 
                     <LinearLayout
@@ -221,6 +223,7 @@
                         android:layout_marginEnd="26dp"
                         android:gravity="center"
                         android:orientation="horizontal"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/cv_read_profile_background"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/cv_read_profile_background">
@@ -233,13 +236,13 @@
                             android:src="@drawable/ic_delete_post_btn"
                             app:tint="@color/gray_200"/>
 
-                        <TextView
+                        <!--TextView
                             android:id="@+id/tv_read_post_delete"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="삭제하기"
                             android:textAppearance="@style/Esamanru.Medium.label01"
-                            android:textColor="@color/gray_200" />
+                            android:textColor="@color/gray_200" /-->
                     </LinearLayout>
 
                     <TextView

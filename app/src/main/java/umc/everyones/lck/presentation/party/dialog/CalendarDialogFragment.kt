@@ -16,6 +16,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.DialogCalendarBinding
 import umc.everyones.lck.presentation.base.BaseDialogFragment
 import umc.everyones.lck.presentation.party.write.WriteViewingPartyViewModel
+import umc.everyones.lck.util.calendar.SelectedDateDecorator
 import java.sql.Date
 import java.text.SimpleDateFormat
 
@@ -42,6 +43,7 @@ class CalendarDialogFragment : BaseDialogFragment<DialogCalendarBinding>(R.layou
         val saturdayDecorator = SaturdayDecorator(requireContext())
         var selectedMonthDecorator =
             SelectedMonthDecorator(requireContext(), CalendarDay.today().month)
+        val selectedDateDecorator = SelectedDateDecorator(requireContext())
 
         binding.calendarView.setTitleFormatter { day ->
             val inputText = day.date
@@ -55,15 +57,18 @@ class CalendarDialogFragment : BaseDialogFragment<DialogCalendarBinding>(R.layou
         }
 
         binding.calendarView.addDecorators(
-            dayDecorator,
-            todayDecorator,
             sundayDecorator,
             saturdayDecorator,
-            selectedMonthDecorator
+            dayDecorator,
+            selectedMonthDecorator,
+            todayDecorator,
+            selectedDateDecorator
         )
         binding.calendarView.setWeekDayFormatter(ArrayWeekDayFormatter(resources.getTextArray(R.array.custom_weekdays)))
 
         binding.calendarView.setOnDateChangedListener { _, date, _ ->
+            selectedDateDecorator.setSelectedDate(date)
+            binding.calendarView.invalidateDecorators()
             selectedDate = simpleDateFormat.format(Date.valueOf(date.date.toString()))
             //Date.valueOf(date.date.toString())
         }
@@ -75,15 +80,17 @@ class CalendarDialogFragment : BaseDialogFragment<DialogCalendarBinding>(R.layou
             // Decorators 추가
             selectedMonthDecorator = SelectedMonthDecorator(requireContext(), date.month)
             binding.calendarView.addDecorators(
-                dayDecorator,
-                todayDecorator,
                 sundayDecorator,
                 saturdayDecorator,
-                selectedMonthDecorator
+                dayDecorator,
+                selectedMonthDecorator,
+                todayDecorator,
+                selectedDateDecorator
             )
         }
-
-        binding.calendarView.selectedDate = CalendarDay.today()
+        val today = CalendarDay.today()
+        binding.calendarView.selectedDate = today
+        selectedDateDecorator.setSelectedDate(today)
         selectedDate = simpleDateFormat.format(Date.valueOf(CalendarDay.today().date.toString()))
     }
 

@@ -29,7 +29,7 @@ class ReadImageDialogFragment : BaseDialogFragment<DialogMediaBinding>(R.layout.
     }
 
     override fun initView() {
-        requireContext().dialogFragmentResize(this, 0.8f, 0.8f)
+        requireContext().dialogFragmentResize(this, 1f, 1f)
         binding.ivClose.setOnSingleClickListener {
             dismiss()
         }

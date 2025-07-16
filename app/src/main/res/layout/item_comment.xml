@@ -36,7 +36,8 @@
 
     <TextView
         android:id="@+id/tv_comment_body"
-        style="@style/TextAppearance.LCK.Light.Detail_10sp"
+        android:textAppearance="@style/Esamanru.Light.body03"
+        android:textColor="@color/gray_200"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"

@@ -165,6 +165,7 @@
                         android:layout_marginEnd="26dp"
                         android:gravity="center"
                         android:orientation="horizontal"
+                        android:visibility="gone"
                         tools:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/cv_read_profile_background"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -193,6 +194,7 @@
                         android:layout_marginEnd="8dp"
                         android:gravity="center"
                         android:orientation="horizontal"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/cv_read_profile_background"
                         app:layout_constraintEnd_toStartOf="@id/layout_read_post_delete_btn"
                         app:layout_constraintTop_toTopOf="@id/cv_read_profile_background">
@@ -221,6 +223,7 @@
                         android:layout_marginEnd="26dp"
                         android:gravity="center"
                         android:orientation="horizontal"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/cv_read_profile_background"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/cv_read_profile_background">

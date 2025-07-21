@@ -27,17 +27,19 @@
 
             <ImageView
                 android:id="@+id/iv_mypage_profile_withdraw_back"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_mypage_back"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:src="@drawable/ic_back_btn"/>
 
             <TextView
                 android:id="@+id/tv_mypage_profile_withdraw_topbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="계정탈퇴"
-                style="@style/TextAppearance.LCK.Medium.16sp"
-                android:textColor="@color/white"
+                android:textAppearance="@style/Esamanru.Medium.heading01"
+                android:textColor="@color/grayscale_200"
                 android:layout_weight="1"
                 android:gravity="center"/>
 
@@ -56,8 +58,8 @@
             android:layout_marginHorizontal="24dp">
 
             <ImageView
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:src="@drawable/img_withdraw"/>
 
             <TextView
@@ -65,14 +67,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
                 android:text="탈퇴 전, 잠시만요"
-                style="@style/TextAppearance.LCK.Light.20sp"/>
+                android:textAppearance="@style/Esamanru.Light.Title02"
+                android:textColor="@color/white"/>
             
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="지금까지 Evr.LOL을 사용해주셔서 감사했습니다 &#10;혹시 불편하셨던 점이 있었다면 들려주세요 &#10;더 나은 Evr.LOL을 만드는데 큰 도움이 됩니다"
-                style="@style/TextAppearance.LCK.Light.12sp"
+                android:textAppearance="@style/Esamanru.Light.body03"
                 android:textColor="@color/grayscale_600"/>
 
             <TextView
@@ -80,14 +83,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="탈퇴 전, 이건 꼭 확인해주세요"
-                style="@style/TextAppearance.LCK.Light.20sp"/>
+                android:textAppearance="@style/Esamanru.Light.Title02"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="탈퇴하면, 회원정보와 채팅 등 개인 기록 모두 삭제됩니다 &#10;커뮤니티 글 / 댓글은 자동 삭제되지 않아요 &#10;탈퇴 후 본인 확인이 불가능해, 삭제하기 어렵습니다"
-                style="@style/TextAppearance.LCK.Light.12sp"
+                android:textAppearance="@style/Esamanru.Light.body03"
                 android:textColor="@color/grayscale_600"/>
 
         </LinearLayout>
@@ -98,7 +102,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rect_4_gray_line_black_fill"
             android:text="확인"
-            style="@style/TextAppearance.LCK.Medium.12sp"
+            android:textAppearance="@style/Esamanru.Medium.body02"
+            android:textColor="@color/grayscale_200"
             android:gravity="center"
             android:paddingVertical="19dp"
             android:layout_marginHorizontal="24dp"

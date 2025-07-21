@@ -27,25 +27,28 @@
 
             <ImageView
                 android:id="@+id/iv_mypage_main_back"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_mypage_back"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:src="@drawable/ic_back_btn"/>
 
             <TextView
                 android:id="@+id/tv_mypage_main_topbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MY Profile"
-                style="@style/TextAppearance.LCK.Medium.16sp"
-                android:textColor="@color/white"
+                android:textAppearance="@style/Esamanru.Medium.heading01"
+                android:textColor="@color/grayscale_200"
                 android:layout_weight="1"
                 android:gravity="center"/>
 
             <ImageView
                 android:id="@+id/iv_mypage_main_setting"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:padding="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
                 android:src="@drawable/ic_mypage_setting"/>
 
         </LinearLayout>
@@ -68,8 +71,8 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/iv_mypage_main_rect"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="0dp">
                     <ImageView
@@ -90,18 +93,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="닉네임"
-                        style="@style/TextAppearance.LCK.Light.20sp"
-                        android:textColor="@color/text_white"/>
+                        android:textAppearance="@style/Esamanru.Light.Title02"
+                        android:textColor="@color/grayscale_200"/>
                     
                     <TextView
                         android:id="@+id/tv_mypage_main_team"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Kt"
-                        style="@style/TextAppearance.LCK.Medium.10sp"
+                        android:textAppearance="@style/Esamanru.Medium.label01"
+                        android:textColor="@color/grayscale_200"
                         android:layout_marginStart="8dp"
                         android:background="@drawable/shape_rect_4_gray_fill"
-                        android:padding="4dp"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
                         android:layout_gravity="center"/>
 
                 </LinearLayout>
@@ -112,9 +117,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Tier"
-                    style="@style/TextAppearance.LCK.Light.14sp"
-                    android:textColor="@color/grayscale_300"
-                    android:layout_marginTop="12dp"/>
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="@style/Esamanru.Light.body01"
+                    android:textColor="@color/grayscale_600"/>
 
             </LinearLayout>
 
@@ -141,7 +146,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MY Profile"
-                style="@style/TextAppearance.LCK.Light.14sp"/>
+                android:textAppearance="@style/Esamanru.Light.body01"
+                android:textColor="@color/grayscale_200"/>
             
             <View
                 android:layout_width="match_parent"
@@ -155,7 +161,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MY Team"
-                style="@style/TextAppearance.LCK.Light.14sp"/>
+                android:textAppearance="@style/Esamanru.Light.body01"
+                android:textColor="@color/grayscale_200"/>
 
             <View
                 android:layout_width="match_parent"
@@ -169,7 +176,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MY Post / Comment"
-                style="@style/TextAppearance.LCK.Light.14sp"/>
+                android:textAppearance="@style/Esamanru.Light.body01"
+                android:textColor="@color/grayscale_200"/>
 
             <View
                 android:layout_width="match_parent"
@@ -183,7 +191,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MY Viewing Party"
-                style="@style/TextAppearance.LCK.Light.14sp"/>
+                android:textAppearance="@style/Esamanru.Light.body01"
+                android:textColor="@color/grayscale_200"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

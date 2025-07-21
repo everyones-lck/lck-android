@@ -27,17 +27,19 @@
 
             <ImageView
                 android:id="@+id/iv_mypage_viewing_party_back"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_mypage_back"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:src="@drawable/ic_back_btn"/>
 
             <TextView
                 android:id="@+id/tv_mypage_viewing_party_topbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MY Viewing Party"
-                style="@style/TextAppearance.LCK.Medium.16sp"
-                android:textColor="@color/white"
+                android:textAppearance="@style/Esamanru.Medium.heading01"
+                android:textColor="@color/grayscale_200"
                 android:layout_weight="1"
                 android:gravity="center"/>
 
@@ -73,8 +75,8 @@
             app:tabMode="fixed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tabSelectedTextAppearance="@style/TextAppearance.LCK.Medium.12sp.tab"
-            app:tabTextAppearance="@style/TextAppearance.LCK.Light.12sp.tab"
+            app:tabSelectedTextAppearance="@style/Esamanru.Light.body03"
+            app:tabTextAppearance="@style/Esamanru.Light.body03"
             app:tabSelectedTextColor="@color/grayscale_100"
             app:tabTextColor="@color/grayscale_800">
 

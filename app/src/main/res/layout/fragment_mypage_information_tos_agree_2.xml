@@ -27,19 +27,21 @@
 
             <ImageView
                 android:id="@+id/iv_mypage_information_tos_agree_2_back"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_mypage_back"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:src="@drawable/ic_back_btn"/>
 
             <TextView
                 android:id="@+id/tv_mypage_information_tos_agree_2_topbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Information"
-                style="@style/TextAppearance.LCK.Medium.16sp"
+                android:textAppearance="@style/Esamanru.Medium.heading01"
+                android:textColor="@color/grayscale_200"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/text_white"/>
+                android:gravity="center"/>
 
             <View
                 android:layout_width="36dp"
@@ -49,13 +51,13 @@
 
         <TextView
             android:id="@+id/tv_mypage_information_tos_agree_2_title"
-            style="@style/TextAppearance.LCK.Medium.16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
             android:text="서비스 이용약관"
-            android:textColor="@color/white"
+            android:textAppearance="@style/Esamanru.Medium.heading01"
+            android:textColor="@color/grayscale_200"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_mypage_information_tos_agree_2_topbar" />
 
@@ -69,12 +71,12 @@
 
             <TextView
                 android:id="@+id/tv_mypage_information_tos_agree_2_detail"
-                style="@style/TextAppearance.LCK.Light.8sp"
+                android:textAppearance="@style/Esamanru.Light.label02"
+                android:textColor="@color/grayscale_200"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:text="@string/tos_details_agree_2"
-                android:textColor="@color/white" />
+                android:text="@string/tos_details_agree_2"/>
 
         </ScrollView>
 

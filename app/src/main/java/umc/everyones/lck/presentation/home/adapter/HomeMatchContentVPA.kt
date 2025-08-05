@@ -14,6 +14,7 @@ import umc.everyones.lck.domain.model.response.home.HomeTodayMatchModel
 import umc.everyones.lck.domain.model.response.match.TodayMatchInformationModel
 import umc.everyones.lck.domain.model.todayMatch.LckMatch
 import umc.everyones.lck.util.extension.setOnSingleClickListener
+import umc.everyones.lck.util.extension.toHomeDateTimeFormat
 import umc.everyones.lck.util.extension.toOrdinal
 
 class HomeMatchContentVPA(private val items: List<TodayMatchInformationModel.MatchResponsesModel>,
@@ -50,7 +51,7 @@ class HomeMatchContentVPA(private val items: List<TodayMatchInformationModel.Mat
             binding.layoutHomeMatchContainer.visibility = View.VISIBLE
 
             binding.tvHomeMatchTitle.text = "${item.seasonInfo} ${item.matchNumber.toOrdinal()} Match"
-            binding.tvHomeMatchDate.text = item.matchDate
+            binding.tvHomeMatchDate.text = item.matchDate.toHomeDateTimeFormat()
 
 //            Glide.with(binding.root.context)
 //                .load(item.team1LogoUrl)

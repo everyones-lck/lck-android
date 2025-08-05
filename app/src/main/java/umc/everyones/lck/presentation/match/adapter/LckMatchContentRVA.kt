@@ -14,6 +14,7 @@ import umc.everyones.lck.databinding.ItemLckMatchContentBinding
 import umc.everyones.lck.domain.model.response.match.TodayMatchInformationModel
 import umc.everyones.lck.domain.model.todayMatch.LckMatch
 import umc.everyones.lck.util.extension.setOnSingleClickListener
+import umc.everyones.lck.util.extension.toMatchDateTimeFormat
 import umc.everyones.lck.util.extension.toOrdinal
 
 class LckMatchContentRVA(private val items: List<TodayMatchInformationModel.MatchResponsesModel>,
@@ -37,7 +38,7 @@ class LckMatchContentRVA(private val items: List<TodayMatchInformationModel.Matc
 
         fun bind(item: TodayMatchInformationModel.MatchResponsesModel) {
             binding.tvTodayMatchLckMatch1Content.text = "${item.seasonInfo} ${item.matchNumber.toOrdinal()} Match"
-            binding.tvTodayMatchLckMatch1Date.text = item.matchDate
+            binding.tvTodayMatchLckMatch1Date.text = item.matchDate.toMatchDateTimeFormat()
             binding.tvTodayMatchLckMatchTeam1Name.text = item.team1Name
             binding.tvTodayMatchLckMatchTeam2Name.text = item.team2Name
 

@@ -68,6 +68,21 @@ fun String.toTimeFormat(): String{
     return LocalDateTime.parse(this, formatter).format(partyDateFormatter).toString()
 }
 
+fun String.toMatchDateTimeFormat(): String {
+    val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+    val outputFormatter = DateTimeFormatter.ofPattern("MM.dd HH:mm")
+
+    return LocalDateTime.parse(this, inputFormatter).format(outputFormatter)
+}
+
+fun String.toHomeDateTimeFormat(): String {
+    val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+    val outputFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
+
+    return LocalDateTime.parse(this, inputFormatter).format(outputFormatter)
+}
+
+
 
 @SuppressLint("SimpleDateFormat")
 fun String.toCalendar(): Calendar {

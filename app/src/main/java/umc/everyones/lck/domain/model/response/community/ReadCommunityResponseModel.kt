@@ -10,7 +10,8 @@ data class ReadCommunityResponseModel(
     val postCreatedAt: String,
     val content: String,
     val fileUrlList: List<ReadCommunityResponseDto.File>,
-    val commentList: List<CommentListElementModel>
+    val commentList: List<CommentListElementModel>,
+    val isWriter: Boolean
 ) {
     data class CommentListElementModel(
         val profileUrl: String,

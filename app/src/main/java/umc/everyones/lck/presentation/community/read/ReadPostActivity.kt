@@ -137,6 +137,10 @@ class ReadPostActivity : BaseActivity<ActivityReadPostBinding>(R.layout.activity
                         binding.rvReadMedia.visibility = View.VISIBLE
                     }
                     binding.svRead.isVisible = true
+                    binding.layoutReadPostReportBtn.isVisible = !isWriter
+                    binding.layoutReadPostEditBtn.isVisible = isWriter
+                    binding.layoutReadPostDeleteBtn.isVisible = isWriter
+
                 }
             }
 

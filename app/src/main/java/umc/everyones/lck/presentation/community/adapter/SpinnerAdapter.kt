@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.LinearLayout
+import umc.everyones.lck.R
 import umc.everyones.lck.databinding.SpinnerInnerViewBinding
 import umc.everyones.lck.databinding.SpinnerOuterViewBinding
 
@@ -56,6 +57,9 @@ class SpinnerAdapter(context: Context, private val list: List<String>?) :
         if (list != null) {
             item = list[position]
             binding.spinnerInnerTv.text = "$item "
+        }
+        if (position == list?.lastIndex) {
+            convertView.setBackgroundResource(R.drawable.shape_rect_bottom_gray_300)
         }
         return convertView
     }

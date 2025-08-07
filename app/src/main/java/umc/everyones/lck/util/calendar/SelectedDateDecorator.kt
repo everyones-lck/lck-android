@@ -6,15 +6,20 @@ import androidx.core.content.ContextCompat
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
-import org.threeten.bp.DayOfWeek
 import umc.everyones.lck.R
 
-class SelectedSaturdayDecorator (val context: Context, val selectedDay: Int) : DayViewDecorator {
+class SelectedDateDecorator(val context: Context) : DayViewDecorator {
+    private var selectedDate: CalendarDay? = null
+
+    fun setSelectedDate(date: CalendarDay?) {
+        selectedDate = date
+    }
+
     override fun shouldDecorate(day: CalendarDay): Boolean {
-        return selectedDay == day.day
+        return day == selectedDate
     }
 
     override fun decorate(view: DayViewFacade) {
-        view.addSpan(object: ForegroundColorSpan(ContextCompat.getColor(context, R.color.white)){})
+        view.addSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.gray_200)))
     }
 }

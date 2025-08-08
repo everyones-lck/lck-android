@@ -1,14 +1,17 @@
 package umc.everyones.lck.presentation.match.adapter
 
+import android.content.res.ColorStateList
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ItemTodayPogPlayerBinding
 import umc.everyones.lck.domain.model.response.match.PogPlayerTodayMatchModel
 import umc.everyones.lck.domain.model.todayMatch.TodayPog
@@ -51,6 +54,26 @@ class TodayPogPlayerRVA(
 //                val matrix = ColorMatrix().apply { setSaturation(0f) }
 //                binding.ivTodayPogPlayer.colorFilter = ColorMatrixColorFilter(matrix)
 //            }
+            val context = binding.root.context
+
+//            // 팀 컬러 설정
+//            val teamColorRes = teamColorMap[player.teamName] ?: R.color.gray_700
+//            binding.ivTodayPogPlayerTeamColor.imageTintList =
+//                ColorStateList.valueOf(ContextCompat.getColor(context, teamColorRes))
+
+
+            // 플레이어 이름 설정
+            binding.tvTodayPogPlayerName.text = player.playerName
+
+            // 선택 여부에 따른 색상 적용
+            if (isSelected) {
+                binding.tvTodayPogPlayerName.setTextColor(ContextCompat.getColor(context, R.color.white))
+                binding.tvTodayPogPlayerName.setBackgroundResource(R.drawable.shape_rect_4_grayscale_100_line) // 선택된 배경
+            } else {
+                binding.tvTodayPogPlayerName.setTextColor(ContextCompat.getColor(context, R.color.gray_800))
+                binding.tvTodayPogPlayerName.setBackgroundResource(R.drawable.shape_rect_4_gray_800_line) // 기본 배경
+            }
+
             // 아이템 클릭 시 실행할 리스너 설정
             binding.root.setOnSingleClickListener {
                 onItemClick()
@@ -67,4 +90,21 @@ class TodayPogPlayerRVA(
             return oldItem == newItem
         }
     }
+
+    private val teamColorMap = mapOf(
+        "Gen.G" to R.color.gen_g,
+        "GEN" to R.color.gen_g,
+        "HLE" to R.color.hanhwa,
+        "DK" to R.color.dplus_kia,
+        "T1" to R.color.t1,
+        "KT" to R.color.kt_rolster,
+        "KDF" to R.color.kwangdong_freecs,
+        "DNF" to R.color.dnf,
+        "BNK" to R.color.bnk,
+        "BFX" to R.color.bnk,
+        "NS" to R.color.ns,
+        "DRX" to R.color.drx,
+        "BRO" to R.color.ok_brion
+        // 추가적인 팀과 색상 매핑
+    )
 }

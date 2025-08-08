@@ -6,6 +6,7 @@
     android:paddingHorizontal="20dp">
 
     <ImageView
+        android:id="@+id/iv_today_pog_player_team_color"
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:src="@drawable/shape_oval_none"

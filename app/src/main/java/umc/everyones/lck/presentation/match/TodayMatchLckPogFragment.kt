@@ -26,10 +26,10 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
 
     override fun initObserver() {
         // 세트 수를 받아와서 탭 레이아웃 설정
-        viewModel.setCount.observe(viewLifecycleOwner) { setCountModel ->
-            setupRecyclerView(setCountModel.setCount) // setCount 변경 시 RecyclerView 초기화
-            Timber.d("Set Count: ${setCountModel.setCount}")
-        }
+//        viewModel.setCount.observe(viewLifecycleOwner) { setCountModel ->
+//            setupRecyclerView(setCountModel.setCount) // setCount 변경 시 RecyclerView 초기화
+//            Timber.d("Set Count: ${setCountModel.setCount}")
+//        }
 
 //        viewModel.pogData.observe(viewLifecycleOwner) { response ->
 //            response?.let {
@@ -70,6 +70,7 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
 
         // ViewModel의 matchData를 관찰하여 matchId를 가져와서 사용
         todayViewModel.matchData.observe(viewLifecycleOwner) { matchData ->
+            Timber.d("matchData observed: $matchData")
             if (matchData == null || matchData.matchResponses.isEmpty()) {
                 // 경기가 없을 때
                 binding.layoutTodayMatchPogNoMatch.visibility = View.VISIBLE
@@ -102,13 +103,14 @@ class TodayMatchLckPogFragment : BaseFragment<FragmentTodayMatchLckPogBinding>(R
     }
 
     override fun initView() {
-
+        setupRecyclerView()
     }
-    private fun setupRecyclerView(newSetCount: Int) {
-        // 어댑터가 초기화되지 않았을 때만 생성
+    private fun setupRecyclerView() {
+
         lckPogMatchRVA = LckPogMatchRVA()
         binding.rvTodayMatchLckPogContainer.layoutManager = LinearLayoutManager(context)
         binding.rvTodayMatchLckPogContainer.adapter = lckPogMatchRVA
         binding.rvTodayMatchLckPogContainer.itemAnimator = null
+
     }
 }

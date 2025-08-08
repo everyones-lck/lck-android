@@ -13,6 +13,7 @@ import com.google.android.material.tabs.TabLayout.Tab
 import umc.everyones.lck.databinding.ItemLckPogMatchBinding
 import umc.everyones.lck.domain.model.response.match.CommonTodayMatchPogModel
 import umc.everyones.lck.domain.model.todayMatch.LckPog
+import umc.everyones.lck.util.extension.toMatchDateTimeFormat
 import umc.everyones.lck.util.extension.toOrdinal
 
 class LckPogMatchRVA(
@@ -33,7 +34,7 @@ class LckPogMatchRVA(
 
         fun bind(item: CommonTodayMatchPogModel) {
             binding.tvTodayMatchLckPogMatchTitle.text = "${item.seasonInfo} ${item.matchNumber.toOrdinal()} Match"
-            binding.tvTodayMatchLckPogMatchDate.text = item.matchDate
+            binding.tvTodayMatchLckPogMatchDate.text = item.matchDate.toMatchDateTimeFormat()
 
             val pog1st = item.setPogResponses.find { it.setIndex == 1 }
             val pog2nd = item.setPogResponses.find { it.setIndex == 2 }

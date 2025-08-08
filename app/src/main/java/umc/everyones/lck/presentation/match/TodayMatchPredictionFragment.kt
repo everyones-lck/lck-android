@@ -1,10 +1,12 @@
 package umc.everyones.lck.presentation.match
 
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentTodayMatchPredictionBinding
@@ -70,5 +72,19 @@ class TodayMatchPredictionFragment : BaseFragment<FragmentTodayMatchPredictionBi
         matchPredictionRVA.submitList(listOf(matchData))
         binding.rvTodayMatchPrediction.adapter = matchPredictionRVA
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // BottomNavigationView 숨기기
+        requireActivity().findViewById<BottomNavigationView>(R.id.main_bnv)?.visibility =
+            View.GONE
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // BottomNavigationView 다시 보이기
+        requireActivity().findViewById<BottomNavigationView>(R.id.main_bnv)?.visibility =
+            View.VISIBLE
     }
 }

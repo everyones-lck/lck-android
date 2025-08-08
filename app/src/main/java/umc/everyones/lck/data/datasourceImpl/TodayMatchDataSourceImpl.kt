@@ -27,8 +27,8 @@ class TodayMatchDataSourceImpl @Inject constructor(
     override suspend fun fetchTodayMatchPogPlayer(matchId: Long): BaseResponse<PogPlayerTodayMatchResponseDto> =
         todayMatchService.fetchTodayMatchPogPlayer(matchId)
 
-    override suspend fun fetchTodayMatchPog(request: CommonPogRequestDto): BaseResponse<CommonTodayMatchPogResponseDto> =
-        todayMatchService.fetchTodayMatchPog(request)
+    override suspend fun fetchTodayMatchPog(matchId: Long): BaseResponse<CommonTodayMatchPogResponseDto> =
+        todayMatchService.fetchTodayMatchPog(matchId)
 
     override suspend fun voteSetPog(request: VoteSetPogRequestDto): BaseResponse<CommonVotePogResponseDto> =
         todayMatchService.voteSetPog(request)

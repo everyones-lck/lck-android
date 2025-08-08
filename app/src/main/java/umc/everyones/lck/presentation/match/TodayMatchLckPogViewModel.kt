@@ -27,7 +27,7 @@ class TodayMatchLckPogViewModel @Inject constructor(
 
     fun fetchTodayMatchPog(matchId: Long) {
         viewModelScope.launch {
-            repository.fetchTodayMatchPog(CommonPogModel(matchId)).onSuccess { response ->
+            repository.fetchTodayMatchPog(matchId).onSuccess { response ->
                 Timber.d("fetchTodayMatchPog %s", response.toString())
                 _pogData.value = response
             }.onFailure {

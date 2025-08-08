@@ -23,7 +23,7 @@ class MyPageCommunityFragment : BaseFragment<FragmentMypageCommunityBinding>(R.l
     }
 
     override fun initView() {
-        binding.ivMypageCommunityBack.setOnSingleClickListener {
+        binding.ivParticipantsBackBtn.setOnSingleClickListener {
             findNavController().navigateUp()
         }
         initViewPager()

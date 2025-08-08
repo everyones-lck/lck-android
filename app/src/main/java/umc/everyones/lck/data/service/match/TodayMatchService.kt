@@ -3,6 +3,7 @@ package umc.everyones.lck.data.service.match
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.match.CommonPogRequestDto
@@ -30,9 +31,9 @@ interface TodayMatchService {
         @Query("match-id") matchId: Long
     ): BaseResponse<MatchTodayMatchResponseDto>
 
-    @POST("pog/result")
+    @GET("pog/result/{matchId}")
     suspend fun fetchTodayMatchPog(
-        @Body request: CommonPogRequestDto
+        @Query("match-id") matchId: Long
     ): BaseResponse<CommonTodayMatchPogResponseDto>
 
     @POST("votes/set-pog/making")

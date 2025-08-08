@@ -34,8 +34,8 @@ class TodayMatchRepositoryImpl @Inject constructor(
         response.toPogPlayerTodayMatchModel()
     }
 
-    override suspend fun fetchTodayMatchPog(request: CommonPogModel): Result<CommonTodayMatchPogModel> = runCatching {
-        todayMatchDataSource.fetchTodayMatchPog(request.toCommonPogRequestDto()).data.toCommonTodayMatchPogModel()
+    override suspend fun fetchTodayMatchPog(matchId: Long): Result<CommonTodayMatchPogModel> = runCatching {
+        todayMatchDataSource.fetchTodayMatchPog(matchId).data.toCommonTodayMatchPogModel()
     }
 
     override suspend fun voteSetPog(request: VoteSetPogModel): Result<CommonVotePogModel> = runCatching {

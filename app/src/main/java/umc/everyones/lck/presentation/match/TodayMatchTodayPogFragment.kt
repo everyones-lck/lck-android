@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import umc.everyones.lck.R
@@ -251,5 +252,19 @@ class TodayMatchTodayPogFragment : BaseFragment<FragmentTodayMatchTodayPogBindin
             binding.ivTodayMatchTodayPogMatchVote.visibility = View.GONE
             binding.rvTodayMatchTodayPogMatchVote.visibility = View.VISIBLE
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // BottomNavigationView 숨기기
+        requireActivity().findViewById<BottomNavigationView>(R.id.main_bnv)?.visibility =
+            View.GONE
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // BottomNavigationView 다시 보이기
+        requireActivity().findViewById<BottomNavigationView>(R.id.main_bnv)?.visibility =
+            View.VISIBLE
     }
 }

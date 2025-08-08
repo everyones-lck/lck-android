@@ -9,6 +9,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.ItemHomeMatchResultBinding
 import umc.everyones.lck.domain.model.response.home.HomeTodayMatchModel
 import umc.everyones.lck.domain.model.todayMatch.LckMatch
+import umc.everyones.lck.util.extension.toHomeDateTimeFormat
 
 class HomeMatchResultRVA(
     private val items: List<HomeTodayMatchModel.RecentMatchResultModel>
@@ -28,7 +29,7 @@ class HomeMatchResultRVA(
     inner class ViewHolder(private val binding: ItemHomeMatchResultBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: HomeTodayMatchModel.RecentMatchResultModel) {
-            binding.tvHomeResultDate1.text = item.matchDate
+            binding.tvHomeResultDate1.text = item.matchDate.toHomeDateTimeFormat()
             binding.tvHomeResultTeam1.text = item.team1Name
             binding.tvHomeResultTeam2.text = item.team2Name
 

@@ -66,6 +66,9 @@
         <action
             android:id="@+id/action_myPageProfileFramgnet_to_myPageFragment"
             app:destination="@id/myPageFragment"/>
+        <action
+            android:id="@+id/action_myPageProfileFragment_to_myPageInformationFragment"
+            app:destination="@id/myPageInformationFragment"/>
     </fragment>
 
     <fragment

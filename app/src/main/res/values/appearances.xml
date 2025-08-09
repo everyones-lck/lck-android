@@ -37,7 +37,7 @@
     <style name="TextAppearance.LCK.Medium.12sp.tab">
         <item name="android:textColor">@color/grayscale_100</item>
     </style>
-  
+
     <style name="TextAppearance.LCK.Bold.Title2_18sp">
         <item name="android:textSize">18sp</item>
     </style>
@@ -140,7 +140,7 @@
     <style name="TextAppearance.LCK.Light.Warning">
         <item name="fontFamily">@font/cafe_ohsquare_air</item>
         <item name="android:textSize">10sp</item>3
-      
+
         <item name="android:textColor">@color/warning</item>
     </style>
 
@@ -206,7 +206,7 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
-    
+
     <style name="Esamanru" parent="">
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/black</item>

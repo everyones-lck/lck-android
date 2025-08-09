@@ -19,8 +19,8 @@ class MyPageViewingPartyRVA : ListAdapter<ViewingPartyItem, RecyclerView.ViewHol
     ViewingPartyItemDiffCallback()
 ){
     companion object {
-        private const val TYPE_HOST = 0
-        private const val TYPE_GUEST = 1
+        private const val TYPE_GUEST = 0
+        private const val TYPE_HOST = 1
     }
 
     override fun getItemViewType(position: Int): Int {

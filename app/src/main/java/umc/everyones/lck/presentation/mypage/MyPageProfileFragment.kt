@@ -63,6 +63,9 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         binding.ivMypageProfileBack.setOnSingleClickListener {
             navigator.navigate(R.id.action_myPageProfileFramgnet_to_myPageFragment)
         }
+        binding.ivMypageProfileSetting.setOnSingleClickListener {
+            navigator.navigate(R.id.action_myPageProfileFragment_to_myPageInformationFragment)
+        }
     }
 
     private fun updateTierUI(tier: String) {

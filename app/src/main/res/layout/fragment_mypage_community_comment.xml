@@ -29,7 +29,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="NO Content"
-                style="@style/TextAppearance.LCK.Light.20sp"
+                android:textAppearance="@style/Esamanru.Light.Title02"
+                android:textColor="@color/grayscale_600"
                 android:layout_gravity="center"/> <!-- 가운데 정렬 -->
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

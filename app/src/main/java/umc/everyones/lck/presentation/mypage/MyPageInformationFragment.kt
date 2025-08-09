@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import dagger.hilt.android.AndroidEntryPoint
+import umc.everyones.lck.BuildConfig
 import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentMypageInformationBinding
 import umc.everyones.lck.presentation.MainActivity
@@ -36,5 +37,11 @@ class MyPageInformationFragment : BaseFragment<FragmentMypageInformationBinding>
         binding.tvMypageInformationOss.setOnSingleClickListener {
             startActivity(Intent(requireContext(),OssLicensesMenuActivity::class.java))
         }
+
+        binding.tvMypageInformationAppVersion.text = getAppVersion()
+    }
+
+    fun getAppVersion(): String {
+        return BuildConfig.VERSION_NAME
     }
 }

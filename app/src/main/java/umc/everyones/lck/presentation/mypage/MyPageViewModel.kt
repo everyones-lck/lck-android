@@ -156,9 +156,9 @@ class MyPageViewModel @Inject constructor(
                         putString("profileImage", imageToSave)
                         apply()
                     }
-            }.onFailure { error ->
-                Timber.e("Error updating profile: ${error.message}")
-            }
+                }.onFailure { error ->
+                    Timber.e("Error updating profile: ${error.message}")
+                }
         }
     }
     private fun createProfileImagePart(uri: Uri): MultipartBody.Part {

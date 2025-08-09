@@ -15,7 +15,7 @@
         android:background="@color/new_bg">
 
         <LinearLayout
-            android:id="@+id/layout_mypage__community_topbar"
+            android:id="@+id/layout_mypage_community_topbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="31dp"
@@ -27,43 +27,56 @@
 
             <ImageView
                 android:id="@+id/iv_mypage_profile_edit_back"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_mypage_back"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:src="@drawable/ic_back_btn"/>
 
             <TextView
                 android:id="@+id/tv_mypage_profile_edit_topbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="프로필 수정"
-                style="@style/TextAppearance.LCK.Medium.16sp"
-                android:textColor="@color/white"
+                android:textAppearance="@style/Esamanru.Medium.heading01"
+                android:textColor="@color/grayscale_200"
                 android:layout_weight="1"
                 android:gravity="center"/>
 
             <ImageView
                 android:id="@+id/tv_mypage_profile_edit_topbar_edit"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:padding="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
                 android:src="@drawable/ic_check"/>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_mypage_profile_edit_profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로필 사진 수정"
+            android:textAppearance="@style/Esamanru.Light.body01"
+            android:textColor="@color/grayscale_200"
+            app:layout_constraintTop_toBottomOf="@id/layout_mypage_community_topbar"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="52dp"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <LinearLayout
             android:id="@+id/layout_mypage_profile_edit_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginHorizontal="36dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="150dp">
+            app:layout_constraintStart_toStartOf="@id/tv_mypage_profile_edit_profile_image"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_profile_edit_profile_image"
+            android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/iv_mypage_profile_edit_rect"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="16dp"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="0dp"
@@ -109,8 +122,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="기본 이미지 사용"
-                    style="@style/TextAppearance.LCK.Light.8sp"
-                    android:textColor="@color/white"
+                    android:textAppearance="@style/Esamanru.Light.label03"
+                    android:textColor="@color/grayscale_200"
                     android:layout_marginStart="12dp"
                     android:background="@drawable/shape_rect_4_grayscale_900"
                     android:paddingVertical="8dp"
@@ -123,7 +136,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="닉네임 수정"
-            style="@style/TextAppearance.LCK.Light.Title_18sp"
+            android:textAppearance="@style/Esamanru.Light.body01"
+            android:textColor="@color/grayscale_200"
             app:layout_constraintTop_toBottomOf="@id/layout_mypage_profile_edit_profile"
             android:layout_marginStart="36dp"
             android:layout_marginTop="52dp"
@@ -135,8 +149,8 @@
             android:layout_height="wrap_content"
             android:hint="닉네임을 입력해주세요"
             android:textColorHint="@color/grayscale_200"
-            style="@style/TextAppearance.LCK.Light.12sp"
-            android:textColor="@color/white"
+            android:textAppearance="@style/Esamanru.Light.body03"
+            android:textColor="@color/grayscale_200"
             android:singleLine="true"
             android:background="@drawable/shape_rect_4_white_line"
             android:paddingHorizontal="16dp"
@@ -174,7 +188,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="닉네임은 최소 1글자 이상 입력해야 합니다"
-                style="@style/TextAppearance.LCK.Light.12sp"
+                android:textAppearance="@style/Esamanru.Light.body03"
                 android:textColor="@color/warning"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
@@ -200,7 +214,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="닉네임은 최대 10글자까지 입력 가능합니다"
-                style="@style/TextAppearance.LCK.Light.12sp"
+                android:textAppearance="@style/Esamanru.Light.body03"
                 android:textColor="@color/warning"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
@@ -226,7 +240,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="닉네임 사이에는 공백을 입력할 수 없습니다"
-                style="@style/TextAppearance.LCK.Light.12sp"
+                android:textAppearance="@style/Esamanru.Light.body03"
                 android:textColor="@color/warning"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
@@ -252,7 +266,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="다른 사용자와 중복되는 닉네임입니다."
-                style="@style/TextAppearance.LCK.Light.12sp"
+                android:textAppearance="@style/Esamanru.Light.body03"
                 android:textColor="@color/warning"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
@@ -266,19 +280,19 @@
             app:layout_constraintStart_toStartOf="@id/layout_mypage_profile_edit_warning4"
             app:layout_constraintTop_toBottomOf="@+id/layout_mypage_profile_edit_warning4"
             android:layout_marginTop="8dp"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/iv_mypage_profile_edit_valid_check"
                 android:layout_width="16dp"
-                android:layout_height="12dp"
+                android:layout_height="16dp"
                 android:src="@drawable/img_signup_nickname_checkin"/>
 
             <TextView
                 android:id="@+id/tv_mypage_profile_edit_valid_text"
-                style="@style/TextAppearance.LCK.Light.12sp"
+                android:textAppearance="@style/Esamanru.Light.body03"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="사용 가능한 닉네임입니다."
                 android:textColor="@color/success" />

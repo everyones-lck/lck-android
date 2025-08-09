@@ -27,17 +27,19 @@
 
             <ImageView
                 android:id="@+id/iv_mypage_myteam_back"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_mypage_back"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:src="@drawable/ic_back_btn"/>
 
             <TextView
                 android:id="@+id/tv_mypage_myteam_topbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MY Team 선택"
-                style="@style/TextAppearance.LCK.Medium.16sp"
-                android:textColor="@color/white"
+                android:textAppearance="@style/Esamanru.Medium.heading01"
+                android:textColor="@color/grayscale_200"
                 android:layout_weight="1"
                 android:gravity="center"/>
 
@@ -60,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="My team은 한달에 한 번 변경 가능합니다"
-                style="@style/TextAppearance.LCK.Light.12sp"
+                android:textAppearance="@style/Esamanru.Medium.body02"
                 android:layout_marginTop="32dp"
                 android:textColor="@color/warning"
                 app:layout_constraintTop_toTopOf="parent"
@@ -85,23 +87,24 @@
                         android:orientation="vertical"
                         android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
-                        android:paddingHorizontal="10dp"
+                        android:paddingHorizontal="8dp"
                         android:layout_marginVertical="9dp">
 
                         <View
                             android:id="@+id/iv_mypage_myteam_hanhwa"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
                             android:background="@drawable/shape_oval_red"
                             android:backgroundTint="@color/hanhwa"
                             android:layout_gravity="center"/>
 
                         <TextView
-                            android:layout_width="52dp"
+                            android:layout_width="68dp"
                             android:layout_height="wrap_content"
                             android:text="Hanwha"
                             android:layout_marginTop="8dp"
-                            style="@style/TextAppearance.LCK.Medium.12sp"
+                            android:textAppearance="@style/Esamanru.Medium.body02"
+                            android:textColor="@color/grayscale_200"
                             android:gravity="center"/>
 
                     </LinearLayout>
@@ -114,23 +117,25 @@
                         android:orientation="vertical"
                         android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
-                        android:paddingHorizontal="10dp"
-                        android:layout_marginHorizontal="8dp">
+                        android:paddingHorizontal="8dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="9dp">
 
                         <View
                             android:id="@+id/iv_mypage_myteam_gen_g"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
                             android:background="@drawable/shape_oval_red"
                             android:backgroundTint="@color/gen_g"
                             android:layout_gravity="center"/>
 
                         <TextView
-                            android:layout_width="52dp"
+                            android:layout_width="68dp"
                             android:layout_height="wrap_content"
                             android:text="Gen.G"
                             android:layout_marginTop="8dp"
-                            style="@style/TextAppearance.LCK.Medium.12sp"
+                            android:textAppearance="@style/Esamanru.Medium.body02"
+                            android:textColor="@color/grayscale_200"
                             android:gravity="center"/>
 
                     </LinearLayout>
@@ -143,22 +148,24 @@
                         android:orientation="vertical"
                         android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
-                        android:paddingHorizontal="10dp">
+                        android:paddingHorizontal="8dp">
 
-                        <View
+
+                    <View
                             android:id="@+id/iv_mypage_myteam_t1"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
                             android:background="@drawable/shape_oval_red"
                             android:backgroundTint="@color/t1"
                             android:layout_gravity="center"/>
 
                         <TextView
-                            android:layout_width="52dp"
+                            android:layout_width="68dp"
                             android:layout_height="wrap_content"
                             android:text="T1"
                             android:layout_marginTop="8dp"
-                            style="@style/TextAppearance.LCK.Medium.12sp"
+                            android:textAppearance="@style/Esamanru.Medium.body02"
+                            android:textColor="@color/grayscale_200"
                             android:gravity="center"/>
 
                     </LinearLayout>
@@ -174,23 +181,24 @@
                         android:orientation="vertical"
                         android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
-                        android:paddingHorizontal="10dp"
+                        android:paddingHorizontal="8dp"
                         android:layout_marginVertical="9dp">
 
                         <View
                             android:id="@+id/iv_mypage_myteam_kwangdong_freecs"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
                             android:background="@drawable/shape_oval_red"
                             android:backgroundTint="@color/dn"
                             android:layout_gravity="center"/>
 
                         <TextView
-                            android:layout_width="52dp"
+                            android:layout_width="68dp"
                             android:layout_height="wrap_content"
                             android:text="DN"
                             android:layout_marginTop="8dp"
-                            style="@style/TextAppearance.LCK.Medium.12sp"
+                            android:textAppearance="@style/Esamanru.Medium.body02"
+                            android:textColor="@color/grayscale_200"
                             android:gravity="center"/>
 
                     </LinearLayout>
@@ -203,23 +211,25 @@
                         android:orientation="vertical"
                         android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
-                        android:paddingHorizontal="10dp"
-                        android:layout_marginHorizontal="8dp">
+                        android:paddingHorizontal="8dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="9dp">
 
                         <View
                             android:id="@+id/iv_mypage_myteam_bnk"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
                             android:background="@drawable/shape_oval_red"
                             android:backgroundTint="@color/bnk"
                             android:layout_gravity="center"/>
 
                         <TextView
-                            android:layout_width="52dp"
+                            android:layout_width="68dp"
                             android:layout_height="wrap_content"
                             android:text="BNK"
                             android:layout_marginTop="8dp"
-                            style="@style/TextAppearance.LCK.Medium.12sp"
+                            android:textAppearance="@style/Esamanru.Medium.body02"
+                            android:textColor="@color/grayscale_200"
                             android:gravity="center"/>
 
                     </LinearLayout>
@@ -232,21 +242,23 @@
                         android:orientation="vertical"
                         android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
-                        android:paddingHorizontal="10dp">
+                        android:paddingHorizontal="8dp"
+                        android:layout_marginVertical="9dp">
 
                         <View
                             android:id="@+id/iv_mypage_myteam_nongshim_red_force"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
                             android:background="@drawable/shape_oval_red"
                             android:layout_gravity="center"/>
 
                         <TextView
-                            android:layout_width="52dp"
+                            android:layout_width="68dp"
                             android:layout_height="wrap_content"
                             android:text="RED"
                             android:layout_marginTop="8dp"
-                            style="@style/TextAppearance.LCK.Medium.12sp"
+                            android:textAppearance="@style/Esamanru.Medium.body02"
+                            android:textColor="@color/grayscale_200"
                             android:gravity="center"/>
 
                     </LinearLayout>
@@ -262,23 +274,24 @@
                         android:orientation="vertical"
                         android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
-                        android:paddingHorizontal="10dp"
+                        android:paddingHorizontal="8dp"
                         android:layout_marginVertical="9dp">
 
                         <View
                             android:id="@+id/iv_mypage_myteam_drx"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
                             android:background="@drawable/shape_oval_red"
                             android:backgroundTint="@color/drx"
                             android:layout_gravity="center"/>
 
                         <TextView
-                            android:layout_width="52dp"
+                            android:layout_width="68dp"
                             android:layout_height="wrap_content"
                             android:text="DRX"
                             android:layout_marginTop="8dp"
-                            style="@style/TextAppearance.LCK.Medium.12sp"
+                            android:textAppearance="@style/Esamanru.Medium.body02"
+                            android:textColor="@color/grayscale_200"
                             android:gravity="center"/>
 
                     </LinearLayout>
@@ -291,23 +304,25 @@
                         android:orientation="vertical"
                         android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
-                        android:paddingHorizontal="10dp"
-                        android:layout_marginHorizontal="8dp">
+                        android:paddingHorizontal="8dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="9dp">
 
                         <View
                             android:id="@+id/iv_mypage_myteam_ok_saving_bank_brion"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
                             android:background="@drawable/shape_oval_red"
                             android:backgroundTint="@color/brion"
                             android:layout_gravity="center"/>
 
                         <TextView
-                            android:layout_width="52dp"
+                            android:layout_width="68dp"
                             android:layout_height="wrap_content"
                             android:text="Brion"
                             android:layout_marginTop="8dp"
-                            style="@style/TextAppearance.LCK.Medium.12sp"
+                            android:textAppearance="@style/Esamanru.Medium.body02"
+                            android:textColor="@color/grayscale_200"
                             android:gravity="center"/>
 
                     </LinearLayout>
@@ -320,22 +335,24 @@
                         android:orientation="vertical"
                         android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
-                        android:paddingHorizontal="10dp">
+                        android:paddingHorizontal="8dp"
+                        android:layout_marginVertical="9dp">
 
                         <View
                             android:id="@+id/iv_mypage_myteam_dplus_kia"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
                             android:background="@drawable/shape_oval_red"
                             android:backgroundTint="@color/white"
                             android:layout_gravity="center"/>
 
                         <TextView
-                            android:layout_width="52dp"
+                            android:layout_width="68dp"
                             android:layout_height="wrap_content"
                             android:text="DK"
                             android:layout_marginTop="8dp"
-                            style="@style/TextAppearance.LCK.Medium.12sp"
+                            android:textAppearance="@style/Esamanru.Medium.body02"
+                            android:textColor="@color/grayscale_200"
                             android:gravity="center"/>
 
                     </LinearLayout>
@@ -351,23 +368,24 @@
                         android:orientation="vertical"
                         android:background="@drawable/shape_team_background"
                         android:paddingVertical="20dp"
-                        android:paddingHorizontal="10dp"
+                        android:paddingHorizontal="8dp"
                         android:layout_marginVertical="9dp">
 
                         <View
                             android:id="@+id/iv_mypage_myteam_kt_rolster"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
                             android:background="@drawable/shape_oval_red"
                             android:backgroundTint="@color/t1"
                             android:layout_gravity="center"/>
 
                         <TextView
-                            android:layout_width="52dp"
+                            android:layout_width="68dp"
                             android:layout_height="wrap_content"
                             android:text="Kt"
                             android:layout_marginTop="8dp"
-                            style="@style/TextAppearance.LCK.Medium.12sp"
+                            android:textAppearance="@style/Esamanru.Medium.body02"
+                            android:textColor="@color/grayscale_200"
                             android:gravity="center"/>
 
                     </LinearLayout>
@@ -383,7 +401,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rect_4_gray_line_black_fill"
             android:text="변경"
-            style="@style/TextAppearance.LCK.Medium.12sp"
+            android:textAppearance="@style/Esamanru.Medium.body02"
+            android:textColor="@color/grayscale_200"
             android:gravity="center"
             android:paddingVertical="16dp"
             android:layout_marginHorizontal="24dp"

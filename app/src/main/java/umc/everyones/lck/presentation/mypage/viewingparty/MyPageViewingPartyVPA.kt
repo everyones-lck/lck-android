@@ -11,8 +11,8 @@ class MyPageViewingPartyVPA(fragment: Fragment) : FragmentStateAdapter(fragment)
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> MyPageViewingPartyHostFragment()
-            1 -> MyPageViewingPartyGuestFragment()
+            0 -> MyPageViewingPartyGuestFragment()
+            1 -> MyPageViewingPartyHostFragment()
             else -> throw IllegalStateException("Unexpected position: $position")
         }
     }

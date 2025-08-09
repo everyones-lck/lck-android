@@ -112,7 +112,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                     tvReadQualify.text = "To. ${event.viewingParty.qualify}"
                     tvReadDate.text = event.viewingParty.partyDate
                     tvReadPlace.text = event.viewingParty.place
-                    tvReadPrice.text = "₩${event.viewingParty.price}"
+                    tvReadPrice.text = "${event.viewingParty.price}원"
                     tvReadParticipants.text = event.viewingParty.participants
                     tvReadEtc.text = event.viewingParty.etc
                     tvReadWriter.text = event.viewingParty.writerInfo

@@ -280,19 +280,19 @@
             app:layout_constraintStart_toStartOf="@id/layout_mypage_profile_edit_warning4"
             app:layout_constraintTop_toBottomOf="@+id/layout_mypage_profile_edit_warning4"
             android:layout_marginTop="8dp"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/iv_mypage_profile_edit_valid_check"
                 android:layout_width="16dp"
-                android:layout_height="12dp"
+                android:layout_height="16dp"
                 android:src="@drawable/img_signup_nickname_checkin"/>
 
             <TextView
                 android:id="@+id/tv_mypage_profile_edit_valid_text"
                 android:textAppearance="@style/Esamanru.Light.body03"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="사용 가능한 닉네임입니다."
                 android:textColor="@color/success" />

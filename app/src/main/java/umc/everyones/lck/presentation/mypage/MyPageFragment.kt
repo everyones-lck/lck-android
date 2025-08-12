@@ -2,7 +2,10 @@ package umc.everyones.lck.presentation.mypage
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -45,6 +48,19 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
             }
         }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                startActivity(intent)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+    }
+
 
     override fun initView() {
 

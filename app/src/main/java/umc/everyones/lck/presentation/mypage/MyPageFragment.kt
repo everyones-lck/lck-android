@@ -34,9 +34,9 @@ class MyPageFragment : BaseFragment<FragmentMypageMainBinding>(R.layout.fragment
                 binding.tvMypageMainTeam.text = TeamData.teamNames[teamId] ?: TeamData.teamNames[1] // teamNames에 없으면 기본값 사용
 
                 // 팀 배경 설정
-                val teamBackground = mypageTeamBackground[teamId]
+                val teamBackground = TeamData.mypageProfileTeamBackground[teamId]
                 teamBackground?.let { colorResId ->
-                    binding.tvMypageMainTeam.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
+                    binding.tvMypageMainTeam.setBackgroundResource(teamBackground)
                 }
 
                 loadProfileImage(it.profileImageUrl) // 프로필 이미지 로드

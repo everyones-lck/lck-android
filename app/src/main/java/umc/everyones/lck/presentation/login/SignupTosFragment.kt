@@ -15,6 +15,7 @@ import umc.everyones.lck.databinding.DialogSignupTosDetailsAgree2Binding
 import umc.everyones.lck.databinding.FragmentSignupTosBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.util.extension.setOnSingleClickListener
+import umc.everyones.lck.util.extension.showCustomToast
 
 @AndroidEntryPoint
 class SignupTosFragment : BaseFragment<FragmentSignupTosBinding>(R.layout.fragment_signup_tos) {
@@ -47,7 +48,7 @@ class SignupTosFragment : BaseFragment<FragmentSignupTosBinding>(R.layout.fragme
 
         binding.tvSignupTosNext.setOnSingleClickListener {
             if (!isAgree1Checked || !isAgree2Checked) {
-                Toast.makeText(requireContext(), "모든 동의 항목을 체크해주세요.", Toast.LENGTH_SHORT).show()
+                requireContext().showCustomToast("모든 동의 항목을 체크해주세요.")
             } else {
                 navigateToSignupNickname()
             }

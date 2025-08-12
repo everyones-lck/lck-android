@@ -15,6 +15,7 @@ import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.login.LoginActivity
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 import umc.everyones.lck.util.extension.showCustomSnackBar
+import umc.everyones.lck.util.extension.showCustomToast
 
 @AndroidEntryPoint
 class MyPageProfileWithdrawFragment : BaseFragment<FragmentMypageProfileWithdrawBinding>(R.layout.fragment_mypage_profile_withdraw) {
@@ -28,7 +29,7 @@ class MyPageProfileWithdrawFragment : BaseFragment<FragmentMypageProfileWithdraw
                 navigateToLoginScreen()
             } else {
                 Timber.e("회원 탈퇴 실패, 오류 처리 필요")
-                Toast.makeText(requireContext(), "계정 탈퇴에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                requireContext().showCustomToast("계정 탈퇴에 실패했습니다. 다시 시도해주세요.")
             }
         }
     }

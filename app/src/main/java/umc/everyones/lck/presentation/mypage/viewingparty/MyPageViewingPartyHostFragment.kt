@@ -22,6 +22,7 @@ import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.presentation.party.read.ReadViewingPartyViewModel
 import umc.everyones.lck.presentation.party.write.WriteViewingPartyActivity
 import umc.everyones.lck.util.extension.repeatOnStarted
+import umc.everyones.lck.util.extension.showCustomToast
 import umc.everyones.lck.util.extension.toWriteViewingPartyDateFormat
 import umc.everyones.lck.util.network.UiState
 
@@ -100,7 +101,7 @@ class MyPageViewingPartyHostFragment : BaseFragment<FragmentMypageViewingPartyHo
 
     private fun deleteViewingParty(id: Long) {
         viewModel.cancleHostViewingPartyMypage(id) // ID를 사용하여 삭제 요청
-        Toast.makeText(requireContext(), "개최가 취소되었습니다.", Toast.LENGTH_SHORT).show() // Toast 메시지
+        requireContext().showCustomToast("개최가 취소되었습니다.")
         refreshParticipateList() // 리스트 새로 고침 메서드 호출
     }
 
@@ -140,17 +141,13 @@ class MyPageViewingPartyHostFragment : BaseFragment<FragmentMypageViewingPartyHo
                                 ))
                             )
                         } else {
-                            Toast.makeText(requireContext(), "데이터를 가져오는 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
                         }
                     }
                     is UiState.Failure -> {
-                        Toast.makeText(requireContext(), "뷰잉파티를 조회하지 못했습니다.", Toast.LENGTH_SHORT).show()
                     }
                     is UiState.Loading -> {
-                        // 로딩 상태 처리
                     }
                     is UiState.Empty -> {
-                        Toast.makeText(requireContext(), "데이터가 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

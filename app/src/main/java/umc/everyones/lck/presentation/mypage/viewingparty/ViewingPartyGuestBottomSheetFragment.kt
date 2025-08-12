@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import umc.everyones.lck.databinding.FragmentViewingPartyGuestBottomSheetBinding
+import umc.everyones.lck.util.extension.showCustomToast
 
 @AndroidEntryPoint
 class ViewingPartyGuestBottomSheetFragment : BottomSheetDialogFragment() {
@@ -41,7 +42,7 @@ class ViewingPartyGuestBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun deleteViewingParty(id: Long) {
         viewModel.cancleGuestViewingPartyMypage(id)
-        Toast.makeText(requireContext(), "참여가 취소되었습니다.", Toast.LENGTH_SHORT).show()
+        requireContext().showCustomToast("참여가 취소되었습니다.")
     }
 
     override fun onDestroyView() {

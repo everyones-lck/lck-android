@@ -16,6 +16,7 @@ import umc.everyones.lck.R
 import umc.everyones.lck.databinding.FragmentMypageViewingPartyGuestBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.util.extension.repeatOnStarted
+import umc.everyones.lck.util.extension.showCustomToast
 
 @AndroidEntryPoint
 class MyPageViewingPartyGuestFragment : BaseFragment<FragmentMypageViewingPartyGuestBinding>(R.layout.fragment_mypage_viewing_party_guest) {
@@ -64,8 +65,7 @@ class MyPageViewingPartyGuestFragment : BaseFragment<FragmentMypageViewingPartyG
                 findNavController().navigate(action) // Viewing Party 읽기 화면으로 이동
             },
             deleteViewingParty = { id ->
-                deleteViewingParty(id) // 삭제 메소드 호출
-                Toast.makeText(requireContext(), "참여가 취소되었습니다.", Toast.LENGTH_SHORT).show() // Toast 메시지
+                deleteViewingParty(id)
             },
             showBottomSheet = { id, title ->
                 val action = MyPageViewingPartyFragmentDirections.actionMyPageViewingPartyFragmentToViewingPartyGuestBottomSheetFragment(id, title)
@@ -91,7 +91,7 @@ class MyPageViewingPartyGuestFragment : BaseFragment<FragmentMypageViewingPartyG
 
     private fun deleteViewingParty(id: Long) {
         viewModel.cancleGuestViewingPartyMypage(id) // ID를 사용하여 삭제 요청
-        Toast.makeText(requireContext(), "참여가 취소되었습니다.", Toast.LENGTH_SHORT).show() // Toast 메시지
+        requireContext().showCustomToast("참여가 취소되었습니다.")
         refreshParticipateList() // 리스트 새로 고침 메서드 호출
     }
     companion object {

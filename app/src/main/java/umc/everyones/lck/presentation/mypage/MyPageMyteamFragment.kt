@@ -16,6 +16,7 @@ import umc.everyones.lck.databinding.FragmentMypageMyteamBinding
 import umc.everyones.lck.presentation.base.BaseFragment
 import umc.everyones.lck.util.TeamData
 import umc.everyones.lck.util.extension.setOnSingleClickListener
+import umc.everyones.lck.util.extension.showCustomToast
 
 @AndroidEntryPoint
 class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.fragment_mypage_myteam) {
@@ -45,13 +46,13 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
 
         binding.tvMypageMyteamNext.setOnSingleClickListener {
             if (currentSelectedTeamId == null) {
-                Toast.makeText(requireContext(), "팀을 선택해주세요.", Toast.LENGTH_SHORT).show()
+                requireContext().showCustomToast("팀을 선택해주세요.")
                 return@setOnSingleClickListener
             }
 
             // 초기 서버 팀 ID와 현재 선택한 팀 ID가 같으면 변경 요청 X (선택 사항)
             if (currentSelectedTeamId == initialServerTeamId) {
-                Toast.makeText(requireContext(), "이미 선택된 팀입니다. 다른 팀을 선택해주세요.", Toast.LENGTH_LONG).show()
+                requireContext().showCustomToast("이미 선택된 팀입니다. 다른 팀을 선택해주세요.")
                 // 또는 그냥 이전 화면으로 이동 등의 처리
                 // navigator.navigateUp()
                 return@setOnSingleClickListener
@@ -61,19 +62,16 @@ class MyPageMyteamFragment : BaseFragment<FragmentMypageMyteamBinding>(R.layout.
                 myPageViewModel.updateTeam(currentSelectedTeamId!!) { isSuccess ->
                     if (isSuccess) {
                         Timber.d("Team update successful for team ID: $currentSelectedTeamId")
-                        Toast.makeText(requireContext(), "응원 팀이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                        requireContext().showCustomToast("응원 팀이 변경되었습니다.")
 
-                        // 성공 시, 현재 선택된 팀을 새로운 초기 팀으로 간주
                         initialServerTeamId = currentSelectedTeamId
-                        // currentSelectedTeamId는 그대로 유지하거나, 화면을 벗어나면 null로 할 수 있음
-                        // 여기서는 화면에 남아있다고 가정하고 UI와 버튼 상태 다시 업데이트
 
                         updateTeamSelectionUI()
                         updateButtonState()
-                        // navigator.navigate(R.id.action_myPageMyteamFragment_to_myPageFragment) // 예시: 마이페이지 메인으로 이동
+
                     } else {
                         Timber.d("Team update failed.")
-                        Toast.makeText(requireContext(), "응원 팀은 한 달에 한 번만 변경 가능합니다.", Toast.LENGTH_LONG).show()
+                        requireContext().showCustomToast("응원 팀은 한 달에 한 번만 변경 가능합니다.")
                     }
                 }
             }

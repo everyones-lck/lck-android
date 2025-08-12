@@ -36,7 +36,7 @@
                 android:text=""
                 android:maxLines="1"
                 android:ellipsize="end"
-                style="@style/TextAppearance.LCK.Light.14sp"
+                android:textAppearance="@style/Esamanru.Light.body01"
                 android:textColor="@color/grayscale_800"
                 tools:text="Sample Title"/>
 
@@ -46,8 +46,8 @@
                 android:layout_weight="1"/>
 
             <ImageView
-                android:layout_width="31dp"
-                android:layout_height="16dp"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
                 android:src="@drawable/img_community_logo"/>
 
         </LinearLayout>
@@ -57,10 +57,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            style="@style/TextAppearance.LCK.Light.8sp"
+            android:textAppearance="@style/Esamanru.Light.label03"
             app:layout_constraintStart_toStartOf="@id/layout_mypage_community"
             app:layout_constraintTop_toBottomOf="@id/layout_mypage_community"
-            android:layout_marginTop="23dp"
+            android:layout_marginTop="20dp"
             android:textColor="@color/black"
             android:background="@drawable/shape_rect_4_grayscale_800_line"
             android:paddingHorizontal="4dp"
@@ -72,10 +72,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="바로가기 >"
-            style="@style/TextAppearance.LCK.Light.8sp"
+            android:textAppearance="@style/Esamanru.Light.label03"
             app:layout_constraintStart_toEndOf="@id/tv_mypage_community_category"
             app:layout_constraintTop_toTopOf="@id/tv_mypage_community_category"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="8dp"
             android:textColor="@color/black"
             android:background="@drawable/shape_rect_4_grayscale_800_line"
             android:paddingVertical="2dp"

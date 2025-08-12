@@ -37,7 +37,7 @@
                 android:id="@+id/tv_mypage_main_topbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MY Profile"
+                android:text="MY Page"
                 android:textAppearance="@style/Esamanru.Medium.heading01"
                 android:textColor="@color/grayscale_200"
                 android:layout_weight="1"

@@ -39,7 +39,6 @@ class MyPageCommunityViewModel @Inject constructor(
     fun fetchMypageCommunityPostList(page: Int, size: Int){
         viewModelScope.launch {
             repository.postsMypage(page,size).onSuccess {response ->
-                Timber.d("fetchMypageCommunityPostList", response.toString())
             }.onFailure {
                 Timber.tag("fetchMypageCommunityPostList Error").d(it.stackTraceToString())
             }
@@ -49,7 +48,6 @@ class MyPageCommunityViewModel @Inject constructor(
     fun fetchMypageCommunityCommentList(page: Int, size: Int){
         viewModelScope.launch {
             repository.commentsMypage(page,size).onSuccess { response->
-                Timber.d("fetchMypageCommunityCommentList", response.toString())
             }.onFailure {
                 Timber.tag("fetchMypageCommunityCommentList Error").d(it.stackTraceToString())
             }

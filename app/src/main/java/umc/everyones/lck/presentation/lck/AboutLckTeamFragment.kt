@@ -146,7 +146,8 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
     }
     private fun updatePlayerSections(data: AboutLckPlayerDetailsModel) {
         val teamId = viewModel.teamId.value ?: return
-        val roleType = data.playerDetails.firstOrNull()?.playerRole
+        //val roleType = data.playerDetails.firstOrNull()?.playerRole
+        val roleType = data.playerDetails.firstOrNull()?.playerRole ?: return
 
         val playerList = data.playerDetails
             .sortedByDescending { it.isCaptain }
@@ -166,12 +167,15 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
                     teamLogo = 0,
                     isCaptain = it.isCaptain,
                     position = it.position,
-                    displayRole = displayRole // ← 전달
+                    displayRole = displayRole
                 )
             }
 
-        val adapter = PlayerAdapter(playerList, this)
-        when (data.playerDetails.firstOrNull()?.playerRole) {
+        val clickListener: OnPlayerItemClickListener? =
+            if (roleType == AboutLckPlayerDetailsModel.PlayerRole.LCK_ROSTER) this else null
+
+        val adapter = PlayerAdapter(playerList, clickListener)
+        when (roleType) {
             AboutLckPlayerDetailsModel.PlayerRole.LCK_ROSTER -> binding.rvAboutLckRolster.adapter = adapter
             AboutLckPlayerDetailsModel.PlayerRole.LCK_CL_ROSTER -> binding.rvAboutLckClRolster.adapter = adapter
             AboutLckPlayerDetailsModel.PlayerRole.COACH -> binding.rvAboutLckCoach.adapter = adapter

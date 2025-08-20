@@ -58,8 +58,17 @@ class PlayerAdapter(
                 }
 
             // 클릭 이벤트 처리
-            binding.root.setOnClickListener {
-                listener?.onPlayerItemClick(player)
+//            binding.root.setOnClickListener {
+//                listener?.onPlayerItemClick(player)
+//            }
+            if (listener != null) {
+                binding.root.isClickable = true
+                binding.root.isFocusable = true
+                binding.root.setOnClickListener { listener.onPlayerItemClick(player) }
+            } else {
+                binding.root.isClickable = false
+                binding.root.isFocusable = false
+                binding.root.setOnClickListener(null)
             }
         }
     }

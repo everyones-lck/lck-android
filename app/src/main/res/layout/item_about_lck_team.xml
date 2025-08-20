@@ -56,5 +56,16 @@
             app:layout_constraintTop_toTopOf="@id/tv_about_lck_team_name"
             app:layout_constraintBottom_toBottomOf="@id/tv_about_lck_team_name"/>
 
+        <ImageView
+            android:id="@+id/iv_about_lck_team_captain_crown"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_coach"
+            android:layout_marginStart="8dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@id/iv_about_lck_team_player_position"
+            app:layout_constraintTop_toTopOf="@id/iv_about_lck_team_player_position"
+            app:layout_constraintBottom_toBottomOf="@id/iv_about_lck_team_player_position"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

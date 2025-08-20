@@ -1,6 +1,7 @@
 package umc.everyones.lck.presentation.lck.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -28,12 +29,34 @@ class PlayerAdapter(
                 "MID" -> R.drawable.ic_mid
                 "BOT" -> R.drawable.ic_bot
                 "SUPPORT" -> R.drawable.ic_support
-                "COACH" -> R.drawable.ic_coach
+                "COACH" -> null
                 else -> R.drawable.ic_top
             }
-            binding.ivAboutLckTeamPlayerPosition.setImageResource(positionIcon)
+            if (player.position?.name == "COACH") {
+                if (player.isCaptain == true) {
+                    binding.ivAboutLckTeamPlayerPosition.setImageResource(R.drawable.ic_coach)
+                    binding.ivAboutLckTeamPlayerPosition.visibility = View.VISIBLE
+                } else {
+                    binding.ivAboutLckTeamPlayerPosition.visibility = View.GONE
+                }
+            } else {
+                positionIcon?.let {
+                    binding.ivAboutLckTeamPlayerPosition.setImageResource(it)
+                    binding.ivAboutLckTeamPlayerPosition.visibility = View.VISIBLE
+                } ?: run {
+                    binding.ivAboutLckTeamPlayerPosition.visibility = View.GONE
+                }
+            }
 
             binding.tvAboutLckTeamIsCaptain.text = player.displayRole
+
+            binding.ivAboutLckTeamCaptainCrown.visibility =
+                if (player.position?.name != "COACH" && player.isCaptain == true) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+
             // 클릭 이벤트 처리
             binding.root.setOnClickListener {
                 listener?.onPlayerItemClick(player)

@@ -18,13 +18,13 @@ val properties = Properties().apply{
 
 android {
     namespace = "umc.everyones.lck"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "umc.everyones.lck"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 19
+        targetSdk = 35
+        versionCode = 20
         versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

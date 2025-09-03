@@ -38,6 +38,11 @@ android {
             isMinifyEnabled = false
             manifestPlaceholders["NAVER_CLIENT_ID"] = (properties["NAVER_CLIENT_ID"] as? String) ?: ""
             manifestPlaceholders["KAKAO_APP_KEY"] = (properties["KAKAO_APP_KEY"] as? String) ?: ""
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                properties.getProperty("DEBUG_BASE_URL"),
+            )
         }
 
         release {
@@ -49,6 +54,11 @@ android {
                     "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("debug")
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                properties.getProperty("RELEASE_BASE_URL"),
+            )
         }
     }
 

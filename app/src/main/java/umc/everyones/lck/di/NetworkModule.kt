@@ -14,6 +14,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import umc.everyones.lck.BuildConfig
 import umc.everyones.lck.EveryonesLCKApplication
 import umc.everyones.lck.R
 import umc.everyones.lck.data.datasource.login.LoginDataSource
@@ -54,7 +55,7 @@ object NetworkModule {
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(EveryonesLCKApplication.getString(R.string.base_url))
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(gsonConverterFactory)
             .client(client)
             .build()
@@ -124,7 +125,7 @@ object NetworkModule {
     ): Retrofit {
         return Retrofit.Builder()
             .client(client)
-            .baseUrl(EveryonesLCKApplication.getString(R.string.base_url))
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

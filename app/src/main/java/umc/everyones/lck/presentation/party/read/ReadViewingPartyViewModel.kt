@@ -9,8 +9,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import umc.everyones.lck.domain.model.request.party.ReportViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.ReadViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.ViewingPartyParticipantsModel
 import umc.everyones.lck.domain.repository.party.ViewingPartyRepository
@@ -29,32 +31,46 @@ class ReadViewingPartyViewModel @Inject constructor(
     private val _postId = MutableStateFlow<Long>(-1)
     val postId: StateFlow<Long> get() = _postId
 
-    private val _readViewingPartyEvent = MutableStateFlow<UiState<ReadViewingPartyEvent>>(UiState.Empty)
+    private val _readViewingPartyEvent =
+        MutableStateFlow<UiState<ReadViewingPartyEvent>>(UiState.Empty)
     val readViewingPartyEvent: StateFlow<UiState<ReadViewingPartyEvent>> get() = _readViewingPartyEvent
 
-    private val _isWriter = MutableEventFlow<Boolean>()
-    val isWriter: EventFlow<Boolean> get() = _isWriter
+    private val _isWriter = MutableStateFlow<Boolean?>(null)
+    val isWriter: StateFlow<Boolean?> get() = _isWriter
 
-    private var _viewingPartyParticipantsPage = repository.fetchViewingPartyParticipantsPagingSource(postId.value).cachedIn(viewModelScope)
+    private var _viewingPartyParticipantsPage =
+        repository.fetchViewingPartyParticipantsPagingSource(postId.value).cachedIn(viewModelScope)
 
     val viewingPartyParticipantsPage get() = _viewingPartyParticipantsPage
+
     sealed class ReadViewingPartyEvent {
-        data class ReadViewingParty(val viewingParty: ReadViewingPartyModel): ReadViewingPartyEvent()
-        data object JoinViewingParty: ReadViewingPartyEvent()
+        data class ReadViewingParty(val viewingParty: ReadViewingPartyModel) :
+            ReadViewingPartyEvent()
 
-        data object DeleteViewingParty: ReadViewingPartyEvent()
+        data object JoinViewingParty : ReadViewingPartyEvent()
 
-        data class ReadParticipants(val participants: ViewingPartyParticipantsModel): ReadViewingPartyEvent()
+        data object DeleteViewingParty : ReadViewingPartyEvent()
 
-        data class WriteDoneViewingParty(val isWriteDone: Boolean): ReadViewingPartyEvent()
+        data class ReadParticipants(val participants: ViewingPartyParticipantsModel) :
+            ReadViewingPartyEvent()
+
+        data class WriteDoneViewingParty(val isWriteDone: Boolean) : ReadViewingPartyEvent()
+
+        data object ReportViewingParty: ReadViewingPartyEvent()
     }
+
     fun setTitle(title: String) {
         _title.value = title
     }
 
-    fun setPostId(postId: Long){
+    fun setPostId(postId: Long) {
         _postId.value = postId
-        _viewingPartyParticipantsPage = repository.fetchViewingPartyParticipantsPagingSource(postId).cachedIn(viewModelScope)
+        _viewingPartyParticipantsPage =
+            repository.fetchViewingPartyParticipantsPagingSource(postId).cachedIn(viewModelScope)
+    }
+
+    fun setIsWriter(isWriter: Boolean?) {
+        _isWriter.update { isWriter }
     }
 
     fun fetchViewingParty() {
@@ -62,10 +78,11 @@ class ReadViewingPartyViewModel @Inject constructor(
             _readViewingPartyEvent.value = UiState.Loading
             repository.fetchViewingParty(postId.value).onSuccess { response ->
                 Timber.d("fetchViewingParty", response.toString())
-                _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.ReadViewingParty(response))
+                _isWriter.update { response.isWriter }
+                _readViewingPartyEvent.value =
+                    UiState.Success(ReadViewingPartyEvent.ReadViewingParty(response))
                 val writerName = response.writerInfo.split("|").first().trim()
                 Timber.d("writername", writerName.toString())
-                _isWriter.emit(spf.getString("nickName", "").toString() == writerName)
             }.onFailure {
                 Timber.d("fetchViewingParty error", it.stackTraceToString())
                 _readViewingPartyEvent.value = UiState.Failure("뷰잉파티를 조회하지 못했습니다")
@@ -73,12 +90,13 @@ class ReadViewingPartyViewModel @Inject constructor(
         }
     }
 
-    fun joinViewingParty(){
-        viewModelScope.launch{
+    fun joinViewingParty() {
+        viewModelScope.launch {
             _readViewingPartyEvent.value = UiState.Loading
             repository.joinViewingParty(postId.value).onSuccess { response ->
                 Timber.d("joinViewingParty", response.toString())
-                _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.JoinViewingParty)
+                _readViewingPartyEvent.value =
+                    UiState.Success(ReadViewingPartyEvent.JoinViewingParty)
             }.onFailure {
                 Timber.d("joinViewingParty error", it.stackTraceToString())
                 _readViewingPartyEvent.value = UiState.Failure("뷰잉파티에 참여하지 못했습니다")
@@ -86,12 +104,13 @@ class ReadViewingPartyViewModel @Inject constructor(
         }
     }
 
-    fun deleteViewingParty(){
+    fun deleteViewingParty() {
         viewModelScope.launch {
             _readViewingPartyEvent.value = UiState.Loading
             repository.deleteViewingParty(postId.value).onSuccess { response ->
                 Timber.d("deleteViewingParty", response.toString())
-                _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.DeleteViewingParty)
+                _readViewingPartyEvent.value =
+                    UiState.Success(ReadViewingPartyEvent.DeleteViewingParty)
             }.onFailure {
                 Timber.d("deleteViewingParty error", it.stackTraceToString())
                 _readViewingPartyEvent.value = UiState.Failure("뷰잉파티를 삭제하지 못했습니다")
@@ -99,11 +118,12 @@ class ReadViewingPartyViewModel @Inject constructor(
         }
     }
 
-    fun fetchViewingPartyParticipants(){
+    fun fetchViewingPartyParticipants() {
         viewModelScope.launch {
             _readViewingPartyEvent.value = UiState.Loading
-            repository.fetchViewingPartyParticipants(postId.value, 0 ,10).onSuccess { response ->
-                _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.ReadParticipants(response))
+            repository.fetchViewingPartyParticipants(postId.value, 0, 10).onSuccess { response ->
+                _readViewingPartyEvent.value =
+                    UiState.Success(ReadViewingPartyEvent.ReadParticipants(response))
                 Timber.d("fetchViewingPartyParticipants", response.toString())
             }.onFailure {
                 Timber.d("deleteViewingParty error", it.stackTraceToString())
@@ -137,10 +157,25 @@ class ReadViewingPartyViewModel @Inject constructor(
                     isParticipated = response.isParticipated,
                     isWriter = response.isWriter
                 )
-                _readViewingPartyEvent.value = UiState.Success(ReadViewingPartyEvent.ReadViewingParty(response))
+                _readViewingPartyEvent.value =
+                    UiState.Success(ReadViewingPartyEvent.ReadViewingParty(response))
             }.onFailure {
                 Timber.d("fetchViewingParty error", it.stackTraceToString())
                 _readViewingPartyEvent.value = UiState.Failure("뷰잉파티를 조회하지 못했습니다")
+            }
+        }
+    }
+
+    fun reportViewingParty() {
+        viewModelScope.launch {
+            repository.reportViewingParty(
+                ReportViewingPartyModel(
+                    viewingPartyId = postId.value, reportDetail = ""
+                )
+            ).onSuccess {
+                _readViewingPartyEvent.update {
+                    UiState.Success(ReadViewingPartyEvent.ReportViewingParty)
+                }
             }
         }
     }

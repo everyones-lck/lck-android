@@ -84,6 +84,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
         viewLifecycleOwner.repeatOnStarted {
             viewModel.isWriter.collect{ isWriter ->
+                if (isWriter == null) return@collect
                 Timber.d("iSwrite", isWriter.toString())
                 if(!isWriter) {
                     with(binding){
@@ -139,6 +140,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                 viewingPartyViewModel.setIsRefreshNeeded(true)
                 navigator.navigateUp()
             }
+
             ReadViewingPartyViewModel.ReadViewingPartyEvent.JoinViewingParty -> {
                 showCustomSnackBar(binding.root, "뷰잉파티에 참여되었습니다!")
                 isParticipated = true
@@ -148,6 +150,10 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                 if(event.isWriteDone){
                     navigator.navigateUp()
                 }
+            }
+
+            ReadViewingPartyViewModel.ReadViewingPartyEvent.ReportViewingParty -> {
+                showCustomSnackBar(binding.root, "뷰잉파티가 신고되었습니다!")
             }
 
             else -> Unit
@@ -161,6 +167,13 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
         goToEditViewingParty()
         binding.ivReadBackBtn.setOnSingleClickListener {
             navigator.navigateUp()
+        }
+        reportViewingParty()
+    }
+
+    private fun reportViewingParty() {
+        binding.layoutReadViewingPartyReportBtn.setOnSingleClickListener {
+            viewModel.reportViewingParty()
         }
     }
     private fun deleteViewingParty(){
@@ -207,7 +220,7 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
                         date = tvReadDate.textToString().toWriteViewingPartyDateFormat(),
                         latitude = 0.0,
                         longitude = 0.0,
-                        price = tvReadPrice.textToString().replace("₩", "").trim(),
+                        price = tvReadPrice.textToString().replace("원", "").trim(),
                         lowParticipate = participate[0].trim(),
                         highParticipate = participate[1].replace(("[^\\d]").toRegex(), ""),
                         qualify = tvReadQualify.textToString().replace("To.", ""),
@@ -235,5 +248,10 @@ class ReadViewingPartyFragment : BaseFragment<FragmentReadViewingPartyBinding>(R
 
     override fun onMapReady(p0: NaverMap) {
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.setIsWriter(null)
     }
 }

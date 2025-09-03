@@ -9,10 +9,12 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.party.WriteViewingPartyRequestDto
+import umc.everyones.lck.data.dto.response.NonBaseResponse
 import umc.everyones.lck.data.dto.response.party.JoinViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ReadViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyListResponseDto
 import umc.everyones.lck.data.dto.response.party.CommonViewingPartyResponseDto
+import umc.everyones.lck.data.dto.response.party.ReportViewingPartyRequestDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyChatLogResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyChatRoomResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyParticipantsResponseDto
@@ -74,4 +76,9 @@ interface ViewingPartyService {
     suspend fun createViewingPartyChatRoomAsParticipant(
         @Path("viewing_party_id") viewingPartyId: Long,
     ): BaseResponse<ViewingPartyChatRoomResponseDto>
+
+    @POST("report/viewing-party")
+    suspend fun reportViewingParty(
+        @Body requestDto: ReportViewingPartyRequestDto
+    ): NonBaseResponse
 }

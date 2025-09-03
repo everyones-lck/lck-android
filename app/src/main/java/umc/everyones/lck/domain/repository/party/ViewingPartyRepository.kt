@@ -2,6 +2,8 @@ package umc.everyones.lck.domain.repository.party
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
+import umc.everyones.lck.data.dto.response.NonBaseResponse
+import umc.everyones.lck.domain.model.request.party.ReportViewingPartyModel
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.CommonViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.JoinViewingPartyModel
@@ -37,4 +39,6 @@ interface ViewingPartyRepository {
     fun fetchViewingPartyParticipantsPagingSource(viewingPartyId: Long): Flow<PagingData<ViewingPartyParticipantsModel.ParticipantsModel>>
 
     fun fetchChatLogPagingSource(roomId: String): Flow<PagingData<ViewingPartyChatLogModel.ChatLogModel>>
+
+    suspend fun reportViewingParty(request: ReportViewingPartyModel): Result<NonBaseResponse>
 }

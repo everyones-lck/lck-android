@@ -2,10 +2,12 @@ package umc.everyones.lck.data.datasource
 
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.party.WriteViewingPartyRequestDto
+import umc.everyones.lck.data.dto.response.NonBaseResponse
 import umc.everyones.lck.data.dto.response.party.JoinViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ReadViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyListResponseDto
 import umc.everyones.lck.data.dto.response.party.CommonViewingPartyResponseDto
+import umc.everyones.lck.data.dto.response.party.ReportViewingPartyRequestDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyChatLogResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyChatRoomResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyParticipantsResponseDto
@@ -30,4 +32,6 @@ interface ViewingPartyDataSource {
     suspend fun fetchViewingPartyChatLog(roomId: String, page: Int, size: Int): BaseResponse<ViewingPartyChatLogResponseDto>
 
     suspend fun createViewingPartyChatRoomAsParticipant(viewingPartyId: Long): BaseResponse<ViewingPartyChatRoomResponseDto>
+
+    suspend fun reportViewingParty(request: ReportViewingPartyRequestDto): NonBaseResponse
 }

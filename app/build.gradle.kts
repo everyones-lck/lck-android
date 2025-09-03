@@ -136,7 +136,7 @@ dependencies {
     implementation("com.tbuonomo:dotsindicator:5.0")
 
     // naver map
-    implementation("com.naver.maps:map-sdk:3.19.0")
+    implementation("com.naver.maps:map-sdk:3.22.1")
 
     // calender
     implementation ("com.github.prolificinteractive:material-calendarview:2.0.1")

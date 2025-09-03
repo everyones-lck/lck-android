@@ -43,6 +43,11 @@ android {
                 "BASE_URL",
                 properties.getProperty("DEBUG_BASE_URL"),
             )
+            buildConfigField(
+                "String",
+                "CHAT_URL",
+                properties.getProperty("DEBUG_CHAT_URL"),
+            )
         }
 
         release {
@@ -58,6 +63,11 @@ android {
                 "String",
                 "BASE_URL",
                 properties.getProperty("RELEASE_BASE_URL"),
+            )
+            buildConfigField(
+                "String",
+                "CHAT_URL",
+                properties.getProperty("RELEASE_CHAT_URL"),
             )
         }
     }

@@ -197,7 +197,7 @@ class AboutLckTeamFragment : BaseFragment<FragmentAboutLckTeamBinding>(R.layout.
         return when (teamId) {
             2 -> R.drawable.img_aboutlck_uniform_geng
             3 -> R.drawable.img_aboutlck_uniform_hanwha
-            4 -> R.drawable.img_aboutlck_uniform_kia
+            4 -> R.drawable.img_aboutlck_uniform_dk
             5 -> R.drawable.img_aboutlck_uniform_t1
             6 -> R.drawable.img_aboutlck_uniform_kt
             7 -> R.drawable.img_aboutlck_uniform_dnf

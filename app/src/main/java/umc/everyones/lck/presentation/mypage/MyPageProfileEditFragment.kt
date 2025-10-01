@@ -1,35 +1,20 @@
 package umc.everyones.lck.presentation.mypage
 
-import android.app.Activity
-import android.content.ContentValues.TAG
 import android.content.Intent
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import android.provider.MediaStore
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import umc.everyones.lck.R
-import umc.everyones.lck.databinding.DialogMypageProfileLogoutBinding
-import umc.everyones.lck.databinding.DialogNicknameConfirmBinding
-import umc.everyones.lck.databinding.DialogProfileEditConfirmBinding
 import umc.everyones.lck.databinding.FragmentMypageProfileEditBinding
-import umc.everyones.lck.presentation.MainActivity
 import umc.everyones.lck.presentation.base.BaseFragment
-import umc.everyones.lck.presentation.home.HomeFragment
-import umc.everyones.lck.presentation.login.LoginActivity
 import umc.everyones.lck.presentation.login.SignupViewModel
 import umc.everyones.lck.util.extension.setOnSingleClickListener
 
@@ -136,20 +121,41 @@ class MyPageProfileEditFragment : BaseFragment<FragmentMypageProfileEditBinding>
 
         // 프로필 수정 완료 클릭 리스너
         binding.tvMypageProfileEditTopbarEdit.setOnSingleClickListener {
-            val nicknameInput = binding.etMypageProfileEditNicknameName.text.toString().trim()
-            val currentProfileImageUri = viewModel.profileUri.value
+            val newNicknameInput = binding.etMypageProfileEditNicknameName.text.toString().trim()
 
-            val finalNickname = if (nicknameInput.isNotEmpty()) {
-                nicknameInput
-            } else {
-                null
+            val currentProfileData = viewModel.profileData.value
+            val originalNickname = currentProfileData?.nickname
+            val originalProfileImageUriString = currentProfileData?.profileImageUrl
+
+            var isNicknameChanged = false
+            var isProfileImageChanged = false
+
+            val finalNicknameToSend: String?
+            val finalImageUriToSend: Uri? // ViewModel에 전달할 Uri (로컬 Uri 또는 null)
+
+            if (newNicknameInput.isNotEmpty() && newNicknameInput != originalNickname) {
+                finalNicknameToSend = newNicknameInput
+                isNicknameChanged = true
+            } else if (newNicknameInput.isEmpty() && originalNickname != null && originalNickname.isNotEmpty()) {
+                finalNicknameToSend = null // 또는 ""
+                isNicknameChanged = true
+            }else {
+                finalNicknameToSend = originalNickname
             }
 
-            val finalProfileImageUri = profileImageUri ?: currentProfileImageUri // 선택된 이미지가 없으면 현재 이미지 유지
-
-            viewModel.updateProfile(finalNickname, finalProfileImageUri)
-
-            navigator.navigate(R.id.action_myPageProfileEditFragment_to_myPageProfileFragment)
+            if (profileImageUri != null) {
+                finalImageUriToSend = profileImageUri
+                isProfileImageChanged = true
+            } else {
+                finalImageUriToSend = null
+            }
+            if (isNicknameChanged || isProfileImageChanged) {
+                val nicknameForUpdate = if (isNicknameChanged) finalNicknameToSend else null
+                viewModel.updateProfile(nicknameForUpdate, finalImageUriToSend)
+                navigator.navigate(R.id.action_myPageProfileEditFragment_to_myPageProfileFragment)
+            } else {
+                Toast.makeText(requireContext(), "변경된 내용이 없습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

@@ -1,7 +1,10 @@
 package umc.everyones.lck.presentation.mypage
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -23,6 +26,12 @@ class MyPageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
     private val teamLogos = TeamData.mypageTeamBackground
     private val navigator by lazy { findNavController() }
 
+   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {navigator.navigate(R.id.action_myPageProfileFramgnet_to_myPageFragment)} }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+    }
 
     override fun initObserver() {
         myPageViewModel.inquiryProfile()

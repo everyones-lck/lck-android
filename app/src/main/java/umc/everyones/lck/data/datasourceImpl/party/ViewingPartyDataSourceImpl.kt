@@ -3,10 +3,12 @@ package umc.everyones.lck.data.datasourceImpl.party
 import umc.everyones.lck.data.datasource.ViewingPartyDataSource
 import umc.everyones.lck.data.dto.BaseResponse
 import umc.everyones.lck.data.dto.request.party.WriteViewingPartyRequestDto
+import umc.everyones.lck.data.dto.response.NonBaseResponse
 import umc.everyones.lck.data.dto.response.party.JoinViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ReadViewingPartyResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyListResponseDto
 import umc.everyones.lck.data.dto.response.party.CommonViewingPartyResponseDto
+import umc.everyones.lck.data.dto.response.party.ReportViewingPartyRequestDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyChatLogResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyChatRoomResponseDto
 import umc.everyones.lck.data.dto.response.party.ViewingPartyParticipantsResponseDto
@@ -62,5 +64,8 @@ class ViewingPartyDataSourceImpl @Inject constructor(
 
     override suspend fun createViewingPartyChatRoomAsParticipant(viewingPartyId: Long): BaseResponse<ViewingPartyChatRoomResponseDto> =
         viewingPartyService.createViewingPartyChatRoomAsParticipant(viewingPartyId)
+
+    override suspend fun reportViewingParty(request: ReportViewingPartyRequestDto): NonBaseResponse =
+        viewingPartyService.reportViewingParty(request)
 
 }

@@ -8,6 +8,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
+import umc.everyones.lck.BuildConfig
 import umc.everyones.lck.EveryonesLCKApplication
 import umc.everyones.lck.R
 import umc.everyones.lck.presentation.party.chat.ViewingPartyChatViewModel
@@ -46,7 +47,7 @@ object WsModule {
     @Singleton
     fun provideWebSocketRequest(spf: SharedPreferences): Request {
         return Request.Builder()
-            .url(EveryonesLCKApplication.getString(R.string.ws_url))
+            .url(BuildConfig.CHAT_URL)
             .build()
     }
 }

@@ -9,7 +9,9 @@ import umc.everyones.lck.data.datasource.ViewingPartyDataSource
 import umc.everyones.lck.data.datasourceImpl.party.ViewingPartyChatLogPagingSource
 import umc.everyones.lck.data.datasourceImpl.party.ViewingPartyListPagingSource
 import umc.everyones.lck.data.datasourceImpl.party.ViewingPartyParticipantsPagingSource
+import umc.everyones.lck.data.dto.response.NonBaseResponse
 import umc.everyones.lck.data.service.party.ViewingPartyService
+import umc.everyones.lck.domain.model.request.party.ReportViewingPartyModel
 import umc.everyones.lck.domain.model.request.party.WriteViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.CommonViewingPartyModel
 import umc.everyones.lck.domain.model.response.party.JoinViewingPartyModel
@@ -105,5 +107,10 @@ class ViewingPartyRepositoryImpl @Inject constructor(
             ),
             pagingSourceFactory = { ViewingPartyChatLogPagingSource(viewingPartyService, roomId, spf) }
         ).flow
+
+    override suspend fun reportViewingParty(request: ReportViewingPartyModel): Result<NonBaseResponse> =
+        runCatching {
+            viewingPartyDataSource.reportViewingParty(request.toDto())
+        }
 
 }

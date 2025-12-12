@@ -18,13 +18,13 @@ val properties = Properties().apply{
 
 android {
     namespace = "umc.everyones.lck"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "umc.everyones.lck"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 19
+        targetSdk = 35
+        versionCode = 20
         versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -38,6 +38,16 @@ android {
             isMinifyEnabled = false
             manifestPlaceholders["NAVER_CLIENT_ID"] = (properties["NAVER_CLIENT_ID"] as? String) ?: ""
             manifestPlaceholders["KAKAO_APP_KEY"] = (properties["KAKAO_APP_KEY"] as? String) ?: ""
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                properties.getProperty("DEBUG_BASE_URL"),
+            )
+            buildConfigField(
+                "String",
+                "CHAT_URL",
+                properties.getProperty("DEBUG_CHAT_URL"),
+            )
         }
 
         release {
@@ -49,6 +59,16 @@ android {
                     "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("debug")
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                properties.getProperty("RELEASE_BASE_URL"),
+            )
+            buildConfigField(
+                "String",
+                "CHAT_URL",
+                properties.getProperty("RELEASE_CHAT_URL"),
+            )
         }
     }
 
@@ -126,7 +146,7 @@ dependencies {
     implementation("com.tbuonomo:dotsindicator:5.0")
 
     // naver map
-    implementation("com.naver.maps:map-sdk:3.19.0")
+    implementation("com.naver.maps:map-sdk:3.22.1")
 
     // calender
     implementation ("com.github.prolificinteractive:material-calendarview:2.0.1")
